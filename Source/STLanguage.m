@@ -111,40 +111,58 @@ static NSDictionary *fileTypeDictionary = nil;
 
     return AUTORELEASE([[STLanguage alloc] initWithPath:path]);
 }
+/** Update information about handling various files with StepTalk. */
++ (NSDictionary *)updateFileTypeDictionary
+{
+    NSString      *path = STUserConfigPath();
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSTask        *task;
+    NSDictionary  *dict;
 
+    RELEASE(fileTypeDictionary);
+    
+    path = [path stringByAppendingPathComponent:STLanguagesConfigFile];
+
+    if( ![fm fileExistsAtPath:path])
+    {
+        NSLog(@"Creating lanugages configuration file...");
+        task = [NSTask launchedTaskWithLaunchPath:@"stupdate_languages"
+                                        arguments:nil];
+        [task waitUntilExit];
+    }
+
+    if( ![fm fileExistsAtPath:path])
+    {
+        [NSException  raise:STGenericException
+                     format:@"Unable to get languages configuration file"];
+        return nil;
+    }
+
+    dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    fileTypeDictionary = [dict objectForKey:@"STFileTypes"];
+
+    RETAIN(fileTypeDictionary);
+}
 /** Returns name of a language used by files of type <var>fileType</var>. */
 + (NSString *)languageNameForFileType:(NSString *)fileType
 {
     if(!fileTypeDictionary)
     {
-        NSString      *path = STUserConfigPath();
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSTask        *task;
-        NSDictionary  *dict;
-        
-        path = [path stringByAppendingPathComponent:STLanguagesConfigFile];
-
-        if( ![fm fileExistsAtPath:path])
-        {
-            NSLog(@"Creating lanugages configuration file...");
-            task = [NSTask launchedTaskWithLaunchPath:@"stupdate_languages"
-                                            arguments:nil];
-            [task waitUntilExit];
-        }
-
-        if( ![fm fileExistsAtPath:path])
-        {
-            [NSException  raise:STGenericException
-                         format:@"Unable to get languages configuration file"];
-            return nil;
-        }
-
-        dict = [NSDictionary dictionaryWithContentsOfFile:path];
-        fileTypeDictionary = [dict objectForKey:@"STFileTypes"];
-        RETAIN(fileTypeDictionary);
+        [self updateFileTypeDictionary];
     }
 
     return [fileTypeDictionary objectForKey:fileType];
+}
+
+/** Return all known types (extensions) of StepTalk script files */
++ (NSArray *)allKnownFileTypes
+{
+    if(!fileTypeDictionary)
+    {
+        [self updateFileTypeDictionary];
+    }
+
+    return [fileTypeDictionary allKeys];    
 }
 
 /** Returns the language bundle for a language used by files of type 

@@ -1,3 +1,13 @@
+2003 Mar 22
+
+    * STEnvironment: includeBundle returns NO on failure
+    * STScriptsManager: added method allScripts that returns all scripts for 
+    domainand; added private method _scriptsAtPath: 
+    * STScript: do not delete original extension when looking for script info
+    file, so some.st will have some.st.stinfo; renamed localizedScriptName to
+    localizedName
+    * STLanguage: new methods: updateFileTypeDictionary and allKnownFileTypes
+
 2003 Feb 21
 
     * StepTalk.h: Removed #import of STModule.h as it is no longer there

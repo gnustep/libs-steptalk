@@ -27,6 +27,7 @@
 #import <StepTalk/STScriptsManager.h>
 
 #import <StepTalk/STExterns.h>
+#import <StepTalk/STLanguage.h>
 #import <StepTalk/STScript.h>
 
 #import <Foundation/NSArray.h>
@@ -38,17 +39,21 @@
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSProcessInfo.h>
+#import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
 
 static STScriptsManager *sharedScriptsManager = nil;
 
 @implementation STScriptsManager
 
+/** Return default domain name for scripts. Usually this is application or
+process name.*/
 + (NSString *)defaultScriptsDomainName
 {
     return [[NSProcessInfo processInfo] processName];
 }
 
+/** Returns default scripts manager for current process (application or tool). */
 + defaultManager
 {
     if(!sharedScriptsManager)
@@ -90,6 +95,8 @@ static STScriptsManager *sharedScriptsManager = nil;
     [super dealloc];
 }
 
+
+/** Return name of script manager domain. */
 - (NSString *)scriptsDomainName
 {
     return scriptsDomainName;
@@ -210,5 +217,55 @@ static STScriptsManager *sharedScriptsManager = nil;
     }
     
     return nil;
+}
+
+- (NSArray *)_scriptsAtPath:(NSString *)path
+{
+    NSMutableArray *scripts = [NSMutableArray array];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSEnumerator  *enumerator;
+    NSString      *file;
+    NSString      *str;
+    NSString      *ext;
+    NSArray       *paths;
+    NSSet         *types;
+    
+    types = [NSSet setWithArray:[STLanguage allKnownFileTypes]];
+
+    enumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
+
+    while( (file = [enumerator nextObject]) )
+    {
+
+        ext = [file pathExtension];
+        if( [types containsObject:ext] )
+        {
+            STScript *script;
+            NSLog(@"Found script %@", file);
+
+            script = [STScript scriptWithFile: 
+                        [path stringByAppendingPathComponent:file]];
+            [scripts addObject:script];
+        }
+    }
+
+    return [NSArray arrayWithArray:scripts];
+}
+
+/** Return list of all scripts for managed domain. */
+- (NSArray *)allScripts
+{
+    NSMutableArray *scripts = [NSMutableArray array];
+    NSEnumerator   *enumerator;
+    NSString       *path;
+
+    enumerator = [[self validScriptSearchPaths] objectEnumerator];
+    
+    while( (path = [enumerator nextObject]) )
+    {
+        [scripts addObjectsFromArray:[self _scriptsAtPath:path]];
+    }
+    
+    return [NSArray arrayWithArray:scripts];
 }
 @end

@@ -42,7 +42,7 @@
 - (id)localizedObjectForKey:(NSString *)key
 {
     NSEnumerator   *enumerator;
-    NSDictionary   *dict = [self objectForKey:key];
+    NSDictionary   *dict;;
     NSString       *language;
     NSArray        *languages;
     id              obj = nil;
@@ -53,14 +53,16 @@
 
     while( (language = [enumerator nextObject]) )
     {
-        obj = [dict objectForKey:language];
+        dict = [self objectForKey:language];
+        obj = [dict objectForKey:key];
+
         if(obj)
         {
             return obj;
         }
     }
 
-    return [dict objectForKey:@"Default"];
+    return [[self objectForKey:@"Default"] objectForKey:key];
 }
 @end
 
@@ -73,6 +75,10 @@
 
     return AUTORELEASE(script);
 }
+/**
+    Create a new script from file <var>aFile></var>. Script information will
+    be read from 'aFile.stinfo' file containing a dictionary property list.
+*/
 
 - initWithFile:(NSString *)aFile
 {
@@ -81,8 +87,8 @@
     NSString       *infoFile;
     BOOL            isDir;
 
-    infoFile = [aFile stringByDeletingPathExtension];
-    infoFile = [infoFile stringByAppendingPathExtension: @"stinfo"];
+    // infoFile = [aFile stringByDeletingPathExtension];
+    infoFile = [aFile stringByAppendingPathExtension: @"stinfo"];
 
     if([manager fileExistsAtPath:infoFile isDirectory:&isDir] && !isDir )
     {
@@ -97,7 +103,8 @@
 
     if(!localizedName)
     {
-        localizedName = [fileName lastPathComponent];
+        localizedName = [[fileName lastPathComponent] 
+                                        stringByDeletingPathExtension];
     }
     
     RETAIN(localizedName);
@@ -130,35 +137,42 @@
     [super dealloc];
 }
 
+/** Return file name of the receiver. */
 - (NSString *)fileName
 {
     return fileName;
 }
+
+/** Return menu item key equivalent for receiver. */
 - (NSString *)menuKey
 {
     return menuKey;
 }
 
+/** Returns source string of the receiver script.*/
 - (NSString *)source
 {
     return [NSString stringWithContentsOfFile:fileName];
 }
 
+/** Returns a script name by which the script is identified */
 - (NSString *)scriptName
 {
     return fileName;
 }
 
-- (NSString *)localizedScriptName
+/** Returns localized name of the receiver script. */
+- (NSString *)localizedName
 {
     return localizedName;
 }
 
-- (NSString *)description
+/** Returns localized description of the script. */
+- (NSString *)scriptDescription
 {
     return description;
 }
-
+/** Returns language of the script. */
 - (NSString *)language
 {
     return language;

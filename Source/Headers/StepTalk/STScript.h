@@ -40,7 +40,7 @@
 - (NSString *)fileName;
 - (NSString *)source;
 - (NSString *)scriptName;
-- (NSString *)localizedScriptName;
-- (NSString *)description;
+- (NSString *)localizedName;
+- (NSString *)scriptDescription;
 - (NSString *)language;
 @end

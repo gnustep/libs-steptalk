@@ -75,7 +75,7 @@
 
 - (void)loadModule:(NSString *)moduleName;
 
-- (void)includeBundle:(NSBundle *)aBundle;
+- (BOOL)includeBundle:(NSBundle *)aBundle;
 
 - (void)addClassesWithNames:(NSArray *)names;
 

@@ -210,9 +210,10 @@
 }
 
 /**
-    Include scripting capabilities advertised by bundle <ivar>aBundle</ivar>
+    Include scripting capabilities advertised by the bundle 
+    <ivar>aBundle</ivar>. Loads the bundle if it is not already loaded.
 */
-- (void)includeBundle:(NSBundle *)aBundle
+- (BOOL)includeBundle:(NSBundle *)aBundle
 {
     STBundleInfo *info;
     
@@ -224,6 +225,11 @@
 
     info = [STBundleInfo infoForBundle:aBundle];
 
+    if(!info)
+    {
+        return NO;
+    }
+
     [self addNamedObjectsFromDictionary:[info namedObjects]];
     [self addClassesWithNames:[info publicClassNames]];
 
@@ -234,6 +240,8 @@
 
     /* FIXME: is this sufficient? */
     [loadedBundles addObject:[aBundle bundlePath]];
+    
+    return YES;
 }
 
 /**

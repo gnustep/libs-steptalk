@@ -44,7 +44,6 @@ extern NSDictionary *STGetGDL2Constants();
 
 + (NSDictionary *)namedObjectsForScripting
 {
-    NSLog(@"Testing namedObjects in GDL2 module");
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [dict addEntriesFromDictionary:STGetGDL2Constants()];
