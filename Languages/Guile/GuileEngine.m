@@ -51,13 +51,13 @@ int fake_guile_main(int argc, char **argv)
     interp = AUTORELEASE([[GuileInterpreter alloc] init]);
     script = AUTORELEASE([[GuileScript alloc] init]);
 
-    e = [[[env defaultObjectPool] allKeys] objectEnumerator];
+    e = [[[env objectDictionary] allKeys] objectEnumerator];
 
     /* FIXME: If we do not remove these, we get an exception */
     [env removeObjectWithName:@"NSProxy"];
     [env removeObjectWithName:@"NSDistantObject"];
-    [env addObject:env withName:@"Env"];
-    [script setUserDictionary:[env defaultObjectPool]];
+    [env setObject:env forName:@"Env"];
+    [script setUserDictionary:[env objectDictionary]];
     [script setDelegate:sourceCode];
     result = [interp executeScript:script];
     

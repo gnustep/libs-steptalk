@@ -1,7 +1,10 @@
 2003 Mar 23
 
     * Added ApplicationScripting
-    
+    * GNUMakefile: add ApplicationScripting. Can be ignored when appkit=no
+    * Languages/Guile: Fixed steptalk interface changes (patch from Matt Rice 
+    <matt@vespertine.pc.ashlandfiber.net>)
+
 2003 Mar 22
 
     * STEnvironment: includeBundle returns NO on failure

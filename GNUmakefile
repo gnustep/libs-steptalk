@@ -30,12 +30,19 @@ include Version
 PACKAGE_NAME = StepTalk
 CVS_MODULE_NAME = StepTalk
 
+APPSCRIPT=ApplicationScripting
+
+ifeq ($(appkit),no)
+    APPSCRIPT= 
+endif
+
 SUBPROJECTS = \
     Source \
     Languages \
     Finders \
     Modules \
-    Tools 
+    Tools \
+    $(APPSCRIPT)
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make
