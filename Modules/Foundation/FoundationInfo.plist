@@ -1,13 +1,14 @@
 {
     STClasses = (
 
-        GSHTMLParser,
-        GSHTMLSAXHandler,
         GSMimeCodingContext,
         GSMimeDocument,
         GSMimeParser,
-        GSSAXHandler,
+        GSMimeHeader,
 
+        GSHTMLParser,
+        GSHTMLSAXHandler,
+        GSSAXHandler,
         GSXMLAttribute,
         GSXMLDocument,
         GSXMLNamespace,

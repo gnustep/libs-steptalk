@@ -162,10 +162,15 @@
 }
 
 /**
+   <p>
    Enable or disable creation of unknown objects. Normally you get nil if you
    request for non-existant object. If <var>flag</var> is YES
    then by requesting non-existant object, name for that object is created
    and it is set no STNil.
+    </p>
+   <p>
+  Note: This method will be probably removed (moved to Smalltalk language bundle).
+   </p>
  */
 -(void)setCreatesUnknownObjects:(BOOL)flag
 {

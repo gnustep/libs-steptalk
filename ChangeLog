@@ -1,3 +1,8 @@
+2002 Nov 29
+
+    * Added GDL2 module
+    * STModule: more details on module loading fault
+
 2002 Nov 11
     
     * ObjectiveC module: added selectorsContainingString: and

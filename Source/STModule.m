@@ -60,6 +60,7 @@
 {
     NSBundle *bundle;
     STModule *module;
+    Class     class;
 
     bundle = [NSBundle bundleWithPath:modulePath];
 
@@ -71,11 +72,20 @@
     
 
     NSDebugLog(@"Instantiating module '%@'", modulePath);
-    module = [[[bundle principalClass] alloc] init];
+    class = [bundle principalClass];
+    
+    if(!class)
+    {
+        NSLog(@"Could not get pricipal class of module '%@'", modulePath);
+        return nil;
+    }
+
+    module = [[class alloc] init];
 
     if(!module)
     {
-        NSLog(@"Could not instantiate module '%@'", modulePath);
+        NSLog(@"Could not instantiate class '%@' from module '%@'", 
+                [class className], modulePath);
         return nil;
     }
 

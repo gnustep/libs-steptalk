@@ -1,51 +1,54 @@
-/*
-    STSelector
-  
+/**
+    STGDL2Module.m
+    GDL bindings
+ 
     Copyright (c) 2002 Free Software Foundation
 
     Written by: Stefan Urbanek <urbanek@host.sk>
-    Date: 2002 Feb 4
-  
+    Date: 2002 Nov 29
+ 
     This file is part of the StepTalk project.
-
+ 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
     version 2 of the License, or (at your option) any later version.
-
+ 
     This library is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     Lesser General Public License for more details.
-
+ 
     You should have received a copy of the GNU Lesser General Public
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  
  */
 
-#import <StepTalk/STSelector.h>
+#import "STGDL2Module.h"
 
-@implementation STSelector
-- initWithSelector:(SEL)aSel
+#import <Foundation/NSDictionary.h>
+#import <Foundation/NSString.h>
+
+extern NSDictionary *STGetGDL2Constants();
+
+@class EODatabase;
+@class EOQualifier;
+
+@implementation STGDL2Module
++ (void)initialize
 {
-    [super init];
-    sel = aSel;
-    return self;
+    [EODatabase class];
+    [EOQualifier class];
 }
 
-- (SEL)selectorValue
+- (NSDictionary *)namedObjects
 {
-    return sel;
-}
-
-- (NSString *)description
-{
-    return NSStringFromSelector(sel);
-}
-
-- (NSString *)stringValue
-{
-    return NSStringFromSelector(sel);
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict addEntriesFromDictionary:STGetGDL2Constants()];
+    
+    return [dict copy]; /* get immutable copy */
 }
 @end
+
