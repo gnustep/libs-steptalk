@@ -36,30 +36,14 @@
 @implementation STObjectReference
 - initWithObjectName:(NSString *)name pool:(NSMutableDictionary *)aPool
 {
-    return [self initWithObjectName:name
-                               pool:pool
-                             create:NO];
-}
-
-- initWithObjectName:(NSString *)name 
-                pool:(NSMutableDictionary *)aPool
-              create:(BOOL)createFlag
-{
-
-    [super init];
+    self = [super init];
     
     key = RETAIN(name);
     pool = RETAIN(aPool);
 
-    if(![self object] && createFlag)
-    {
-        NSDebugLog(@"Creating object name '%@'", name);
-        [pool setObject:STNil forKey:name];
-    }
-    
-
     return self;
 }
+
 - (void)dealloc
 {
     RELEASE(key);

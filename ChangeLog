@@ -1,3 +1,27 @@
+2002 Jun 4
+
+    * STEnvironment: new methods -addObjectFinder:name:,
+    -addObjectFinderWithName:, -removeObjectFinderWithName:;
+    new method knownObjectNames;
+    objectReferenceForObjectWithName: changed to use nil reference on
+    known object that cannot be currently found
+    * Finders: new directory containing object finders
+    * STObjCRuntime: include selectors of metaclasses in 
+    STAllObjectiveCSelectors()
+    * Documentation/HowTo.txt: rewritten
+    
+2002 Jun 3
+
+    * STFunctions: renamed "StepTalk/Config" directory to 
+    "StepTalk/Configuration"; fixed bug in STFindAllResources (resourceDir
+    was ignored)
+    * STEnvironment: changed method allObjectsDictionary to allObjectNames
+    
+2002 May 30
+
+    * STEnvironment: removed pools
+    * STObjectReference: removed method initWithObjectName:pool:create:
+    
 2002 May 29
     
     * STExecutor: fixed typo
@@ -35,10 +59,6 @@
     Use make appkit=no.
     * Separated AppTalk
      
-2002 Mar 21
-    
-    * STEnvironment: removed pools
-
 2002 Mar 17
 
     * STEngine: removed executeScript: methods and use only executeSource:

@@ -1,9 +1,9 @@
 #
-#  Main Makefile for the StepTalk
+#  GNUmakefile
 #  
-#  Copyright (C) 2000 Stefan Urbanek
+#  Copyright (C) 2002 Stefan Urbanek
 #
-#  Written by:	Stefan Urbanek <urbane@decef.elf.stuba.sk>
+#  Written by:	Stefan Urbanek
 #
 #  This file is part of the StepTalk
 #
@@ -22,23 +22,19 @@
 #  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA
 #
 
+GNUSTEP_INSTALLATION_DIR = $(GNUSTEP_USER_ROOT)
+
 GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
 
 include $(GNUSTEP_MAKEFILES)/common.make
-include Version
 
-PACKAGE_NAME = StepTalk
-CVS_MODULE_NAME = StepTalk
-
-SUBPROJECTS = \
-    Source \
-    Languages \
-    Finders \
-    Modules \
-    Tools 
+ifeq ($(appkit),no)
+    SUBPROJECTS = DistributedFinder 
+else
+    SUBPROJECTS = DistributedFinder # ApplicationFinder
+endif
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make
-include $(GNUSTEP_MAKEFILES)/Master/source-distribution.make
 -include GNUMakefile.postamble
 

@@ -39,6 +39,7 @@
 #import <StepTalk/STScripting.h>
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSBundle.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
@@ -153,11 +154,11 @@
 - (void)dealloc
 {
     RELEASE(defaultPool);
-    RELEASE(pools);
     RELEASE(description);
 
     RELEASE(infoCache);
-
+    RELEASE(objectFinders);
+    
     [super dealloc];
 }
 
@@ -229,7 +230,7 @@
 }
 
 /* ----------------------------------------------------------------------- 
-   Object pools
+   Objects
    ----------------------------------------------------------------------- */
 
 /**
@@ -259,55 +260,12 @@
     }
 }
 
-- (NSMutableDictionary *) poolWithName:(NSString *)poolName
-{
-    NSMutableDictionary *pool = [pools objectForKey:poolName];
-    
-    if(!defaultPool)
-    {
-        defaultPool = [[NSMutableDictionary alloc] init];
-    }
-
-    if(!pool)
-    {
-        [NSException  raise:STGenericException
-                     format:@"Undefined pool with name '%@'", poolName];
-
-
-        pool = defaultPool;
-    }
-
-    return pool;
-}
-
-
-/**
-    Register object <var>anObject</var> with name <var>objName</var> in pool
-    <var>poolName</var>.
- */
-- (void)addObject:(id)anObject
-         withName:(NSString *)objName 
-             pool:(NSString *)poolName
-{
-    
-    [[self poolWithName:poolName] setObject:anObject forKey:objName];
-}
-
 /**
     Remove object named <var>objName</var>.
   */
 - (void)removeObjectWithName:(NSString *)objName
 {
     [defaultPool removeObjectForKey:objName];
-}
-
-/**
-    Remove object named <var>objName</var> form pool <var>poolName</var>
-  */
-- (void)removeObjectWithName:(NSString *)objName
-                        pool:(NSString *)poolName
-{
-    [[self poolWithName:poolName] removeObjectForKey:objName];
 }
 
 /**
@@ -318,65 +276,55 @@
     [defaultPool addEntriesFromDictionary:dict];
 }
 
-
-- (void)addNamedObjectsFromDictionary:(NSDictionary *)dict
-                                 pool:(NSString *)poolName
-{
-    [[self poolWithName:poolName] addEntriesFromDictionary:dict];
-
-}
-
 - (id)objectWithName:(NSString *)objName
 {
-    id object;
+    NSEnumerator *enumerator;
+    id            obj;
+    id            finder;
     
-    object = [defaultPool objectForKey:objName];
+    obj = [defaultPool objectForKey:objName];
+
+    if(!obj)
+    {
+        enumerator = [objectFinders objectEnumerator];
+        while( (finder = [enumerator nextObject]) )
+        {
+            obj = [finder objectWithName:objName];
+            if(obj)
+            {
+                [defaultPool setObject:obj forKey:objName];
+                break;
+            }
+        }
+    }
+    
+    return obj;
+}
+
+- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
+{
+    STObjectReference *ref;
+    id                 pool = defaultPool;
         
-    return object;
-}
+    if( ![self objectWithName:name] )
+    {
+        if([[self knownObjectNames] containsObject:name])
+        {
+            pool = nil;
+        }
+        else if(createsUnknownObjects)
+        {
+            [defaultPool setObject:STNil forKey:name];
+        }
+    }
 
-- (id)objectWithName:(NSString *)objName 
-                pool:(NSString *)poolName
-
-{
-    id object;
-    
-    object = [[self poolWithName:poolName] objectForKey:objName];
-    
-    return object;
-}
-
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
-{
-    STObjectReference *ref;
-    
     ref = [STObjectReference alloc];
+    
     [ref initWithObjectName:name
-                       pool:defaultPool
-                     create:createsUnknownObjects];
+                       pool:defaultPool];
 
     return AUTORELEASE(ref);
 }
-
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
-                                                   pool:(NSString *)poolName
-{
-    STObjectReference *ref;
-
-    ref = [STObjectReference alloc];
-    [ref initWithObjectName:name
-                       pool:[self poolWithName:poolName]
-                     create:createsUnknownObjects];
-                       
-    return AUTORELEASE(ref);
-
-}
-
-- (void)removePool:(NSString *)poolName
-{
-    [pools removeObjectForKey:poolName];
-}
-
 
 /* FIXME: rewrite */
 - (STClassInfo *)findClassInfoForObject:(id)anObject
@@ -527,9 +475,79 @@
     return selector;
 }
 
-- (NSDictionary *)allObjectsDictionary
+- (NSArray *)allObjectNames
 {
-    return [NSDictionary dictionaryWithDictionary:defaultPool];
+    return [defaultPool allKeys];
+}
+
+- (NSArray *)knownObjectNames
+{
+    NSMutableArray *array = [NSMutableArray array];
+    NSEnumerator   *enumerator;
+    id              finder;
+    
+    [array addObjectsFromArray:[defaultPool allKeys]];
+    
+    enumerator = [objectFinders objectEnumerator];
+    while( (finder = [enumerator nextObject]) )
+    {
+        [array addObjectsFromArray:[finder knownObjectNames]];
+    }
+
+    return [NSArray arrayWithArray:array];
+}
+/** Distributed objects */
+- (void)addObjectFinder:(id)finder name:(NSString*)name
+{
+    if(!objectFinders)
+    {
+        objectFinders = [[NSMutableDictionary alloc] init];
+    }
+    
+    [objectFinders setObject:finder forKey:name];
+}
+
+- (void)addObjectFinderWithName:(NSString *)name
+{
+    NSBundle *bundle;
+    NSString *path;
+    id        finder;
+        
+    if([objectFinders objectForKey:name])
+    {
+        return;
+    }
+    
+    path = STFindResource(name, @"Finders", @"bundle");
+    
+    if(!path)
+    {
+        NSLog(@"Unknown object finder with name '%@'", name);
+        return;
+    }
+    
+    NSLog(@"Finder '%@'", path);
+
+    bundle = [NSBundle bundleWithPath:path];
+    if(!bundle)
+    {
+        NSLog(@"Unable to load object finder bundle '%@'", path);
+        return;
+    }
+
+    finder = [[[bundle principalClass] alloc] init];
+    if(!finder)
+    {
+        NSLog(@"Unable to create object finder from '%@'", path);
+        return;
+    }
+
+    [self addObjectFinder:finder name:name];
+}
+
+- (void)removeObjectFinderWithName:(NSString *)name
+{
+    [objectFinders removeObjectForKey:name];
 }
 
 @end

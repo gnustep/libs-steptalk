@@ -144,6 +144,7 @@
     }
 
     [env loadModule:@"Foundation"];
+    [env addObjectFinderWithName:@"DistributedFinder"];
           
     shell = [STShell sharedShell];
     [shell setEnvironment:env];

@@ -30,7 +30,9 @@
 #import <StepTalk/StepTalk.h>
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSBundle.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSNotification.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
@@ -70,14 +72,32 @@ int complete_handler(void)
     
     [self initReadline];
 
-    /* FIXME: update on change */
     objcSelectors = RETAIN(STAllObjectiveCSelectors());
     
     objectStack = [[NSMutableArray alloc] init];
     
+    [[NSNotificationCenter defaultCenter]
+                              addObserver:self
+                                 selector:@selector(bundleLoaded:)
+                                     name:NSBundleDidLoadNotification
+                                   object:nil];
+    
     prompt = @"StepTalk > ";
     
     return self;
+}
+- (void)dealloc
+{
+    RELEASE(objectStack);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [super dealloc];
+}
+-(void)bundleLoaded:(NSNotification *)notif
+{
+    /* FIXME: update only loaded classes */
+    RELEASE(objcSelectors);
+    objcSelectors = RETAIN(STAllObjectiveCSelectors());
 }
 
 - (void)initReadline
@@ -92,7 +112,7 @@ int complete_handler(void)
 
     RELEASE(engine);
     engine = [STEngine engineForLanguageWithName:langName];
-     RETAIN(engine);
+    RETAIN(engine);
 }
 
 - (void)setEnvironment:(STEnvironment *)newEnv
@@ -111,10 +131,13 @@ int complete_handler(void)
     id        result;
         
     [env setCreatesUnknownObjects:YES];
-
+    
     [env setObject:self forName:@"Shell"];
     [env setObject:self forName:@"Transcript"];
     [env setObject:objectStack forName:@"Objects"];
+
+    /* FIXME: This is unsafe !*/
+    [env setObject:env forName:@"Environment"];
 
     [self showLine:@"Welcome to the StepTalk shell."];
     
@@ -227,7 +250,7 @@ int complete_handler(void)
 
     set = [NSMutableSet set];
     
-    enumerator = [[env allObjectsDictionary] keyEnumerator];
+    enumerator = [[env knownObjectNames] objectEnumerator];
     while( (str = [enumerator nextObject]) )
     {
         if( [str hasPrefix:match] )

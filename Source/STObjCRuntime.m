@@ -195,6 +195,13 @@ NSArray *STAllObjectiveCSelectors(void)
             methods = selectors_from_list(class->methods);
             [array addObjectsFromArray:methods];
         }
+        class = class->class_pointer;
+
+        if(class->methods)
+        {
+            methods = selectors_from_list(class->methods);
+            [array addObjectsFromArray:methods];
+        }
     }
     
     /* get rid of duplicates */

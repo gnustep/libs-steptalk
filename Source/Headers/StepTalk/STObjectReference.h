@@ -38,10 +38,6 @@
 - initWithObjectName:(NSString *)name 
                 pool:(NSMutableDictionary *)aPool;
                 
-- initWithObjectName:(NSString *)name 
-                pool:(NSMutableDictionary *)aPool
-              create:(BOOL)createFlag;
-
 - (void)setObject:anObject;
 - object;
 

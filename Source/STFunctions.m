@@ -89,7 +89,8 @@ NSArray *STFindAllResources(NSString *resourceDir, NSString *extension)
     while( (path = [enumerator nextObject]) )
     {
         path = [path stringByAppendingPathComponent:STLibraryDirectory];
-
+        path = [path stringByAppendingPathComponent:resourceDir];
+        
         if( ![manager fileExistsAtPath:path] )
         {
             continue;
@@ -109,7 +110,7 @@ NSArray *STFindAllResources(NSString *resourceDir, NSString *extension)
         }
     }
 
-    return AUTORELEASE([resources copy]);
+    return [NSArray arrayWithArray:resources];
 }
 
 NSString *STUserConfigPath(void)
@@ -122,7 +123,7 @@ NSString *STUserConfigPath(void)
     path = [paths objectAtIndex: 0];
 
     path = [path stringByAppendingPathComponent:STLibraryDirectory];
-    path = [path stringByAppendingPathComponent:@"Config"];
+    path = [path stringByAppendingPathComponent:@"Configuration"];
 
     return path;  
 }

@@ -38,18 +38,17 @@
 
 @interface STEnvironment:NSObject
 {
-    NSMutableDictionary      *pools;
     NSMutableDictionary      *defaultPool;
 
     STEnvironmentDescription *description;
     NSMutableDictionary      *classes;   /* from description */
 
-//    NSMutableSet             *modules;
-
     BOOL                      fullScripting;
     BOOL                      createsUnknownObjects;
-
+    
     NSMutableDictionary      *infoCache;
+    
+    NSMutableDictionary      *objectFinders;
 }
 /** Creating environment */
 + (STEnvironment *)defaultScriptingEnvironment;
@@ -79,27 +78,18 @@
 /** Named objects and object references */
 
 - (NSDictionary *)allObjectsDictionary;
-
 - (void)setObject:(id)anObject
           forName:(NSString *)objName;
-
 - (void)removeObjectWithName:(NSString *)objName;
-- (void)removeObjectWithName:(NSString *)objName
-                        pool:(NSString *)poolName;
-
 - (void)addNamedObjectsFromDictionary:(NSDictionary *)dict;
-- (void)addNamedObjectsFromDictionary:(NSDictionary *)dict
-                                 pool:(NSString *)poolName;
-
 - (id)objectWithName:(NSString *)objName;
-- (id)objectWithName:(NSString *)objName 
-                pool:(NSString *)poolName;
 
 - (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name;
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
-                                                   pool:(NSString *)poolName;
 
-- (void)removePool:(NSString *)poolName;
+/** Distributed objects */
+- (void)addObjectFinder:(id)finder name:(NSString*)name;
+- (void)addObjectFinderWithName:(NSString *)name;
+- (void)removeObjectFinderWithName:(NSString *)name;
 
 /** Selector translation */
 
