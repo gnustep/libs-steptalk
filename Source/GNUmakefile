@@ -29,7 +29,6 @@ LIBRARY_NAME = libStepTalk
 
 libStepTalk_OBJC_FILES = \
     NSInvocation+additions.m \
-    STBundle.m \
     STBehaviourInfo.m \
     STClassInfo.m \
     STEngine.m \
@@ -51,7 +50,6 @@ libStepTalk_OBJC_FILES = \
     NSObject+additions.m
 
 STEPTALK_HEADER_FILES = \
-    STBundle.h \
     STEngine.h \
     STEnvironment.h \
     STExterns.h \
