@@ -108,6 +108,19 @@ static NSMutableDictionary *bundleInfoDict;
     file = [self pathForResource:@"ScriptingInfo" ofType:@"plist"];
     return [NSDictionary dictionaryWithContentsOfFile:file];
 }
++ allAvailableFrameworkPaths
+{
+    /* TODO */
+}
++ pathForFrameworkWithName:(NSString *)aName
+{
+    /* TODO */
+}
++ bundleForFrameworkWithName:(NSString *)name
+{
+    /* TODO */
+}
+
 @end
 
 @implementation STBundleInfo

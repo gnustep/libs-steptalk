@@ -1,7 +1,17 @@
+2003 Jan 29
+
+    * Modules/ObjectiveC: fixed GNUmakefile to include source headers
+    
 2003 Jan 25
 
     * STBundleInfo: Fixed NSBundle stepTalkBundleNames to use .bundle file
     extension
+    * Modules/*/GNUmakefile: Removed now unnecesary -lStepTalk, because modules
+    do not have to be linked with StepTalk anymore
+
+2003 Jan 25
+
+    * Version 0.7.0pre1
 
 2003 Jan 24
 
