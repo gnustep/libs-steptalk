@@ -90,7 +90,7 @@ StepTalk_AGSDOC_FLAGS = \
         -HeaderDirectory Headers/StepTalk \
         -Up StepTalk \
         -Declared StepTalk \
-        -DocumentationDirectory ../Documentation/StepTalk
+        -DocumentationDirectory ../Documentation/Reference
 
 
 -include GNUmakefile.preamble

@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<gsdoc base="STEnvironment" up="StepTalk">
+  <head>
+    <title>STEnvironment class reference</title>
+    <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
+    </author>
+    <copy>2002 Free Software Foundation</copy>
+  </head>
+  <body>
+    <front><contents /></front>
+    <chapter>
+      <heading>
+        Software documentation for the STEnvironment class
+      </heading>
+      <class name="STEnvironment" super="NSObject">
+        <declared>StepTalk/STEnvironment.h</declared>
+        <desc>
+          <em>Description forthcoming.</em>
+        </desc>
+        <method type="STEnvironment*" factory="yes">
+          <sel>defaultScriptingEnvironment</sel>
+          <desc>
+            Creating environment <br /> Creates and
+            initialises scripting environment using
+            standard description.
+          </desc>
+        </method>
+        <method type="id" factory="yes">
+          <sel>environmentWithDescription:</sel>
+          <arg type="STEnvironmentDescription*">aDescription</arg>
+          <desc>
+            Creates and initialises scripting environment using
+            environment description <var>description</var>.
+          </desc>
+        </method>
+        <method type="id" factory="yes">
+          <sel>environmentWithDescriptionName:</sel>
+          <arg type="NSString*">descName</arg>
+          <desc>
+            Creates and initialises scripting environment using
+            description with name <var>descName</var>.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>addClassesWithNames:</sel>
+          <arg type="NSArray*">names</arg>
+          <desc>
+            Add classes specified by the <var>names</var> in the
+            <var>names</var> array. This method is used
+            internally to add classes provided by modules.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>addNamedObjectsFromDictionary:</sel>
+          <arg type="NSDictionary*">dict</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="BOOL">
+          <sel>createsUnknownObjects</sel>
+          <desc>
+            Returns <code>YES</code> if unknown objects are
+            being created.
+          </desc>
+        </method>
+        <method type="BOOL">
+          <sel>fullScriptingEnabled</sel>
+          <desc>
+            Returns <code>YES</code> if full scripting is
+            enabled.
+          </desc>
+        </method>
+        <method type="BOOL">
+          <sel>includeBundle:</sel>
+          <arg type="NSBundle*">aBundle</arg>
+          <desc>
+            Include scripting capabilities advertised by the
+            bundle <ivar><var>aBundle</var></ivar>. Loads the
+            bundle if it is not already loaded.
+          </desc>
+        </method>
+        <method type="id">
+          <sel>initWithDescription:</sel>
+          <arg type="STEnvironmentDescription*">aDescription</arg>
+          <desc>
+            Initialises scripting environment using
+            scripting description <var>aDescription</var>.
+          </desc>
+        </method>
+        <method type="id" init="yes">
+          <sel>initWithDescriptionName:</sel>
+          <arg type="NSString*">descName</arg>
+          <desc>
+            Initialises scripting environment using
+            description with name <var>descName</var>.
+          </desc>
+        </method>
+        <method type="NSArray*">
+          <sel>knownObjectNames</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>loadModule:</sel>
+          <arg type="NSString*">moduleName</arg>
+          <desc>
+            Modules <br /> Load StepTalk module with the name
+            <var>moduleName</var>. Modules are stored in the
+            Library/StepTalk/Modules
+            directory.
+          </desc>
+        </method>
+        <method type="NSMutableDictionary*">
+          <sel>objectDictionary</sel>
+          <desc>
+            Named objects and object references <br /> Returns a
+            dictionary of all named objects in the
+            environment.
+          </desc>
+        </method>
+        <method type="STObjectReference*">
+          <sel>objectReferenceForObjectWithName:</sel>
+          <arg type="NSString*">name</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id">
+          <sel>objectWithName:</sel>
+          <arg type="NSString*">objName</arg>
+          <desc>
+            Return object with name <var>objName</var>. If
+            object is not found int the object dictionary, then
+            object finders are used to try to find the object.
+            If object is found by an object finder, then it is put
+            into the object dicitonary. If there is no object with
+            given name, <var><code>nil</code></var> is returned.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>registerObjectFinder:</sel>
+          <arg type="id">finder</arg>
+          <sel>name:</sel>
+          <arg type="NSString*">name</arg>
+          <desc>
+            Distributed objects <br /> Register object
+            <var>finder</var> <var>finder</var> under the
+            <var>name</var> <var>name</var>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>registerObjectFinderNamed:</sel>
+          <arg type="NSString*">name</arg>
+          <desc>
+            Register object finder named <var>name</var>. This
+            method will try to find an object finder bundle in
+            Library/StepTalk/Finders
+            directories.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>removeObjectFinderWithName:</sel>
+          <arg type="NSString*">name</arg>
+          <desc>
+            Remove object finder with <var>name</var>
+            <var>name</var>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>removeObjectWithName:</sel>
+          <arg type="NSString*">objName</arg>
+          <desc>
+            Remove object named <var>objName</var>.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setCreatesUnknownObjects:</sel>
+          <arg type="BOOL">flag</arg>
+          <desc>
+            <p>
+              Enable or disable creation of unknown objects.
+              Normally you get <code>nil</code> if you request
+              for non-existant object. If <var>flag</var> is
+              <code>YES</code> then by requesting non-existant
+              object, name for that object is created and it is
+              set no STNil.
+            </p>
+            <p>
+              Note: This method will be probably removed (moved
+              to Smalltalk language bundle).
+            </p>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setFullScriptingEnabled:</sel>
+          <arg type="BOOL">flag</arg>
+          <desc>
+            Full scripting <br /> Enable or disable full
+            scripting. When full scripting is enabled, you
+            may send any message to any object.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setObject:</sel>
+          <arg type="id">anObject</arg>
+          <sel>forName:</sel>
+          <arg type="NSString*">objName</arg>
+          <desc>
+            Register object <var>anObject</var> with name
+            <var>objName</var>.
+          </desc>
+        </method>
+        <method type="NSString*">
+          <sel>translateSelector:</sel>
+          <arg type="NSString*">aString</arg>
+          <sel>forReceiver:</sel>
+          <arg type="id">anObject</arg>
+          <desc>
+            Selector translation
+          </desc>
+        </method>
+      </class>
+    </chapter>
+  </body>
+</gsdoc>

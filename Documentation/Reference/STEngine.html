@@ -1,0 +1,117 @@
+<html>
+
+    <head>
+    <title>STEngine class documentation</title>
+  </head>
+  <body>
+    <a href="StepTalk.html">Up</a>
+    <br />
+    <h1><a name="title$STEngine">STEngine class documentation</a></h1>
+    <h3>Authors</h3>
+    <dl>
+      <dt>Stefan Urbanek(<a href="mailto:urbanek@host.sk"><code>
+        urbanek@host.sk
+      </code></a>)</dt>
+      <dd>
+      </dd>
+    </dl>
+    <p><b>Copyright:</b> (C) 2002 Free Software Foundation</p>
+
+        <div>
+    </div>
+
+          <h1><a name="001000000000">
+        Software documentation for the STEngine class
+      </a></h1>
+    <h2><a name="class$STEngine">STEngine</a> : NSObject</h2>
+    <blockquote>
+      <dl>
+        <dt><b>Declared in:</b></dt>
+        <dd>StepTalk/STEngine.h</dd>
+      </dl>
+    </blockquote>
+    <p>
+      
+          STEngine is abstract class for language engines used
+          to intepret scripts.
+        
+    </p>
+    <b>Method summary</b>
+    <ul>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine+engineForFileType:">+engineForFileType:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine+engineForLanguageWithName:">+engineForLanguageWithName:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-defaultEnvironment">-defaultEnvironment</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeCode:">-executeCode:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeCode:inEnvironment:">-executeCode:inEnvironment:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-setDefaultEnvironment:">-setDefaultEnvironment:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-understandsCode:">-understandsCode:</a></li>
+    </ul>
+    <hr width="50%" align="left" />
+    <h3><a name="method$STEngine+engineForFileType:">engineForFileType:</a></h3>
+    + (<a rel="gsdoc" href="#class$STEngine">STEngine</a>*) <b>engineForFileType:</b> (NSString*)fileType;<br />
+    <p>
+      
+            Return a scripting engine for the language used in
+            files of type <var>fileType</var>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine+engineForLanguageWithName:">engineForLanguageWithName:</a></h3>
+    + (<a rel="gsdoc" href="#class$STEngine">STEngine</a>*) <b>engineForLanguageWithName:</b> (NSString*)name;<br />
+    <p>
+      
+            Instance creation <br /> Return a scripting engine
+            for language with specified <var>name</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-defaultEnvironment">defaultEnvironment</a></h3>
+    - (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*) <b>defaultEnvironment</b>;<br />
+    <p>
+      
+            Scripting Environment <br /> Return the default
+            scripting environment for the engine.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-executeCode:">executeCode:</a></h3>
+    - (id) <b>executeCode:</b> (NSString*)code;<br />
+    <p>
+      
+            Execude source <var>code</var> <var>code</var> in
+            default scripting environment.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-executeCode:inEnvironment:">executeCode:inEnvironment:</a></h3>
+    - (id) <b>executeCode:</b> (NSString*)code<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
+Subclasses <strong>should</strong> override this method.<br />
+    <p>
+      
+            Execude source <var>code</var> <var>code</var> in
+            an environment <var>env</var>. This is the method, that
+            has to be implemented by those who are writing a
+            language engine.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-setDefaultEnvironment:">setDefaultEnvironment:</a></h3>
+    - (void) <b>setDefaultEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)anEnvironment;<br />
+    <p>
+      
+            Set the default scripting environment for the engine.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-understandsCode:">understandsCode:</a></h3>
+    - (BOOL) <b>understandsCode:</b> (NSString*)code;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <br />
+    <a href="StepTalk.html">Up</a>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<gsdoc base="STObjectReference" up="StepTalk">
+  <head>
+    <title>STObjectReference class documentation</title>
+    <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
+    </author>
+    <copy>2002 Free Software Foundation</copy>
+  </head>
+  <body>
+    <front><contents /></front>
+    <chapter>
+      <heading>
+        Software documentation for the STObjectReference class
+      </heading>
+      <class name="STObjectReference" super="NSObject">
+        <declared>StepTalk/STObjectReference.h</declared>
+        <desc>
+          <em>Description forthcoming.</em>
+        </desc>
+        <method type="id">
+          <sel>initWithObjectName:</sel>
+          <arg type="NSString*">name</arg>
+          <sel>pool:</sel>
+          <arg type="NSMutableDictionary*">aPool</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id">
+          <sel>object</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSString*">
+          <sel>objectName</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSMutableDictionary*">
+          <sel>pool</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setObject:</sel>
+          <arg type="id">anObject</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setObjectName:</sel>
+          <arg type="NSString*">newName</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setPool:</sel>
+          <arg type="NSMutableDictionary*">aDict</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+      </class>
+    </chapter>
+  </body>
+</gsdoc>

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<gsdoc base="STBundleInfo" up="StepTalk">
+  <head>
+    <title>STBundleInfo class documentation</title>
+    <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
+    </author>
+    <copy>2002 Free Software Foundation</copy>
+  </head>
+  <body>
+    <front><contents /></front>
+    <chapter>
+      <heading>
+        Software documentation for the STBundleInfo class
+      </heading>
+      <class name="STBundleInfo" super="NSObject">
+        <declared>StepTalk/STBundleInfo.h</declared>
+        <desc>
+          <em>Description forthcoming.</em>
+        </desc>
+        <method type="id" factory="yes">
+          <sel>infoForBundle:</sel>
+          <arg type="NSBundle*">aBundle</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSArray*">
+          <sel>allClassNames</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id">
+          <sel>initWithBundle:</sel>
+          <arg type="NSBundle*">aBundle</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSDictionary*">
+          <sel>namedObjects</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSArray*">
+          <sel>publicClassNames</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+      </class>
+    </chapter>
+    <chapter>
+      <heading>
+        Software documentation for the NSBundle(STAdditions)
+        category
+      </heading>
+      <category name="STAdditions" class="NSBundle">
+        <declared>StepTalk/STBundleInfo.h</declared>
+        <desc>
+          <em>Description forthcoming.</em>
+        </desc>
+        <method type="NSArray*" factory="yes">
+          <sel>stepTalkBundleNames</sel>
+          <desc>
+            Get list of all StepTalk bundles from
+            Library/StepTalk/Bundles
+          </desc>
+        </method>
+        <method type="id" factory="yes">
+          <sel>stepTalkBundleWithName:</sel>
+          <arg type="NSString*">moduleName</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSDictionary*">
+          <sel>scriptingInfoDictionary</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+      </category>
+    </chapter>
+  </body>
+</gsdoc>

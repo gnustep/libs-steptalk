@@ -1,0 +1,303 @@
+<html>
+
+    <head>
+    <title>STEnvironment class reference</title>
+  </head>
+  <body>
+    <a href="StepTalk.html">Up</a>
+    <br />
+    <h1><a name="title$STEnvironment">STEnvironment class reference</a></h1>
+    <h3>Authors</h3>
+    <dl>
+      <dt>Stefan Urbanek(<a href="mailto:urbanek@host.sk"><code>
+        urbanek@host.sk
+      </code></a>)</dt>
+      <dd>
+      </dd>
+    </dl>
+    <p><b>Copyright:</b> (C) 2002 Free Software Foundation</p>
+
+        <div>
+    </div>
+
+          <h1><a name="001000000000">
+        Software documentation for the STEnvironment class
+      </a></h1>
+    <h2><a name="class$STEnvironment">STEnvironment</a> : NSObject</h2>
+    <blockquote>
+      <dl>
+        <dt><b>Declared in:</b></dt>
+        <dd>StepTalk/STEnvironment.h</dd>
+      </dl>
+    </blockquote>
+    <p>
+      
+          <em>Description forthcoming.</em>
+        
+    </p>
+    <b>Method summary</b>
+    <ul>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment+defaultScriptingEnvironment">+defaultScriptingEnvironment</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment+environmentWithDescription:">+environmentWithDescription:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment+environmentWithDescriptionName:">+environmentWithDescriptionName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-addClassesWithNames:">-addClassesWithNames:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-addNamedObjectsFromDictionary:">-addNamedObjectsFromDictionary:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-createsUnknownObjects">-createsUnknownObjects</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-fullScriptingEnabled">-fullScriptingEnabled</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-includeBundle:">-includeBundle:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-initWithDescription:">-initWithDescription:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-initWithDescriptionName:">-initWithDescriptionName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-knownObjectNames">-knownObjectNames</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-loadModule:">-loadModule:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-objectDictionary">-objectDictionary</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-objectReferenceForObjectWithName:">-objectReferenceForObjectWithName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-objectWithName:">-objectWithName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-registerObjectFinder:name:">-registerObjectFinder:name:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-registerObjectFinderNamed:">-registerObjectFinderNamed:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-removeObjectFinderWithName:">-removeObjectFinderWithName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-removeObjectWithName:">-removeObjectWithName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-setCreatesUnknownObjects:">-setCreatesUnknownObjects:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-setFullScriptingEnabled:">-setFullScriptingEnabled:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-setObject:forName:">-setObject:forName:</a></li>
+      <li><a rel="gsdoc" href="STEnvironment.html#method$STEnvironment-translateSelector:forReceiver:">-translateSelector:forReceiver:</a></li>
+    </ul>
+    <hr width="50%" align="left" />
+    <h3><a name="method$STEnvironment+defaultScriptingEnvironment">defaultScriptingEnvironment</a></h3>
+    + (<a rel="gsdoc" href="#class$STEnvironment">STEnvironment</a>*) <b>defaultScriptingEnvironment</b>;<br />
+    <p>
+      
+            Creating environment <br /> Creates and
+            initialises scripting environment using
+            standard description.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment+environmentWithDescription:">environmentWithDescription:</a></h3>
+    + (id) <b>environmentWithDescription:</b> (STEnvironmentDescription*)aDescription;<br />
+    <p>
+      
+            Creates and initialises scripting environment using
+            environment description <var>description</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment+environmentWithDescriptionName:">environmentWithDescriptionName:</a></h3>
+    + (id) <b>environmentWithDescriptionName:</b> (NSString*)descName;<br />
+    <p>
+      
+            Creates and initialises scripting environment using
+            description with name <var>descName</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-addClassesWithNames:">addClassesWithNames:</a></h3>
+    - (void) <b>addClassesWithNames:</b> (NSArray*)names;<br />
+    <p>
+      
+            Add classes specified by the <var>names</var> in the
+            <var>names</var> array. This method is used
+            internally to add classes provided by modules.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-addNamedObjectsFromDictionary:">addNamedObjectsFromDictionary:</a></h3>
+    - (void) <b>addNamedObjectsFromDictionary:</b> (NSDictionary*)dict;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-createsUnknownObjects">createsUnknownObjects</a></h3>
+    - (BOOL) <b>createsUnknownObjects</b>;<br />
+    <p>
+      
+            Returns <code>YES</code> if unknown objects are
+            being created.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-fullScriptingEnabled">fullScriptingEnabled</a></h3>
+    - (BOOL) <b>fullScriptingEnabled</b>;<br />
+    <p>
+      
+            Returns <code>YES</code> if full scripting is
+            enabled.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-includeBundle:">includeBundle:</a></h3>
+    - (BOOL) <b>includeBundle:</b> (NSBundle*)aBundle;<br />
+    <p>
+      
+            Include scripting capabilities advertised by the
+            bundle 
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-initWithDescription:">initWithDescription:</a></h3>
+    - (id) <b>initWithDescription:</b> (STEnvironmentDescription*)aDescription;<br />
+    <p>
+      
+            Initialises scripting environment using
+            scripting description <var>aDescription</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-initWithDescriptionName:">initWithDescriptionName:</a></h3>
+    - (id) <b>initWithDescriptionName:</b> (NSString*)descName;<br />
+This is a designated initialiser for the class.<br />
+    <p>
+      
+            Initialises scripting environment using
+            description with name <var>descName</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-knownObjectNames">knownObjectNames</a></h3>
+    - (NSArray*) <b>knownObjectNames</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-loadModule:">loadModule:</a></h3>
+    - (void) <b>loadModule:</b> (NSString*)moduleName;<br />
+    <p>
+      
+            Modules <br /> Load StepTalk module with the name
+            <var>moduleName</var>. Modules are stored in the
+            Library/StepTalk/Modules
+            directory.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-objectDictionary">objectDictionary</a></h3>
+    - (NSMutableDictionary*) <b>objectDictionary</b>;<br />
+    <p>
+      
+            Named objects and object references <br /> Returns a
+            dictionary of all named objects in the
+            environment.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-objectReferenceForObjectWithName:">objectReferenceForObjectWithName:</a></h3>
+    - (<a rel="gsdoc" href="STObjectReference.html#class$STObjectReference">STObjectReference</a>*) <b>objectReferenceForObjectWithName:</b> (NSString*)name;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-objectWithName:">objectWithName:</a></h3>
+    - (id) <b>objectWithName:</b> (NSString*)objName;<br />
+    <p>
+      
+            Return object with name <var>objName</var>. If
+            object is not found int the object dictionary, then
+            object finders are used to try to find the object.
+            If object is found by an object finder, then it is put
+            into the object dicitonary. If there is no object with
+            given name, <var><code>nil</code></var> is returned.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-registerObjectFinder:name:">registerObjectFinder:name:</a></h3>
+    - (void) <b>registerObjectFinder:</b> (id)finder<b> name:</b> (NSString*)name;<br />
+    <p>
+      
+            Distributed objects <br /> Register object
+            <var>finder</var> <var>finder</var> under the
+            <var>name</var> <var>name</var>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-registerObjectFinderNamed:">registerObjectFinderNamed:</a></h3>
+    - (void) <b>registerObjectFinderNamed:</b> (NSString*)name;<br />
+    <p>
+      
+            Register object finder named <var>name</var>. This
+            method will try to find an object finder bundle in
+            Library/StepTalk/Finders
+            directories.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-removeObjectFinderWithName:">removeObjectFinderWithName:</a></h3>
+    - (void) <b>removeObjectFinderWithName:</b> (NSString*)name;<br />
+    <p>
+      
+            Remove object finder with <var>name</var>
+            <var>name</var>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-removeObjectWithName:">removeObjectWithName:</a></h3>
+    - (void) <b>removeObjectWithName:</b> (NSString*)objName;<br />
+    <p>
+      
+            Remove object named <var>objName</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-setCreatesUnknownObjects:">setCreatesUnknownObjects:</a></h3>
+    - (void) <b>setCreatesUnknownObjects:</b> (BOOL)flag;<br />
+    <p>
+      
+            
+    </p>
+    <p>
+
+              Enable or disable creation of unknown objects.
+              Normally you get <code>nil</code> if you request
+              for non-existant object. If <var>flag</var> is
+              <code>YES</code> then by requesting non-existant
+              object, name for that object is created and it is
+              set no STNil.
+                </p>
+    <p>
+      
+            
+    </p>
+    <p>
+
+              Note: This method will be probably removed (moved
+              to Smalltalk language bundle).
+                </p>
+    <p>
+      
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-setFullScriptingEnabled:">setFullScriptingEnabled:</a></h3>
+    - (void) <b>setFullScriptingEnabled:</b> (BOOL)flag;<br />
+    <p>
+      
+            Full scripting <br /> Enable or disable full
+            scripting. When full scripting is enabled, you
+            may send any message to any object.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-setObject:forName:">setObject:forName:</a></h3>
+    - (void) <b>setObject:</b> (id)anObject<b> forName:</b> (NSString*)objName;<br />
+    <p>
+      
+            Register object <var>anObject</var> with name
+            <var>objName</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEnvironment-translateSelector:forReceiver:">translateSelector:forReceiver:</a></h3>
+    - (NSString*) <b>translateSelector:</b> (NSString*)aString<b> forReceiver:</b> (id)anObject;<br />
+    <p>
+      
+            Selector translation
+          
+    </p>
+    <hr width="25%" align="left" />
+    <br />
+    <a href="StepTalk.html">Up</a>
+  </body>
+</html>
