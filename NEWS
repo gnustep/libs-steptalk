@@ -1,0 +1,61 @@
+0.5.2
+
+    * Separated AppTalk
+    * Added option to make "appkit=no" to disable making of AppKit stuff.
+    
+0.5.1
+
+    * Added AppTalk application scripting library
+    * Smalltalk syntax changed. See Documentation/Smalltalk section Source. 
+    * Fixed AppKit constants
+    * Make it build with latest GNUstep release
+    * Various bugfixes
+
+0.5.0
+  
+    * support for NSRange, NSPoint and NSSize (see example range.st)
+    * Implemented SEL type handling (see examples selector.st and 
+      notification.st)
+    * New example pldes.st - pldes tool written in smalltalk
+
+    Smalltalk: 
+    * Small (10-15%)speed improvements of block evaluation
+    * Handle 'exit' method in script object. 'self exit' will terminate script 
+      execution.
+    * Documentation describing smalltalk features (exception handling,
+      symbolic selector and iterators)
+
+0.4.1
+
+    * Guile - new language bundle. gstep-guile library is needed.
+
+      Guile bundle is not build by default. You have to make it in 
+      Languages/Guile directory (make; make install). You may try to execute
+      very simple piece of code in Languages/Guile/Tests using stexec. 
+      
+      NOTE: do not forget to run 'stupdate_languages' after installing any new
+            language bundle. To find out if languages were updated, try 
+            'stexec -list-languages'
+
+    * Separated Foundation binding stuff to Foundation module
+    
+0.4.0
+
+    * AppKit - new module
+    * AppKit examples
+            openPanel - shows NSOpenPanel
+            rtf2text - converts RTF document to plain text 
+    * Added execution of script with more methods
+    * Tools will now try to get language type from file extension
+    * Added new tool stupdate_languages to create file extensions dictionary
+
+0.3.0
+for more details see ChangeLog file
+    
+    * Added few examples to show how scripting works. See Examples directory 
+      in source package. 
+    * Added tool 'stalk' to talk to named servers. 
+    * Added new tool options. 
+    * Some known bugs were fixed.
+    * Little bit of documentation added (see Documentation directory)
+    * STEnvironment interface changed

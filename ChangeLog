@@ -1,0 +1,138 @@
+2002 Apr 20
+
+    * COPYING: updated
+    * STExterns: Removed unused exceptions
+    * STStructure: Changed exception to STInternalIncosistencyException
+        
+2002 Apr 13
+
+    * Modules/GNUmakefile: added option that disables making of appkit support
+    Use make appkit=no.
+    * Separated AppTalk
+     
+2002 Mar 21
+    
+    * STEnvironment: removed pools
+
+2002 Mar 17
+
+    * STEngine: removed executeScript: methods and use only executeSource:
+      engine does not make difference between script and statements anymore
+    * Tools: removed --expressions option
+    * Examples: fixed Smalltalk examples to use new grammar
+    * STLanguage: new method languageNameForFileType:
+
+2002 Mar 13
+
+    * AppKit module: removed old AppKit constants and renamed MiddleButton
+    events to OtherButton.
+
+2002 Feb 14
+
+    * added make option 'appkit'. if you set it to 'no' (make appkit=no), 
+    no appkit stuff will be compiled. 
+    
+2002 Feb 5
+
+    * StepTalk 0.5.0 released
+
+2002 Feb 5
+
+    * STSelector: new file
+    * NSInvocation+additions: handle SEL type with STSelector
+    * Examples: added selector.st, notification.st, scope.st and pldes.st
+
+2002 Feb 3
+
+    * Testing: new directory
+    
+2002 Jan 30
+
+    * STEnvironment: Removed unused variables,
+    
+2002 Jan 23
+
+    * NSNumber+additions: moved from Smalltalk, added methods for creation of
+      range, point and size
+
+2002 Jan 21    
+
+    * StepTalk 0.4.1 released
+
+2002 Jan 21    
+    
+    * Removed Foundation constants to separate module
+    * stexec: load Foundation module instead of loading all ObjC classes
+
+2002 Jan 13
+
+    * Guile: new language bundle
+
+2002 Jan 9
+
+    * StepTalk 0.4.0 released
+
+2002 Jan 9
+
+    * STFunctions: new function STUserConfigPath 
+    * STLanguage: new method languageForFileType:
+    * new tool stupdate_languages to create/update languages configuration file
+    
+2001 Dec 8
+    
+    * NSInvocation+addition: return receiver (target) when return type is void
+    
+2001 Nov 19
+    
+    * STModule: New method -classNames; returns array of names of exported 
+    classes
+    
+2001 Nov 14
+
+    * removed force of use of users home directory for installation
+    * new module AppKit
+    * STEnvironment: new method -addAllClasses to add all Objective-C classes
+    
+2001 Nov 10
+
+    * StepTalk 0.3.0 released
+
+2001 Nov 10
+
+    * Added scriptable server example.
+    
+2001 Nov 9
+
+    * STExecutor: new options: --list-objects, --list-classes and 
+    --list-all-objects
+    * Tools/stalk.m: resurected
+    * Tools/GNUmakefile: uncommented stalk tool
+    * moved initialization of STNil from STUndefinedObject to STEngine
+
+2001 Nov 6
+
+    * STProtocolInfo: removed
+    * STBehaviourInfo, STClassInfo, STEnvironmentDescription: rewritten
+    * Environment description files changed
+
+2001 Nov 5
+
+    * Tools/stexec: fixed bug, that caused segfault (reported by 
+    Nicola Pero <nicola@brainstorm.co.uk>)
+    * Examples: new directory with Smalltalk script examples
+    * STEnvironment: fixed restricted/full scripting. 
+    translateSelector:forReceiver: now raises an exception if selector is not
+    allowed for receiver; standardScriptingEnvironemnt renamed to 
+    defaultScriptingEnvironment and calls 
+    STEnvironmentDescription defaultEnvironmentDescriptionName
+    * STEnvrionmentDescription: New method +defaultEnvironmentDescriptionName.
+
+2001 Nov 3
+    
+    * Tools: implemented --environment switch to use environment description 
+    with name.
+    
+2001 Nov 1
+
+    * New ChangeLog started. Rewritten and redesigned. 
+    * Added support for multiple languages. Created Smalltalk language bundle.

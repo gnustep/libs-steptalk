@@ -1,0 +1,17 @@
+Application Scripting
+---------------------
+
+To make your applications scriptable, you have to make and install AppTalk
+library.
+
+
+See documents in AppTalk/Documentation where you may find more information
+about:
+
+    Installing AppTalk
+    Creating a scriptable application in a few minutes
+    Scripts locations
+
+You may find AppTalk sources at the same place as StepTalk
+
+    http://steptalk.host.sk

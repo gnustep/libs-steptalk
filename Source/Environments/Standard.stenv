@@ -1,0 +1,11 @@
+/** Standard.stenv 
+ *  Standard cripting description 
+ */
+
+{
+    Name = "Standard";
+    Use = ( "SymbolicSelectors", 
+            "Foundation", 
+            "StepTalk"
+          );
+}

@@ -1,0 +1,15 @@
+StepTalk Defaults
+-----------------
+
+StepTalk uses defaults domain with name 'StepTalk'.
+
+For example, to set default language name:
+
+    > defaults write StepTalk DefaultLanguageName Smalltalk
+
+
+Name: DefaultLanguageName
+Type: String
+
+Name: DefaultEnvironmentDescriptionName
+Type: String

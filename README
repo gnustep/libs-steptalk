@@ -1,0 +1,90 @@
+StepTalk
+--------
+
+Ahthor: Stefan Urbanek  <urbanek@host.sk>
+
+
+What is StepTalk ?
+------------------
+
+StepTalk is a scripting framework for creating scriptable servers or
+applications. StepTalk, when combined with the dynamism that the Objective-C
+language provides, goes way beyond mere scripting.  It is written using
+GNUstep.
+
+
+Where to get it?
+----------------
+
+You can download StepTalk from 
+
+    http://steptalk.host.sk
+
+
+Installation
+------------
+To install StepTalk type:
+    > make
+    > make install
+
+
+Tools
+-----
+    stexec - execute a StepTalk script in the GNUstep Foundation environment
+    stalk  - talk to named server
+    stupdate_languages - update the available languages info
+
+    Predefined objects for executing scripts by 'stexec'
+    
+        Args          - command line arguments
+        Engine        - scripting engine
+        Environment   - scripting environment
+
+        Transcript    - simple transcript
+
+
+Sripting environment description
+-------------------------------------------
+
+Scripting environment description is used to translate the method names and/or
+allow or deny the methods for concrete classes. Denying methods can be used to
+create safe scripting  environment as prevention against script viruses.
+
+It contains:
+    - list of methods, that are available for scripting for particular class
+    - symbolic selector (operator) to selector mapping
+
+
+Standard vs. full scripting
+---------------------------
+Before each message send, selector is translated using scipting description.
+When standard scripting is used and there is no such selector avilable for
+scripting for target object, then an exception is raised. With full scripting,
+any message should be sent to any target object.
+
+Files
+-----
+    StepTalk is looking for its files in GNUSTEP_*_ROOT/Library/StepTalk
+    
+    There should be these directories:
+    
+    Environments
+        - directory containig environment descriptions
+    Languages
+        - StepTalk language bundles
+    Modules
+        - StepTalk modules
+        
+    Scripts
+        - directory containig StepTalk scripts
+
+
+Defaults
+--------
+See Documentation/Defaults.txt
+
+
+Feedback
+--------
+Any bug reports and comments are welcome at
+<urbanek@host.sk>

@@ -1,0 +1,28 @@
+StepTalk HowTo
+----------------------
+
+Here are some references where you may find how to use StepTalk:
+
+How to create scripting environment?
+
+    Tools/stalk.m
+        -createEnvironment
+
+How to execute code?
+
+    Tools/STExecutor.m
+        -executeScripts
+        -executeScript:withArguments:
+
+How to create a language bundle?
+
+    Languages/Smalltalk/LanguageEngine.m
+    Languages/Smalltalk/LanguageEngine.h
+
+    Languages/Smalltalk/STBytecodeInterpreter.m
+        - sendSelectorAtIndex:withArgCount:
+    
+
+How to create a scriptable server?
+
+    see Examples/Server

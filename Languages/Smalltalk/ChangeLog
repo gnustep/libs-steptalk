@@ -1,0 +1,49 @@
+2002 Mar 17
+
+    * STCompiler, STGrammar: changed grammar to be able to have "methods" or
+      "just statements" in source
+
+2002 Feb 14
+
+    * STSourceReader: Retain character sets
+
+2002 Feb 5
+    
+    * STSelector+additions.[hm]: new files
+    * STCompiler: use STSelector class for symbol literals
+
+2002 Feb 3
+    
+    * STScriptObject: handle special method 'exit'
+    * STBytecodeInterpreter: added code to halt the interpreter and return from 
+      all contexts
+    
+2002 Jan 31
+
+    * STBlock: small speed improvements 
+    * STBlockContext: removed evaluateWithArguments:count:, and moved code 
+      into STBLock
+
+2002 Jan 23
+
+    * NSNumber+additions: moved arithmetic code to the library
+        
+2002 Jan 22
+
+    * STCompiler: create one more duplicate of stack top when assigning to a
+      variable.
+
+2002 Jan 9
+
+    * SmalltalkEngine: implemented executeScript:inEnvironment:
+
+2001 Dec 8
+
+    * Fixed temporary variable compilation
+    * Added special handling of nil, YES and NO constants; added corresponding 
+      bytecodes
+    
+2001 Dec 8
+
+    * CahgeLog started
+    
