@@ -4,6 +4,7 @@
 
 {
     Name = "Standard";
+    Modules = (ObjectiveC);
     Use = ( "SymbolicSelectors", 
             "Foundation", 
             "StepTalk"
