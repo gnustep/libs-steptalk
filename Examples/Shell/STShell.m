@@ -165,7 +165,10 @@ int complete_handler(void)
 
         if(result)
         {
-            [objectStack addObject:result];
+            if(result != objectStack)
+            {
+                [objectStack addObject:result];
+            }
             [self showResult:result];
         }
         else
@@ -322,65 +325,6 @@ int complete_handler(void)
 
 
     return 0;
-}
-
-- show:(id)anObject
-{
-    printf("%s", [[anObject description] cString]);
-
-    return self;
-}
-- showLine:(id)anObject
-{
-    [self show:anObject];
-    putchar('\n');
-    
-    return nil;
-}
-- showResult:(id)anObject
-{
-    if(anObject)
-    {
-        printf("%i: ", [objectStack count] - 1);
-        [self show:anObject];
-        putchar('\n');
-    }
-
-    return self;
-}
-- showException:(NSException *)exception
-{
-    printf("Error (%s): %s\n", 
-            [[exception name] cString], 
-            [[exception reason] cString]);
-
-    
-    return self;
-}
-- (id)listObjects
-{
-    int i;
-    id  object;
-    NSString *str;
-    
-    printf("Objects\n");
-    for(i = 0; i < [objectStack count]; i++)
-    {
-        object = [objectStack objectAtIndex:i];
-        
-        str = [object description];
-        
-        if( [str length] > 40 )
-        {
-            str = [str substringToIndex:40];
-            str = [str stringByAppendingString:@"..."];
-        }
-        
-        printf("%4i: '%s' (%s)\n", i,
-                [str cString],
-                [[[object class] description] cString]);
-    }
-    return nil;
 }
 
 - (void)exit

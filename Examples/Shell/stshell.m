@@ -134,6 +134,8 @@
     STEnvironment *env;
     STShell       *shell;
     
+    [self parseArguments];
+    
     if(!envName || [envName isEqualToString:@""])
     {
         env = [STEnvironment defaultScriptingEnvironment];
@@ -145,6 +147,9 @@
 
     [env loadModule:@"Foundation"];
     [env addObjectFinderWithName:@"DistributedFinder"];
+
+    /* FIXME: make this an option */
+    [env setFullScriptingEnabled:YES];
           
     shell = [STShell sharedShell];
     [shell setEnvironment:env];

@@ -26,7 +26,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 TOOL_NAME = stshell
 
-stshell_OBJC_FILES = STShell.m stshell.m
+stshell_OBJC_FILES = STShell.m STShell+output.m stshell.m
 
 ADDITIONAL_TOOL_LIBS += -lStepTalk -lreadline
 
