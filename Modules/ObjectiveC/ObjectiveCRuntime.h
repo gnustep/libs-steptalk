@@ -27,5 +27,6 @@
 #import <Foundation/NSObject.h>
 
 @interface ObjectiveCRuntime:NSObject
++ sharedRuntime;
 @end
 

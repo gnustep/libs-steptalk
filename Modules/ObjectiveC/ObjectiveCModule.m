@@ -27,8 +27,8 @@
 #import "ObjectiveCModule.h"
 #import "ObjectiveCRuntime.h"
 
+#import <Foundation/NSDictionary.h>
 #import <Foundation/NSString.h>
-@class NSDictionary;
 
 @implementation ObjectiveCModule
 + (NSDictionary *)namedObjectsForScripting

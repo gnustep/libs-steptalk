@@ -27,6 +27,7 @@
 
 #import "STAppKitModule.h"
 
+#import <AppKit/NSApplication.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSString.h>
 

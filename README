@@ -16,6 +16,8 @@ GNUstep.
 Where to get it?
 ----------------
 
+StepTalk requires GNUstep http://www.gnustep.org
+
 You can download StepTalk from 
 
     http://steptalk.host.sk
@@ -35,6 +37,10 @@ If you do not want to build AppKit extensions, then type
 
     > make appkit=no
     > make appkit=no install
+
+If something goes wrong while build process and it is not while building in the
+Source directory, then try to do make and make install in that directory first. 
+In any case of problem, do not hesitate to contact the author.
 
 Tools
 -----

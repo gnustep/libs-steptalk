@@ -26,6 +26,8 @@
 
 #import "ObjectiveCRuntime.h"
 
+#import "NSObject+additions.h"
+
 #import <objc/objc-api.h>
 
 #import <StepTalk/STObjCRuntime.h>
@@ -73,11 +75,12 @@ static ObjectiveCRuntime *sharedRuntime=nil;
 }
 - (NSArray *)selectorsContainingString:(NSString *)string
 {
-    NSEnumerator *enumerator;
-    NSArray      *array = STAllObjectiveCSelectors();
-    NSArray      *sels = [NSMutableArray array];
-    NSString     *sel;
-    NSRange       range;
+    NSMutableArray *sels = [NSMutableArray array];
+    NSEnumerator   *enumerator;
+    NSArray        *array = STAllObjectiveCSelectors();
+    NSString       *sel;
+    NSRange         range;
+
     enumerator = [array objectEnumerator];
     
     while( (sel = [enumerator nextObject]) )

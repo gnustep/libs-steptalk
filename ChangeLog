@@ -1,3 +1,8 @@
+2003 Jan 30
+
+    * STBundleInfo: Removed compiler warning
+    * Modules/*: Cleanup for compiler warnings   
+
 2003 Jan 29
 
     * Modules/ObjectiveC: fixed GNUmakefile to include source headers

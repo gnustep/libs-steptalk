@@ -111,14 +111,20 @@ static NSMutableDictionary *bundleInfoDict;
 + allAvailableFrameworkPaths
 {
     /* TODO */
+
+    return nil;
 }
 + pathForFrameworkWithName:(NSString *)aName
 {
     /* TODO */
+
+    return nil;
 }
 + bundleForFrameworkWithName:(NSString *)name
 {
     /* TODO */
+
+    return nil;
 }
 
 @end

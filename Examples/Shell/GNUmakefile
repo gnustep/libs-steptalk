@@ -29,6 +29,7 @@ TOOL_NAME = stshell
 stshell_OBJC_FILES = STShell.m STShell+output.m stshell.m
 
 ADDITIONAL_TOOL_LIBS += -lStepTalk -lreadline -lncurses
+ADDITIONAL_OBJCFLAGS = -Wall -Werror
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make

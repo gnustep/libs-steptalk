@@ -28,8 +28,8 @@
 #import "SimpleTranscriptModule.h"
 #import "SimpleTranscript.h"
 
+#import <Foundation/NSDictionary.h>
 #import <Foundation/NSString.h>
-@class NSDictionary;
 
 @implementation SimpleTranscriptModule
 + (NSDictionary *)namedObjectsForScripting

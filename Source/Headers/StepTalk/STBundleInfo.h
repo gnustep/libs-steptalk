@@ -38,8 +38,8 @@
     NSString     *scriptingInfoClassName;
     Class         scriptingInfoClass;
 }
-+ infoForBundle:(NSBundle *)bundle;
-- initWithBundle:(NSBundle *)bundle;
++ infoForBundle:(NSBundle *)aBundle;
+- initWithBundle:(NSBundle *)aBundle;
 
 - (NSDictionary *)namedObjects;
 
