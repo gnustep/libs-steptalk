@@ -66,6 +66,10 @@ To show all objects type:
        0: '2002-05-29 22:41:57 +0200' (GSCInlineString)
        1: 'Current date is 2002-05-29 22:41:57 +020...' (GSUnicodeString)
 
+TAB completition
+----------------
+Here is an example of TAB completition.
+    StepTalk > Tr<TAB> showL<TAB>:'Current date is ', ((NSDate date) desc<TAB>i<TAB>)
 
 Feedback
 --------
