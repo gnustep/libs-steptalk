@@ -44,11 +44,17 @@
 	STValueFromSelector = STObjCRuntime;
     };
     method = {
+	"+allFrameworkNames" = {
+	    NSBundle = STBundleInfo;
+	};
 	"+allKnownFileTypes" = {
 	    STLanguage = STLanguage;
 	};
 	"+allLanguageNames" = {
 	    STLanguage = STLanguage;
+	};
+	"+bundleForFrameworkWithName:" = {
+	    NSBundle = STBundleInfo;
 	};
 	"+classForScripting" = {
 	    "(STScripting)" = STScripting;
@@ -97,6 +103,9 @@
 	};
 	"+languageWithPath:" = {
 	    STLanguage = STLanguage;
+	};
+	"+pathForFrameworkWithName:" = {
+	    NSBundle = STBundleInfo;
 	};
 	"+scriptWithFile:" = {
 	    STScript = STScript;
@@ -153,6 +162,9 @@
 	    NSInvocation = "NSInvocation+additions";
 	};
 	"-includeBundle:" = {
+	    STEnvironment = STEnvironment;
+	};
+	"-includeFramework:" = {
 	    STEnvironment = STEnvironment;
 	};
 	"-initDefault" = {
@@ -451,6 +463,9 @@
 	    "-isClass" = STScripting;
 	};
 	"NSBundle(STAdditions)" = {
+	    "+allFrameworkNames" = STBundleInfo;
+	    "+bundleForFrameworkWithName:" = STBundleInfo;
+	    "+pathForFrameworkWithName:" = STBundleInfo;
 	    "+stepTalkBundleNames" = STBundleInfo;
 	    "+stepTalkBundleWithName:" = STBundleInfo;
 	    "-scriptingInfoDictionary" = STBundleInfo;
@@ -492,6 +507,7 @@
 	    "-createsUnknownObjects" = STEnvironment;
 	    "-fullScriptingEnabled" = STEnvironment;
 	    "-includeBundle:" = STEnvironment;
+	    "-includeFramework:" = STEnvironment;
 	    "-initDefault" = STEnvironment;
 	    "-initWithDescription:" = STEnvironment;
 	    "-initWithDescriptionName:" = STEnvironment;

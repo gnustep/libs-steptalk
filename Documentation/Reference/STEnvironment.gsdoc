@@ -80,8 +80,18 @@
           <arg type="NSBundle*">aBundle</arg>
           <desc>
             Include scripting capabilities advertised by the
-            bundle <ivar><var>aBundle</var></ivar>. Loads the
-            bundle if it is not already loaded.
+            bundle <ivar><var>aBundle</var></ivar>. If the
+            bundle is already loaded, nothing happens.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>includeFramework:</sel>
+          <arg type="NSString*">frameworkName</arg>
+          <desc>
+            Include scripting capabilities advertised by the
+            framework with name
+            <ivar><var>frameworkName</var></ivar>. If the
+            framework is already loaded, nothing happens.
           </desc>
         </method>
         <method type="id" init="yes">

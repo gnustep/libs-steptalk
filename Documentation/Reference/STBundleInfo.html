@@ -75,9 +75,10 @@
     <hr width="25%" align="left" />
     <h3><a name="method$STBundleInfo-initWithBundle:">initWithBundle:</a></h3>
     - (id) <b>initWithBundle:</b> (NSBundle*)aBundle;<br />
+This is a designated initialiser for the class.<br />
     <p>
       
-            <em>Description forthcoming.</em>
+            Initialize info with bundle <var>aBundle</var>.
           
     </p>
     <hr width="25%" align="left" />
@@ -85,7 +86,9 @@
     - (NSDictionary*) <b>namedObjects</b>;<br />
     <p>
       
-            Return a dictionary of named objects.
+            Return a dictionary of named objects. Named objects
+            are get from scripting info class specified in
+            ScriptingInfo.plist.
           
     </p>
     <hr width="25%" align="left" />
@@ -127,11 +130,41 @@
     </p>
     <b>Method summary</b>
     <ul>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+allFrameworkNames">+allFrameworkNames</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+bundleForFrameworkWithName:">+bundleForFrameworkWithName:</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+pathForFrameworkWithName:">+pathForFrameworkWithName:</a></li>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+stepTalkBundleNames">+stepTalkBundleNames</a></li>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+stepTalkBundleWithName:">+stepTalkBundleWithName:</a></li>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle-scriptingInfoDictionary">-scriptingInfoDictionary</a></li>
     </ul>
     <hr width="50%" align="left" />
+    <h3><a name="method$NSBundle(STAdditions)+allFrameworkNames">allFrameworkNames</a></h3>
+    + (NSArray*) <b>allFrameworkNames</b>;<br />
+    <p>
+      
+            Return names of all available frameworks in the
+            system.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$NSBundle(STAdditions)+bundleForFrameworkWithName:">bundleForFrameworkWithName:</a></h3>
+    + (NSBundle*) <b>bundleForFrameworkWithName:</b> (NSString*)aName;<br />
+    <p>
+      
+            Return bundle for framework with name
+            <var>aName</var>.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$NSBundle(STAdditions)+pathForFrameworkWithName:">pathForFrameworkWithName:</a></h3>
+    + (NSString*) <b>pathForFrameworkWithName:</b> (NSString*)aName;<br />
+    <p>
+      
+            Return path for framework with name <var>aName</var>
+            .
+          
+    </p>
+    <hr width="25%" align="left" />
     <h3><a name="method$NSBundle(STAdditions)+stepTalkBundleNames">stepTalkBundleNames</a></h3>
     + (NSArray*) <b>stepTalkBundleNames</b>;<br />
     <p>

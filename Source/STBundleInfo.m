@@ -118,23 +118,95 @@ static NSMutableDictionary *bundleInfoDict;
         return nil;
     }
 }
-+ allAvailableFrameworkPaths
+/** Return names of all available frameworks in the system. */
++ (NSArray *)allFrameworkNames
 {
-    /* TODO */
+    NSMutableArray *names = [NSMutableArray array];
+    NSFileManager  *manager = [NSFileManager defaultManager];
+    NSArray        *paths;
+    NSEnumerator   *fenum;
+    NSEnumerator   *penum;
+    NSString       *path;
+    NSString       *file;
+    NSString       *name;
 
+    paths = NSStandardLibraryPaths();
+
+    penum = [paths objectEnumerator];
+    
+    while( (path = [penum nextObject]) )
+    {
+    
+        path = [path stringByAppendingPathComponent:@"Frameworks"];
+
+        fenum = [[manager directoryContentsAtPath:path] objectEnumerator];
+
+        if( ![manager fileExistsAtPath:path isDirectory:NO] )
+        {
+            continue;
+        }
+
+        while( (file = [fenum nextObject]) )
+        {
+            if( [[file pathExtension] isEqualToString:@"framework"] )
+            {
+                name = [[file lastPathComponent] stringByDeletingPathExtension];
+                [names addObject:name];
+            }
+        }
+    }
+    
+    return names;
+}
+
+/** Return path for framework with name <var>aName</var>. */
++ (NSString *)pathForFrameworkWithName:(NSString *)aName
+{
+    NSMutableArray *names = [NSMutableArray array];
+    NSFileManager  *manager = [NSFileManager defaultManager];
+    NSArray        *paths;
+    NSEnumerator   *fenum;
+    NSEnumerator   *penum;
+    NSString       *path;
+    NSString       *file;
+    NSString       *name;
+
+    paths = NSStandardLibraryPaths();
+
+    penum = [paths objectEnumerator];
+    
+    while( (path = [penum nextObject]) )
+    {
+    
+        path = [path stringByAppendingPathComponent:@"Frameworks"];
+
+        fenum = [[manager directoryContentsAtPath:path] objectEnumerator];
+
+        if( ![manager fileExistsAtPath:path isDirectory:NO] )
+        {
+            continue;
+        }
+
+        while( (file = [fenum nextObject]) )
+        {
+            if( [[file pathExtension] isEqualToString:@"framework"] )
+            {
+                name = [[file lastPathComponent] stringByDeletingPathExtension];
+                if([name isEqualToString:aName])
+                {
+                    return [path stringByAppendingPathComponent:file];
+                }
+            }
+        }
+    }
+    
     return nil;
 }
-+ pathForFrameworkWithName:(NSString *)aName
-{
-    /* TODO */
 
-    return nil;
-}
-+ bundleForFrameworkWithName:(NSString *)name
+/** Return bundle for framework with name <var>aName</var>. */
++ (NSBundle *)bundleForFrameworkWithName:(NSString *)aName
 {
-    /* TODO */
-
-    return nil;
+    return [self bundleWithPath:[self pathForFrameworkWithName:aName]];;
 }
 
 @end
@@ -144,7 +216,10 @@ static NSMutableDictionary *bundleInfoDict;
 {
     return AUTORELEASE([[self alloc] initWithBundle:aBundle]);
 }
+/** Initialize info with bundle <var>aBundle</var>.
 
+ <init />
+*/
 - initWithBundle:(NSBundle *)aBundle
 {
     STBundleInfo *info;
@@ -271,7 +346,8 @@ static NSMutableDictionary *bundleInfoDict;
     return publicClasses;
 }
 
-/** Return a dictionary of named objects. */
+/** Return a dictionary of named objects. Named objects are get from scripting
+    info class specified in ScriptingInfo.plist.*/
 - (NSDictionary *)namedObjects
 {
     if(!scriptingInfoClass)
@@ -288,7 +364,7 @@ static NSMutableDictionary *bundleInfoDict;
 
     if(!scriptingInfoClass)
     {
-        NSLog(@"No scripting info class for bundle '%@'",[bundle bundlePath]);
+        NSDebugLog(@"No scripting info class for bundle '%@'",[bundle bundlePath]);
 #if 0    
         [NSException raise:@"STBundleException"
                      format:@"Unable to get scripting info class '%@' for "

@@ -34,17 +34,19 @@
             Return an array of all class names.
           </desc>
         </method>
-        <method type="id">
+        <method type="id" init="yes">
           <sel>initWithBundle:</sel>
           <arg type="NSBundle*">aBundle</arg>
           <desc>
-            <em>Description forthcoming.</em>
+            Initialize info with bundle <var>aBundle</var>.
           </desc>
         </method>
         <method type="NSDictionary*">
           <sel>namedObjects</sel>
           <desc>
-            Return a dictionary of named objects.
+            Return a dictionary of named objects. Named objects
+            are get from scripting info class specified in
+            ScriptingInfo.plist.
           </desc>
         </method>
         <method type="NSDictionary*">
@@ -74,6 +76,29 @@
         <desc>
           <em>Description forthcoming.</em>
         </desc>
+        <method type="NSArray*" factory="yes">
+          <sel>allFrameworkNames</sel>
+          <desc>
+            Return names of all available frameworks in the
+            system.
+          </desc>
+        </method>
+        <method type="NSBundle*" factory="yes">
+          <sel>bundleForFrameworkWithName:</sel>
+          <arg type="NSString*">aName</arg>
+          <desc>
+            Return bundle for framework with name
+            <var>aName</var>.
+          </desc>
+        </method>
+        <method type="NSString*" factory="yes">
+          <sel>pathForFrameworkWithName:</sel>
+          <arg type="NSString*">aName</arg>
+          <desc>
+            Return path for framework with name <var>aName</var>
+            .
+          </desc>
+        </method>
         <method type="NSArray*" factory="yes">
           <sel>stepTalkBundleNames</sel>
           <desc>

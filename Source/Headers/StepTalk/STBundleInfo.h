@@ -54,4 +54,8 @@
 + (NSArray *)stepTalkBundleNames;
 + stepTalkBundleWithName:(NSString *)moduleName;
 - (NSDictionary *)scriptingInfoDictionary;
+
++ (NSArray *)allFrameworkNames;
++ (NSString *)pathForFrameworkWithName:(NSString *)aName;
++ (NSBundle *)bundleForFrameworkWithName:(NSString *)aName;
 @end

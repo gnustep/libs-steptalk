@@ -223,8 +223,28 @@
 }
 
 /**
+    Include scripting capabilities advertised by the framework with name 
+    <ivar>frameworkName</ivar>. If the framework is already loaded, nothing
+    happens.
+*/
+- (BOOL)includeFramework:(NSString *)frameworkName
+{
+    NSBundle *bundle;
+    
+    bundle = [NSBundle bundleForFrameworkWithName:frameworkName];
+    
+    if(!bundle)
+    {
+        return NO;  
+    }
+
+    return [self includeBundle:bundle];
+}
+
+/**
     Include scripting capabilities advertised by the bundle 
-    <ivar>aBundle</ivar>. Loads the bundle if it is not already loaded.
+    <ivar>aBundle</ivar>. If the bundle is already loaded, nothing
+    happens.
 */
 - (BOOL)includeBundle:(NSBundle *)aBundle
 {

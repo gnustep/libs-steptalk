@@ -11,6 +11,8 @@
 {
     Name = "StepTalk";
     
+    Modules = (StepTalk);
+    
     Classes = 
     {
         STBlock = 
