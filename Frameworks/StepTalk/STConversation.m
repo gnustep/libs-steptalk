@@ -79,8 +79,9 @@
 - initWithEnvironment:(STEnvironment *)env 
              language:(NSString *)langName
 {
-    [self subclassResponsibility:_cmd];
-    return nil;
+    [self dealloc];
+    
+    return [[STConcreteLocalConversation alloc] initWithEnvironment:env language:langName];
 }
 
 - (void)setLanguage:(NSString *)newLanguage

@@ -1,3 +1,9 @@
+2004 Apr 19 Stefan Urbanek
+
+    * applied patch from Mateu Batle to replace nil valuse with STNil on 
+    message sending
+    * fixed STConversation issue
+    
 2004 Mar 28 Stefan Urbanek
 
     Changes according to the Helge Hess:

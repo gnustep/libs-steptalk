@@ -158,7 +158,15 @@
     for(index = 2; index < count; index++)
     {
         arg = [invocation getArgumentAsObjectAtIndex:index];
-        [args addObject:arg];
+
+        if (arg == nil)
+        {
+            [args addObject:STNil];
+        }
+        else 
+        {
+            [args addObject:arg];
+        }
     }
 
     // NSDebugLLog(@"STSending",
@@ -168,7 +176,7 @@
                               forReceiver:self
                                 arguments:args];
     RELEASE(args);
-
+    
     // NSDebugLLog(@"STSending",
     //            @"<< returned from forwarding");
 

@@ -2,9 +2,10 @@
 
 #import "STScriptObject.h"
 
-#import "STEngine.h"
-#import "STObjCRuntime.h"
 #import "NSInvocation+additions.h"
+#import "STEngine.h"
+#import "STExterns.h"
+#import "STObjCRuntime.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSCoder.h>
@@ -141,7 +142,15 @@ some other, more clever mechanism. */
     for(index = 2; index < count; index++)
     {
         arg = [invocation getArgumentAsObjectAtIndex:index];
-        [args addObject:arg];
+
+        if (arg == nil)
+        { 
+            [args addObject:STNil];
+        }
+        else 
+        { 
+            [args addObject:arg];
+        } 
     }
 
     retval = [engine executeMethod:method
