@@ -113,7 +113,14 @@ static NSDictionary *STDOInfo(NSString *name)
         return obj;
     }
     
+
+    if(!toolName || [toolName isEqualToString:@""])
+    {
+        return nil;
+    }
+    
     NSDebugLLog(@"STFinder", @"Launching '%@'", toolName);
+
     task = [NSTask launchedTaskWithLaunchPath:toolName
                                     arguments:[dict objectForKey:@"Arguments"]];
     

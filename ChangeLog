@@ -1,10 +1,17 @@
+2002 Jun 7
+
+    * STEnvironmentDescription: added abstract class 'All' that is root
+    class for all classes
+    * Foundation-operators.stenv: add symbolic selector '->' to all classes
+
 2002 Jun 6
 
     * Added symbolic selector '->' for valueForKeyPath:
     * StepTalk.stenv: allow whileTrue: and whileFalse: in STBlock
     * NSObject+additions: moved from Smalltalk; added -isSame: method
     * DistributedFinder: prevent NSDictionary log when there is no file for 
-    teh requested object; changed NSLogs to NSDebugLLogs with 'STFinder'
+    a requested object; changed NSLogs to NSDebugLLogs with 'STFinder'; do not
+    try to launch nil tool
     
 2002 Jun 4
 

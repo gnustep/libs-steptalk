@@ -329,79 +329,94 @@
 /* FIXME: rewrite */
 - (STClassInfo *)findClassInfoForObject:(id)anObject
 {
-    NSString    *origName;
-    NSString    *name;
     STClassInfo *info = nil;
-    Class        class;
+    NSString    *className;
+    NSString    *origName;
+    Class       *class;
     
     if(!anObject)
     {
         anObject = STNil;
     }
 
+    /* FIXME: temporary solution */
     if( [anObject isProxy] )
     {
         NSDebugLog(@"FIXME: receiver is a distant object");
-        return nil;
+        info = [classes objectForKey:@"NSProxy"];
+
+        if(!info)
+        {
+            return [classes objectForKey:@"All"];
+        }
+        
+        return info;
     }
 
-    class = [anObject classForScripting];
-
+    if([anObject respondsToSelector:@selector(classForScripting)])
+    {
+        class = [anObject classForScripting];
+    }
+    else
+    {
+        class = [anObject class];
+    }
+    
+    className = [anObject className];
+    
     if([anObject isClass])
     {
-        origName = name = [[class className] 
-                            stringByAppendingString:@" class"];
+        origName = className = [className stringByAppendingString:@" class"];
 
         NSDebugLLog(@"STSending",
                     @"Looking for class info '%@'...",
-                    name);
+                    className);
 
-        info = [infoCache objectForKey:name];
+        info = [infoCache objectForKey:className];
         
         if(info)
         {
             return info;
         }
         
-        while( !(info = [classes objectForKey:name]) )
+        while( !(info = [classes objectForKey:className]) )
         {
-            class = [[class superclass] classForScripting];
+            class = [class superclass];
+
             if(!class)
             {
                 break;
             }
             
-            name = [[class className]
-                            stringByAppendingString:@" class"];
+            className = [[class className] stringByAppendingString:@" class"];
             NSDebugLLog(@"STSending",
-                        @"    ... %@?",name);
+                        @"    ... %@?",className);
         }
     }
     else
     {
-        origName = name = [class className];
+        origName = className;
 
         NSDebugLLog(@"STSending",
                     @"Looking for class info '%@' (instance)...",
-                    name);
+                    className);
 
-        info = [infoCache objectForKey:name];
+        info = [infoCache objectForKey:className];
         if(info)
         {
             return info;
         }
 
-        while( !(info = [classes objectForKey:name]) )
+        while( !(info = [classes objectForKey:className]) )
         {
-            class = [[class superclass] classForScripting];
+            class = [class superclass];
             if(!class)
             {
                 break;
             }
-            
-            name = [class className];
+            className = [class className];
             NSDebugLLog(@"STSending",
-                        @"    ... %@?",name);
+                        @"    ... %@?",className);
         }
     }
     
@@ -409,13 +424,13 @@
     {
         NSDebugLLog(@"STSending",
                     @"No class info '%@'",
-                    name);
+                    className);
         return nil;
     }
 
     NSDebugLLog(@"STSending",
                 @"Found class info '%@'",
-                name);
+                className);
                 
     [infoCache setObject:info forKey:origName]; 
     return info;
@@ -426,12 +441,14 @@
     STClassInfo *class;
     NSString    *selector;
 
+#if 0
     if( [anObject isProxy] )
     {
         NSDebugLog(@"Warning: receiver is a distant object (FIXME)");
      
         return aString;
     }
+#endif
 
     class    = [self findClassInfoForObject:anObject];
 

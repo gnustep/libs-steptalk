@@ -428,14 +428,26 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
                 
     while( (class = [enumerator nextObject]) )
     {
-        className = [class superclassName];
-        
-        if( (className == nil) || [className isEqualToString:@"nil"] )
+        if([[class behaviourName] isEqualToString:@"All"])
         {
             continue;
         }
         
-        superclass = [classes objectForKey:className];
+        className = [class superclassName];
+        
+        if( (className == nil) || [className isEqualToString:@"nil"] )
+        {
+            superclass = [classes objectForKey:@"All"];
+
+            if(!superclass)
+            {
+                continue;
+            }
+        }
+        else
+        {
+            superclass = [classes objectForKey:className];
+        }
 
         if(!superclass)
         {

@@ -1,3 +1,11 @@
+0.5.3
+
+    * StepTalk defaults changed
+    * Some source documentation added
+    * New example tool stshell - the StepTalk shell
+    * Added DistributedObject finder
+    * Bugfixes in Smalltalk language
+    
 0.5.2
 
     * Separated AppTalk

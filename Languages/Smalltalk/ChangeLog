@@ -1,3 +1,7 @@
+2002 Jun 7
+
+    * STBytecodeInterpreter: fixed debug-log bug
+    
 2002 Jun 6
 
     * STSourceReader: fixed bug in reading number token type and binary
