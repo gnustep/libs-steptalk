@@ -73,7 +73,7 @@ static NSString *NameColumn = @"NameColumn";
     [self setTitle:[_panel title]];
     [self setFrame:[_panel frame] display:YES];
     [self setHidesOnDeactivate:YES];
-    
+
     view = RETAIN([_panel contentView]);
     [_panel setContentView:nil];
     [self setContentView:view];
@@ -114,8 +114,10 @@ static NSString *NameColumn = @"NameColumn";
 - (void) run: (id)sender
 {
     STScript *script = [self selectedScript];
+
     if(script)
     {
+        NSLog(@"HEHEHEHERE");
         [delegate executeScript:script];
     }
 }
@@ -156,6 +158,7 @@ static NSString *NameColumn = @"NameColumn";
 
 - (STScript *)selectedScript
 {
+    NSLog(@"SL %i", [scriptList selectedRowInColumn:0]);
     if([scriptList selectedCell])
     {
         return [scripts objectAtIndex:[scriptList selectedRowInColumn:0]];
@@ -179,7 +182,7 @@ static NSString *NameColumn = @"NameColumn";
     NSString *name;
     if(sender != scriptList)
     {
-        NSLog(@"Invalid browsers, not scriptList");
+        NSLog(@"Invalid browser, not scriptList");
         return;
     }
     

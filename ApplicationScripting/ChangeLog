@@ -1,3 +1,8 @@
+2003 Mar 27
+
+    * ScriptsPanel.gorm: disallow multiple selection in scripts list. It was
+    not possible to get index of selected cell, because of -gui b0rk.
+
 2003 Mar 24
 
     * GNUmakefile*: Removed unnecessary stuff
