@@ -23,7 +23,7 @@ main
         self addFontSample:font
     ].
 
-    text writeRTFDToFile:'Fonts.rtf' atomically:YES.
+    "text writeRTFDToFile:'Fonts.rtf' atomically:YES."
 
     ^nil
 !    
@@ -32,12 +32,14 @@ addFontSample:fontName
     
     | attr |
 
+    Transcript showLine:fontName.
+
     attr := NSMutableDictionary dictionary.
     attr setObject:(NSFont fontWithName:fontName size:0) 
              forKey:NSFontAttributeName.
 
     text setTypingAttributes:attr.
-    text insertText:(fontName,'\n').
+"    text insertText:(fontName,'\n')."
     
     ^self
 

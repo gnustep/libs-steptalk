@@ -1,3 +1,11 @@
+0.7.2
+
+    * Added some autogsdoc generated documentation
+    * Implemented Framework support and new Environment method: includeFramework:
+    * Created a workaround for gnustep-base Distributed Objects bug. Now
+    DO shold work correctly.
+    * Some smalltalk parser fixes.
+
 0.7.1
 
     * Prepared StepTalk for application scripting support
