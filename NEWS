@@ -1,3 +1,9 @@
+0.8.2
+
+    * Fixed and changed license to LGPL
+    * Several fixes from Mateu Batle for the framework and Smalltalk bundle
+    * Fixed bug with signed/unsigned bytecode in the Smalltalk bundle
+
 0.8.1
 
     * Added ReadlineTranscript

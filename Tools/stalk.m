@@ -179,6 +179,7 @@ int main(int argc, const char **argv)
     executor = [[Executor alloc] init];
 
     args = [procInfo arguments];
+    NSLog(@"Warning: This tool is obsolete.");
     [executor runWithArguments:args];
 
     [pool release];
