@@ -40,6 +40,8 @@
     NSString      *source;
     
     NSMutableArray *objectStack;
+    
+    BOOL           exitRequest;
 }
 + sharedShell;
 

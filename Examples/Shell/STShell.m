@@ -121,6 +121,13 @@ int complete_handler(void)
     while(1)
     {
         line = [self readLine];
+
+        if(exitRequest)
+            break;
+
+        if(!line)
+            continue;
+
         result = [self executeLine:line];
 
         if(result)
@@ -134,6 +141,7 @@ int complete_handler(void)
         }
         
     }
+    printf("\n");
 }
 - (id)executeLine:(NSString *)line
 {
@@ -156,13 +164,24 @@ int complete_handler(void)
     NSString   *actualPrompt = prompt;
     NSString   *line = @"";
     BOOL        done = NO;
-
+    int         len;
+    
     while(!done)
     {
         str = readline([actualPrompt cString]);
         done = YES;
+
+        if(!str)
+        {
+            exitRequest = YES;
+            return nil;
+        }
+
+        len = strlen(str);
+        if(!len)
+            return nil;
         
-        if(str[strlen(str)-1] == '\\')
+        if(str[len-1] == '\\')
         {
             actualPrompt = @"... ? ";
             str[strlen(str) - 1] = '\0';
