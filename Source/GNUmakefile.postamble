@@ -42,7 +42,7 @@ before-install::
 after-install::
 	@(echo Copying scripting environments...; \
 	  cd Environments;\
-	  for file in *; do \
+	  for file in *.stenv; do \
 	      $(INSTALL_DATA) $$file $(STEPTALK_ENVDEFS_DIR)/$$file ; \
 	  done;\
 	)
