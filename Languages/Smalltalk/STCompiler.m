@@ -597,7 +597,7 @@ extern int STCparse(void *context);
     if(array)
     {
         BOOL first = YES;
-        
+
         enumerator = [array objectEnumerator];
         while((expr = [enumerator nextObject]))
         {
@@ -614,8 +614,6 @@ extern int STCparse(void *context);
             {
                 first = NO;
             }
-
-            [self compileExpression:expr];            
         }
     }
 
