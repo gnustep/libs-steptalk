@@ -7,7 +7,7 @@
   
     Copyright (c) 2002 Stefan Urbanek
   
-    Written by: Stefan Urbanek <stefanurbanek@yahoo.fr>
+    Written by: Stefan Urbanek <urbanek@host.sk>
     Date: 2002 Apr 13
  
     This file is part of the StepTalk project.

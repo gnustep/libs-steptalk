@@ -28,8 +28,7 @@
 #
 
 # Things to do before compiling
-before-all::
-	ln -sf Source/Headers .
+# before-all::
 
 # Things to do after compiling
 # after-all::

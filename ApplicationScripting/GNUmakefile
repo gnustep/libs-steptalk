@@ -27,13 +27,10 @@ GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
 include $(GNUSTEP_MAKEFILES)/common.make
 include Version
 
-PACKAGE_NAME = ApplicationTalk
+PACKAGE_NAME = ApplicationScripting
 
 SUBPROJECTS = \
-    Source \
-#    Apps \
-#    Tools 
-
+    Source 
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make

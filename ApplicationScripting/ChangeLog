@@ -1,3 +1,9 @@
+2003 Mar 24
+
+    * GNUmakefile*: Removed unnecessary stuff
+    * Documentation: Moved relevant docs into StepTalk documentation. Removed
+    the directory.
+
 2003 Mar 23
 
     * Added ScriptingMenu.gorm

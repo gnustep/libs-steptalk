@@ -1,36 +1,42 @@
-(unnamed bundle)
-----------------
-Ahthor: Stefan Urbanek  <urbanek@host.fr>
+Application Scripting bundle
+----------------------------
+Ahthor: Stefan Urbanek  <urbanek@host.sk>
+
+NOTE: this bundle wants another name and cleanup. 
 
 
-NOTE: this bundle wants name and cleanup. 
+What is Application Scripting Bundle ?
+--------------------------------------
 
-What is (unnamed) ?
-------------------
-Application scripting framework.
+Bundle that allows users to 'script' applications. In other words, for example,
+users can:
 
-With AppTalk it is possible to make applications scriptable by StepTalk.
+- extend the behaviour of application by adding their own functionality
+- automate tasks in the application
+- create a batch task
+
+How to make applications scriptable is described in Documentation. It can be
+done very easily in less than five minutes.
 
 
 Where to get it?
 ----------------
-AppTalk is part of the StepTalk and you can download StepTalk from 
 
-    http://steptalk.host.sk    
+Application Scripting Bundle is part of the StepTalk and you can download
+it from:
+
+    http://steptalk.host.sk/download.html
 
 
 Installation
 ------------
-To install AppTalk type:
+Application Scripting Bundle is automatically installed with StepTalk. You can
+install it separately by doing:
+
     > make
     > make install
 
-Examples
---------
-
-    Ink.app example - Modified scriptable version of Ink.app.
     
 Feedback
 --------
-Any bug reports and comments are welcome at
-<urbanek@host.sk>
+Any bug reports and comments are welcome at urbanek@host.sk
