@@ -43,7 +43,7 @@
 }
 /** Creates a new conversation with environment created using default 
     description and language with name <var>langName</var>. */
-+ conversationInEnvironment:(STEnvironment *)env 
++ conversationWithEnvironment:(STEnvironment *)env 
                    language:(NSString *)langName
 {
     STConversation *c;
@@ -114,6 +114,7 @@
     {
         [self _createEngine];
     }
+    NSLog(@"Run script in %@", environment);
     return [engine executeCode: aString inEnvironment:environment];
 }
 @end

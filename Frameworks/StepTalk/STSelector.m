@@ -25,27 +25,70 @@
  */
 
 #import "STSelector.h"
+#import "STObjCRuntime.h"
+
+#import <Foundation/NSCoder.h>
+#import <Foundation/NSString.h>
 
 @implementation STSelector
+- initWithName:(NSString *)aString
+{
+    [super init];
+    
+    selectorName = RETAIN(aString);
+    
+    return self;
+}
+
 - initWithSelector:(SEL)aSel
 {
     [super init];
     sel = aSel;
     return self;
 }
+- (void)dealloc
+{
+    RELEASE(selectorName);
+    [super dealloc];
+}
 
 - (SEL)selectorValue
 {
+    if(sel == 0)
+    {
+        sel = STSelectorFromString(selectorName);
+    }
     return sel;
 }
 
 - (NSString *)description
 {
-    return NSStringFromSelector(sel);
+    return [NSString stringWithFormat:@"#%@", [self selectorName]];
 }
 
-- (NSString *)stringValue
+- (NSString *)selectorName
 {
-    return NSStringFromSelector(sel);
+    if(!selectorName)
+    {
+        selectorName = RETAIN(NSStringFromSelector(sel));
+    }
+
+    return selectorName;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    // [super encodeWithCoder: coder];
+
+    [coder encodeObject:selectorName];
+}
+
+- initWithCoder:(NSCoder *)decoder
+{
+    self = [super init]; // super initWithCoder: decoder];
+    
+    [decoder decodeValueOfObjCType: @encode(id) at: &selectorName];
+
+    return self;
 }
 @end

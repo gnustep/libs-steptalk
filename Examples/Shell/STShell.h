@@ -36,7 +36,6 @@
 @interface STShell:NSObject
 {
     STScriptsManager *scriptsManager;
-    STEnvironment    *env;
     STConversation   *conversation;
     
     NSString         *prompt;

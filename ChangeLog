@@ -1,3 +1,8 @@
+2003 Nov 24 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
+
+    * Few fixes, removed some compiler warnings. Fixed Shell to use
+    proper environment.
+
 2003 Nov 8 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
 
     * Updated tools to use STConversation object.

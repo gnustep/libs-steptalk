@@ -257,6 +257,31 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     return invocation;
 }
 
++ invocationWithTarget:(id)target selector:(SEL)selector
+{
+    NSMethodSignature *signature;
+    NSInvocation      *invocation;
+    
+    signature = [target methodSignatureForSelector:selector];
+
+
+    if(!signature)
+    {
+        [NSException raise:STInternalInconsistencyException
+                     format:@"No method signature for selector '%@' for "
+                            @"receiver of type %@",
+                            NSStringFromSelector(selector),[target className]];
+        return nil;
+    }
+  
+    invocation = [NSInvocation invocationWithMethodSignature:signature];
+
+    [invocation setSelector:selector];
+    [invocation setTarget:target];
+
+    return invocation;
+}
+
 - (void)setArgumentAsObject:(id)anObject atIndex:(int)anIndex
 {
     const char *type;

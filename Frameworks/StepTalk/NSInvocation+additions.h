@@ -32,6 +32,7 @@ id   STObjectFromValueOfType(void *value, const char *type);
 
 @interface NSInvocation(STAdditions)
 + invocationWithTarget:(id)target selectorName:(NSString *)selectorName;
++ invocationWithTarget:(id)target selector:(SEL)selector;
 
 - (void)setArgumentAsObject:(id)anObject atIndex:(int)anIndex;
 - (id)getArgumentAsObjectAtIndex:(int)anIndex;

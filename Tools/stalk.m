@@ -97,7 +97,6 @@
     after moving from STEngnie to STConversation */
 - (void)createConversation
 {
-    STEnvironmentDescription *desc;
     STEnvironment            *env;
 
     if([target respondsToSelector:@selector(scriptingEnvironment)])

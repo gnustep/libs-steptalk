@@ -40,5 +40,5 @@
 - (NSString *)scriptName;
 - (NSString *)localizedName;
 - (NSString *)scriptDescription;
-- (NSComparisonResult)compareByLocalizedName:(STScript *)aScript;
+- (NSComparisonResult)compareByLocalizedName:(STFileScript *)aScript;
 @end

@@ -37,8 +37,12 @@
     NSString      *languageName;
     STEnvironment *environment;
 }
-+ conversationInEnvironment:(STEnvironment *)env 
-                   language:(NSString *)langName;
+/*
++ conversationWithApplication:(NSString *)appName
+                     language:(NSString *)langName;
+*/                     
++ conversationWithEnvironment:(STEnvironment *)env 
+                     language:(NSString *)langName;
                    
 - initWithEnvironment:(STEnvironment *)env 
              language:(NSString *)aString;

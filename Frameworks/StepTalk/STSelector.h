@@ -28,11 +28,13 @@
 
 @interface STSelector:NSObject
 {
-    SEL sel;
+    NSString *selectorName;
+    SEL       sel;
 }
+- initWithName:(NSString *)aString;
 - initWithSelector:(SEL)aSel;
 
 - (SEL)selectorValue;
-- (NSString *)stringValue;
+- (NSString *)selectorName;
 @end
 

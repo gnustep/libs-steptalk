@@ -142,18 +142,19 @@ int complete_handler(void)
 
 - (void)setEnvironment:(STEnvironment *)newEnv
 {
-    ASSIGN(env, newEnv);
+    [conversation setEnvironment:newEnv];
 }
 
 - (STEnvironment *)environment
 {
-    return env;
+    return [conversation environment];
 }
 
 - (void)run
 {
-    NSString *line;
-    id        result;
+    STEnvironment *env = [conversation environment];
+    NSString      *line;
+    id             result;
         
     [env setCreatesUnknownObjects:YES];
     
@@ -169,6 +170,8 @@ int complete_handler(void)
 
     [self showLine:@"Welcome to the StepTalk shell."];
     
+    NSLog(@"Environment %@", env);
+
     while(1)
     {
         line = [self readLine];
@@ -199,8 +202,9 @@ int complete_handler(void)
 }
 - (id)executeLine:(NSString *)line
 {
-    NSString *cmd;
-    id result = nil;
+    STEnvironment *env = [conversation environment];
+    NSString      *cmd;
+    id             result = nil;
 
     /* FIXME: why? */
 
@@ -257,12 +261,13 @@ int complete_handler(void)
 
 - (int)completion
 {
-    NSEnumerator *enumerator;
-    NSMutableSet *set;
-    NSString     *match;
-    NSString     *tail;
-    NSString     *str;
-    NSArray      *array;
+    STEnvironment *env = [conversation environment];
+    NSEnumerator  *enumerator;
+    NSMutableSet  *set;
+    NSString      *match;
+    NSString      *tail;
+    NSString      *str;
+    NSArray       *array;
     int pos = 0;
     int c;
     
