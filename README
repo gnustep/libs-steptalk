@@ -22,6 +22,10 @@ You can download StepTalk from
 
     http://steptalk.host.sk
 
+Documentation for users and developers:
+
+    http://wiki.gnustep.org/index.php/Scripting
+
 
 Installation
 ------------
@@ -48,6 +52,8 @@ Tools
     stalk  - talk to named server
     stupdate_languages - update the available languages info
 
+    stshell - StepTalk shell - interactive tool (in Examples/Shell)
+    
     Predefined objects for executing scripts by 'stexec'
     
         Args          - command line arguments

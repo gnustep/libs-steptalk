@@ -1,3 +1,12 @@
+2003 Feb 11
+
+    * Source/GNUmakefile: fixed installation of documentation
+    
+2003 Feb 4
+
+    * STBundleInfo: warn instead of raise an exception if there is no scripting
+    info class.
+
 2003 Feb 3
 
     * Version 0.7.0

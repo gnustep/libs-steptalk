@@ -252,11 +252,14 @@ static NSMutableDictionary *bundleInfoDict;
 
     if(!scriptingInfoClass)
     {
+        NSLog(@"No scripting info class for bundle '%@'",[bundle bundlePath]);
+#if 0    
         [NSException raise:@"STBundleException"
                      format:@"Unable to get scripting info class '%@' for "
                             @"bundle '%@'", 
                             scriptingInfoClassName, [bundle bundlePath]];
                      
+#endif
     }
 }
 @end

@@ -87,10 +87,10 @@ StepTalk_DOC_INSTALL_DIR = Developer
 StepTalk_HEADER_FILES_DIR = $(HEADER_DIR)
 StepTalk_AGSDOC_FILES = StepTalk.gsdoc $(STEPTALK_HEADER_FILES)
 StepTalk_AGSDOC_FLAGS = \
-        -DocumentationDirectory ../Documentation/StepTalk \
         -HeaderDirectory Headers/StepTalk \
         -Up StepTalk \
         -Declared StepTalk
+#        -DocumentationDirectory ../Documentation/StepTalk \
 
 
 -include GNUmakefile.preamble
