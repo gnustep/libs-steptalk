@@ -83,6 +83,23 @@
     return [target scriptingEnvironment];
 }
 
+- (void)setScriptingMenu:(NSMenu *)menu
+{
+    ASSIGN(scriptingMenu, menu);
+}
+- (NSMenu *)scriptingMenu
+{
+    if(!scriptingMenu)
+    {
+        if(![self loadMyNibNamed:@"ScriptingMenu"])
+        {
+            return nil;
+        }
+    }
+    NSLog(@"Scripting menu: %@", scriptingMenu);
+    return scriptingMenu;
+}
+
 - (id)executeScript:(STScript *)script
 {
     STEnvironment  *env = [self actualScriptingEnvironment];
@@ -129,20 +146,47 @@
     
     return retval;
 }
-- (void)setScriptingMenu:(NSMenu *)menu
+
+- (id)executeScriptString:(NSString *)source
+            inEnvironment:(STEnvironment *)env
 {
-    ASSIGN(scriptingMenu, menu);
-}
-- (NSMenu *)scriptingMenu
-{
-    if(!scriptingMenu)
+    STEngine       *engine;
+    NSString       *error;
+    id             retval = nil;
+    
+    engine = [STEngine engineForLanguageWithName:
+                            [STLanguage defaultLanguageName]];
+    if(!engine)
     {
-        if(![self loadMyNibNamed:@"ScriptingMenu"])
-        {
-            return nil;
-        }
+        NSLog(@"Unable to get scripting engine.");
+        return nil;
     }
-    NSLog(@"Scripting menu: %@", scriptingMenu);
-    return scriptingMenu;
+
+    if(!env)
+    {
+        NSLog(@"No scripting environment");
+        return nil;
+    }
+
+    NS_DURING
+        NSLog(@"Execute '%@'", source);
+        retval = [engine executeCode:source inEnvironment:env];
+        NSLog(@"Pre-returned %@", retval);
+    NS_HANDLER
+        error = [NSString stringWithFormat:
+                            @"Error: "
+                            @"Execution of script failed. %@. (%@)",
+                            [localException reason],
+                            [localException name]];
+
+        [[STTranscript sharedTranscript] showError:error];
+
+        NSLog(@"Script exception: %@", error);
+
+        retval = nil;
+    NS_ENDHANDLER
+    
+        NSLog(@"HERE 4");
+    return retval;
 }
 @end

@@ -26,15 +26,15 @@
 
 #import "NSApplication+additions.h"
 
-#import "STEnvironment+additions.h"
 #import "STScriptsPanel.h"
 #import "STTranscript.h"
 
 #import <StepTalk/STBundleInfo.h>
 
 #import <Foundation/NSBundle.h>
-#import <Foundation/NSNotification.h>
+#import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSNotification.h>
 #import <Foundation/NSProcessInfo.h>
 #import <Foundation/NSString.h>
 
@@ -221,5 +221,10 @@ STApplicationScriptingController */
 - (BOOL)isScriptingSupported
 {
     return YES;
+}
+
+- (STApplicationScriptingController *)scriptingController
+{
+    return scriptingController;
 }
 @end

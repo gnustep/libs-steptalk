@@ -35,6 +35,7 @@ ApplicationScripting_OBJC_FILES = \
     STApplicationScriptingController.m \
     STEnvironment+additions.m \
     STScriptsPanel.m \
+    NSTextView+ScriptExecution.m \
     STTranscript.m 
 
 ApplicationScripting_BUNDLE_LIBS += -lStepTalk $(GUI_LIBS)
