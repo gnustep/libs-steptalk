@@ -93,7 +93,8 @@ typedef struct _STParserContext
     Class           stringLiteralClass; /* default: NSMutableString */
     Class           arrayLiteralClass;  /* default: NSMutableArray */
     Class           characterLiteralClass;  /* default: NSString */
-    Class           numberLiteralClass; /* default: NSNumber */
+    Class           intNumberLiteralClass; /* default: NSNumber */
+    Class           realNumberLiteralClass; /* default: NSNumber */
     Class           symbolLiteralClass; /* default: NSString */
 }
 /*" Environment "*/

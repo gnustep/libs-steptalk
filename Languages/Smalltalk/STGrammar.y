@@ -58,7 +58,7 @@
 %token TK_LPAREN TK_RPAREN TK_BLOCK_OPEN TK_BLOCK_CLOSE TK_ARRAY_OPEN
 %token TK_DOT TK_COLON TK_SEMICOLON TK_RETURN
 %token TK_IDENTIFIER TK_BINARY_SELECTOR TK_KEYWORD
-%token TK_NUMBER TK_SYMBOL TK_STRING TK_CHARACTER
+%token TK_INTNUMBER TK_REALNUMBER TK_SYMBOL TK_STRING TK_CHARACTER
 
 /* Grammar */
 
@@ -368,8 +368,11 @@ binary_selector: TK_BINARY_SELECTOR
 ;
 keyword: TK_KEYWORD
 ;
-literal: TK_NUMBER               
-                        { $$ = [COMPILER createNumberLiteralFrom:$1]; }
+literal: 
+    TK_INTNUMBER               
+                        { $$ = [COMPILER createIntNumberLiteralFrom:$1]; }
+    | TK_REALNUMBER               
+                        { $$ = [COMPILER createRealNumberLiteralFrom:$1]; }
     | TK_SYMBOL
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
     | TK_STRING
@@ -440,7 +443,8 @@ int STClex (YYSTYPE *lvalp, void *context)
     case STSymbolTokenType:         return TK_SYMBOL;
     case STStringTokenType:         return TK_STRING;
     case STCharacterTokenType:      return TK_CHARACTER;
-    case STNumberTokenType:         return TK_NUMBER;
+    case STIntNumberTokenType:         return TK_INTNUMBER;
+    case STRealNumberTokenType:         return TK_REALNUMBER;
     case STSeparatorTokenType:      return TK_SEPARATOR;
 
     case STEndTokenType:            return 0;

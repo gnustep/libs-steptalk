@@ -1,3 +1,22 @@
+0.6.2
+
+    * Smalltalk: Added parsing of real numbers
+    * ObjectiveC: added two new methods into the Runtime object:
+        selectorsContainingString: 
+            returns an array of selectors that contain specified string
+        implementorsOfSelector:
+            returns an array of all classes that implement specified selector
+            
+    * Created an empty language bundle MyLanguage as an example
+    * Added GDL2 module
+    * Fixed installation: removed forced installation to the user's home 
+    directory
+
+
+    NOTE: Please delete all standard StepTalk language bundles, modules and
+    finders from your home directory if it is not your default installation
+    directory so new bundles can be found.
+
 0.6.1
 
     * Code cleanup

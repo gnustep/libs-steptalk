@@ -283,10 +283,12 @@ static NSString *_STNormalizeStringToken(NSString *token)
         tokenRange = NSMakeRange(start,srcOffset - start);
         return STIdentifierTokenType;
     }
-    else if ( c == '-' || [numericCharacterSet characterIsMember:c])
+    else if ( c == '-' || c == '+' || [numericCharacterSet characterIsMember:c])
     {
-        BOOL maybesym = (c == '-');
-        
+        BOOL maybesym = (c == '-' || c == '+');
+        BOOL scannedSomething = NO;
+        BOOL isReal = NO;
+                
         start = srcOffset++;
 
         c = GET_CHAR;
@@ -311,10 +313,57 @@ static NSString *_STNormalizeStringToken(NSString *token)
             if(AT_END)
                 break;
         }
+        
+        if(c == '.')
+        {
+            c = GET_CHAR;
+            while([numericCharacterSet characterIsMember:c])
+            {
+                c = GET_CHAR;
+                scannedSomething = YES;
+                if(AT_END)
+                    break;
+            }
+            if(!scannedSomething)
+            {
+                tokenRange = NSMakeRange(start,srcOffset - start + 1);
+                [NSException raise:STCompilerSyntaxException
+                            format:@"Expected digit after the decimal point"];
+                return STErrorTokenType;
+            }
+            scannedSomething = NO;
+            isReal = YES;
+        }
+            
+        if(c == 'e' || c == 'E')
+        {
+            c = GET_CHAR;
+            if(c == '+' || c == '-')
+            {
+                c = GET_CHAR;
+            }
+            while([numericCharacterSet characterIsMember:c])
+            {
+                c = GET_CHAR;
+                scannedSomething = YES;
+                if(AT_END)
+                    break;
+            }
+            if(!scannedSomething)
+            {
+                tokenRange = NSMakeRange(start,srcOffset - start + 1);
+                [NSException raise:STCompilerSyntaxException
+                            format:@"Expected digits in the exponent"];
+                return STErrorTokenType;
+            }
+            scannedSomething = NO;
+            isReal = YES;
+        }
+        
         srcOffset --;
         tokenRange = NSMakeRange(start,srcOffset - start);
 
-        if([identStartCharacterSet characterIsMember:c])
+        if([identStartCharacterSet characterIsMember:c] && c != 'e' && c != 'E')
         {
             tokenRange = NSMakeRange(start,srcOffset - start + 1);
             [NSException raise:STCompilerSyntaxException
@@ -322,7 +371,14 @@ static NSString *_STNormalizeStringToken(NSString *token)
             return STErrorTokenType;
         }
         
-        return STNumberTokenType;
+        if(isReal)
+        {
+            return STRealNumberTokenType;
+        }
+        else
+        {
+            return STIntNumberTokenType;
+        }
         
     }
     else if ([symbolicSelectorCharacterSet characterIsMember:c])

@@ -74,6 +74,7 @@
     id   retval = nil;
     int  i;
 
+    /* FIXME: step < 0? */
     for(i=[self intValue];i<=number;i+=step)
     {
         retval = [block valueWith:[NSNumber numberWithInt:i]];

@@ -47,7 +47,8 @@ typedef enum
     STStringTokenType,              //  'This is string'
 
     STCharacterTokenType,           //  $a (any single alphanum character)
-    STNumberTokenType,              //  -?[0-9]+
+    STIntNumberTokenType,           //  [+-]?[0-9]+
+    STRealNumberTokenType,          //  [+-]?[0-9]+.[0-9]+[eE][+-][0-9]+
     
     STEndTokenType
     

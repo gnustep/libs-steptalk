@@ -350,10 +350,13 @@
 @end
 
 @implementation NSNumber(STCompilerAdditions)
-+ (id) numberFromString:(NSString *)aString
++ (id) intNumberFromString:(NSString *)aString
 {
-    /* FIXME: handle all formats */
     return [self numberWithInt:[aString intValue]];
+}
++ (id) realNumberFromString:(NSString *)aString
+{
+    return [self numberWithDouble:[aString doubleValue]];
 }
 @end
 

@@ -1,3 +1,11 @@
+2002 Dec 21
+
+    * STSourceReader, STCompiler, STGrammar: Added real number parsing
+
+2002 Sep 15
+
+    * Version 0.6.1
+
 2002 Aug 30
 
     * Code cleanup.

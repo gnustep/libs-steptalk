@@ -100,7 +100,8 @@ extern int STCparse(void *context);
     arrayLiteralClass     = [NSMutableArray class];
     stringLiteralClass    = [NSMutableString class];
     /* bytesLiteralClass  = [NSMutableData class]; */
-    numberLiteralClass    = [NSNumber class];
+    intNumberLiteralClass  = [NSNumber class];
+    realNumberLiteralClass = [NSNumber class];
     symbolLiteralClass    = [STSelector class];        
     characterLiteralClass = [NSString class];
     
@@ -650,9 +651,13 @@ extern int STCparse(void *context);
 {
     return arrayLiteralClass;
 }
-- (Class)numberLiteralClass
+- (Class)intNumberLiteralClass
 {
-    return numberLiteralClass;
+    return intNumberLiteralClass;
+}
+- (Class)realNumberLiteralClass
+{
+    return realNumberLiteralClass;
 }
 - (Class)symbolLiteralClass
 {
@@ -670,9 +675,13 @@ extern int STCparse(void *context);
 {
     arrayLiteralClass = aClass;
 }
-- (void)setNumberLiteralClass:(Class)aClass
+- (void)setIntNumberLiteralClass:(Class)aClass
 {
-    numberLiteralClass = aClass;
+    intNumberLiteralClass = aClass;
+}
+- (void)setRealNumberLiteralClass:(Class)aClass
+{
+    realNumberLiteralClass = aClass;
 }
 - (void)setSymbolLiteralClass:(Class)aClass
 {
@@ -683,9 +692,13 @@ extern int STCparse(void *context);
     characterLiteralClass = aClass;
 }
 
-- (id)createNumberLiteralFrom:(NSString *)aString
+- (id)createIntNumberLiteralFrom:(NSString *)aString
 {
-    return [numberLiteralClass numberFromString:aString];
+    return [intNumberLiteralClass intNumberFromString:aString];
+}
+- (id)createRealNumberLiteralFrom:(NSString *)aString
+{
+    return [realNumberLiteralClass realNumberFromString:aString];
 }
 - (id)createSymbolLiteralFrom:(NSString *)aString
 {

@@ -1,3 +1,9 @@
+2002 Dec 21
+
+    * Languages/GNUmakefile, Modules/GNUmakefile, Finders/GNUmakefile: removed
+    forced installation to the GNUSTEP_USER_ROOT. ~/Library/StepTalk/* should
+    be deleted.
+
 2002 Nov 29
 
     * Added GDL2 module
