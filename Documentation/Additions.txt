@@ -17,3 +17,9 @@ NSFileManager
     + (NSString *)temporaryDirectory
 
     + (NSArray *)standardLibraryPaths
+
+Example:
+    NSFileManager searchPathForDirectories:NSLibraryDirectory 
+                inDomains:(NSUserDomainMask or: NSLocalDomainMask)
+                
+                

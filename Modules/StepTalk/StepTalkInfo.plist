@@ -3,7 +3,7 @@
         STEnvironment,
         STLanguage,
         STScript,
-        STScriptsManager/*,
-        STBundle*/
+        STScriptsManager
+        /* STBundle */
     );
 }

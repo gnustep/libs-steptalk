@@ -171,6 +171,23 @@ NSDictionary *STGetFoundationConstants(void)
     ADD_id_OBJECT(NSGlobalDomain,@"NSGlobalDomain");
     ADD_id_OBJECT(NSArgumentDomain,@"NSArgumentDomain");
     ADD_id_OBJECT(NSRegistrationDomain,@"NSRegistrationDomain");
+    ADD_int_OBJECT(NSApplicationDirectory,@"NSApplicationDirectory");
+    ADD_int_OBJECT(NSDemoApplicationDirectory,@"NSDemoApplicationDirectory");
+    ADD_int_OBJECT(NSDeveloperApplicationDirectory,@"NSDeveloperApplicationDirectory");
+    ADD_int_OBJECT(NSAdminApplicationDirectory,@"NSAdminApplicationDirectory");
+    ADD_int_OBJECT(NSLibraryDirectory,@"NSLibraryDirectory");
+    ADD_int_OBJECT(NSDeveloperDirectory,@"NSDeveloperDirectory");
+    ADD_int_OBJECT(NSUserDirectory,@"NSUserDirectory");
+    ADD_int_OBJECT(NSDocumentationDirectory,@"NSDocumentationDirectory");
+    ADD_int_OBJECT(NSAllApplicationsDirectory,@"NSAllApplicationsDirectory");
+    ADD_int_OBJECT(NSAllLibrariesDirectory,@"NSAllLibrariesDirectory");
+    ADD_int_OBJECT(GSLibrariesDirectory,@"GSLibrariesDirectory");
+    ADD_int_OBJECT(GSToolsDirectory,@"GSToolsDirectory");
+    ADD_int_OBJECT(NSUserDomainMask,@"NSUserDomainMask");
+    ADD_int_OBJECT(NSLocalDomainMask,@"NSLocalDomainMask");
+    ADD_int_OBJECT(NSNetworkDomainMask,@"NSNetworkDomainMask");
+    ADD_int_OBJECT(NSSystemDomainMask,@"NSSystemDomainMask");
+    ADD_int_OBJECT(NSAllDomainsMask,@"NSAllDomainsMask");
 
     return dict;
 }

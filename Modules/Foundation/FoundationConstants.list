@@ -168,3 +168,21 @@ id NSGlobalDomain
 id NSArgumentDomain
 id NSRegistrationDomain
 
+int NSApplicationDirectory
+int NSDemoApplicationDirectory
+int NSDeveloperApplicationDirectory
+int NSAdminApplicationDirectory
+int NSLibraryDirectory
+int NSDeveloperDirectory
+int NSUserDirectory
+int NSDocumentationDirectory
+int NSAllApplicationsDirectory
+int NSAllLibrariesDirectory
+int GSLibrariesDirectory
+int GSToolsDirectory
+
+int NSUserDomainMask
+int NSLocalDomainMask
+int NSNetworkDomainMask
+int NSSystemDomainMask
+int NSAllDomainsMask
