@@ -100,9 +100,9 @@
 {
     return [homeContext bytecodes];
 }
-- (id)literalAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(unsigned)index
 {
-    return [homeContext literalAtIndex:index];
+    return [homeContext literalObjectAtIndex:index];
 }
 - (id)receiver
 {

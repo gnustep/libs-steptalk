@@ -56,7 +56,7 @@
 - (void)setTemporary:anObject atIndex:(unsigned)index;
 - (id)externAtIndex:(unsigned)index;
 - (void)setExtern:anObject atIndex:(unsigned)index;
-- (id)literalAtIndex:(unsigned)index;
+- (id)literalObjectAtIndex:(unsigned)index;
 
 - (id)receiver;
 @end

@@ -46,8 +46,8 @@
     
     BOOL              exitRequest;
 
-    BOOL              updateCompletitionList;
-    NSArray          *completitionList;
+    BOOL              updateCompletionList;
+    NSArray          *completionList;
 }
 + sharedShell;
 
@@ -65,4 +65,15 @@
 - showResult:(id)obj;
 - showException:(NSException *)exception;
 - (void)showError:(NSString *)errString;
+@end
+
+@interface STShell(STShellOutput)
+
+- show:(id)anObject;
+- showLine:(id)anObject;
+- showResult:(id)obj;
+- (char *)displayCStringForObject:(id)object;
+- showException:(NSException *)exception;
+- (id)listObjects;
+
 @end

@@ -178,9 +178,9 @@
 {
     return [method bytecodes];
 }
-- (id)literalAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(unsigned)index
 {
-    return [method literalAtIndex:index];
+    return [method literalObjectAtIndex:index];
 }
 
 - (void)setArgumentsFromArray:(NSArray *)args

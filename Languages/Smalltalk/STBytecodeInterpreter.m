@@ -322,7 +322,7 @@ static Class NSInvocation_class = nil;
 
     NSDebugLLog(@"STSending",
                 @"send selector '%@' with %i args'",
-                [activeContext literalAtIndex:selIndex],argCount);
+                [activeContext literalObjectAtIndex:selIndex],argCount);
                 
     target = [stack valueFromTop:argCount];
     
@@ -332,7 +332,7 @@ static Class NSInvocation_class = nil;
         target = STNil;
     }
     
-    selector = [activeContext literalAtIndex:selIndex];
+    selector = [activeContext literalObjectAtIndex:selIndex];
 
     NSDebugLLog(@"STSending",
                @"  %s receiver:%@ (%@) selector:%@",
@@ -469,7 +469,7 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushLiteralBytecode:
-                object = [activeContext literalAtIndex:bytecode.arg1];
+                object = [activeContext literalObjectAtIndex:bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
@@ -492,7 +492,7 @@ static Class NSInvocation_class = nil;
 
     case STSendSelectorBytecode:
                 STDebugBytecodeWith(bytecode,
-                                    [activeContext literalAtIndex:bytecode.arg1]);
+                                    [activeContext literalObjectAtIndex:bytecode.arg1]);
 
                 (*sendSelectorAtIndexImp)(self, sendSelectorAtIndexSel,
                                           bytecode.arg1,bytecode.arg2);

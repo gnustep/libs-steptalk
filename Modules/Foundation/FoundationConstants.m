@@ -119,9 +119,9 @@ NSDictionary *STGetFoundationConstants(void)
     ADD_id_OBJECT(NSWeekDayNameArray,@"NSWeekDayNameArray");
     ADD_id_OBJECT(NSYearMonthWeekDesignations,@"NSYearMonthWeekDesignations");
     ADD_id_OBJECT(NSFileDeviceIdentifier,@"NSFileDeviceIdentifier");
-    ADD_id_OBJECT(NSFileGroupOwnerAccountNumber,@"NSFileGroupOwnerAccountNumber");
+    ADD_id_OBJECT(NSFileGroupOwnerAccountID,@"NSFileGroupOwnerAccountID");
     ADD_id_OBJECT(NSFileModificationDate,@"NSFileModificationDate");
-    ADD_id_OBJECT(NSFileOwnerAccountNumber,@"NSFileOwnerAccountNumber");
+    ADD_id_OBJECT(NSFileOwnerAccountID,@"NSFileOwnerAccountID");
     ADD_id_OBJECT(NSFilePosixPermissions,@"NSFilePosixPermissions");
     ADD_id_OBJECT(NSFileReferenceCount,@"NSFileReferenceCount");
     ADD_id_OBJECT(NSFileSize,@"NSFileSize");

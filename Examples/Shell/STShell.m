@@ -45,33 +45,36 @@ static Class NSNumber_class;
 
 NSArray *objcSelectors = nil;
 
-static STShell *sharedShell = nil;
+static STShell	*sharedShell = nil;
 
 @interface STShell(STPrivate)
-- (int)_completition;
+- (int) completion;
 - (NSString *)readLine;
 - (void)initReadline;
 @end
 
 int complete_handler(void)
 {
-    return [sharedShell _completition];
+    return [sharedShell completion];
 }
 
 @implementation STShell
+
 + (void)initialize
 {
     NSString_class = [NSString class];
     NSNumber_class = [NSNumber class];
 }
+
 + sharedShell
 {
     if(!sharedShell)
     {
-        sharedShell = [[STShell alloc] init];
+        sharedShell = [[self alloc] init];
     }
     return sharedShell;
 }
+
 - init
 {
     self = [super init];
@@ -93,24 +96,22 @@ int complete_handler(void)
     return self;
 }
 
-- (void)updateCompletitionList
+- (void)updateCompletionList
 {
-    NSMutableArray *array;
-    RELEASE(completitionList);
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    RELEASE(completionList);
     
-    array = [[NSMutableArray alloc] init];
-
     [array addObjectsFromArray:STAllObjectiveCSelectors()];
 
-    completitionList = [[NSArray alloc] initWithArray:array];
+    completionList = [[NSArray alloc] initWithArray:array];
 
-    updateCompletitionList = NO;
+    updateCompletionList = NO;
 }
 
 - (void)dealloc
 {
     RELEASE(objectStack);
-    RELEASE(completitionList);
+    RELEASE(completionList);
     RELEASE(scriptsManager);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -119,7 +120,7 @@ int complete_handler(void)
 }
 -(void)bundleLoaded:(NSNotification *)notif
 {
-    updateCompletitionList = YES;
+    updateCompletionList = YES;
 }
 
 - (void)initReadline
@@ -244,7 +245,7 @@ int complete_handler(void)
     return line;
 }
 
-- (int)_completition
+- (int)completion
 {
     NSEnumerator *enumerator;
     NSMutableSet *set;
@@ -275,12 +276,12 @@ int complete_handler(void)
 
     set = [NSMutableSet set];
     
-    if(!completitionList || updateCompletitionList)
+    if(!completionList || updateCompletionList)
     {
-        [self updateCompletitionList];
+        [self updateCompletionList];
     }
     
-    enumerator = [completitionList objectEnumerator];
+    enumerator = [completionList objectEnumerator];
     while( (str = [enumerator nextObject]) )
     {
         if( [str hasPrefix:match] )
@@ -302,7 +303,7 @@ int complete_handler(void)
 
     if( [array count] == 0 )
     {
-        printf("\nNo match for completition.\n");
+        printf("\nNo match for completion.\n");
         rl_forced_update_display();
     }
     else if ( [array count] == 1 )

@@ -60,9 +60,9 @@ id NSYearMonthWeekDesignations
 # File / File System attributes
 
 id NSFileDeviceIdentifier
-id NSFileGroupOwnerAccountNumber
+id NSFileGroupOwnerAccountID
 id NSFileModificationDate
-id NSFileOwnerAccountNumber
+id NSFileOwnerAccountID
 id NSFilePosixPermissions
 id NSFileReferenceCount
 id NSFileSize

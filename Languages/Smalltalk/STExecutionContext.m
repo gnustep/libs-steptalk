@@ -104,7 +104,7 @@ static unsigned nextId = 1;
     [self subclassResponsibility];
     return nil;
 }
-- (id)literalAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(unsigned)index
 {
     [self subclassResponsibility];
     return nil;
