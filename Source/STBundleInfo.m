@@ -58,7 +58,7 @@ static NSMutableDictionary *bundleInfoDict;
     NSMutableArray *names = [NSMutableArray array];
     NSString       *name;
     
-    bundles = STFindAllResources(@"Bundles", @"bundle");
+    bundles = STFindAllResources(@"Bundles", STModuleExtension);
 
     enumerator = [bundles objectEnumerator];    
     
@@ -69,7 +69,7 @@ static NSMutableDictionary *bundleInfoDict;
         [names addObject:name];        
     }
     
-    bundles = STFindAllResources(@"Modules", @"stmodule");
+    bundles = STFindAllResources(@"Modules", STModuleExtension);
 
     enumerator = [bundles objectEnumerator];    
     

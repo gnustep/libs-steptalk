@@ -1,3 +1,8 @@
+2003 Jan 25
+
+    * STBundleInfo: Fixed NSBundle stepTalkBundleNames to use .bundle file
+    extension
+
 2003 Jan 24
 
     * STBundleInfo: Use info from ScriptingInfo.plist instead of bundle's main
