@@ -1,3 +1,7 @@
+2003 May 1  Stefan Urbanek <urbanek@host.sk>
+
+    * Support: updated files to use #include instead of #import
+
 2003 Apr 04  David Ayers  <d.ayers@inode.at>
 
     * GNUmakefile: Added flags to be able to compile from the building

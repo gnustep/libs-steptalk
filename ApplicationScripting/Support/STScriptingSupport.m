@@ -30,17 +30,19 @@
 
    */
 
+#include "STScriptingSupport.h"
 
-#import <AppKit/NSApplication.h>
+#include <AppKit/NSApplication.h>
 
-#import <Foundation/NSArray.h>
-#import <Foundation/NSBundle.h>
-#import <Foundation/NSEnumerator.h>
-#import <Foundation/NSFileManager.h>
-#import <Foundation/NSString.h>
+#include <Foundation/NSArray.h>
+#include <Foundation/NSBundle.h>
+#include <Foundation/NSEnumerator.h>
+#include <Foundation/NSFileManager.h>
+#include <Foundation/NSString.h>
 
 @interface NSApplication (STPrivateMethods)
 - (BOOL)setUpApplicationScripting;
+- (NSBundle *) _applicationScriptingBundle;
 @end
 
 @implementation NSApplication(STApplicationScriptingInit)

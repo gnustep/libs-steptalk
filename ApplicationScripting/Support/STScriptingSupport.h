@@ -28,7 +28,10 @@
 
    */
 
-#import <AppKit/NSApplication.h>
+#ifndef _STScriptingSupport_h
+#define _STScriptingSupport_h
+
+#include <AppKit/NSApplication.h>
 
 @interface NSApplication(STApplicationScripting)
 - (BOOL)initializeScripting;
@@ -37,5 +40,7 @@
 /* User interface */
 - (void)orderFrontScriptsPanel:(id)sender;
 - (void)orderFrontTranscriptWindow:(id)sender;
+- (NSMenu *) scriptingMenu;
 @end
 
+#endif
