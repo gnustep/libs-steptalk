@@ -11,4 +11,4 @@ TODO list
    passive application scripting (without linking) and active app. scripting
    (linking with the framewotk). Give it some reasonable name, becauase that one
    is already used by Apple
-12 Rename STEnvironment to STContext (better name for that object).
+13 Change source directory structure (see DevelopmentNotes.txt in Doumentation)
