@@ -76,6 +76,8 @@ static  IMP pushImp;
 static  SEL popSel;
 static  id (*popImp)(id obj, SEL sel);
 
+static Class NSInvocation_class = nil;
+
 @implementation STBytecodeInterpreter
 + (void)initialize
 {
@@ -86,6 +88,8 @@ static  id (*popImp)(id obj, SEL sel);
     sendSelectorAtIndexImp = [STBytecodeInterpreter instanceMethodForSelector:sendSelectorAtIndexSel];
     pushImp = [STStack instanceMethodForSelector:pushSel];
     popImp = [STStack instanceMethodForSelector:popSel];
+
+    NSInvocation_class = [NSInvocation class];
 }
 
 + (STBytecodeInterpreter *)sharedInterpreter
@@ -341,8 +345,8 @@ static  id (*popImp)(id obj, SEL sel);
 
     selector = [environment translateSelector:selector forReceiver:target];
 
-    invocation = [NSInvocation invocationWithTarget:target
-                                       selectorName:selector];
+    invocation = [NSInvocation_class invocationWithTarget:target
+                                             selectorName:selector];
                                        
     if(!invocation)
     {

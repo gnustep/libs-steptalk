@@ -39,8 +39,12 @@
 #import <StepTalk/STSelector.h>
 #import <StepTalk/STStructure.h>
 
+static Class NSNumber_class = nil;
+static Class NSString_class = nil;
+static Class NSValue_class = nil;
+
 #define CASE_NUMBER_TYPE(otype,type,msgtype)\
-            case otype: object = [NSNumber numberWith##msgtype:*((type *)value)];\
+            case otype: object = [NSNumber_class numberWith##msgtype:*((type *)value)];\
                         NSDebugLLog(@"STStructure",\
                                    @"    is number value '%@'", object);\
                         break
@@ -73,12 +77,12 @@ id STObjectFromValueOfType(void *value, const char *type)
     CASE_NUMBER_TYPE(_C_FLT,float,Float);
     CASE_NUMBER_TYPE(_C_DBL,double,Double);
     case _C_PTR: 
-                object = [NSValue valueWithPointer:*((void **)value)];
+                object = [NSValue_class valueWithPointer:*((void **)value)];
                 NSDebugLLog(@"STStructure",
                            @"    is pointer value %p", *((void **)value));
                 break;
     case _C_CHARPTR: 
-                object = [NSString stringWithCString:*((char **)value)];
+                object = [NSString_class stringWithCString:*((char **)value)];
                 NSDebugLLog(@"STStructure",
                            @"    is string value '%s'", *((char **)value));
                 break;
@@ -178,6 +182,13 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 
 
 @implementation NSInvocation(STAdditions)
++ (void)initialize
+{
+    NSNumber_class = [NSNumber class];
+    NSString_class = [NSString class];
+    NSValue_class = [NSValue class];
+}
+
 + invocationWithTarget:(id)target selectorName:(NSString *)selectorName
 {
     NSMethodSignature *signature;
@@ -197,7 +208,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
         return nil;
     }
   
-    invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation = [self invocationWithMethodSignature:signature];
 
     [invocation setSelector:sel];
     [invocation setTarget:target];

@@ -42,8 +42,6 @@ static NSArray *methods_for_class(Class class)
     
     methods = class->methods;
 
-    array = ;
-
     while(methods)
     {
         for(i = 0; i < methods->method_count; i++)

@@ -36,9 +36,8 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class NSProcessInfo ;
-/* FIXME: this is just for testing */
 #define SELECTOR_TYPES_COUNT 6
+
 static const char *selector_types[] = 
                         {
                             "@8@0:4",

@@ -2,3 +2,4 @@ TODO list
 
 1 handle 'connection did die' notification for distant objects in STEnvironment
 2 fix class-info lookup for proxies in STEnvironment
+3 implement NSRect object

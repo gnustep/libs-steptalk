@@ -414,7 +414,6 @@
     STClassInfo *class;
     NSString    *selector;
 
-    selector = [selectorCache objecForKey:aString]
     class = [self findClassInfoForObject:anObject];
 
     NSDebugLLog(@"STSending",
