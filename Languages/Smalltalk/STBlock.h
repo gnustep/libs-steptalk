@@ -39,6 +39,7 @@
     unsigned               stackSize;
 
     STBlockContext        *cachedContext;
+    BOOL                   usingCachedContext; 
 }
 
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter

@@ -157,15 +157,21 @@ extern int STCparse(void *context);
     {
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
+            NSString *tokenString;
+            int       line;
+            
+            tokenString = [reader tokenString];
+            line = [reader currentLine];
             RELEASE(reader);
             RELEASE(receiverVars);
+
             receiverVars = nil;
             reader = nil;
             
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
-                                [reader currentLine],
-                                [reader tokenString],
+                                line,
+                                tokenString,
                                 [localException reason]];
                          
         }

@@ -341,6 +341,8 @@ static Class NSInvocation_class = nil;
                NSStringFromClass([target class]),
                selector);
 
+
+    /* FIXME: this is too slow */
     selector = [environment translateSelector:selector forReceiver:target];
 
     invocation = [NSInvocation_class invocationWithTarget:target

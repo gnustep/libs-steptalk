@@ -1,3 +1,8 @@
+2003 Apr 6 Stefan Urbanek <urbanek@host.sk>
+
+    * STCompiler: compileString: fixed exception reporting.
+
+
 2003 Apr 04  David Ayers  <d.ayers@inode.at>
 
     * GNUmakefile: Added flags to show all warnings except for import.
@@ -8,28 +13,28 @@
     Initialzed variables to supress compiler warnings.
     * STExecutionContext.m: Unified name for private categories.
 
-2003 Mar 25
+2003 Mar 25  Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: added missing [super dealloc]
     * STCompiledCode: do not retain bytecode data
     * STCompiler: various memory leak fixes
     * SmalltalkEngine: guard compilation exception and release the compiler
 
-2003 Mar 23
+2003 Mar 23  Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: added some end of string checks
 
-2003 Feb 3
+2003 Feb 3  Stefan Urbanek <urbanek@host.sk>
 
     * Version 0.7.0
     
-2003 Feb 3
+2003 Feb 3  Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: fixed reading of a number terminated with '.', we treat
     it as an integer. Reader was complaining about i := 1.; fixed reading of
     var:=something. It was terating 'var:' as a selector keyword.
 
-2003 Jan 30
+2003 Jan 30  Stefan Urbanek <urbanek@host.sk>
 
     * ChangeLog, STBlock.m, STBytecodes.h, 
     STBytecodes.m, STCompiledMethod.m, 
@@ -39,28 +44,28 @@
     STMethodContext.h, STSourceReader.h, SmalltalkEngine.m: 
     Cleanup of compiler warnings
     
-2002 Dec 25
+2002 Dec 25  Stefan Urbanek <urbanek@host.sk>
 
     * Version 0.6.2
 
-2002 Dec 21
+2002 Dec 21  Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader, STCompiler, STGrammar: Added real number parsing
 
-2002 Sep 15
+2002 Sep 15  Stefan Urbanek <urbanek@host.sk>
 
     * Version 0.6.1
 
-2002 Aug 30
+2002 Aug 30  Stefan Urbanek <urbanek@host.sk>
 
     * Code cleanup.
 
-2002 Jun 14
+2002 Jun 14  Stefan Urbanek <urbanek@host.sk>
 
     * STMethodContext: Raise exception on invalid reference, not on undefined 
     object
     
-2002 Jun 13
+2002 Jun 13  Stefan Urbanek <urbanek@host.sk>
 
     * STCompiledMethod: Removed unused methods
     * STBytecodeInterpreter: rewritten context handling; removed unused methods
@@ -68,71 +73,71 @@
     * STGrammar.y: fixed empty arrays #()
     * STExecutionContext: removed parent context as it is longer used
     
-2002 Jun 7
+2002 Jun 7  Stefan Urbanek <urbanek@host.sk>
 
     * STBytecodeInterpreter: fixed debug-log bug
     
-2002 Jun 6
+2002 Jun 6  Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: fixed bug in reading number token type and binary
     selectors beginning with the '-' character.
     * Moved NSObject-additions to the StepTalk sources
 
-2002 May 29
+2002 May 29  Stefan Urbanek <urbanek@host.sk>
 
     * STCompiledScript: assign return value on executing single-method script
 
-2002 May 15
+2002 May 15  Stefan Urbanek <urbanek@host.sk>
 
     * STCompiler, Externs, STGrammar: fixed undefined exceptions (reported by 
        Björn Gohla <b.gohla@gmx.de>)
     
-2002 Mar 17
+2002 Mar 17  Stefan Urbanek <urbanek@host.sk>
 
     * STCompiler, STGrammar: changed grammar to be able to have "methods" or
       "just statements" in source
 
-2002 Feb 14
+2002 Feb 14  Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: Retain character sets
 
-2002 Feb 5
+2002 Feb 5  Stefan Urbanek <urbanek@host.sk>
     
     * STSelector+additions.[hm]: new files
     * STCompiler: use STSelector class for symbol literals
 
-2002 Feb 3
+2002 Feb 3  Stefan Urbanek <urbanek@host.sk>
     
     * STScriptObject: handle special method 'exit'
     * STBytecodeInterpreter: added code to halt the interpreter and return from 
       all contexts
     
-2002 Jan 31
+2002 Jan 31  Stefan Urbanek <urbanek@host.sk>
 
     * STBlock: small speed improvements 
     * STBlockContext: removed evaluateWithArguments:count:, and moved code 
       into STBLock
 
-2002 Jan 23
+2002 Jan 23  Stefan Urbanek <urbanek@host.sk>
 
     * NSNumber+additions: moved arithmetic code to the library
         
-2002 Jan 22
+2002 Jan 22  Stefan Urbanek <urbanek@host.sk>
 
     * STCompiler: create one more duplicate of stack top when assigning to a
       variable.
 
-2002 Jan 9
+2002 Jan 9  Stefan Urbanek <urbanek@host.sk>
 
     * SmalltalkEngine: implemented executeScript:inEnvironment:
 
-2001 Dec 8
+2001 Dec 8  Stefan Urbanek <urbanek@host.sk>
 
     * Fixed temporary variable compilation
     * Added special handling of nil, YES and NO constants; added corresponding 
       bytecodes
     
-2001 Dec 8
+2001 Dec 8  Stefan Urbanek <urbanek@host.sk>
 
     * CahgeLog started
     

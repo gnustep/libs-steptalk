@@ -39,12 +39,14 @@
   initialIP:(unsigned)pointer
   stackSize:(unsigned)size
 {
+    [super initWithStackSize:size];
+    
     interpreter = RETAIN(anInterpreter);
     initialIP = pointer;
 
-    [self setInstructionPointer:initialIP];
+    instructionPointer = initialIP;
     
-    return [super initWithStackSize:size]; 
+    return self; 
 }
 - (void)dealloc
 {
@@ -111,6 +113,6 @@
 
 - (void)resetInstructionPointer
 {
-    [self setInstructionPointer:initialIP];
+    instructionPointer = initialIP;
 }
 @end

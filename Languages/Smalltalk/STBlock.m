@@ -35,9 +35,13 @@
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 
-
+Class STBlockContextClass = nil;
 
 @implementation STBlock
++ (void)initialize
+{
+    STBlockContextClass = [STBlockContext class];
+}
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
           homeContext:(STMethodContext *)context
             initialIP:(unsigned)ptr
@@ -108,9 +112,9 @@
 - valueWithArgs:(id *)args count:(unsigned)count;
 {
     STExecutionContext *parentContext;
-    STBlockContext     *savedContext;
     STBlockContext     *context;
     STStack            *stack;
+    BOOL                usingShared = NO;
     unsigned int        i;
     id                  retval;
 
@@ -122,19 +126,31 @@
         return nil;
     }
 
-    if(cachedContext)
+    if(!usingCachedContext)
     {
+        /* In case of recursive block nesting */
+        usingCachedContext = YES;
+
+        if(!cachedContext)
+        {
+            cachedContext = [[STBlockContextClass alloc] 
+                                    initWithInterpreter:interpreter
+                                              initialIP:initialIP
+                                              stackSize:stackSize];
+        }
+
+        /* Avoid allocation */
         context = cachedContext;
-        savedContext = cachedContext;
-        cachedContext = nil;
         [[context stack] empty];
         [context resetInstructionPointer];
     }
     else
     {
-        context = [[STBlockContext alloc] initWithInterpreter:interpreter
-                                                    initialIP:initialIP
-                                                    stackSize:stackSize];
+        /* Create new context */
+        context = [[STBlockContextClass alloc] initWithInterpreter:interpreter
+                                                         initialIP:initialIP
+                                                         stackSize:stackSize];
+
         AUTORELEASE(context);
     }
 
@@ -153,6 +169,12 @@
     [interpreter setContext:context];
     retval = [interpreter interpret];
     [interpreter setContext:parentContext];
+
+    /* Release cached context */
+    if(usingCachedContext)
+    {
+        usingCachedContext = NO;
+    }
 
     return retval;
 }

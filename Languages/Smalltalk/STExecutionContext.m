@@ -25,11 +25,12 @@ static unsigned nextId = 1;
 @implementation STExecutionContext
 - initWithStackSize:(unsigned)stackSize
 {
-    stack = [[STStack alloc] initWithSize:stackSize];
+    [super init];
 
+    stack = [[STStack alloc] initWithSize:stackSize];
     contextId = nextId ++;
 
-    return [super init];
+    return self;
 }
 - (void)dealloc
 {
