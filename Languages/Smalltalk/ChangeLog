@@ -1,3 +1,7 @@
+2004 Jun 20 Stefan Urbanek
+
+    * Added a fix to the compiler from Mateu Batle
+
 2004 May 27 Stefan Urbanek
 
     * Fixed bug with signed/unsigned bytecode, which made StepTalk to crash if

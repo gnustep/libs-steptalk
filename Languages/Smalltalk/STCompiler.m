@@ -596,10 +596,26 @@ extern int STCparse(void *context);
     
     if(array)
     {
+        BOOL first = YES;
+        
         enumerator = [array objectEnumerator];
         while((expr = [enumerator nextObject]))
         {
             [self compileExpression:expr];
+
+            /* Mateu Batle: ignore returned value on the stack ? */
+            /* FIXME: please check this !!! */
+
+            if (!first)
+            {
+                [self emitPopStack];
+            }
+            else 
+            {
+                first = NO;
+            }
+
+            [self compileExpression:expr];            
         }
     }
 
