@@ -61,6 +61,7 @@ STEPTALK_HEADER_FILES = \
     STConversation.h \
     STEngine.h \
     STEnvironment.h \
+    STEnvironmentDescription.h \
     STExterns.h \
     STFunctions.h \
     STFileScript.h \

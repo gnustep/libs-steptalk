@@ -223,7 +223,7 @@ int complete_handler(void)
 
 - (NSString *)readLine
 {
-    const char *str;
+    char       *str;
     NSString   *actualPrompt = prompt;
     NSString   *line = @"";
     BOOL        done = NO;
