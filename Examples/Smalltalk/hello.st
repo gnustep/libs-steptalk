@@ -1,19 +1,21 @@
-" hello.st
+" hello
+
+  Say hello to someone specified as an argument.
 
   Ussage:
       stexec hello.st name
 "
 
-((Args count) < 1 ) 
+" Is name specified? (Is there some script argument?) "
+
+((Args count) > 0 ) 
 ifTrue: 
     [
-        Transcript showLine:'Hello ... who?'
+        " Args is an array of script arguments. "
+
+        Transcript showLine: ('Hello ', (Args @ 0), '!').
     ]
 ifFalse:
     [
-        " See ..../Library/StepTalk/Environments/Foundation-operators.stenv 
-          or Source/Environments/Foundation-operators.stenv
-        "
-
-        Transcript showLine: ('Hello ', (Args @ 0), '!').
+        Transcript showLine:'Hello ... who?'
     ]

@@ -3,10 +3,7 @@ TODO list
  1 handle 'connection did die' notification for distant objects in STEnvironment
  2 fix class-info lookup for proxies in STEnvironment
  3 implement NSRect object
- 4 write documentation for developers and users
  5 Smalltalk: separate compiler and compilation context
- 7 make GDL2 bundle automatically if GDL2 is present
- 8 prevent multiple loading of bundles in STEnvironment
  9 create a 'Shell' scripting environment
 10 Make loading of frameworks easier in STEnvironment, something like
    loadFrameworkWithName:
@@ -14,3 +11,4 @@ TODO list
    passive application scripting (without linking) and active app. scripting
    (linking with the framewotk). Give it some reasonable name, becauase that one
    is already used by Apple
+12 Rename STEnvironment to STContext (better name for that object).
