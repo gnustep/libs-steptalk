@@ -98,9 +98,8 @@
         if(![ref object])
         {
             [NSException raise:STGenericException
-                        format:@"Unknown object with name '%@' "
-                               @"in pool '%@'", 
-                               [lit objectName], [lit poolName]];
+                        format:@"Unknown object with name '%@' ",
+                        [lit objectName]];
         }        
         [externs addObject:ref];
     }

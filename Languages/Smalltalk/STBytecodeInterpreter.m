@@ -442,10 +442,10 @@ static  id (*popImp)(id obj, SEL sel);
     selector = [self literalAtIndex:selIndex];
 
     NSDebugLLog(@"STSending",
-               @"  %s receiver:%@ (%s) selector:%@",
+               @"  %s receiver:%@ (%@) selector:%@",
                [receiver isProxy] ? "proxy for" : "",
                target,
-               [target name],
+               NSStringFromClass([target class]),
                selector);
 
     selector = [environment translateSelector:selector forReceiver:target];

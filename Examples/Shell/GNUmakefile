@@ -1,11 +1,9 @@
 #
-#  Main Makefile for the StepTalk
-#  
-#  Copyright (C) 2000 Stefan Urbanek
+#  StepTalk tools
 #
-#  Written by:	Stefan Urbanek <urbane@decef.elf.stuba.sk>
+#  Copyright (C) 2002 Stefan Urbanek
 #
-#  This file is part of the StepTalk
+#  This file is part of the StepTalk.
 #
 #  This library is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU Library General Public
@@ -19,26 +17,19 @@
 #
 #  You should have received a copy of the GNU Library General Public
 #  License along with this library; if not, write to the Free
-#  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA
+#  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02111, USA.
 #
 
 GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
 
 include $(GNUSTEP_MAKEFILES)/common.make
-include Version
 
-PACKAGE_NAME = StepTalk
-CVS_MODULE_NAME = StepTalk
+TOOL_NAME = stshell
 
-SUBPROJECTS = \
-    Source \
-    Languages \
-    Finders \
-    Modules \
-    Tools 
+stshell_OBJC_FILES = STShell.m STShell+output.m stshell.m
 
--include GNUMakefile.preamble
-include $(GNUSTEP_MAKEFILES)/aggregate.make
-include $(GNUSTEP_MAKEFILES)/Master/source-distribution.make
+ADDITIONAL_TOOL_LIBS += -lStepTalk -lreadline
+
+-include GNUmakefile.preamble
+include $(GNUSTEP_MAKEFILES)/tool.make
 -include GNUMakefile.postamble
-

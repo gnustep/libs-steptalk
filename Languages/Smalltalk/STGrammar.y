@@ -32,6 +32,7 @@
     #import "STCompiler.h"
     #import "STCompilerUtils.h"
     #import "STSourceReader.h"
+    #import "Externs.h"
     
     #import <StepTalk/STExterns.h>
 

@@ -24,7 +24,9 @@
                 "valueWith:with:with:",
                 "valueWith:with:with:with:",
                 "argumentCount",
-                "handler:"
+                "handler:",
+                "whileTrue:",
+                "whileFalse:"
             );
         };
         STScriptObject =

@@ -24,9 +24,14 @@ You can download StepTalk from
 Installation
 ------------
 To install StepTalk type:
+
     > make
     > make install
 
+If you do not want to build AppKit extensions, then type
+
+    > make appkit=no
+    > make appkit=no install
 
 Tools
 -----
@@ -53,6 +58,8 @@ create safe scripting  environment as prevention against script viruses.
 It contains:
     - list of methods, that are available for scripting for particular class
     - symbolic selector (operator) to selector mapping
+    - list of modules to be loaded
+    - list of object finders
 
 
 Standard vs. full scripting
@@ -68,16 +75,12 @@ Files
     
     There should be these directories:
     
-    Environments
-        - directory containig environment descriptions
-    Languages
-        - StepTalk language bundles
-    Modules
-        - StepTalk modules
-        
-    Scripts
-        - directory containig StepTalk scripts
-
+    Configuration - Configuration files        
+    Environments  - Directory containig environment descriptions
+    Finders       - Object finders
+    Languages     - StepTalk language bundles
+    Modules       - StepTalk modules
+    Scripts       - Directory containig StepTalk scripts
 
 Defaults
 --------

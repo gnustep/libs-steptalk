@@ -11,5 +11,6 @@
 
 extern NSString *STCompilerSyntaxException;
 extern NSString *STCompilerGenericException;
+extern NSString *STCompilerInconsistencyException;
 
 extern NSString *STInterpreterGenericException;

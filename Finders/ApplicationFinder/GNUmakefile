@@ -1,7 +1,7 @@
 #
-#  Smalltalk language bundle
+#  Application Finder
 #
-#  Copyright (C) 2000 Stefan Urbanek
+#  Copyright (C) 2000,2001 Stefan Urbanek
 #
 #  This file is part of the StepTalk.
 #
@@ -23,44 +23,23 @@
 GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
 
 include $(GNUSTEP_MAKEFILES)/common.make
+include $(GNUSTEP_MAKEFILES)/Additional/gui.make
 
-BUNDLE_NAME        = Smalltalk
-BUNDLE_EXTENSION  := .stlanguage
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Languages
+
+BUNDLE_NAME = ApplicationFinder
     
-Smalltalk_OBJC_FILES = \
-        SmalltalkEngine.m \
-        NSArray+additions.m \
-        NSNumber+additions.m \
-        STBlock.m \
-        STBlockContext.m \
-        STBytecodeInterpreter.m \
-        STBytecodes.m \
-        STCompiledCode.m \
-        STCompiledMethod.m \
-        STCompiledScript.m \
-        STCompiler.m \
-        STCompilerUtils.m \
-        STExecutionContext.m \
-        STGrammar.m \
-        STLiterals.m \
-        STMessage.m  \
-        STMethodContext.m \
-        STScriptObject.m \
-        STStack.m \
-        STUndefinedObject+additions.m \
-        STSelector+additions.m \
-        STSourceReader.m \
-        Externs.m
+ApplicationFinder_OBJC_FILES = STApplicationFinder.m
+
+ApplicationFinder_PRINCIPAL_CLASS = STApplicationFinder
         
-Smalltalk_PRINCIPAL_CLASS = SmalltalkEngine
-        
+
+ApplicationFinder_BUNDLE_LIBS += -lStepTalk
+
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
+ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Finders
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble
-
-STGrammar.m: STGrammar.y
-	$(YACC) -d -pSTC -o$@ $<
-

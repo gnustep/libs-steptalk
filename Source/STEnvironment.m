@@ -39,6 +39,7 @@
 #import <StepTalk/STScripting.h>
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSBundle.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
@@ -73,33 +74,12 @@
 }
 
 /**
-   Creates and initialises scripting environment using description
-   from dictionary <var>dict</var>.
+   Creates and initialises scripting environment using environment description 
+   <var>description</var>.
  */
-+ environmentWithDescriptionFromDictionary:(NSDictionary *)dict
++ environmentWithDescription:(NSString *)description
 {
-    return AUTORELEASE([[self alloc] initWithDescriptionFromDictionary:dict]);
-
-}
-
-/**
-   Creates and initialises scripting environment using description
-   from file at <var>path</var>.
- */
-+ environmentWithDescriptionFromFile:(NSString *)path
-{
-    return AUTORELEASE([[self alloc] initWithDescriptionFromFile:path]);
-
-}
-
-- init
-{
-    defaultPool = [[NSMutableDictionary alloc] init];
-/* FIXME: */
-//    [defaultPool setObject:STNil forKey:@"nil"];
-    infoCache = [[NSMutableDictionary alloc] init];
-    
-    return [super init];
+    return AUTORELEASE([[self alloc] initWithDescription:description]);
 }
 
 /**
@@ -108,43 +88,43 @@
  */
 - initWithDescriptionName:(NSString *)descName
 {
-    [self init];
-    
-    description = [STEnvironmentDescription descriptionWithName:descName];
-    classes = [description classes];
-
-    RETAIN(description);
-
-    return self;
+    return [self initWithDescription:
+                    [STEnvironmentDescription descriptionWithName:descName]];
 }
 
 /**
-   Initialises scripting environment using description from dictionary
-   <var>dict</var>.
+   Initialises scripting environment using scripting description
+   <var>aDescription</var>.
  */
-- initWithDescriptionFromDictionary:(NSDictionary *)dict
+- initWithDescription:(STEnvironmentDescription *)aDescription
 {
-    [self init];
+    NSEnumerator *enumerator;
+    NSString     *name;
     
-    description = [STEnvironmentDescription descriptionFromDictionary:dict];
+    self = [super init];
+    
+    defaultPool = [[NSMutableDictionary alloc] init];
+    infoCache = [[NSMutableDictionary alloc] init];
+
+    description = RETAIN(aDescription);
     classes = [description classes];
 
-    RETAIN(description);
-
-    return self;
-}
-
-/**
-   Initialises scripting environment using description 
-   from file at <var>path</var>
- */
-- initWithDescriptionFromFile:(NSString *)path
-{
-    [self init];
+    /* Load modules */
+    enumerator = [[description modules] objectEnumerator];    
     
-    description = [STEnvironmentDescription descriptionFromFile:path];
-    classes = [description classes];
+    while( (name = [enumerator nextObject]) )
+    {
+        [self loadModule:name];
+    }
+
+    /* Register finders */
+    enumerator = [[description objectFinders] objectEnumerator];    
     
+    while( (name = [enumerator nextObject]) )
+    {
+        [self registerObjectFinderNamed:name];
+    }
+
     RETAIN(description);
 
     return self;
@@ -153,11 +133,11 @@
 - (void)dealloc
 {
     RELEASE(defaultPool);
-    RELEASE(pools);
     RELEASE(description);
 
     RELEASE(infoCache);
-
+    RELEASE(objectFinders);
+    
     [super dealloc];
 }
 
@@ -197,12 +177,8 @@
     return createsUnknownObjects;
 }
 
-- (void)addAllClasses
-{
-    [self addNamedObjectsFromDictionary:STAllObjectiveCClasses()];
-}
 /**
-    Add classes specified by name in <var>names</var> array.
+    Add classes specified by the names in the <var>names</var> array.
 */
 - (void)addClassesWithNames:(NSArray *)names
 {
@@ -210,10 +186,11 @@
 }
 
 /**
-   Load StepTalk module with name <var>moduleName</var>. You do not have to
-   add module extension .stmodule to <var>moduleName</var>. Modules are stored 
-   in Library/StepTalk/Modules
+   Load StepTalk module with the name <var>moduleName</var>. Module extension
+   '.stmodule' is optional. Modules are stored in the Library/StepTalk/Modules
+   directory.
  */
+
 - (void) loadModule:(NSString *)moduleName
 {
     STModule *module = [STModule moduleWithName:moduleName];
@@ -222,27 +199,14 @@
     [self addClassesWithNames:[module providedClasses]];
 }
 
-/**
-    Description forthcomming.
- */
-- (NSMutableDictionary *)defaultObjectPool
+- (NSMutableDictionary *)objectDictionary
 {
     return defaultPool;
 }
 
 /* ----------------------------------------------------------------------- 
-   Object pools
+   Objects
    ----------------------------------------------------------------------- */
-
-/**
-    Register object <var>anObject</var> with name <var>objName</var>.
- */
-- (void)addObject:(id)anObject
-         withName:(NSString *)objName
-{
-    NSLog(@"In STEnvironment: addObject:withName: used. Use setObject:forName:");
-    [defaultPool setObject:anObject forKey:objName];
-}
 
 /**
     Register object <var>anObject</var> with name <var>objName</var>.
@@ -262,58 +226,11 @@
 }
 
 /**
-    Description forthcomming.
- */
-
-- (NSMutableDictionary *) poolWithName:(NSString *)poolName
-{
-    NSMutableDictionary *pool = [pools objectForKey:poolName];
-    
-    if(!defaultPool)
-    {
-        defaultPool = [[NSMutableDictionary alloc] init];
-    }
-
-    if(!pool)
-    {
-        [NSException  raise:STGenericException
-                     format:@"Undefined pool with name '%@'", poolName];
-
-
-        pool = defaultPool;
-    }
-
-    return pool;
-}
-
-
-/**
-    Register object <var>anObject</var> with name <var>objName</var> in pool
-    <var>poolName</var>.
- */
-- (void)addObject:(id)anObject
-         withName:(NSString *)objName 
-             pool:(NSString *)poolName
-{
-    
-    [[self poolWithName:poolName] setObject:anObject forKey:objName];
-}
-
-/**
     Remove object named <var>objName</var>.
   */
 - (void)removeObjectWithName:(NSString *)objName
 {
     [defaultPool removeObjectForKey:objName];
-}
-
-/**
-    Remove object named <var>objName</var> form pool <var>poolName</var>
-  */
-- (void)removeObjectWithName:(NSString *)objName
-                        pool:(NSString *)poolName
-{
-    [[self poolWithName:poolName] removeObjectForKey:objName];
 }
 
 /**
@@ -324,142 +241,155 @@
     [defaultPool addEntriesFromDictionary:dict];
 }
 
-
-- (void)addNamedObjectsFromDictionary:(NSDictionary *)dict
-                                 pool:(NSString *)poolName
-{
-    [[self poolWithName:poolName] addEntriesFromDictionary:dict];
-
-}
+/**
+    Return object with name <var>objName</var>. If object is not found int the
+    object dictionary, then object finders are used to try to find the object.
+    If object is found by an object finder, then it is put into the object
+    dicitonary. If there is no object with given name, <var>nil</var> is 
+    returned.
+  */
 
 - (id)objectWithName:(NSString *)objName
 {
-    id object;
+    NSEnumerator *enumerator;
+    id            obj;
+    id            finder;
     
-    object = [defaultPool objectForKey:objName];
+    obj = [defaultPool objectForKey:objName];
+
+    if(!obj)
+    {
+        enumerator = [objectFinders objectEnumerator];
+        while( (finder = [enumerator nextObject]) )
+        {
+            obj = [finder objectWithName:objName];
+            if(obj)
+            {
+                [defaultPool setObject:obj forKey:objName];
+                break;
+            }
+        }
+    }
+    
+    return obj;
+}
+
+- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
+{
+    STObjectReference *ref;
+    id                 pool = defaultPool;
         
-    return object;
-}
+    if( ![self objectWithName:name] )
+    {
+        if([[self knownObjectNames] containsObject:name])
+        {
+            pool = nil;
+        }
+        else if(createsUnknownObjects)
+        {
+            [defaultPool setObject:STNil forKey:name];
+        }
+    }
 
-- (id)objectWithName:(NSString *)objName 
-                pool:(NSString *)poolName
-
-{
-    id object;
-    
-    object = [[self poolWithName:poolName] objectForKey:objName];
-    
-    return object;
-}
-
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
-{
-    STObjectReference *ref;
-    
     ref = [STObjectReference alloc];
+    
     [ref initWithObjectName:name
-                       pool:defaultPool
-                     create:createsUnknownObjects];
+                       pool:defaultPool];
 
     return AUTORELEASE(ref);
 }
-
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
-                                                   pool:(NSString *)poolName
-{
-    STObjectReference *ref;
-
-    ref = [STObjectReference alloc];
-    [ref initWithObjectName:name
-                       pool:[self poolWithName:poolName]
-                     create:createsUnknownObjects];
-                       
-    return AUTORELEASE(ref);
-
-}
-
-- (void)removePool:(NSString *)poolName
-{
-    [pools removeObjectForKey:poolName];
-}
-
 
 /* FIXME: rewrite */
 - (STClassInfo *)findClassInfoForObject:(id)anObject
 {
-    NSString    *origName;
-    NSString    *name;
     STClassInfo *info = nil;
-    Class        class;
+    NSString    *className;
+    NSString    *origName;
+    Class       *class;
     
     if(!anObject)
     {
         anObject = STNil;
     }
 
+    /* FIXME: temporary solution */
     if( [anObject isProxy] )
     {
         NSDebugLog(@"FIXME: receiver is a distant object");
-        return nil;
+        info = [classes objectForKey:@"NSProxy"];
+
+        if(!info)
+        {
+            return [classes objectForKey:@"All"];
+        }
+        
+        return info;
     }
 
-    class = [anObject classForScripting];
-
+    if([anObject respondsToSelector:@selector(classForScripting)])
+    {
+        class = [anObject classForScripting];
+    }
+    else
+    {
+        class = [anObject class];
+    }
+    
+    className = [anObject className];
+    
     if([anObject isClass])
     {
-        origName = name = [[class className] 
-                            stringByAppendingString:@" class"];
+        origName = className = [className stringByAppendingString:@" class"];
 
         NSDebugLLog(@"STSending",
                     @"Looking for class info '%@'...",
-                    name);
+                    className);
 
-        info = [infoCache objectForKey:name];
+        info = [infoCache objectForKey:className];
         
         if(info)
         {
             return info;
         }
         
-        while( !(info = [classes objectForKey:name]) )
+        while( !(info = [classes objectForKey:className]) )
         {
-            class = [[class superclass] classForScripting];
+            class = [class superclass];
+
             if(!class)
             {
                 break;
             }
             
-            name = [[class className]
-                            stringByAppendingString:@" class"];
+            className = [[class className] stringByAppendingString:@" class"];
             NSDebugLLog(@"STSending",
-                        @"    ... %@?",name);
+                        @"    ... %@?",className);
         }
     }
     else
     {
-        origName = name = [class className];
+        origName = className;
 
         NSDebugLLog(@"STSending",
                     @"Looking for class info '%@' (instance)...",
-                    name);
+                    className);
 
-        info = [infoCache objectForKey:name];
+        info = [infoCache objectForKey:className];
         if(info)
         {
             return info;
         }
 
-        while( !(info = [classes objectForKey:name]) )
+        while( !(info = [classes objectForKey:className]) )
         {
-            class = [[class superclass] classForScripting];
+            class = [class superclass];
             if(!class)
             {
                 break;
             }
-            
-            name = [class className];
+            className = [class className];
             NSDebugLLog(@"STSending",
-                        @"    ... %@?",name);
+                        @"    ... %@?",className);
         }
     }
     
@@ -467,13 +397,13 @@
     {
         NSDebugLLog(@"STSending",
                     @"No class info '%@'",
-                    name);
+                    className);
         return nil;
     }
 
     NSDebugLLog(@"STSending",
                 @"Found class info '%@'",
-                name);
+                className);
                 
     [infoCache setObject:info forKey:origName]; 
     return info;
@@ -484,14 +414,7 @@
     STClassInfo *class;
     NSString    *selector;
 
-    if( [anObject isProxy] )
-    {
-        NSDebugLog(@"Warning: receiver is a distant object (FIXME)");
-     
-        return aString;
-    }
-
-    class    = [self findClassInfoForObject:anObject];
+    class = [self findClassInfoForObject:anObject];
 
     NSDebugLLog(@"STSending",
                 @"Lookup selector '%@' class %@", aString, [class behaviourName]);
@@ -532,4 +455,80 @@
 
     return selector;
 }
+
+- (NSArray *)knownObjectNames
+{
+    NSMutableArray *array = [NSMutableArray array];
+    NSEnumerator   *enumerator;
+    id              finder;
+    
+    [array addObjectsFromArray:[defaultPool allKeys]];
+    
+    enumerator = [objectFinders objectEnumerator];
+    while( (finder = [enumerator nextObject]) )
+    {
+        [array addObjectsFromArray:[finder knownObjectNames]];
+    }
+
+    return [NSArray arrayWithArray:array];
+}
+
+/** Register object finder <var>finder</var> under the name <var>name</var> */
+- (void)registerObjectFinder:(id)finder name:(NSString*)name
+{
+    if(!objectFinders)
+    {
+        objectFinders = [[NSMutableDictionary alloc] init];
+    }
+    
+    [objectFinders setObject:finder forKey:name];
+}
+
+/** Register object finder named <var>name</var>. This method will try to find
+    an object finder bundle in Library/StepTalk/Finders directories.
+*/
+- (void)registerObjectFinderNamed:(NSString *)name
+{
+    NSBundle *bundle;
+    NSString *path;
+    id        finder;
+        
+    if([objectFinders objectForKey:name])
+    {
+        return;
+    }
+    
+    path = STFindResource(name, @"Finders", @"bundle");
+    
+    if(!path)
+    {
+        NSLog(@"Unknown object finder with name '%@'", name);
+        return;
+    }
+    
+    NSDebugLog(@"Finder '%@'", path);
+
+    bundle = [NSBundle bundleWithPath:path];
+    if(!bundle)
+    {
+        NSLog(@"Unable to load object finder bundle '%@'", path);
+        return;
+    }
+
+    finder = [[[bundle principalClass] alloc] init];
+    if(!finder)
+    {
+        NSLog(@"Unable to create object finder from '%@'", path);
+        return;
+    }
+
+    [self registerObjectFinder:finder name:name];
+}
+
+/** Remove object finder with name <var>name</var> */
+- (void)removeObjectFinderWithName:(NSString *)name
+{
+    [objectFinders removeObjectForKey:name];
+}
+
 @end

@@ -11,5 +11,6 @@
 
 NSString *STCompilerSyntaxException = @"STCompilerSyntaxException";
 NSString *STCompilerGenericException = @"STCompilerGenericException";
+NSString *STCompilerInconsistencyException =@"STCompilerInconsistencyException";
 
 NSString *STInterpreterGenericException = @"STInterpreterGenericException";

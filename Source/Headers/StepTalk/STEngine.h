@@ -30,15 +30,17 @@
 @class STEnvironment;
 @class STLanguageEngine;
 
+/** STEngine is abstract class for language engines used to intepret scripts.*/
 @interface STEngine:NSObject
 {
     STEnvironment *defaultEnvironment;
 }
 
-/*" Instance creation "*/
+/** Instance creation */
 + (STEngine *) engineForLanguageWithName:(NSString *)language;
++ (STEngine *) engineForFileType:(NSString *)fileType;
 
-/*" Environment "*/
+/** Scripting Environment */
 - (STEnvironment *)defaultEnvironment;
 - (void) setDefaultEnvironment:(STEnvironment *)anEnvironment;
 
@@ -48,12 +50,4 @@
       inEnvironment:(STEnvironment *)env;
 
 - (BOOL)understandsCode:(NSString *)code;
-
-/*" Script execution "*/
-/*
-- (id) executeScript:(NSString *)script;
-- (id) executeScript:(NSString *)script withArguments:(NSArray *)args;
-- (id) executeScriptFromFile:(NSString *)fileName withArguments:(NSArray *)args;
-- (id) executeScriptSource:(NSString *)source withArguments:(NSArray *)args;
-*/
 @end

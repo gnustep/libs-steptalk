@@ -1,8 +1,10 @@
 /**
-    NSObject-additions.h
-    Various methods for NSObject
+    STApplicationFinder
  
     Copyright (c) 2002 Free Software Foundation
+
+    Written by: Stefan Urbanek <urbanek@host.sk>
+    Date: 2002 Jun 8
  
     This file is part of the StepTalk project.
  
@@ -22,9 +24,10 @@
  
  */
 
-#import <Foundation/NSObject.h>
+#import <StepTalk/STModule.h>
 
-@interface NSObject (STAdditions)
-- (BOOL)isNil;
-- (BOOL)notNil;
+@interface STApplicationFinder:NSObject
+{
+}
 @end
+

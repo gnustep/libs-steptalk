@@ -9,6 +9,13 @@ Name
 Use
     Array of scripting descriptions to include.
 
+
+Modules
+    Array of modules to be loaded
+    
+Finders
+    Array of object finder names to be used
+
 Behaviours          
     Dictionary of behaviour descriptions, that can be adopted by a class or 
     another behaviour.

@@ -8,9 +8,13 @@
  
  */
 
-#import "NSObject+additions.h"
+#import <StepTalk/NSObject+additions.h>
 
 @implementation NSObject (STAdditions)
+- (BOOL)isSame:(id)anObject
+{
+    return self == anObject;
+}
 - (BOOL)isNil
 {
     return NO;
@@ -19,6 +23,13 @@
 {
     return YES;
 }
-
+- (NSString *)className
+{
+    return NSStringFromClass([self class]);
+}
++ (NSString *)className
+{
+    return NSStringFromClass([self class]);
+}
 @end
 

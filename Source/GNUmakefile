@@ -44,7 +44,8 @@ libStepTalk_OBJC_FILES = \
     STModule.m \
     STScripting.m \
     STSelector.m \
-    NSNumber+additions.m
+    NSNumber+additions.m \
+    NSObject+additions.m
 
 STEPTALK_HEADER_FILES = \
     STEnvironment.h \
@@ -54,6 +55,7 @@ STEPTALK_HEADER_FILES = \
     STObjectReference.h  \
     STUndefinedObject.h   \
     NSInvocation+additions.h \
+    NSObject+additions.h \
     STObjCRuntime.h \
     STEngine.h \
     STModule.h \

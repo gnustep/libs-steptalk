@@ -1,11 +1,11 @@
 /**
-    STObjCRuntime.m
-    Objective C runtime additions 
+    STShell
+    StepTalk Shell
  
     Copyright (c) 2002 Free Software Foundation
  
     Written by: Stefan Urbanek <urbanek@host.sk>
-    Date: 2000
+    Date: 2002 May 29
    
     This file is part of the StepTalk project.
  
@@ -27,18 +27,34 @@
 
 #import <Foundation/NSObject.h>
 
-@class NSMutableDictionary;
-@class NSString;
-@class NSValue;
-@class NSMethodSignature;
+@class STEngine;
+@class STEnvironment;
+@class NSMutableArray;
 
-extern NSMutableDictionary *STAllObjectiveCClasses(void);
-extern NSMutableDictionary *STGetFoundationConstants(void);
-extern NSMutableDictionary *STClassDictionaryFromNames(NSArray *classNames);
-extern NSArray             *STAllObjectiveCSelectors(void);
+@interface STShell:NSObject
+{
+    STEnvironment *env;
+    STEngine      *engine;
+    
+    NSString      *prompt;
+    NSString      *source;
+    
+    NSMutableArray *objectStack;
+    
+    BOOL           exitRequest;
 
-extern NSValue *STValueFromSelector(SEL sel);
-extern SEL STSelectorFromValue(NSValue *val);
-extern SEL STSelectorFromString(NSString *aString);
-NSMethodSignature *STMethodSignatureForSelector(SEL sel);
+    BOOL           updateCompletitionList;
+    NSArray        *completitionList;
+}
++ sharedShell;
 
+- (void)setLanguage:(NSString *)langName;
+- (void)setEnvironment:(STEnvironment *)newEnv;
+- (STEnvironment *)environment;
+
+- (void)run;
+
+- show:(id)anObject;
+- showLine:(id)anObject;
+
+@end
