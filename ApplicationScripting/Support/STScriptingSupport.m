@@ -2,8 +2,10 @@
     ScriptingSupport
     Code for loading scripting
     
-    NOTE: Copy and include this file into your application project.
-  
+    Copy and include this file into your application project.
+    
+    NOTE: Please, do not modify this file. It is part of the StepTalk and
+    depends on its interface.   
   
     Copyright (c) 2002 Stefan Urbanek
   
@@ -114,7 +116,7 @@
     return nil;
 }
 
-- (void)_loadAppTalkAndRetryAction:(SEL)sel sender:(id)sender
+- (void)_loadAppTalkAndRetryAction:(SEL)sel with:(id)anObject
 {
     static BOOL isIn = NO;
     
@@ -130,19 +132,48 @@
 
     if([self initializeApplicationScripting])
     {
-        [self performSelector:sel withObject:sender];
+        [self performSelector:sel withObject:anObject];
     }
 
     isIn = NO;
 }
 
+- (id)_loadAppTalkAndRetryAction:(SEL)sel
+{
+    static BOOL isIn = NO;
+    id          retval = nil;
+    
+    if(isIn)
+    {
+        NSLog(@"Error occured while loading application scripting support");
+
+        isIn = NO;
+        return;
+    }
+    
+    isIn = YES;
+
+    if([self initializeApplicationScripting])
+    {
+        retval = [self performSelector:sel];
+    }
+
+    isIn = NO;
+    
+    return retval;
+}
+
 - (void)orderFrontScriptsPanel:(id)sender
 {
-    [self _loadAppTalkAndRetryAction:_cmd sender:sender];
+    [self _loadAppTalkAndRetryAction:_cmd with:sender];
 }
 
 - (void)orderFrontTranscriptWindow:(id)sender
 {
-    [self _loadAppTalkAndRetryAction:_cmd sender:sender];
+    [self _loadAppTalkAndRetryAction:_cmd with:sender];
+}
+- (NSMenu *)scriptingMenu
+{
+    return [self _loadAppTalkAndRetryAction:_cmd];
 }
 @end

@@ -27,10 +27,12 @@
 #import <Foundation/NSObject.h>
 
 @class STScriptsPanel;
+@class NSMenu;
 
 @interface STApplicationScriptingController:NSObject
 {
     STScriptsPanel *scriptsPanel;
+    NSMenu         *scriptingMenu;
 }
 
 - (void)orderFrontScriptsPanel:(id)sender;

@@ -38,6 +38,7 @@
 
 #import "STScriptsPanel.h"
 #import "STTranscript.h"
+#import "NSObject+NibLoading.h"
 
 @implementation STApplicationScriptingController
 - (void)createScriptsPanel
@@ -128,5 +129,20 @@
     
     return retval;
 }
-
+- (void)setScriptingMenu:(NSMenu *)menu
+{
+    ASSIGN(scriptingMenu, menu);
+}
+- (NSMenu *)scriptingMenu
+{
+    if(!scriptingMenu)
+    {
+        if(![self loadMyNibNamed:@"ScriptingMenu"])
+        {
+            return nil;
+        }
+    }
+    NSLog(@"Scripting menu: %@", scriptingMenu);
+    return scriptingMenu;
+}
 @end

@@ -30,7 +30,11 @@
 @class STEnvironment;
 
 @interface NSApplication(STAppScriptingAdditions)
-- (NSString *)applcationNameForScripting;
-- (void)orderFrontScriptsPanel:(id)sender;
 - (STEnvironment *)scriptingEnvironment;
+
+- (void)orderFrontScriptsPanel:(id)sender;
+- (void)orderFrontTranscriptWindow:(id)sender;
+
+- (NSMenu *)scriptingMenu;
+- (void)setScriptingMenu:(NSMenu *)menu;
 @end

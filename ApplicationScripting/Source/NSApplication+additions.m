@@ -202,6 +202,18 @@ static STApplicationScriptingController *scriptingController = nil;
     [scriptingController orderFrontScriptsPanel:nil];
 }
 
+/** Return scripting menu. The default menu is provided by 
+STApplicationScriptingController */
+- (NSMenu *)scriptingMenu
+{
+    return [scriptingController scriptingMenu];
+}
+/** Set application Scripting menu */
+- (void)setScriptingMenu:(NSMenu *)menu
+{
+    [scriptingController setScriptingMenu:menu];
+}
+
 - (void)orderFrontTranscriptWindow:(id)sender
 {
     [scriptingController orderFrontTranscriptWindow:nil];

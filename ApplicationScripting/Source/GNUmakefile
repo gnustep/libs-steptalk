@@ -45,7 +45,8 @@ ApplicationScripting_RESOURCE_FILES = ScriptingInfo.plist
 
 ApplicationScripting_LOCALIZED_RESOURCE_FILES = \
         ScriptsPanel.gorm \
-        TranscriptWindow.gorm
+        TranscriptWindow.gorm \
+        ScriptingMenu.gorm
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make

@@ -1,5 +1,10 @@
 2003 Mar 23
 
+    * Added ScriptingMenu.gorm
+    * NSApplication: new methods: scriptingMenu and setScriptingMenu:
+
+2003 Mar 23
+
     * Rewritten and changed from library to bundle.
 
 2002 Jun 18
