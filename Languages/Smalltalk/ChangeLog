@@ -1,3 +1,8 @@
+2003 Sep 28 Stefan Urbanek <urbanek@host.sk>
+
+    * NSNumber: fixed -NSNumber to:step:do: - now accepts negative step.
+    (Patch by Alexander Diemand)
+
 2003 Sep 24 Stefan Urbanek <urbanek@host.sk>
     
     * Guard compilation with an autorelease pool

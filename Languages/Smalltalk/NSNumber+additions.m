@@ -75,11 +75,22 @@
     id   retval = nil;
     int  i;
 
-    /* FIXME: step < 0? */
-    for(i=[self intValue];i<=number;i+=step)
+    if (step > 0)
     {
-        retval = [block valueWith:[NSNumber numberWithInt:i]];
+        for(i=[self intValue];i<=number;i+=step)
+        {
+            retval = [block valueWith:[NSNumber numberWithInt:i]];
+        }
     }
+    else
+    {
+        // step =< 0
+        for(i=[self intValue];i>=number;i+=step)
+        {
+            retval = [block valueWith:[NSNumber numberWithInt:i]];
+        }
+    }
+
     return retval;
 }
 @end
