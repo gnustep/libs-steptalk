@@ -50,6 +50,8 @@
         NSGDate,
         NSHost,
         NSInvocation,
+        NSKeyedArchiver,
+        NSKeyedUnarchiver,
         NSLock,
         NSMethodSignature,
         NSMutableArray,
