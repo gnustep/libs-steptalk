@@ -34,6 +34,7 @@
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSFileManager.h>
 #import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
@@ -155,9 +156,12 @@ int complete_handler(void)
         
     [env setCreatesUnknownObjects:YES];
     
+    /* Add standard objects */
     [env setObject:self forName:@"Shell"];
     [env setObject:self forName:@"Transcript"];
     [env setObject:objectStack forName:@"Objects"];
+
+    [env setObject:[NSFileManager defaultManager] forName:@"FileManager"];
 
     /* FIXME: This is unsafe !*/
     [env setObject:env forName:@"Environment"];
@@ -194,16 +198,21 @@ int complete_handler(void)
 }
 - (id)executeLine:(NSString *)line
 {
+    NSString *cmd;
     id result = nil;
 
     /* FIXME: why? */
-    line = [line stringByAppendingString:@" "];
+
+    cmd = [line stringByAppendingString:@" "];
     NS_DURING
-        result = [engine executeCode:line inEnvironment:env];
+        result = [engine executeCode:cmd inEnvironment:env];
     NS_HANDLER
         [self showException:localException];
     NS_ENDHANDLER
 
+    [env setObject:line forName:@"LastCommand"];
+    [env setObject:result forName:@"LastObject"];
+    
     return result;
 }
 

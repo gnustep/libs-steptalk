@@ -1,3 +1,7 @@
+2003 Sep 21
+
+    * Added named objects FileManager, LastCommand and LastObject
+
 2003 Jun 19
 
     * Renamed stshell.m to stshell_tool.m. MS Windows was causing problems with
