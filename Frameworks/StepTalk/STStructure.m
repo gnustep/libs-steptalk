@@ -24,15 +24,15 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import <StepTalk/STStructure.h>
+#import "STStructure.h"
 
-#import <StepTalk/STExterns.h>
+#import "STExterns.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 #import <Foundation/NSDebug.h>
-#import <StepTalk/NSInvocation+additions.h>
+#import "NSInvocation+additions.h"
 
 @implementation STStructure
 + structureWithValue:(void *)value type:(const char*)type

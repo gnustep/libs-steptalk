@@ -431,6 +431,57 @@
 	Headers/StepTalk/STUndefinedObject.h = (
 	    ../Documentation/Reference/STUndefinedObject.gsdoc
 	);
+	"NSInvocation+additions.h" = (
+	    "../../Documentation/Reference/NSInvocation+additions.gsdoc"
+	);
+	"NSObject+additions.h" = (
+	    "../../Documentation/Reference/NSObject+additions.gsdoc"
+	);
+	STBundleInfo.h = (
+	    ../../Documentation/Reference/STBundleInfo.gsdoc
+	);
+	STEngine.h = (
+	    ../../Documentation/Reference/STEngine.gsdoc
+	);
+	STEnvironment.h = (
+	    ../../Documentation/Reference/STEnvironment.gsdoc
+	);
+	STExterns.h = (
+	    ../../Documentation/Reference/STExterns.gsdoc
+	);
+	STFunctions.h = (
+	    ../../Documentation/Reference/STFunctions.gsdoc
+	);
+	STLanguage.h = (
+	    ../../Documentation/Reference/STLanguage.gsdoc
+	);
+	STMethod.h = (
+	    ../../Documentation/Reference/STMethod.gsdoc
+	);
+	STObjCRuntime.h = (
+	    ../../Documentation/Reference/STObjCRuntime.gsdoc
+	);
+	STObjectReference.h = (
+	    ../../Documentation/Reference/STObjectReference.gsdoc
+	);
+	STScript.h = (
+	    ../../Documentation/Reference/STScript.gsdoc
+	);
+	STScriptObject.h = (
+	    ../../Documentation/Reference/STScriptObject.gsdoc
+	);
+	STScripting.h = (
+	    ../../Documentation/Reference/STScripting.gsdoc
+	);
+	STScriptsManager.h = (
+	    ../../Documentation/Reference/STScriptsManager.gsdoc
+	);
+	STSelector.h = (
+	    ../../Documentation/Reference/STSelector.gsdoc
+	);
+	STUndefinedObject.h = (
+	    ../../Documentation/Reference/STUndefinedObject.gsdoc
+	);
     };
     protocol = {
 	"(STMethod)" = STMethod;
@@ -486,6 +537,57 @@
 	    STSelector.m
 	);
 	Headers/StepTalk/STUndefinedObject.h = (
+	    STUndefinedObject.m
+	);
+	"NSInvocation+additions.h" = (
+	    "NSInvocation+additions.m"
+	);
+	"NSObject+additions.h" = (
+	    "NSObject+additions.m"
+	);
+	STBundleInfo.h = (
+	    STBundleInfo.m
+	);
+	STEngine.h = (
+	    STEngine.m
+	);
+	STEnvironment.h = (
+	    STEnvironment.m
+	);
+	STExterns.h = (
+	    STExterns.m
+	);
+	STFunctions.h = (
+	    STFunctions.m
+	);
+	STLanguage.h = (
+	    STLanguage.m
+	);
+	STMethod.h = (
+	    STMethod.m
+	);
+	STObjCRuntime.h = (
+	    STObjCRuntime.m
+	);
+	STObjectReference.h = (
+	    STObjectReference.m
+	);
+	STScript.h = (
+	    STScript.m
+	);
+	STScriptObject.h = (
+	    STScriptObject.m
+	);
+	STScripting.h = (
+	    STScripting.m
+	);
+	STScriptsManager.h = (
+	    STScriptsManager.m
+	);
+	STSelector.h = (
+	    STSelector.m
+	);
+	STUndefinedObject.h = (
 	    STUndefinedObject.m
 	);
     };

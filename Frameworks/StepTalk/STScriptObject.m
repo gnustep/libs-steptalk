@@ -1,6 +1,6 @@
 /* 2003 Aug 5 */
 
-#import "StepTalk/STScriptObject.h"
+#import "STScriptObject.h"
 
 @implementation STScriptObject
 - initWithInstanceVariableNames:(NSString *)names

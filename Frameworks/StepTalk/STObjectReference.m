@@ -24,9 +24,9 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import <StepTalk/STObjectReference.h>
+#import "STObjectReference.h"
 
-#import <StepTalk/STExterns.h>
+#import "STExterns.h"
 
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>

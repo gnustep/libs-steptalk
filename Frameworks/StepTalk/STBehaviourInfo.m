@@ -24,7 +24,7 @@
  
  */
 
-#import <StepTalk/STBehaviourInfo.h>
+#import "STBehaviourInfo.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>

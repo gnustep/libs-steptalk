@@ -24,11 +24,11 @@
 
    */
 
-#import <StepTalk/STScriptsManager.h>
+#import "STScriptsManager.h"
 
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STLanguage.h>
-#import <StepTalk/STScript.h>
+#import "STExterns.h"
+#import "STLanguage.h"
+#import "STScript.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>

@@ -25,7 +25,7 @@
  
  */
 
-#import <StepTalk/STBehaviourInfo.h>
+#import "STBehaviourInfo.h"
 
 @class NSString;
 @class NSMutableDictionary;

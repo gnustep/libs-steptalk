@@ -21,11 +21,11 @@
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
-include ../Version
+include ../../Version
 
-LIBRARY_NAME = libStepTalk
+FRAMEWORK_NAME = StepTalk
 
-libStepTalk_OBJC_FILES = \
+StepTalk_OBJC_FILES = \
     NSInvocation+additions.m \
     STBehaviourInfo.m \
     STBundleInfo.m \
@@ -47,7 +47,8 @@ libStepTalk_OBJC_FILES = \
     STStructure.m \
     STUndefinedObject.m  \
     NSNumber+additions.m \
-    NSObject+additions.m
+    NSObject+additions.m \
+    SteptalkScriptingInfo.m
 
 STEPTALK_HEADER_FILES = \
     STBundleInfo.h \
@@ -66,18 +67,16 @@ STEPTALK_HEADER_FILES = \
     STSelector.h \
     STUndefinedObject.h  \
     NSInvocation+additions.h \
-    NSObject+additions.h
+    NSObject+additions.h 
 
-libStepTalk_HEADER_FILES = $(STEPTALK_HEADER_FILES) \
+StepTalk_HEADER_FILES = $(STEPTALK_HEADER_FILES) \
                             StepTalk.h
-libStepTalk_HEADER_FILES_DIR = Headers/StepTalk
 
-libStepTalk_HEADER_FILES_INSTALL_DIR = StepTalk
+
+StepTalk_RESOURCE_FILES = ScriptingInfo.plist        
 
 STEPTALK_LIBRARY_DIR = $(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk
 STEPTALK_ENVDEFS_DIR = $(STEPTALK_LIBRARY_DIR)/Environments
-
-ADDITIONAL_INCLUDE_DIRS += -I./Headers
 
 ADDITIONAL_CPPFLAGS += -pipe 
 ADDITIONAL_OBJCFLAGS = -Wno-import -DSTEPTALK_VERSION=$(STEPTALK_VERSION)
@@ -89,18 +88,20 @@ StepTalk_DOC_INSTALL_DIR = Developer
 StepTalk_HEADER_FILES_DIR = $(HEADER_DIR)
 StepTalk_AGSDOC_FILES = StepTalk.gsdoc $(STEPTALK_HEADER_FILES)
 StepTalk_AGSDOC_FLAGS = \
-        -HeaderDirectory Headers/StepTalk \
         -Up StepTalk \
         -Declared StepTalk \
-        -DocumentationDirectory ../Documentation/Reference
+        -DocumentationDirectory ../../Documentation/Reference
 
 ifeq ($(GNUSTEP_TARGET_OS),mingw32)
-    libStepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
+    StepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
 endif
 
 -include GNUmakefile.preamble
 
-include $(GNUSTEP_MAKEFILES)/library.make
-include $(GNUSTEP_MAKEFILES)/documentation.make
+include $(GNUSTEP_MAKEFILES)/framework.make
+
+ifeq ($(doc), yes)
+    include $(GNUSTEP_MAKEFILES)/documentation.make
+endif
 
 -include GNUmakefile.postamble

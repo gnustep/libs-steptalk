@@ -25,8 +25,8 @@
  
  */
 
-#import <StepTalk/STObjCRuntime.h>
-#import <StepTalk/STExterns.h>
+#import "STObjCRuntime.h"
+#import "STExterns.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>

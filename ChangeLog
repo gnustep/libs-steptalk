@@ -2,6 +2,9 @@
 
     * Frameworks: new directory
     * Changed StepTalk from library to framework
+    * Modules: Removed StepTalk module as it is no more needed, because
+    we have framework and it can provide scripting capabilities by it self
+    * All GNUMakefiles modified to reflect change to Framework
     
 2003 Aug 5  Stefan Urbanek <urbanek@host.sk>
     

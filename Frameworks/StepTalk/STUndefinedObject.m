@@ -24,10 +24,10 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02111, USA.
 
  */
-#import <StepTalk/STUndefinedObject.h>
+#import "STUndefinedObject.h"
 
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STObjCRuntime.h>
+#import "STExterns.h"
+#import "STObjCRuntime.h"
 
 #import <Foundation/NSString.h>
 

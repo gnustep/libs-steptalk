@@ -24,6 +24,6 @@
  
  */
 
-#import <StepTalk/STMethod.h>
+#import "STMethod.h"
 
 /* Nothig here */

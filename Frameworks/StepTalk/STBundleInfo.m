@@ -25,10 +25,10 @@
   
  */
 
-#import <StepTalk/STBundleInfo.h>
+#import "STBundleInfo.h"
 
-#import <StepTalk/STFunctions.h>
-#import <StepTalk/STExterns.h>
+#import "STFunctions.h"
+#import "STExterns.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>

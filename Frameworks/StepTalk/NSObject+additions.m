@@ -8,7 +8,7 @@
  
  */
 
-#import <StepTalk/NSObject+additions.h>
+#import "NSObject+additions.h"
 
 @implementation NSObject (STAdditions)
 - (BOOL)isSame:(id)anObject

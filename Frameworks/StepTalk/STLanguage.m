@@ -25,11 +25,11 @@
  
  */
 
-#import <StepTalk/STLanguage.h>
+#import "STLanguage.h"
 
-#import <StepTalk/STEngine.h>
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STFunctions.h>
+#import "STEngine.h"
+#import "STExterns.h"
+#import "STFunctions.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>

@@ -37,6 +37,10 @@ GDL2_RESOURCE_FILES = ScriptingInfo.plist
 
 GDL2_BUNDLE_LIBS += -lgnustep-db2 -lgnustep-db2control -lgnustep-db2modeler
 
+ADDITIONAL_BUNDLE_LIBS = -lStepTalk
+ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
+ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
+
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
 ADDITIONAL_OBJCFLAGS = -Wall -Wno-import

@@ -25,9 +25,9 @@
  
  */
 
-#import <StepTalk/STFunctions.h>
+#import "STFunctions.h"
 
-#import <StepTalk/STExterns.h>
+#import "STExterns.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSEnumerator.h>

@@ -25,12 +25,12 @@
  
  */
 
-#import <StepTalk/STEnvironmentDescription.h>
+#import "STEnvironmentDescription.h"
 
-#import <StepTalk/STClassInfo.h>
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STFunctions.h>
-#import <StepTalk/STBehaviourInfo.h>
+#import "STClassInfo.h"
+#import "STExterns.h"
+#import "STFunctions.h"
+#import "STBehaviourInfo.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>

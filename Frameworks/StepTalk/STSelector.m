@@ -24,7 +24,7 @@
  
  */
 
-#import <StepTalk/STSelector.h>
+#import "STSelector.h"
 
 @implementation STSelector
 - initWithSelector:(SEL)aSel

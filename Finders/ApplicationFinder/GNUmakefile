@@ -33,8 +33,9 @@ ApplicationFinder_PRINCIPAL_CLASS = STApplicationFinder
 
 ApplicationFinder_BUNDLE_LIBS += -lStepTalk
 
-ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
-ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+ADDITIONAL_BUNDLE_LIBS = -lStepTalk
+ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
+ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Finders
 

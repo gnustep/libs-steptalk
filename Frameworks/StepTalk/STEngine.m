@@ -25,13 +25,13 @@
  
  */
 
-#import <StepTalk/STEngine.h>
+#import "STEngine.h"
 
-#import <StepTalk/STEnvironment.h>
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STFunctions.h>
-#import <StepTalk/STLanguage.h>
-#import <StepTalk/STUndefinedObject.h>
+#import "STEnvironment.h"
+#import "STExterns.h"
+#import "STFunctions.h"
+#import "STLanguage.h"
+#import "STUndefinedObject.h"
 
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>

@@ -27,7 +27,7 @@
   
   */
 
-#import <StepTalk/STScripting.h>
+#import "STScripting.h"
 
 @implementation NSObject (STScripting)
 /*

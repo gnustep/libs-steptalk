@@ -24,9 +24,9 @@
 
    */
 
-#import <StepTalk/STScript.h>
+#import "STScript.h"
 
-#import <StepTalk/STLanguage.h>
+#import "STLanguage.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDictionary.h>

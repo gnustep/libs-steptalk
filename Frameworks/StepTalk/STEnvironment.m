@@ -27,17 +27,17 @@
  
    */
 
-#import <StepTalk/STEnvironment.h>
+#import "STEnvironment.h"
 
-#import <StepTalk/STClassInfo.h>
-#import <StepTalk/STEnvironmentDescription.h>
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STFunctions.h>
-#import <StepTalk/STBundleInfo.h>
-#import <StepTalk/STObjCRuntime.h>
-#import <StepTalk/STObjectReference.h>
-#import <StepTalk/STUndefinedObject.h>
-#import <StepTalk/STScripting.h>
+#import "STClassInfo.h"
+#import "STEnvironmentDescription.h"
+#import "STExterns.h"
+#import "STFunctions.h"
+#import "STBundleInfo.h"
+#import "STObjCRuntime.h"
+#import "STObjectReference.h"
+#import "STUndefinedObject.h"
+#import "STScripting.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>

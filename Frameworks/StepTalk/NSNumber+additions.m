@@ -25,10 +25,10 @@
     
  */
 
-#import <StepTalk/NSNumber+additions.h>
+#import "NSNumber+additions.h"
 
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STStructure.h>
+#import "STExterns.h"
+#import "STStructure.h"
 
 #import <Foundation/NSException.h>
 

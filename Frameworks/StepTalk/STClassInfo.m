@@ -25,9 +25,9 @@
  
  */
 
-#import <StepTalk/STClassInfo.h>
+#import "STClassInfo.h"
 
-#import <StepTalk/STFunctions.h>
+#import "STFunctions.h"
 
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSDebug.h>

@@ -27,17 +27,17 @@
  
  */
 
-#import <StepTalk/NSInvocation+additions.h>
+#import "NSInvocation+additions.h"
 
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSValue.h>
 
-#import <StepTalk/STExterns.h>
-#import <StepTalk/STObjCRuntime.h>
-#import <StepTalk/STScripting.h>
-#import <StepTalk/STSelector.h>
-#import <StepTalk/STStructure.h>
+#import "STExterns.h"
+#import "STObjCRuntime.h"
+#import "STScripting.h"
+#import "STSelector.h"
+#import "STStructure.h"
 
 #if 0
 static Class NSNumber_class = nil;
