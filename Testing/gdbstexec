@@ -1,0 +1,8 @@
+#!/bin/csh
+
+set temp = `tempfile -p stexec`
+echo set args $*:q > $temp
+echo run >> $temp
+echo bt >> $temp
+gdb --command=$temp `which stexec`
+rm $temp
