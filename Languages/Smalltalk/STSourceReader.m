@@ -231,13 +231,13 @@ static NSString *_STNormalizeStringToken(NSString *token)
         }
         srcOffset++;
     }
+    return 0;
 }
 
 - (STTokenType)readNextToken
 {
     unichar c;
     int start;
-    
     if([self eatWhiteSpace])
     {
         return STErrorTokenType;
@@ -249,40 +249,56 @@ static NSString *_STNormalizeStringToken(NSString *token)
     }
     
     c = PEEK_CHAR;
-    
+
     if([identStartCharacterSet characterIsMember:c])
     {
+        BOOL isIdent = YES;
+        
         start = srcOffset;
         srcOffset++;
         
-        while(!AT_END && [identCharacterSet characterIsMember:c])
+        isIdent = [identCharacterSet characterIsMember:c];
+
+        while(isIdent)
         {
+            if(AT_END)
+            {
+                tokenRange = NSMakeRange(start,srcOffset - start);
+                return STIdentifierTokenType;
+            }
+            
             c = GET_CHAR;
+            isIdent = [identCharacterSet characterIsMember:c];
         }
 
-        if(AT_END)
+        if(c == ':')
         {
-            tokenRange = NSMakeRange(start,srcOffset - start);
-            return STIdentifierTokenType;
+            if(AT_END)
+            {
+                tokenRange = NSMakeRange(start,srcOffset - start);
+                return STKeywordTokenType;
+            }
+
+            c = PEEK_CHAR;
+            if(c == '=')
+            {
+                /* We have found := */
+                srcOffset --;
+
+                tokenRange = NSMakeRange(start,srcOffset - start - 1);
+                return STIdentifierTokenType;
+            }
+            else
+            {
+                tokenRange = NSMakeRange(start,srcOffset - start);
+                return STKeywordTokenType;
+            }
         }
         else
         {
+            /* Put back that character */
             srcOffset--;
-            c = PEEK_CHAR;
-            if(c == ':')
-            {
-                GET_CHAR;
-                c = PEEK_CHAR;
-                if(c == '=')
-                {
-                    srcOffset--; /* we got := */
-                }
-                else
-                {
-                    tokenRange = NSMakeRange(start,srcOffset - start);
-                    return STKeywordTokenType;
-                }
-            }
+    
             tokenRange = NSMakeRange(start,srcOffset - start);
             return STIdentifierTokenType;
         }
@@ -290,89 +306,168 @@ static NSString *_STNormalizeStringToken(NSString *token)
     else if ( c == '-' || c == '+' || [numericCharacterSet characterIsMember:c])
     {
         BOOL maybesym = (c == '-' || c == '+');
-        BOOL scannedSomething = NO;
         BOOL isReal = NO;
+        BOOL isDigit = NO;
                 
-        start = srcOffset++;
-        if(!AT_END)
-        {
-            c = GET_CHAR;
-            if(![numericCharacterSet characterIsMember:c] && maybesym)
-            {
-                if([symbolicSelectorCharacterSet characterIsMember:c])
-                {
-                    tokenRange = NSMakeRange(start,2);
-                }
-                else
-                {
-                    srcOffset--;
-                    tokenRange = NSMakeRange(start, 1);
-                }
-
-                return STBinarySelectorTokenType;
-            }
-        }        
-
-        while([numericCharacterSet characterIsMember:c] && !AT_END)
-        {
-            c = GET_CHAR;
-        }
+        start = srcOffset;
+        srcOffset++;
 
         if(AT_END)
         {
-            tokenRange = NSMakeRange(start,srcOffset - start);
-            return STIntNumberTokenType;
-        }
-        
-        if(c == '.'  && !AT_END)
-        {
-            c = GET_CHAR;
-            while([numericCharacterSet characterIsMember:c])
+            tokenRange = NSMakeRange(start, 1);
+            if(maybesym)
             {
-                c = GET_CHAR;
-                scannedSomething = YES;
-                if(AT_END)
-                    break;
+                return STBinarySelectorTokenType;
             }
-            if(!scannedSomething)
+            else
             {
-#if 0
-                tokenRange = NSMakeRange(start,srcOffset - start + 1);
-                [NSException raise:STCompilerSyntaxException
-                            format:@"Expected digit after the decimal point"];
-                return STErrorTokenType;
-#endif
-                srcOffset-=2; /* eat next character and the dot */
-                tokenRange = NSMakeRange(start,srcOffset - start);
                 return STIntNumberTokenType;
             }
-            scannedSomething = NO;
-            isReal = YES;
         }
-            
-        if((c == 'e' || c == 'E')  && !AT_END)
+
+        /* Take next character and see if it is binary selector */
+        c = GET_CHAR;
+
+        if(![numericCharacterSet characterIsMember:c] && maybesym)
         {
+            if([symbolicSelectorCharacterSet characterIsMember:c])
+            {
+                /* Both characters are making one binary selector */
+                tokenRange = NSMakeRange(start,2);
+            }
+            else
+            {
+                /* Other character was neither number nor binary selector
+                   character, so we put it back. */
+                srcOffset--;
+                tokenRange = NSMakeRange(start, 1);
+            }
+
+            return STBinarySelectorTokenType;
+        }
+
+        /* c should be a digit here */
+        isDigit = [numericCharacterSet characterIsMember:c];
+
+        while( isDigit )
+        {
+            if(AT_END)
+            {
+                tokenRange = NSMakeRange(start, srcOffset-start);
+                return STIntNumberTokenType;
+            }
+            
             c = GET_CHAR;
-            if((c == '+' || c == '-')  && !AT_END)
+            isDigit = [numericCharacterSet characterIsMember:c];
+        }
+        
+
+        if(c == '.')
+        {
+            if(AT_END)
             {
-                c = GET_CHAR;
+                /* we have read a dot '.' at the end of string, do not treat it
+                   as decimal point. We rather put it back and treat it like
+                   end of statement. */
+ 
+                srcOffset--;
+                tokenRange = NSMakeRange(start, srcOffset - start);
+                  
+                return STIntNumberTokenType;
             }
-            while([numericCharacterSet characterIsMember:c])
-            {
-                c = GET_CHAR;
-                scannedSomething = YES;
-                if(AT_END)
-                    break;
-            }
-            if(!scannedSomething)
+            
+            c = PEEK_CHAR;
+            isDigit = [numericCharacterSet characterIsMember:c];
+
+            if(!isDigit)
             {
                 tokenRange = NSMakeRange(start,srcOffset - start + 1);
                 [NSException raise:STCompilerSyntaxException
-                            format:@"Expected digits in the exponent"];
+                            format:@"Invalid character '%c' after decimal point",
+                            c];
                 return STErrorTokenType;
             }
-            scannedSomething = NO;
+    
+            while(isDigit)
+            {
+                if(AT_END)
+                {
+                    tokenRange = NSMakeRange(start, srcOffset - start);
+                    return STRealNumberTokenType;
+                }
+                
+                c = GET_CHAR;
+                isDigit = [numericCharacterSet characterIsMember:c];
+            }
+            
             isReal = YES;
+            
+            /* Here we are either at the end or just scanned non-digit 
+               character. */
+        }
+
+        if(c == 'e' || c == 'E')
+        {
+            if(AT_END)
+            {
+                /* We have reached end of wource without specifying exponent.
+                   This is error. */
+ 
+                tokenRange = NSMakeRange(start,srcOffset - start);
+                [NSException raise:STCompilerSyntaxException
+                            format:@"Unexpected end of source. "
+                                   @"Exponent is missing."];
+                return STErrorTokenType;
+            }
+    
+            c = GET_CHAR;
+            
+            if(c == '+' || c == '-')
+            {
+                if(AT_END)
+                {
+                    /* We have reached end of wource without specifying exponent.
+                       This is error. */
+
+                    tokenRange = NSMakeRange(start,srcOffset - start);
+                    [NSException raise:STCompilerSyntaxException
+                                format:@"Unexpected end of source. "
+                                       @"Exponent is missing after '%c'.", c];
+                    return STErrorTokenType;
+                }
+
+                c = GET_CHAR;
+            }
+            
+            isDigit = [numericCharacterSet characterIsMember:c];
+
+            while(isDigit)
+            {
+                if(AT_END)
+                {
+                    tokenRange = NSMakeRange(start, srcOffset - start);
+                    return STRealNumberTokenType;
+                }
+
+                c = GET_CHAR;
+                isDigit = [numericCharacterSet characterIsMember:c];
+            }
+    
+            if([identStartCharacterSet characterIsMember:c])
+            {
+                tokenRange = NSMakeRange(start,srcOffset - start);
+                [NSException raise:STCompilerSyntaxException
+                            format:@"Invalid character '%c' in real number.", c];
+                return STErrorTokenType;
+            }
+            isReal = YES;
+        }
+        else if([identStartCharacterSet characterIsMember:c])
+        {
+            tokenRange = NSMakeRange(start,srcOffset - start);
+            [NSException raise:STCompilerSyntaxException
+                        format:@"Invalid character '%c' in integer.", c];
+            return STErrorTokenType;
         }
         
         srcOffset --;
@@ -546,6 +641,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
 - (STTokenType)nextToken
 {
     tokenType = [self readNextToken];
+    
     return tokenType;
 }
 
