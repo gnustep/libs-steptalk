@@ -30,11 +30,13 @@ StepTalk_OBJC_FILES = \
     STBehaviourInfo.m \
     STBundleInfo.m \
     STClassInfo.m \
+    STConversation.m \
     STEngine.m \
     STEnvironment.m \
     STEnvironmentDescription.m \
     STExterns.m \
     STFunctions.m \
+    STFileScript.m \
     STLanguage.m \
     STObjCRuntime.m \
     STObjectReference.m  \
@@ -52,10 +54,12 @@ StepTalk_OBJC_FILES = \
 
 STEPTALK_HEADER_FILES = \
     STBundleInfo.h \
+    STConversation.h \
     STEngine.h \
     STEnvironment.h \
     STExterns.h \
     STFunctions.h \
+    STFileScript.h \
     STLanguage.h \
     STObjCRuntime.h \
     STObjectReference.h  \

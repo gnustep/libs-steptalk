@@ -55,13 +55,12 @@
     NSMutableArray           *loadedBundles;
 }
 /** Creating environment */
-+ (STEnvironment *)defaultScriptingEnvironment;
++ sharedEnvironment;
++ (STEnvironment *)environmentWithDefaultDescription;
 
-+ environmentWithDescriptionName:(NSString *)descName;
 + environmentWithDescription:(STEnvironmentDescription *)aDescription;
 
-- initDefault;
-- initWithDescriptionName:(NSString *)descName;
+- initWithDefaultDescription;
 - initWithDescription:(STEnvironmentDescription *)aDescription;
 
 /** Full scripting */

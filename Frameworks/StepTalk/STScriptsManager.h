@@ -27,7 +27,7 @@
 #import <Foundation/NSObject.h>
 
 @class NSArray;
-@class STScript;
+@class STFileScript;
 
 @interface STScriptsManager:NSObject
 {
@@ -45,7 +45,7 @@
 - (void)setScriptSearchPaths:(NSArray *)anArray;
 
 - (NSArray *)validScriptSearchPaths;
-- (STScript *)scriptWithName:(NSString*)aString;
+- (STFileScript *)scriptWithName:(NSString*)aString;
 
 - (NSArray *)allScripts;
 @end

@@ -28,7 +28,7 @@
 
 #import "STExterns.h"
 #import "STLanguage.h"
-#import "STScript.h"
+#import "STFileScript.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
@@ -201,7 +201,7 @@ process name.*/
 /**
     Get a script with name <var>aString</var> for current scripting domain. 
 */
-- (STScript *)scriptWithName:(NSString*)aString
+- (STFileScript *)scriptWithName:(NSString*)aString
 {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSEnumerator  *pEnumerator;
@@ -231,7 +231,7 @@ process name.*/
 
                 if([str isEqualToString:aString])
                 {
-                    return [STScript scriptWithFile:
+                    return [STFileScript scriptWithFile:
                                    [path stringByAppendingPathComponent:file]];
                 }
             }
@@ -261,10 +261,10 @@ process name.*/
         ext = [file pathExtension];
         if( [types containsObject:ext] )
         {
-            STScript *script;
+            STFileScript *script;
             NSLog(@"Found script %@", file);
 
-            script = [STScript scriptWithFile: 
+            script = [STFileScript scriptWithFile: 
                         [path stringByAppendingPathComponent:file]];
             [scripts addObject:script];
         }

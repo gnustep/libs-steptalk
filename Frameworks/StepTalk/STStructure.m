@@ -34,6 +34,8 @@
 #import <Foundation/NSDebug.h>
 #import "NSInvocation+additions.h"
 
+#import <objc/objc-api.h>
+
 @implementation STStructure
 + structureWithValue:(void *)value type:(const char*)type
 {

@@ -69,14 +69,10 @@ int complete_handler(void)
 
 + sharedShell
 {
-    if(!sharedShell)
-    {
-        sharedShell = [[self alloc] init];
-    }
     return sharedShell;
 }
 
-- init
+- initWithEnvironment:(STEnvironment *)env
 {
     self = [super init];
     
@@ -93,6 +89,13 @@ int complete_handler(void)
     scriptsManager = RETAIN([STScriptsManager defaultManager]);
     prompt = @"StepTalk > ";
     
+    conversation = [[STConversation alloc] initWithEnvironment:env language:nil];
+    /* FIXME: make this more clever for completion handler */
+    if(!sharedShell)
+    {
+        sharedShell = self;
+    }
+
     return self;
 }
 
@@ -113,6 +116,7 @@ int complete_handler(void)
     RELEASE(objectStack);
     RELEASE(completionList);
     RELEASE(scriptsManager);
+    RELEASE(conversation);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
@@ -133,9 +137,7 @@ int complete_handler(void)
 {
     NSDebugLog(@"Setting language to %@", langName);
 
-    RELEASE(engine);
-    engine = [STEngine engineForLanguageWithName:langName];
-    RETAIN(engine);
+    [conversation setLanguage:langName];
 }
 
 - (void)setEnvironment:(STEnvironment *)newEnv
@@ -204,7 +206,7 @@ int complete_handler(void)
 
     cmd = [line stringByAppendingString:@" "];
     NS_DURING
-        result = [engine executeCode:cmd inEnvironment:env];
+        result = [conversation runScriptFromString:cmd];
     NS_HANDLER
         [self showException:localException];
     NS_ENDHANDLER
@@ -366,7 +368,6 @@ int complete_handler(void)
 - (id)executeScriptNamed:(NSString *)scriptName
 {
     STScript *script = [scriptsManager scriptWithName:scriptName];
-    STEngine *scriptEngine;
     id        result = nil;
     
     if(!script)
@@ -377,11 +378,8 @@ int complete_handler(void)
     }
     else
     {
-        scriptEngine = [STEngine engineForLanguageWithName:[script language]];
-    
         NS_DURING
-            result = [scriptEngine   executeCode:[script source] 
-                                   inEnvironment:env];
+            result = [conversation runScriptFromString:[script source]];
         NS_HANDLER
             [self showException:localException];
         NS_ENDHANDLER

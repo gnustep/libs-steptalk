@@ -95,6 +95,13 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 @implementation STEnvironmentDescription
 + (NSString *)defaultEnvironmentDescriptionName
 {
+    NSLog(@"WARNING: +[STEnvironmentDescription defaultEnvironmentDescriptionName:] is deprecated, "
+          @" use defaultDescriptionName: instead.");
+
+    return [self defaultDescriptionName];
+}
++ (NSString *)defaultDescriptionName
+{
     NSUserDefaults *defs;
     NSString       *name;
     

@@ -1,3 +1,19 @@
+2003 Nov 8 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
+
+    * Updated tools to use STConversation object.
+
+2003 Oct 23 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
+
+    * Added STEnvironment +sharedEnvironment, +defaultScriptingEnvironment and
+    initWithDefaultDescription. Deprecated initDefault, 
+    environmentWithDescriptionName, environmentWithDescriptionName
+    * Added STConversation class
+    
+2003 Oct 6 Stefan Urbanek <urbanek@host.sk>
+
+    * Added STFileScript - moved all unnecessary stuff from STScript there.
+    * Fixed STScriptsManager to use STFileScript
+
 2003 Oct 3   Stefan Urbanek <urbanek@host.sk>
 
     * Added ReadlineTranscript module (Idea by Alexander Diemand + patch from 

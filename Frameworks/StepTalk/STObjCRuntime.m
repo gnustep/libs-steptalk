@@ -53,7 +53,7 @@ NSMutableDictionary *STAllObjectiveCClasses(void)
 {
     NSString            *name;
     NSMutableDictionary *dict;
-    void                *state = NULL;
+    void                *state = 0;
     Class                class;
 
     dict = [NSMutableDictionary dictionary];
@@ -143,7 +143,7 @@ SEL STSelectorFromString(NSString *aString)
             [NSException raise:STInternalInconsistencyException
                          format:@"Unable to register selector '%@'",
                                 aString];
-            return NULL;
+            return 0;
         }
     }
     else
@@ -188,7 +188,7 @@ SEL STCreateTypedSelector(SEL sel)
         [NSException raise:STInternalInconsistencyException
                      format:@"Unable to register typed selector '%s'",
                             name];
-        return NULL;
+        return 0;
     }
 
     return newSel;
@@ -234,7 +234,7 @@ NSArray *STAllObjectiveCSelectors(void)
     NSMutableArray *array;
     NSArray        *methods;
     Class           class;
-    void           *state = NULL;
+    void           *state = 0;
     
     array = [[NSMutableArray alloc] init];
 

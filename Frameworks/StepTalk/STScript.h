@@ -28,20 +28,13 @@
 
 @interface STScript:NSObject
 {
-    NSString *fileName;
-    NSString *localizedName;
-    NSString *menuKey;
-    NSString *description;
+    NSString *source;
     NSString *language;
 }
-+ scriptWithFile:(NSString *)file;
-
-- initWithFile:(NSString *)aFile;
-- (NSString *)fileName;
++ scriptWithSource:(NSString *)aString language:(NSString *)lang;
+- initWithSource:(NSString *)aString language:(NSString *)lang;
 - (NSString *)source;
-- (NSString *)scriptName;
-- (NSString *)localizedName;
-- (NSString *)scriptDescription;
+- (void)setSource:(NSString *)aString;
 - (NSString *)language;
-- (NSComparisonResult)compareByLocalizedName:(STScript *)aScript;
+- (void)setLanguage:(NSString *)name;
 @end

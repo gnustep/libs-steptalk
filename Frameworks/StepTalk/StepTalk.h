@@ -24,8 +24,10 @@
  
  */
 
+#import <StepTalk/STConversation.h>
 #import <StepTalk/STEngine.h>
 #import <StepTalk/STEnvironment.h>
+#import <StepTalk/STEnvironmentDescription.h>
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STFunctions.h>
 #import <StepTalk/STLanguage.h>

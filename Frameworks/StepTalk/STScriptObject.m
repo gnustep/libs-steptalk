@@ -11,6 +11,7 @@
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSInvocation.h>
+#import <Foundation/NSString.h>
 
 @implementation STScriptObject
 /** Return new instance of script object without any instance variables */

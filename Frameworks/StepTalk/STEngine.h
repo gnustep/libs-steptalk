@@ -43,12 +43,6 @@
 + (STEngine *) engineForLanguageWithName:(NSString *)name;
 + (STEngine *) engineForFileType:(NSString *)fileType;
 
-/** Scripting Environment */
-- (STEnvironment *)defaultEnvironment;
-- (void) setDefaultEnvironment:(STEnvironment *)anEnvironment;
-
-- (id)  executeCode:(NSString *)code;
-
 - (id)  executeCode:(NSString *)code 
       inEnvironment:(STEnvironment *)env;
 

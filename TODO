@@ -17,3 +17,4 @@ TODO list
 18 Rewrite Smalltalk compiler (grammar)
 19 Remove empty directories (Source, Modules/StepTalk)
 20 Replace STMethod languageName with map table of method class->engine class
+21 Update application scripting to use STConversation

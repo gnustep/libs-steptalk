@@ -49,7 +49,7 @@ enum
 
     int                  restriction;
 }
-+ (NSString *)defaultEnvironmentDescriptionName;
++ (NSString *)defaultDescriptionName;
 
 + descriptionWithName:(NSString *)descriptionName;
 + descriptionFromDictionary:(NSDictionary *)dictionary;

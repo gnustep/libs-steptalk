@@ -56,7 +56,7 @@ const char *STExecutorCommonOptions =
 
 - (void) dealloc
 {
-    RELEASE(env);
+    RELEASE(conversation);
     [super dealloc];
 }
 
@@ -114,7 +114,8 @@ const char *STExecutorCommonOptions =
 - (void)executeScript:(NSString *)file withArguments:(NSArray *)args;
 {
     NSFileManager *manager = [NSFileManager defaultManager];
-    STEngine      *engine;
+    STEnvironment *env;
+    NSString      *convLanguageName;    
     
     if( [manager fileExistsAtPath:file isDirectory:NO] )
     {
@@ -124,39 +125,32 @@ const char *STExecutorCommonOptions =
         {
             NSDebugLog(@"Using language %@", langName);
 
-            engine = [STEngine engineForLanguageWithName:langName];
+            [conversation setLanguage:langName];
         }
         else
         {
             NSDebugLog(@"Using language for file extension %@", 
                        [file pathExtension]);
 
-            engine = [STEngine engineForFileType:[file pathExtension]];
+            convLanguageName = [STLanguage languageNameForFileType:[file pathExtension]];
+            [conversation setLanguage:convLanguageName];
         }
         
-        if(!engine)
-        {
-            NSDebugLog(@"Using default language %@", 
-                       [STLanguage defaultLanguageName]);
 
-            engine = [STEngine engineForLanguageWithName:[STLanguage defaultLanguageName]];
-        }
-        
-        if(engine)
+        if(conversation)
         {
             NSDebugLog(@"Executing file '%@'",file);
 
-            [engine setDefaultEnvironment:env];
-
+            env = [conversation environment];
             [env setObject:args forName:@"Args"];
             [env setObject:env forName:@"Environment"];
             
-            [engine executeCode:source];
+            [conversation runScriptFromString:source];
         }
         else
         {
             [NSException  raise:STExecutorException
-                 format:@"Unable to create engine"];
+                 format:@"Unable to create a StepTalk conversation."];
 
         }
     }
@@ -205,7 +199,7 @@ const char *STExecutorCommonOptions =
     NSString     *name;
     NSArray      *objects;    
 
-    dict = [env objectDictionary];
+    dict = [[conversation environment] objectDictionary];
     
     objects = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     
@@ -351,7 +345,7 @@ const char *STExecutorCommonOptions =
 
     [self beforeExecuting];
 
-    [self createEnvironment];
+    [self createConversation];
     [self executeScripts];
     
     [self afterExecuting];
@@ -372,5 +366,9 @@ const char *STExecutorCommonOptions =
     [self subclassResponsibility:_cmd];
     
     return 0;
+}
+- (void)createConversation
+{
+    [self subclassResponsibility:_cmd];
 }
 @end

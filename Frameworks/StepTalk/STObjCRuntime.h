@@ -31,6 +31,8 @@
 @class NSString;
 @class NSValue;
 @class NSMethodSignature;
+@class NSDictionary;
+@class NSArray;
 
 extern NSMutableDictionary *STAllObjectiveCClasses(void);
 extern NSMutableDictionary *STGetFoundationConstants(void);

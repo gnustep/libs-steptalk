@@ -32,12 +32,15 @@
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSValue.h>
+#import <Foundation/NSString.h>
 
 #import "STExterns.h"
 #import "STObjCRuntime.h"
 #import "STScripting.h"
 #import "STSelector.h"
 #import "STStructure.h"
+
+#import <objc/objc-api.h>
 
 #if 0
 static Class NSNumber_class = nil;
@@ -76,8 +79,10 @@ id STObjectFromValueOfType(void *value, const char *type)
     CASE_NUMBER_TYPE(_C_UINT,unsigned int,UnsignedInt);
     CASE_NUMBER_TYPE(_C_LNG,long,Long);
     CASE_NUMBER_TYPE(_C_ULNG,unsigned long,UnsignedLong);
+#ifdef _C_LNG_LNG
     CASE_NUMBER_TYPE(_C_LNG_LNG,long long,LongLong);
     CASE_NUMBER_TYPE(_C_ULNG_LNG,unsigned long long,UnsignedLongLong);
+#endif
     CASE_NUMBER_TYPE(_C_FLT,float,Float);
     CASE_NUMBER_TYPE(_C_DBL,double,Double);
     case _C_PTR: 
@@ -104,7 +109,6 @@ id STObjectFromValueOfType(void *value, const char *type)
                 break;
     case _C_BFLD:
     case _C_UNDEF:
-    case _C_ATOM:
     case _C_ARY_B:
     case _C_ARY_E:
     case _C_UNION_B:

@@ -27,7 +27,7 @@
 
 #import <Foundation/NSObject.h>
 
-@class STEngine;
+@class STConversation;
 @class STEnvironment;
 @class STScriptsManager;
 @class NSMutableArray;
@@ -37,7 +37,7 @@
 {
     STScriptsManager *scriptsManager;
     STEnvironment    *env;
-    STEngine         *engine;
+    STConversation   *conversation;
     
     NSString         *prompt;
     NSString         *source;
@@ -49,7 +49,7 @@
     BOOL              updateCompletionList;
     NSArray          *completionList;
 }
-+ sharedShell;
+- initWithEnvironment:(STEnvironment *)env;
 
 - (void)setLanguage:(NSString *)langName;
 - (void)setEnvironment:(STEnvironment *)newEnv;

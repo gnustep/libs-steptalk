@@ -48,30 +48,47 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSInvocation.h>
 
+STEnvironment *sharedEnvironment = nil;
+
 @interface STEnvironment(STPrivateMethods)
 - (STClassInfo *)findClassInfoForObject:(id)anObject;
 @end
 
 @implementation STEnvironment
-/**
-   Creates and initialises scripting environment using standard description.
- */
-+ (STEnvironment *)defaultScriptingEnvironment
+/** Returns an instance of the scripting environment that is shared in
+    the scope of actual application or process. */
++ sharedEnvironment
 {
-    NSString *name;
-
-    name = [STEnvironmentDescription defaultEnvironmentDescriptionName];
+    if(sharedEnvironment == nil)
+    {
+        sharedEnvironment = [[self alloc] initWithDefaultDescription];
+    }
     
-    return [self environmentWithDescriptionName:name];
+    return sharedEnvironment;
 }
 
++ (STEnvironment *)defaultScriptingEnvironment
+{
+    NSLog(@"WARNING: +[STEnvironment defaultScriptingEnvironment] is deprecated, "
+          @" use environmentWithDefaultDescription instead.");
+
+    return[self environmentWithDefaultDescription];
+}
 /**
-   Creates and initialises scripting environment using description with name
-   <var>descName</var>.
+   Creates and initialises new scripting environment using default description.
  */
+
++ (STEnvironment *)environmentWithDefaultDescription
+{
+    return AUTORELEASE([[self alloc] initWithDefaultDescription]);
+}
+
 + environmentWithDescriptionName:(NSString *)descName
 {
-    return AUTORELEASE([[self alloc] initWithDescriptionName:descName]);
+    NSLog(@"WARNING: +[STEnvironment environmentWithDescriptionName:] is deprecated, "
+          @" use environmentWithDescription: instead.");
+          
+    return AUTORELEASE([[self alloc] initWithDescription:[STEnvironmentDescription descriptionWithName:descName]]);
 }
 
 /**
@@ -88,22 +105,31 @@
    
    <init />
  */
+
+- initWithDefaultDescription
+{
+    STEnvironmentDescription *desc;
+    NSString *name;
+    
+    name = [STEnvironmentDescription defaultDescriptionName];
+    desc = [STEnvironmentDescription descriptionWithName:name];
+    
+    return [self initWithDescription:desc];
+}
+
 - initDefault
 {
-    NSString *name;
+    NSLog(@"WARNING: +[STEnvironment initDefault:] is deprecated, "
+          @" use initWithDefaultDescription: instead.");
 
-    name = [STEnvironmentDescription defaultEnvironmentDescriptionName];
-    
-    return [self initWithDescriptionName:name];
+    return [self initWithDefaultDescription];
 }
-/**
-   Initialises scripting environment using description with name
-   <var>descName</var>.
-   
-   <init />
- */
+
 - initWithDescriptionName:(NSString *)descName
 {
+    NSLog(@"WARNING: -[STEnvironment initWithDescriptionName:] is deprecated. "
+          @" use initWithDescription: instead");
+
     return [self initWithDescription:
                     [STEnvironmentDescription descriptionWithName:descName]];
 }

@@ -36,8 +36,10 @@
 
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSZone.h>
 
-NSZone *STMallocZone = NULL;
+NSZone *STMallocZone = (NSZone *)nil;
 
 void _STInitMallocZone(void)
 {
@@ -45,7 +47,6 @@ void _STInitMallocZone(void)
     {
         STMallocZone = NSCreateZone(NSPageSize(),NSPageSize(),NO);
     }
-    
 }
 
 @implementation STEngine
@@ -78,8 +79,9 @@ void _STInitMallocZone(void)
 {
     if(!name)
     {
-        NSLog(@"No language name given");
-        return NULL;
+        [NSException raise:@"STConversationException"
+                     format:@"Unspecified language for a new engine."];
+        return nil;
     }
     
     return [[STLanguage languageWithName:name] engine];
@@ -95,18 +97,27 @@ void _STInitMallocZone(void)
 /** Return the default scripting environment for the engine. */
 - (STEnvironment *)defaultEnvironment
 {
+    NSLog(@"WARNING: -[STEngine defaultEnvironment] is deprecated. "
+          @" Use STConversation object instead.");
+
     return defaultEnvironment;
 }
 
 /** Set the default scripting environment for the engine. */
 - (void) setDefaultEnvironment:(STEnvironment *)anEnvironment
 {
+    NSLog(@"WARNING: -[STEngine setDefaultEnvironment:] is deprecated. "
+          @" Use STConversation object instead.");
+
     ASSIGN(defaultEnvironment,anEnvironment);
 }
 
 /** Execude source code <var>code</var> in default scripting environment.  */
 - (id)  executeCode:(NSString *)code
 {
+    NSLog(@"WARNING: -[STEngine executeCode:] is deprecated. "
+          @" Use STConversation object instead.");
+
    return [self    executeCode:code 
                  inEnvironment:defaultEnvironment];
 }

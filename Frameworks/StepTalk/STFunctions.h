@@ -29,6 +29,7 @@
 #import <Foundation/NSObject.h>
 
 @class NSString;
+@class NSArray;
 
 NSArray  *STFindAllResources(NSString *resourceDir, NSString *extension);
 NSString *STFindResource(NSString *name,

@@ -131,6 +131,7 @@
 
 - (void)run
 {	
+    STEnvironmentDescription *desc;
     STEnvironment *env;
     STShell       *shell;
     
@@ -138,18 +139,18 @@
     
     if(!envName || [envName isEqualToString:@""])
     {
-        env = [STEnvironment defaultScriptingEnvironment];
+        env = [STEnvironment environmentWithDefaultDescription];
     }
     else
     {
-        env = [STEnvironment environmentWithDescriptionName:envName];
+        desc = [STEnvironmentDescription descriptionWithName:envName];
+        env = [STEnvironment environmentWithDescription:desc];
     }
 
     /* FIXME: make this an option */
     [env setFullScriptingEnabled:YES];
           
-    shell = [STShell sharedShell];
-    [shell setEnvironment:env];
+    shell = [[STShell alloc] initWithEnvironment:env];
 
     if(!languageName || [languageName isEqualToString:@""])
     {

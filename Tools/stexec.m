@@ -40,28 +40,37 @@
 
 @interface Executor:STExecutor
 {
-    NSString      *envName;
-    BOOL           enableFull;
+    NSString       *envName;
+    BOOL            enableFull;
 }
 @end
 
 @implementation Executor
-- (void)createEnvironment
+/* FIXME: This definitely needs to be rewritten. It is a quick hack 
+    after moving from STEngnie to STConversation */
+- (void)createConversation
 {
+    STEnvironmentDescription *desc;
+    STEnvironment            *env;
+    
     if(!envName || [envName isEqualToString:@""])
     {
-        env = [STEnvironment defaultScriptingEnvironment];
+        env = [STEnvironment environmentWithDefaultDescription];
     }
     else
     {
-        env = [STEnvironment environmentWithDescriptionName:envName];
+        desc = [STEnvironmentDescription descriptionWithName:envName];
+        env = [STEnvironment environmentWithDescription:desc];
     }
-
+    
     [env loadModule:@"SimpleTranscript"];
           
     [env setCreatesUnknownObjects:YES];
-    
-    RETAIN(env);
+
+    /* FIXME: remove this or use some command-line flag */
+    [env setFullScriptingEnabled:enableFull];
+    conversation = [[STConversation alloc] initWithEnvironment:env
+                                                      language:nil];
 }
 
 - (int)processOption:(NSString *)option
@@ -91,7 +100,6 @@
 
 - (void)beforeExecuting
 {
-    [env setFullScriptingEnabled:enableFull];
 }
 
 - (void) printHelp

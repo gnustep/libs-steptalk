@@ -41,13 +41,14 @@ enum
 };
 
 
+@class STConversation;
 @class STEnvironment;
 @class NSString;
 @class NSArray;
 
 @interface STExecutor:NSObject
 {
-    STEnvironment *env;
+    STConversation *conversation;
 
     NSString      *langName;
     
@@ -57,6 +58,7 @@ enum
     BOOL           contFlag;
     int            listObjects;
 }
+- (void)createConversation;
 - (void)printHelp;
 - (int)processOption:(NSString *)option;
 - (void)executeScript:(NSString *)fileName withArguments:(NSArray *)args;

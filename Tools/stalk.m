@@ -93,8 +93,13 @@
     ASSIGN(objectName,targetName);
 }
 
-- (void)createEnvironment
+/* FIXME: This definitely needs to be rewritten. It is a quick hack 
+    after moving from STEngnie to STConversation */
+- (void)createConversation
 {
+    STEnvironmentDescription *desc;
+    STEnvironment            *env;
+
     if([target respondsToSelector:@selector(scriptingEnvironment)])
     {
         env = [target scriptingEnvironment];
@@ -105,11 +110,15 @@
                     format:@"Target '%@' on host '%@' "
                            @"does not provide scripting environment.",
                            objectName, hostName];
+        return;
     }
           
     RETAIN(env);
 
     [env setObject:target forName:objectName];
+
+    conversation = [[STConversation alloc] initWithEnvironment:env
+                                                      language:nil];
 }
 
 - (int)processOption:(NSString *)option
