@@ -34,7 +34,6 @@ SUBPROJECTS = \
     SimpleTranscript \
     Foundation \
     ObjectiveC \
-    StepTalk \
     GDL2 \
     $(APPKIT)
 
