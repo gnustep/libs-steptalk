@@ -1,5 +1,9 @@
 2003 Nov 24 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
 
+    * Version 0.8.1
+
+2003 Nov 24 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
+
     * Few fixes, removed some compiler warnings. Fixed Shell to use
     proper environment.
 

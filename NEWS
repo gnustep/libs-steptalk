@@ -1,3 +1,16 @@
+0.8.1
+
+    * Added ReadlineTranscript
+    * Renamed, added and deprecated some STEnvironment methods. Methods were
+    not removed, NSLog warnings were added.
+
+    * Added STConversation object. Basically, it's a conversation with 
+    objects in an environment using a scripting language. The reason
+    for creating this clas was to open a path for easier remote scripting
+    where you can 'talk in a conversation' with a remote DO server or
+    application. However, this remote part is just going to be implemented.
+
+
 0.8.0
 
     NOTE: You HAVE to remove your previous installation of StepTalk to be
