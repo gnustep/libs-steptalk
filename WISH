@@ -41,7 +41,8 @@ Language and Interaction
       1. Every thing is an object
       2. Objects are communicating by sending messages
 
-    Objects are 'nouns' and messages are 'verbs' of a language. 
+    "Objects are 'nouns' and messages are 'verbs' of a language. ", to add a 
+    famous quote.
 
     Nouns in a (scripting) language are objects with name. That name usually
     depends on the context it is present or it should be globally well known

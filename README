@@ -46,6 +46,8 @@ If something goes wrong while build process and it is not while building in the
 Source directory, then try to do make and make install in that directory first. 
 In any case of problem, do not hesitate to contact the author.
 
+StepTalk Shell is included in Examples/Shell directory. It requires libncurses.
+
 Tools
 -----
     stexec - execute a StepTalk script in the GNUstep Foundation environment

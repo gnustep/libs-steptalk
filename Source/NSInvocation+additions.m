@@ -201,7 +201,23 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     NSInvocation      *invocation;
     SEL                sel;
 
-    sel = STSelectorFromString(selectorName);
+    sel = NSSelectorFromString(selectorName);
+    
+    if(!sel)
+    {
+        NSLog(@"REG REQIRED");
+        char *name = [selectorName cString];
+        
+        sel = sel_register_name(name);
+
+        if(!sel)
+        {
+            [NSException raise:STInternalInconsistencyException
+                         format:@"Unable to register selector '%@'",
+                                selectorName];
+            return NULL;
+        }
+    }
     
     signature = [target methodSignatureForSelector:sel];
 

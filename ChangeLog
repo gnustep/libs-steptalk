@@ -1,3 +1,7 @@
+2003 Jun 15
+
+    * NSInvocation+additions: added unknown selector creation
+
 2003 May 11 Stefan Urbanek <urbanek@host.sk>
 
     * Fixed linking of some bundles
