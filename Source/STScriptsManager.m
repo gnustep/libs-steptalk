@@ -102,14 +102,12 @@ process name.*/
     return scriptsDomainName;
 }
 
-/**
-    Retrun an array of script search paths. Scripts are searched 
-    in Library/StepTalk/Scripts/<var>scriptsDomainName</var>, 
-    Library/StepTalk/Scripts/Shared and in all loaded bundles in 
-    <var>bundlePath</var>/Resources/Scripts.
-*/
+/* Sets script search paths to defaults. Default paths are (in this order): 
+   <gnustep library paths>/StepTalk/Scripts/<domain name>.
+   <gnustep library paths>/StepTalk/Scripts/Shared and
+   paths to Resource/Scripts in all loaded bundles including the main bundle.*/
 
-- (NSArray *)scriptSearchPaths
+- (void)setScriptSearchPathsToDefaults
 {
     NSMutableArray *scriptPaths = [NSMutableArray array];
     NSEnumerator   *enumerator;
@@ -117,16 +115,7 @@ process name.*/
     NSString       *str;
     NSArray        *paths;
     NSBundle       *bundle;
-    
-    enumerator = [[NSBundle allBundles] objectEnumerator];
-    
-    while( (bundle = [enumerator nextObject]) )
-    {
-        path = [bundle resourcePath];
-        path = [path stringByAppendingPathComponent:@"Scripts"];
-        [scriptPaths addObject:path];
-    }
-
+      
     paths = NSStandardLibraryPaths();
 
     enumerator = [paths objectEnumerator];
@@ -143,14 +132,44 @@ process name.*/
         [scriptPaths addObject:str];
     }
     
-    /*
-    str = [[NSBundle mainBundle] resourcePath];
-    [scriptPaths addObject:[str stringByAppendingPathComponent:@"Scripts"]];
-    */
-    
-    return [NSArray arrayWithArray:scriptPaths];
+    enumerator = [[NSBundle allBundles] objectEnumerator];
+
+    while( (bundle = [enumerator nextObject]) )
+    {
+        path = [bundle resourcePath];
+        path = [path stringByAppendingPathComponent:@"Scripts"];
+        [scriptPaths addObject:path];
+    }
+
+    RELEASE(scriptSearchPaths);
+    scriptSearchPaths = [[NSArray alloc] initWithArray:scriptPaths];
 }
 
+/**
+    Retrun an array of script search paths. Scripts are searched 
+    in Library/StepTalk/Scripts/<var>scriptsDomainName</var>, 
+    Library/StepTalk/Scripts/Shared and in all loaded bundles in 
+    <var>bundlePath</var>/Resources/Scripts.
+*/
+
+- (NSArray *)scriptSearchPaths
+{
+    if(!scriptSearchPaths)
+    {
+        [self setScriptSearchPathsToDefaults];
+    }
+    
+    return scriptSearchPaths;
+}
+
+/** Set script search paths to <var>anArray</var>. */
+- (void)setScriptSearchPaths:(NSArray *)anArray
+{
+    ASSIGN(scriptSearchPaths, anArray);
+}
+
+/** Return script search paths that are valid. That means that path exists and
+    is a directory. */
 - (NSArray *)validScriptSearchPaths
 {
     NSMutableArray *scriptPaths = [NSMutableArray array];

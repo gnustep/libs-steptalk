@@ -1,3 +1,8 @@
+2003 Mar 25
+
+    * STScriptsManager: new method setScriptSearchPathsToDefaults; new method 
+    setScriptSearchPaths:; added instance variable scriptSearchPaths
+
 2003 Mar 24
 
     * Documentation: Updated ApplicationScripting.txt

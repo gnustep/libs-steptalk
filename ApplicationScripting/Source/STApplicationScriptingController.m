@@ -110,6 +110,7 @@
     NSLog(@"Execute script a '%@'", [script localizedName]);
 
     engine = [STEngine engineForLanguageWithName:[script language]];
+
     if(!engine)
     {
         NSLog(@"Unable to get scripting engine for language '%@'",

@@ -4,10 +4,11 @@ Application Scripting
 Scripting for applications is provided by the Application Scripting Bundle. The
 bundle is installed together with StepTalk.
 
-Content:
+Contents:
     Creating a scriptable application
     Scripts
-    Script metafile
+    Script Metafile
+    Example
 
 Creating a scriptable application
 ---------------------------------
@@ -113,3 +114,27 @@ The file is dictionary property list. Kes are:
             Description = "Some description in french";
         }
     }
+
+Example
+-------
+
+1. Create a script file test.st with contents:
+
+    Transcript showLine:'It works.'
+
+2. Create (optional) meta file test.st.stinfo with contents:
+
+    {
+        English = 
+        {
+            Description = "This is a script for testing if scripting works";
+            Name = "Test";
+        }
+    }
+
+3. Put both files into */Library/StepTalk/Scripts/your_application_name
+
+4. Then run your application, open scripts panel, select the script and run it
+   by doubleclicking or by pressing the 'Run' button. 
+
+5. Then look at the transcript window for the result.

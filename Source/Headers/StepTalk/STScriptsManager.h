@@ -32,6 +32,7 @@
 @interface STScriptsManager:NSObject
 {
     NSString *scriptsDomainName;
+    NSArray  *scriptSearchPaths;
 }
 + defaultManager;
 
@@ -39,7 +40,10 @@
 
 - (NSString *)scriptsDomainName;
 
+- (void)setScriptSearchPathsToDefaults;
 - (NSArray *)scriptSearchPaths;
+- (void)setScriptSearchPaths:(NSArray *)anArray;
+
 - (NSArray *)validScriptSearchPaths;
 - (STScript *)scriptWithName:(NSString*)name;
 
