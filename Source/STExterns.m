@@ -44,7 +44,7 @@ NSString *STLibraryDirectory = @"StepTalk";
 NSString *STScriptsDirectory = @"Scripts";
 
 NSString *STModulesDirectory = @"Modules";
-NSString *STModuleExtension  = @"stmodule";
+NSString *STModuleExtension  = @"bundle";
 
 NSString *STScriptingEnvironmentsDirectory = @"Environments";
 NSString *STScriptingEnvironmentExtension  = @"stenv";

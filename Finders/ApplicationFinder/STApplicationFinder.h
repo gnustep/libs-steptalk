@@ -24,7 +24,7 @@
  
  */
 
-#import <StepTalk/STModule.h>
+#import <Foundation/NSObject.h>
 
 @interface STApplicationFinder:NSObject
 {

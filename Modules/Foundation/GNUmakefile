@@ -40,7 +40,6 @@ Foundation_BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
 ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
 
-BUNDLE_EXTENSION := .stmodule
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
 -include GNUmakefile.preamble

@@ -1,3 +1,15 @@
+0.6.3
+    * Added ability to use any bundle or framework for scripting 
+    * Moved scripting information from bundle info dictionary into separate
+    file.
+    * Replaced .stmodules with plain bundles.
+    * Removed STModule class
+    * Added conditional GDL2 module installation.
+    * Small improvements and bug-fixes.
+
+    IMPORTANT NOTE: You have to rebuild and reinstall all modules, because the
+    format has changed.
+
 0.6.2
 
     * Smalltalk: Added parsing of real numbers
