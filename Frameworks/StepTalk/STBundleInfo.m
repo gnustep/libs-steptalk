@@ -316,7 +316,7 @@ static NSMutableDictionary *bundleInfoDict;
         return;
     }
     
-    allClasses = [[notif userInfo] objectForKey:NSLoadedClasses];
+    allClasses = [[notif userInfo] objectForKey:@"NSLoadedClasses"];
     RETAIN(allClasses);
     
     NSLog(@"All classes are %@");

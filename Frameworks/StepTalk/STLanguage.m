@@ -37,6 +37,7 @@
 #import <Foundation/NSException.h>
 #import <Foundation/NSEnumerator.h>
 #import <Foundation/NSFileManager.h>
+#import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSTask.h>
 #import <Foundation/NSUserDefaults.h>
 
