@@ -53,7 +53,7 @@ static NSDictionary *STDOInfo(NSString *name)
     return nil;
 }
 
-@implementation STDistributedFinder:NSObject
+@implementation STDistributedFinder
 - (id)connectDistantObjectWithName:(NSString *)name
 {
     NSDictionary *dict = STDOInfo(name);

@@ -44,6 +44,7 @@ enum
     NSMutableDictionary *behaviours;
     NSMutableDictionary *aliases;
     NSMutableArray      *modules;
+    NSMutableArray      *finders;
 
     int                  restriction;
 }

@@ -119,6 +119,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     RELEASE(behaviours);
     RELEASE(aliases);
     RELEASE(modules);
+    RELEASE(finders);
     
     [super dealloc];
 }
@@ -178,6 +179,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
     [self updateUseList:[def objectForKey:@"Use"]];
     [self updateModuleList:[def objectForKey:@"Modules"]];
+    [self updateFinderList:[def objectForKey:@"Finders"]];
     [self updateBehavioursFromDictionary:[def objectForKey:@"Behaviours"]];
     [self updateClassesFromDictionary:[def objectForKey:@"Classes"]];
     [self updateAliasesFromDictionary:[def objectForKey:@"Aliases"]];
@@ -225,6 +227,27 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
         if( ![modules containsObject:str] )
         {
             [modules addObject:str];
+        }
+    }
+}
+
+- (void)updateFinderList:(NSArray *)array
+{
+    NSEnumerator *enumerator;
+    NSString     *str;
+
+    enumerator = [array objectEnumerator];
+
+    while( (str = [enumerator nextObject]) )
+    {
+        if(!finders)
+        {
+            finders = [[NSMutableArray alloc] init];
+        } 
+
+        if( ![finders containsObject:str] )
+        {
+            [finders addObject:str];
         }
     }
 }
@@ -411,6 +434,12 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 {
     return [NSArray arrayWithArray:modules];
 }
+
+- (NSArray *)objectFinders
+{
+    return [NSArray arrayWithArray:finders];
+}
+
 
 - (void)fixupScriptingDescription
 {

@@ -1,11 +1,9 @@
 #
-#  GNUmakefile
-#  
-#  Copyright (C) 2002 Stefan Urbanek
+#  Application Finder
 #
-#  Written by:	Stefan Urbanek
+#  Copyright (C) 2000,2001 Stefan Urbanek
 #
-#  This file is part of the StepTalk
+#  This file is part of the StepTalk.
 #
 #  This library is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU Library General Public
@@ -19,22 +17,29 @@
 #
 #  You should have received a copy of the GNU Library General Public
 #  License along with this library; if not, write to the Free
-#  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA
+#  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02111, USA.
 #
-
-GNUSTEP_INSTALLATION_DIR = $(GNUSTEP_USER_ROOT)
 
 GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
 
 include $(GNUSTEP_MAKEFILES)/common.make
+include $(GNUSTEP_MAKEFILES)/Additional/gui.make
 
-ifeq ($(appkit),no)
-    SUBPROJECTS = DistributedFinder 
-else
-    SUBPROJECTS = DistributedFinder ApplicationFinder
-endif
 
--include GNUMakefile.preamble
-include $(GNUSTEP_MAKEFILES)/aggregate.make
+BUNDLE_NAME = ApplicationFinder
+    
+ApplicationFinder_OBJC_FILES = STApplicationFinder.m
+
+ApplicationFinder_PRINCIPAL_CLASS = STApplicationFinder
+        
+
+ApplicationFinder_BUNDLE_LIBS += -lStepTalk
+
+ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
+ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Finders
+
+-include GNUmakefile.preamble
+include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble
-

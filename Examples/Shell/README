@@ -32,6 +32,14 @@ If you would like to use another language, then use
 
     > stshell -language AnotherLanguage
     
+To use AppKit
+
+    > stshell -environment AppKit
+
+To use it as a distributed objects 'glue'
+
+    > stshell -environment Distributed
+
 The shell will greet you with 'Welcome to the StepTalk shell.' message.
 
     Welcome to the StepTalk shell.

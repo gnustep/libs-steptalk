@@ -99,7 +99,7 @@
 - initWithDescription:(STEnvironmentDescription *)aDescription
 {
     NSEnumerator *enumerator;
-    NSString     *module;
+    NSString     *name;
     
     self = [super init];
     
@@ -109,11 +109,20 @@
     description = RETAIN(aDescription);
     classes = [description classes];
 
+    /* Load modules */
     enumerator = [[description modules] objectEnumerator];    
     
-    while( (module = [enumerator nextObject]) )
+    while( (name = [enumerator nextObject]) )
     {
-        [self loadModule:module];
+        [self loadModule:name];
+    }
+
+    /* Register finders */
+    enumerator = [[description objectFinders] objectEnumerator];    
+    
+    while( (name = [enumerator nextObject]) )
+    {
+        [self registerObjectFinderNamed:name];
     }
 
     RETAIN(description);

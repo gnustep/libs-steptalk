@@ -1,8 +1,8 @@
 2002 Jun 8
 
-    * STEnvironmentDescription: added module list; little code cleanup; 
-    removed descriptionFromFile: and initFromFile: methods
-    * STEnvironment: removed methods:
+    * STEnvironmentDescription: added module amd finder list; little code 
+    cleanup; removed descriptionFromFile: and initFromFile: methods
+    * STEnvironment: removed methods
         environmentWithDescriptionFromFile:
         environmentWithDescriptionFromDictionary:
         initWithDescriptionFromFile: 
@@ -16,11 +16,11 @@
     renamed methods:
         defaultObjectPool to objectDictionary
         registerObjectFinderWithName: to registerObjectFinderNamed:
-    load modules from description at initialization;
+    load modules and finders from description at initialization;
     * STExecutor: reflect STEnvironment changes        
-    * stexec: removed loading of the Foundation environment as this is handled
+    * stexec: removed loading of the Foundation module as this is handled
     by the STEnvironment
-    * AppKit.stenv: new file
+    * Environments: new descriptions AppKit.stenv and Distributed.stenv
     
 2002 Jun 7
 
