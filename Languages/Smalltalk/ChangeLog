@@ -1,4 +1,9 @@
-2003 May 17   Stefan Urbanek <urbanek@host.sk>
+2003 Aug 5 Stefan Urbanek <urbanek@host.sk>
+
+    * STScriptObject renamed to STSmalltalkScriptObject, because of steptalk
+    core change.
+
+2003 May 17 Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: treat decimal point followed by whitespace as '.' dot - 
     end of statement.

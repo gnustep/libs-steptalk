@@ -1,3 +1,7 @@
+2003 Aug 5  Stefan Urbanek <urbanek@host.sk>
+    
+    * Added STScriptObject and STMethod.
+
 2003 Jun 15
 
     * NSInvocation+additions: added unknown selector creation; created a

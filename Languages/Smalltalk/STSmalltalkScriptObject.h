@@ -1,5 +1,5 @@
 /**
-    STScriptObject.h
+    STSmalltalkScriptObject.h
     Object that represents script 
  
     Copyright (c) 2002 Free Software Foundation
@@ -30,7 +30,7 @@
 @class STCompiledScript;
 @class STEnvironment;
 
-@interface STScriptObject:NSObject
+@interface STSmalltalkScriptObject:NSObject
 {
     NSString              *name;
     STBytecodeInterpreter *interpreter;

@@ -23,7 +23,7 @@
 
 #import "STCompiledScript.h"
 
-#import "STScriptObject.h"
+#import "STSmalltalkScriptObject.h"
 #import "STCompiledMethod.h"
 
 #import <StepTalk/STObjCRuntime.h>
@@ -92,12 +92,12 @@ static SEL finalizeSelector;
 
 - (id)executeInEnvironment:(STEnvironment *)env
 {
-    STScriptObject *object;
+    STSmalltalkScriptObject *object;
     int             methodCount;
     id              retval = nil;
     
 
-    object = [[STScriptObject alloc] initWithEnvironment:env
+    object = [[STSmalltalkScriptObject alloc] initWithEnvironment:env
                                      compiledScript:self];
 
     methodCount = [methodDictionary count];

@@ -32,7 +32,7 @@
 #import "STLiterals.h"
 #import "STMessage.h"
 #import "STMethodContext.h"
-#import "STScriptObject.h"
+#import "STSmalltalkScriptObject.h"
 #import "STStack.h"
 
 #import <StepTalk/STEnvironment.h>
@@ -453,7 +453,7 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushRecVarBytecode:
-                object = [(STScriptObject *)receiver instanceVariableAtIndex:
+                object = [(STSmalltalkScriptObject *)receiver instanceVariableAtIndex:
                                                                 bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
@@ -479,7 +479,7 @@ static Class NSInvocation_class = nil;
 
     case STPopAndStoreRecVarBytecode:
                 STDebugBytecode(bytecode);
-                [(STScriptObject *)receiver setInstanceVariable:STPop(stack) 
+                [(STSmalltalkScriptObject *)receiver setInstanceVariable:STPop(stack) 
                                                         atIndex:bytecode.arg1];
                 break;
 

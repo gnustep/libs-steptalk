@@ -41,6 +41,8 @@ libStepTalk_OBJC_FILES = \
     STScript.m \
     STScriptsManager.m \
     STScripting.m \
+    STMethod.m \
+    STScriptObject.m \
     STSelector.m \
     STStructure.m \
     STUndefinedObject.m  \
@@ -56,6 +58,8 @@ STEPTALK_HEADER_FILES = \
     STLanguage.h \
     STObjCRuntime.h \
     STObjectReference.h  \
+    STMethod.h \
+    STScriptObject.h \
     STScript.h \
     STScriptsManager.h \
     STScripting.h  \

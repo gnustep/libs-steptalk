@@ -45,7 +45,7 @@ Smalltalk_OBJC_FILES = \
         STLiterals.m \
         STMessage.m  \
         STMethodContext.m \
-        STScriptObject.m \
+        STSmalltalkScriptObject.m \
         STStack.m \
         STUndefinedObject+additions.m \
         STSelector+additions.m \
