@@ -1,6 +1,7 @@
 2003 Jun 15
 
-    * NSInvocation+additions: added unknown selector creation
+    * NSInvocation+additions: added unknown selector creation; created a
+    workaround for gnustep DO bug
 
 2003 May 11 Stefan Urbanek <urbanek@host.sk>
 

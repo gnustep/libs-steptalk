@@ -200,12 +200,14 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     NSMethodSignature *signature;
     NSInvocation      *invocation;
     SEL                sel;
-
+    BOOL               requiresRegistration = NO;
+    
+    // NSLog(@"GETTING SELECTOR %@", selectorName);
     sel = NSSelectorFromString(selectorName);
     
     if(!sel)
     {
-        NSLog(@"REG REQIRED");
+        // NSLog(@"REGISTERING SELECTOR");
         char *name = [selectorName cString];
         
         sel = sel_register_name(name);
@@ -215,11 +217,22 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
             [NSException raise:STInternalInconsistencyException
                          format:@"Unable to register selector '%@'",
                                 selectorName];
-            return NULL;
+            return nil;
         }
+        requiresRegistration = YES;
     }
     
     signature = [target methodSignatureForSelector:sel];
+
+    /* FIXME: this is workaround for gnustep DO bug (hight priority) */
+
+    if(requiresRegistration)
+    {
+        // NSLog(@"REGISTERING SELECTOR TYPES");
+        sel = sel_register_typed_name([selectorName cString], [signature methodReturnType]);
+        // NSLog(@"REGISTERED %@", NSStringFromSelector(sel));
+        
+    }
 
     if(!signature)
     {
