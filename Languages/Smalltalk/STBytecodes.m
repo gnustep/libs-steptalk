@@ -123,7 +123,8 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
     {
     case STLongJumpBytecode:
                 {
-                    int offset = STLongJumpOffset(bytecode.arg1,bytecode.arg2);
+                    //int offset = STLongJumpOffset(bytecode.arg1,bytecode.arg2);
+                    int offset = bytecode.arg1;
                     return [NSString  stringWithFormat:@"%@ %i (0x%06x)",
                                       str, offset, bytecode.pointer+offset];
                 }
@@ -206,7 +207,7 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 - (STBytecode)fetchNextBytecodeAtPointer:(unsigned *)pointer
 {
     STBytecode  bytecode;
-    const char *bytesPtr = (const unsigned char *)[bytes bytes];
+    const unsigned char *bytesPtr = (const unsigned char *)[bytes bytes];
     unsigned    length = [self length];
     
     if(*pointer < length)
@@ -216,16 +217,22 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 
         switch(bytecode.code)
         {
-        case STLongJumpBytecode:
         case STSendSelectorBytecode:
         case STSuperSendSelectorBytecode:
                     if(*pointer + 2 >= length)
                     {
                         break;
                     }
+/*
                     bytecode.arg1 = bytesPtr[(*pointer)++];
                     bytecode.arg2 = bytesPtr[(*pointer)++];
+*/
+                    bytecode.arg1 = (bytesPtr[(*pointer)++])<<8;
+                    bytecode.arg1 |= bytesPtr[(*pointer)++];
+                    bytecode.arg2 = (bytesPtr[(*pointer)++])<<8;
+                    bytecode.arg2 |= bytesPtr[(*pointer)++];
                     return bytecode;
+        case STLongJumpBytecode:
         case STPushRecVarBytecode:
         case STPushExternBytecode:
         case STPushTemporaryBytecode:
@@ -237,7 +244,11 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
                     {
                         break;
                     }
+/*
                     bytecode.arg1 = bytesPtr[(*pointer)++];
+*/
+                    bytecode.arg1 = (bytesPtr[(*pointer)++])<<8;
+                    bytecode.arg1 |= bytesPtr[(*pointer)++];
                     bytecode.arg2 = 0;
                     return bytecode;
         case STPushReceiverBytecode:

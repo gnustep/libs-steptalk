@@ -951,17 +951,24 @@ extern int STCparse(void *context);
                 [byteCodes appendBytes:&bc length:1];\
                 bcpos++;\
             } while(0)
+
 #define EMIT_DOUBLE(bc1,bc2) \
             do { \
-                char bc[2] = {bc1,bc2}; \
-                [byteCodes appendBytes:bc length:2];\
-                bcpos+=2;\
+                unsigned char bc[3] = {bc1,0,0}; \
+		bc[1] = (unsigned char)((((unsigned short)bc2)>>8)&0xff);\
+		bc[2] = (unsigned char)(bc2&0xff); \
+                [byteCodes appendBytes:bc length:3];\
+                bcpos+=3;\
             } while(0)
 #define EMIT_TRIPPLE(bc1,bc2,bc3) \
             do { \
-                char bc[3] = {bc1,bc2,bc3}; \
-                [byteCodes appendBytes:bc length:3];\
-                bcpos+=3;\
+                unsigned char bc[5] = {bc1,0,0,0,0}; \
+		bc[1] = (unsigned char)((((unsigned short)bc2)>>8)&0xff);\
+		bc[2] = (unsigned char)(bc2&0xff); \
+		bc[3] = (unsigned char)((((unsigned short)bc3)>>8)&0xff);\
+		bc[4] = (unsigned char)(bc3&0xff); \
+                [byteCodes appendBytes:bc length:5];\
+                bcpos+=5;\
             } while(0)
 
 #define STACK_PUSH \
@@ -1137,18 +1144,21 @@ extern int STCparse(void *context);
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04x long jump %i (0x%04x)",bcpos,offset,bcpos+offset);
                 
+/*
     EMIT_TRIPPLE(STLongJumpBytecode,STLongJumpFirstByte(offset),
                                     STLongJumpSecondByte(offset));
+*/
+    EMIT_DOUBLE(STLongJumpBytecode, offset);
 }
 - (void)fixupLongJumpAt:(unsigned)index with:(short)offset
 {
-    char bytes[2] = {STLongJumpFirstByte(offset),STLongJumpSecondByte(offset)};
+    //unsigned char bytes[4] = {0,STLongJumpFirstByte(offset),0,STLongJumpSecondByte(offset)};
+    unsigned char bytes[2] = { (offset >> 8) & 0xff, offset & 0xff };
 
     NSDebugLLog(@"STCompiler-emit",
                 @"# fixup long jump at 0x%04x to 0x%04x",index, index + offset);
 
     [byteCodes replaceBytesInRange:NSMakeRange(index+1,2) withBytes:bytes];
-
 }
 - (unsigned)currentBytecode
 {

@@ -57,12 +57,14 @@
 /*                                     0x27-0xfe reserved */
 #define STBreakpointBytecode           0xff
 
+/*
 #define STLongJumpOffset(arg1, arg2) \
             ( (((arg1) & 0xff) << 8) | ((arg2) & 0xff) )
 #define STLongJumpFirstByte(offset)\
             ( ((offset) >> 8) & 0xff )
 #define STLongJumpSecondByte(offset)\
             ( (offset) & 0xff )
+*/
 #define STLongJumpBytecodeSize 3
 
 @class NSArray;

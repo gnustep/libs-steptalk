@@ -430,9 +430,11 @@ static Class NSInvocation_class = nil;
     {
     case STLongJumpBytecode:
                 {
+/*
                     int offset = STLongJumpOffset(bytecode.arg1,bytecode.arg2)
                                     - STLongJumpBytecodeSize;
-
+*/
+		    int offset = bytecode.arg1 - STLongJumpBytecodeSize;
                     STDebugBytecode(bytecode);
                     instructionPointer+=offset;
                     break;

@@ -1,4 +1,9 @@
-2004 Jun 28
+2004 Jul 10 Stefan Urbanek
+
+    * Applied patch from Alexander V. Diemand (fixed bug #9595) - fixed
+    maximum number of literals, fixed longjmp
+
+2004 Jun 28 Stefan Urbanek
 
     * Fixed expresion duplicating.
 
