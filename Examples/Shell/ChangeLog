@@ -1,3 +1,9 @@
+2003 Jun 19
+
+    * Renamed stshell.m to stshell_tool.m. MS Windows was causing problems with
+    case insensitive file system. 
+    (Reported by Michael Adams <mdmkolbe@yahoo.com>)
+
 2003 Apr 04  David Ayers  <d.ayers@inode.at>
 
     * GNUmakefile: Added flags to show all warnings except for import.
