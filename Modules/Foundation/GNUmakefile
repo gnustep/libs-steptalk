@@ -27,6 +27,7 @@ BUNDLE_NAME = Foundation
 Foundation_OBJC_FILES = \
         STFoundationModule.m \
         FoundationConstants.m  \
+        NSString+additions.m \
         NSFileManager+additions.m
         
 Foundation_PRINCIPAL_CLASS = STFoundationModule
