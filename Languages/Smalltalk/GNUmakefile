@@ -55,6 +55,8 @@ Smalltalk_OBJC_FILES = \
         
 Smalltalk_PRINCIPAL_CLASS = SmalltalkEngine
         
+# ADDITIONAL_OBJCFLAGS = -Wall -Werror
+        
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
 
 -include GNUmakefile.preamble

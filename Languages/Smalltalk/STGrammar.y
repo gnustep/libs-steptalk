@@ -48,6 +48,9 @@
     #define COMPILER (CONTEXT->compiler)
     #define READER   (CONTEXT->reader)
     #define RESULT   (CONTEXT->result)
+
+    int STClex (YYSTYPE *lvalp, void *context);
+    int STCerror(const char *str);
 %}
 
 %pure_parser

@@ -31,11 +31,11 @@
 
 @interface STSourceReader:NSObject
 {
-    NSString *source;              // Source
-    NSRange   srcRange;            // range of source in string
-    int       srcOffset;           // Scan offset
-    NSRange   tokenRange;          // Tokenn range
-    STTokenType tokenType;           // Token type
+    NSString    *source;              // Source
+    NSRange      srcRange;            // range of source in string
+    unsigned int srcOffset;           // Scan offset
+    NSRange      tokenRange;          // Tokenn range
+    STTokenType  tokenType;           // Token type
 }
 - initWithString:(NSString *)aString;
 - initWithString:(NSString *)aString range:(NSRange)range;

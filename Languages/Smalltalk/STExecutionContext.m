@@ -9,6 +9,7 @@
 
 #import "STExecutionContext.h"
 
+#import "STMethodContext.h"
 #import "STStack.h"
 
 #import <Foundation/NSDebug.h>
@@ -16,6 +17,10 @@
 #import <Foundation/NSString.h>
 
 static unsigned nextId = 1;
+
+@interface STExecutionContext(STPrivate)
+- (unsigned)contextId;
+@end
 
 @implementation STExecutionContext
 - initWithStackSize:(unsigned)stackSize
@@ -47,11 +52,11 @@ static unsigned nextId = 1;
 }
 - (void)invalidate
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
 }
 - (BOOL)isValid
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return NO;
 }
 - (unsigned)instructionPointer
@@ -64,12 +69,12 @@ static unsigned nextId = 1;
 }
 - (STMethodContext *)homeContext
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (void)setHomeContext:(STMethodContext *)newContext
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
 }
 
 - (STStack *)stack
@@ -78,35 +83,35 @@ static unsigned nextId = 1;
 }
 - (BOOL)isBlockContext;
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return NO;
 }
 - (id)temporaryAtIndex:(unsigned)index
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (void)setTemporary:anObject atIndex:(unsigned)index
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
 }
 - (id)externAtIndex:(unsigned)index
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (void)setExtern:anObject atIndex:(unsigned)index
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
 }
 - (STBytecodes *)bytecodes
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (id)literalObjectAtIndex:(unsigned)index
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (id)receiver

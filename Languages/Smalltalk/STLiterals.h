@@ -24,7 +24,7 @@
 
 #import <Foundation/NSObject.h>
 
-@interface STLiteral:NSObject
+@interface STLiteral:NSObject 
 @end
 
 @interface STObjectReferenceLiteral:STLiteral

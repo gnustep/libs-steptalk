@@ -1,3 +1,13 @@
+2003 Jan 30
+
+    * ChangeLog, STBlock.m, STBytecodes.h, 
+    STBytecodes.m, STCompiledMethod.m, 
+    STCompiler.h, STCompiler.m, STCompilerUtils.h, 
+    STCompilerUtils.m, STExecutionContext.m, STGrammar.m, 
+    STGrammar.y, STLiterals.h, STLiterals.m, 
+    STMethodContext.h, STSourceReader.h, SmalltalkEngine.m: 
+    Cleanup of compiler warnings
+    
 2002 Dec 25
 
     * Version 0.6.2

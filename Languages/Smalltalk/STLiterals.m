@@ -36,12 +36,13 @@
     poolName = RETAIN(aPool);
     return [super init];
 }
+#if 0
 - copyWithZone:(NSZone *)zone
 {
     STObjectReferenceLiteral *copy = [super copyWithZone:zone];
     return copy;
 }
-
+#endif
 - (void)dealloc
 {
     RELEASE(objectName);

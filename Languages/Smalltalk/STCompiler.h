@@ -112,14 +112,16 @@ typedef struct _STParserContext
 
 
 /*" Literals "*/
+- (Class)intNumberLiteralClass;
+- (Class)realNumberLiteralClass;
 - (Class)stringLiteralClass;
 - (Class)arrayLiteralClass;
-- (Class)numberLiteralClass;
 - (Class)symbolLiteralClass;
 - (void)setStringLiteralClass:(Class)aClass;
 - (void)setArrayLiteralClass:(Class)aClass;
-- (void)setNumberLiteralClass:(Class)aClass;
 - (void)setSymbolLiteralClass:(Class)aClass;
+- (void)setIntNumberLiteralClass:(Class)aClass;
+- (void)setRealNumberLiteralClass:(Class)aClass;
 
 - (void)setReceiverVariables:(NSArray *)vars;
 

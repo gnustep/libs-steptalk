@@ -29,6 +29,7 @@
 #import "STBytecodeInterpreter.h"
 #import "STCompiler.h"
 #import "STCompiledCode.h"
+#import "STCompiledScript.h"
 
 #import <StepTalk/STEnvironment.h>
 #import <Foundation/NSDebug.h>
@@ -38,18 +39,18 @@
 - (BOOL)canExecuteCode:(NSString *)sourceCode
 {
     STCompiler            *compiler;
-    STCompiledCode        *code = nil;
+    STCompiledScript      *script = nil;
     BOOL                   retval = NO;
 
     compiler = [[STCompiler alloc] init];
 
     NS_DURING
-        code = [compiler compileString:sourceCode];
+        script = [compiler compileString:sourceCode];
     NS_HANDLER
         NSLog(@"Smalltalk: Ignoring: %@", [localException reason]);
     NS_ENDHANDLER
 
-    if(code)
+    if(script)
     {
         retval = YES;
     }

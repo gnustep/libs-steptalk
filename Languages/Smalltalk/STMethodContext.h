@@ -57,5 +57,4 @@
 - (void)setExtern:anObject atIndex:(unsigned)index;
 
 - (STBytecodes *)bytecodes;
-- (id)literalObjectAtIndex:(unsigned)index;
 @end

@@ -77,7 +77,7 @@ typedef struct
 } STBytecode;
 
 extern NSArray *STBytecodeNames;
-extern NSString *STBytecodeName(short code);
+extern NSString *STBytecodeName(unsigned short code);
 extern NSString *STDissasembleBytecode(STBytecode bytecode);
 
 @interface STBytecodes:NSData

@@ -39,7 +39,8 @@ enum{
 
 @interface STCompiler(Utils_private)
 - (STCompiledMethod *)compileMethod:(STCMethod *)method;
-- (id)createNumberLiteralFrom:(NSString *)aString;
+- (id)createIntNumberLiteralFrom:(NSString *)aString;
+- (id)createRealNumberLiteralFrom:(NSString *)aString;
 - (id)createSymbolLiteralFrom:(NSString *)aString;
 - (id)createStringLiteralFrom:(NSString *)aString;
 - (id)createCharacterLiteralFrom:(NSString *)aString;
@@ -176,7 +177,8 @@ enum{
 @end
 
 @interface NSNumber(STCompilerAdditions)
-+ (id) numberFromString:(NSString *)aString;
++ (id) intNumberFromString:(NSString *)aString;
++ (id) realNumberFromString:(NSString *)aString;
 @end
 
 @interface NSMutableArray(STCompilerAdditions)

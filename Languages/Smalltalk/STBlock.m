@@ -111,7 +111,7 @@
     STBlockContext     *savedContext;
     STBlockContext     *context;
     STStack            *stack;
-    int                 i;
+    unsigned int        i;
     id                  retval;
 
     if(argCount != count)

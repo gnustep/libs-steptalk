@@ -99,7 +99,7 @@
                        @"Temporaries Count = %i\n"
                        @"Stack Size = %i\n"
                        @"Byte Codes = %@\n",
-                       [self clasName],
+                       [self className],
                        selector,
                        [literals count],
                        [literals description],

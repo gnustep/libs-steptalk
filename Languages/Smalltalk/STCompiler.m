@@ -190,7 +190,8 @@ extern int STCparse(void *context);
                                                  [receiverVars count]];
     }
 
-    messagePattern = [method messagePattern];
+    /* FIXME: unite STCMessage and STMessage */
+    messagePattern = (STMessage *)[method messagePattern];
     
     if(!messagePattern)
     {

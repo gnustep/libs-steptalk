@@ -93,12 +93,12 @@ static void initNamesArray(void)
 }
 
 
-NSString *STBytecodeName(short code)
+NSString *STBytecodeName(unsigned short code)
 {
     static NSString *invalid = @"invalid bytecode";
     NSString        *name;
 
-    if( code < 0 || code > [STBytecodeNames count] )
+    if( code > [STBytecodeNames count] )
     {
         return invalid;
     }

@@ -194,22 +194,22 @@
 }
 - (BOOL)isPrimary
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return NO;
 }
 - (id) target
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (STCMessage *)message
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 - (id) object
 {
-    [self subclassResponsibility];
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 
