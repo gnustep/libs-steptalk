@@ -9,8 +9,7 @@
     
     Import = ( "SymbolicSelectors", 
                "Foundation", 
-               "AppKit",
-               "StepTalk"
+               "AppKit"
              );
           
     Applications = ( All );
