@@ -1,3 +1,11 @@
+2003 Sep 24 Stefan Urbanek <urbanek@host.sk>
+    
+    * Guard compilation with an autorelease pool
+    
+2003 Sep 23 Stefan Urbanek <urbanek@host.sk>
+
+    * STBytecodeInterpreter: fixed memory leak (reported by Alexander Diemand)
+
 2003 Aug 5 Stefan Urbanek <urbanek@host.sk>
 
     * STScriptObject renamed to STSmalltalkScriptObject, because of steptalk

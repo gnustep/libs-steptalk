@@ -51,6 +51,8 @@ static Class NSValue_class = nil;
                                    @"    is number value '%@'", object);\
                         break
 
+/** This method is a factory method, that means that you have to release the
+    object when you no longer need it. */
 id STObjectFromValueOfType(void *value, const char *type)
 {
     id object;
@@ -264,6 +266,8 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     [self setArgument:(void *)value atIndex:anIndex];
     NSZoneFree(STMallocZone,value);
 }
+
+
 - (id)getArgumentAsObjectAtIndex:(int)anIndex
 {
     const char *type;

@@ -39,6 +39,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSSet.h>
 #import <Foundation/NSUserDefaults.h>
+#import <Foundation/NSAutoreleasePool.h>
 
 static NSDictionary *dictForDescriptionWithName(NSString *defName)
 {
@@ -149,6 +150,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
 - (void)updateFromDictionary:(NSDictionary *)def
 {
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSString *str;
     BOOL      saveFlag = restriction;
     
@@ -190,6 +192,8 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     [self updateAliasesFromDictionary:[def objectForKey:@"Aliases"]];
 
     restriction = saveFlag;
+
+    [pool release];
 }
 
 - (void)updateUseList:(NSArray *)array

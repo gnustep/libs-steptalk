@@ -31,6 +31,7 @@
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSMethodSignature.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSAutoreleasePool.h>
 
 #import <StepTalk/NSInvocation+additions.h>
 #import <StepTalk/STEnvironment.h>
@@ -115,6 +116,7 @@
 
 - (void) forwardInvocation:(NSInvocation *)invocation
 {
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
     STCompiledMethod  *method;
     NSString          *methodName = NSStringFromSelector([invocation selector]);
     NSMutableArray    *args;
@@ -129,6 +131,7 @@
                    @"creating new interpreter for script '%@'",
                    name);
         interpreter = [[STBytecodeInterpreter alloc] initWithEnvironment:environment];
+
     }
     
 
@@ -146,7 +149,7 @@
                 @"script object perform: %@ with %i args",
                 methodName,count-2);
 
-    args = [NSMutableArray array];
+    args = [[NSMutableArray alloc] init];
     
     for(index = 2; index < count; index++)
     {
@@ -154,16 +157,18 @@
         [args addObject:arg];
     }
 
-    NSDebugLLog(@"STSending",
-                @">> forwarding to self ...");
+    // NSDebugLLog(@"STSending",
+    //            @">> forwarding to self ...");
 
     retval = [interpreter interpretMethod:method 
                               forReceiver:self
                                 arguments:args];
+    RELEASE(args);
 
-    NSDebugLLog(@"STSending",
-                @"<< returned from forwarding");
+    // NSDebugLLog(@"STSending",
+    //            @"<< returned from forwarding");
 
     [invocation setReturnValue:&retval];
+    [pool release];
 }
 @end

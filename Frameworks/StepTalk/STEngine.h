@@ -54,6 +54,9 @@
 
 - (BOOL)understandsCode:(NSString *)code;
 
+- (void)setValue:(id)anObject forOption:(NSString *)anOption;
+- (id)valueForOption:(NSString *)anOption;
+
 /* Methods */
 - (STMethod *)methodFromSource:(NSString *)sourceString
                    forReceiver:(id)receiver

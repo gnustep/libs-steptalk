@@ -28,6 +28,7 @@
 #import "NSNumber+additions.h"
 #import "STBlock.h"
 
+#import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSEnumerator.h>
 
 @implementation NSArray (STCollecting)
@@ -42,6 +43,7 @@
     {
         retval = [block valueWith:object];
     }
+
     return retval;
 }
 - select:(STBlock *)block

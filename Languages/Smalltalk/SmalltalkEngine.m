@@ -73,10 +73,10 @@
 
     [compiler setEnvironment:env];
 
-    AUTORELEASE(compiler);
-    
     script = [compiler compileString:sourceCode];
     retval = [script executeInEnvironment:env];
+
+    AUTORELEASE(compiler);
 
     return retval;
 }

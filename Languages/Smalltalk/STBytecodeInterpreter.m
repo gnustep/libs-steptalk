@@ -40,6 +40,7 @@
 #import <StepTalk/STFunctions.h>
 #import <StepTalk/NSInvocation+additions.h>
 #import <StepTalk/STScripting.h>
+#import <Foundation/NSAutoreleasePool.h>
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
@@ -107,6 +108,7 @@ static Class NSInvocation_class = nil;
           forReceiver:(id)anObject
             arguments:(NSArray*)args
 {
+    // NSAutoreleasePool *pool = [NSAutoreleasePool new];
     STExecutionContext *oldContext;
     STMethodContext    *newContext;
     id                  retval;
@@ -135,8 +137,8 @@ static Class NSInvocation_class = nil;
                             [method selector]];
     }
     
-    newContext = [STMethodContext methodContextWithMethod:method
-                                              environment:environment];
+    newContext = [[STMethodContext alloc] initWithMethod:method
+                                             environment:environment];
 
     [newContext setArgumentsFromArray:args];
     [newContext setReceiver:anObject];
@@ -147,6 +149,11 @@ static Class NSInvocation_class = nil;
     retval = [self interpret];
 
     [self setContext:oldContext];
+
+    RELEASE(newContext);
+    // RETAIN(retval);
+    // [pool release];
+    // AUTORELEASE(retval)
 
     return retval;
 }
@@ -303,7 +310,7 @@ static Class NSInvocation_class = nil;
                  argumentCount:argCount
                      stackSize:stackSize];
   
-    [stack push:block];
+    [stack push:AUTORELEASE(block)];
 }
 
 /* ---------------------------------------------------------------------------

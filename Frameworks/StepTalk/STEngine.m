@@ -146,5 +146,17 @@ void _STInitMallocZone(void)
     [self subclassResponsibility:_cmd];
     return nil;
 }
+/** Set engine specific option. Refer to particuliar language engine 
+    documentation for more information. */
+- (void)setValue:(id)anObject forOption:(NSString *)anOption
+{
+    /* do nothing */
+}
+/** Returs a value for engine specific option */
+- (id)valueForOption:(NSString *)anOption
+{
+    /* do nothing */
+    return nil;
+}
 
 @end

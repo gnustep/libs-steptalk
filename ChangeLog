@@ -1,12 +1,20 @@
-2003 Aug 13
+2003 Sep 24  Stefan Urbanek <urbanek@host.sk>
+    
+    * STEnvironmentDescription: guard initialisation in Autorelease pool
+
+2003 Sep 23  Stefan Urbanek <urbanek@host.sk>
+
+    * STEngine: setValueForOption: added
+
+2003 Aug 13  Stefan Urbanek <urbanek@host.sk>
 
     * Version 0.8.0
 
-2003 Aug 9
+2003 Aug 9  Stefan Urbanek <urbanek@host.sk>
 
     * Removed compiler warnings in StepTalk.framework, Smalltalk and Tools
 
-2003 Aug 6
+2003 Aug 6  Stefan Urbanek <urbanek@host.sk>
 
     * Frameworks: new directory
     * Changed StepTalk from library to framework

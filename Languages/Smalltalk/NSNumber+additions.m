@@ -11,6 +11,7 @@
 #import "NSNumber+additions.h"
 #import "STBlock.h"
 #include <math.h>
+#import <Foundation/NSAutoreleasePool.h>
 
 @implementation NSNumber (STSmalltalkAdditions)
 - ifTrue:(STBlock *)block

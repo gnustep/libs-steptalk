@@ -244,6 +244,7 @@ extern int STCparse(void *context);
 
 - (STCompiledScript *)compileString:(NSString *)aString
 {
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
     STCompiledScript *result;
     NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
                                    @"reason: %@.";
@@ -300,6 +301,8 @@ extern int STCparse(void *context);
 
     RELEASE(receiverVars);
     RELEASE(reader);
+
+    [pool release];
 
     result = AUTORELEASE(resultScript);
     resultScript = nil;
@@ -370,7 +373,7 @@ extern int STCparse(void *context);
 
 - (STCompiledCode *)compileStatements:(STCStatements *)statements
 {
-    STCompiledCode  *compiledCode;
+    STCompiledCode    *compiledCode;
 #ifdef DEBUG
     int              count;
     int              i;
