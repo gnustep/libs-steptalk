@@ -32,6 +32,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSException.h>
 #import <Foundation/NSProcessInfo.h>
 #import <Foundation/NSString.h>
 
