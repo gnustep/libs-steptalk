@@ -252,16 +252,20 @@ static NSString *_STNormalizeStringToken(NSString *token)
     
     if([identStartCharacterSet characterIsMember:c])
     {
-        start=srcOffset++;
-        while([identCharacterSet characterIsMember:c] && !AT_END)
+        start = srcOffset;
+        srcOffset++;
+        
+        while(!AT_END && [identCharacterSet characterIsMember:c])
         {
             c = GET_CHAR;
-            if(AT_END)
-            {
-                break;
-            }
         }
-        if(!AT_END)
+
+        if(AT_END)
+        {
+            tokenRange = NSMakeRange(start,srcOffset - start);
+            return STIdentifierTokenType;
+        }
+        else
         {
             srcOffset--;
             c = PEEK_CHAR;
@@ -279,13 +283,9 @@ static NSString *_STNormalizeStringToken(NSString *token)
                     return STKeywordTokenType;
                 }
             }
+            tokenRange = NSMakeRange(start,srcOffset - start);
+            return STIdentifierTokenType;
         }
-        else
-        {
-            srcOffset --;
-        }
-        tokenRange = NSMakeRange(start,srcOffset - start);
-        return STIdentifierTokenType;
     }
     else if ( c == '-' || c == '+' || [numericCharacterSet characterIsMember:c])
     {
