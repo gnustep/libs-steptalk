@@ -84,6 +84,19 @@
 }
 
 /**
+   Initialises scripting environment using default description.
+   
+   <init />
+ */
+- initDefault
+{
+    NSString *name;
+
+    name = [STEnvironmentDescription defaultEnvironmentDescriptionName];
+    
+    return [self initWithDescriptionName:name];
+}
+/**
    Initialises scripting environment using description with name
    <var>descName</var>.
    

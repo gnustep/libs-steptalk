@@ -84,6 +84,13 @@
             bundle if it is not already loaded.
           </desc>
         </method>
+        <method type="id" init="yes">
+          <sel>initDefault</sel>
+          <desc>
+            Initialises scripting environment using default
+            description.
+          </desc>
+        </method>
         <method type="id">
           <sel>initWithDescription:</sel>
           <arg type="STEnvironmentDescription*">aDescription</arg>

@@ -5,6 +5,10 @@
       check for existence of ScriptingInfo.plist before using it
     * Modules: reflect changes to STBundleInfo
     * Updated all GNUmakefiles to use new path
+    * STEnvironment: added initDefault - this will replace confusing 
+      defaultScriptingEnvironment.
+    * Added Applications
+    * Added ScriptPapers application
 
 2003 Apr 22  Stefan Urbanek <urbanek@host.sk>
 

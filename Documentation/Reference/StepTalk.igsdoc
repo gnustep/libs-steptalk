@@ -155,6 +155,9 @@
 	"-includeBundle:" = {
 	    STEnvironment = STEnvironment;
 	};
+	"-initDefault" = {
+	    STEnvironment = STEnvironment;
+	};
 	"-initWithBundle:" = {
 	    STBundleInfo = STBundleInfo;
 	};
@@ -489,6 +492,7 @@
 	    "-createsUnknownObjects" = STEnvironment;
 	    "-fullScriptingEnabled" = STEnvironment;
 	    "-includeBundle:" = STEnvironment;
+	    "-initDefault" = STEnvironment;
 	    "-initWithDescription:" = STEnvironment;
 	    "-initWithDescriptionName:" = STEnvironment;
 	    "-knownObjectNames" = STEnvironment;

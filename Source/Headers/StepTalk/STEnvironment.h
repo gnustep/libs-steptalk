@@ -60,6 +60,7 @@
 + environmentWithDescriptionName:(NSString *)descName;
 + environmentWithDescription:(STEnvironmentDescription *)aDescription;
 
+- initDefault;
 - initWithDescriptionName:(NSString *)descName;
 - initWithDescription:(STEnvironmentDescription *)aDescription;
 
