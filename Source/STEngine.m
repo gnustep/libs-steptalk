@@ -112,7 +112,9 @@ void _STInitMallocZone(void)
 
 /** Execude source code <var>code</var> in an environment <var>env</var>. 
     This is the method, that has to be implemented by those who are writing 
-    a language engine. */
+    a language engine. 
+    
+    <override-subclass /> */
 - (id)  executeCode:(NSString *)code 
       inEnvironment:(STEnvironment *)env
 {

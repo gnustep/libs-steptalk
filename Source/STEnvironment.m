@@ -526,4 +526,10 @@
 
     return selector;
 }
+
+- (NSDictionary *)allObjectsDictionary
+{
+    return [NSDictionary dictionaryWithDictionary:defaultPool];
+}
+
 @end

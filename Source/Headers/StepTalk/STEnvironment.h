@@ -78,6 +78,8 @@
 
 /** Named objects and object references */
 
+- (NSDictionary *)allObjectsDictionary;
+
 - (void)setObject:(id)anObject
           forName:(NSString *)objName;
 
