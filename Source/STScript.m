@@ -177,4 +177,10 @@
 {
     return language;
 }
+
+/** Compare scripts by localized name. */
+- (NSComparisonResult)compareByLocalizedName:(STScript *)aScript
+{
+    return [localizedName caseInsensitiveCompare:[aScript localizedName]];
+}
 @end

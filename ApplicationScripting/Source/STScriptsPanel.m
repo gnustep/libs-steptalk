@@ -151,9 +151,14 @@ static NSString *NameColumn = @"NameColumn";
 
 - (void)update:(id)sender
 {
-    ASSIGN(scripts,[scriptsManager allScripts]);
+    RELEASE(scripts);
+    scripts = [scriptsManager allScripts];
+    scripts = [scripts sortedArrayUsingSelector:
+                                @selector(compareByLocalizedName:)];
+    RETAIN(scripts);
+    
     [scriptList reloadColumn:0];
-    [descriptionText setString:@""];
+    [self selectScript:nil];
 }
 
 - (STScript *)selectedScript

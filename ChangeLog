@@ -1,3 +1,7 @@
+2003 Apr 3   Stefan Urbanek <urbanek@host.sk>
+
+    * STScript: added compareByLocalizedName:
+
 2003 Mar 30  Stefan Urbanek <urbanek@host.sk>
 
     * WISH: new file
