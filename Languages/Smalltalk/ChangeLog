@@ -1,3 +1,8 @@
+2004 May 27 Stefan Urbanek
+
+    * Fixed bug with signed/unsigned bytecode, which made StepTalk to crash if
+      has more than 127 literals in the array. (patch by Mateu Batle)
+
 2003 Sep 28 Stefan Urbanek <urbanek@host.sk>
 
     * NSNumber: fixed -NSNumber to:step:do: - now accepts negative step.

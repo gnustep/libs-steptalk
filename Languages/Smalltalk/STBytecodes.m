@@ -206,7 +206,7 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 - (STBytecode)fetchNextBytecodeAtPointer:(unsigned *)pointer
 {
     STBytecode  bytecode;
-    const char *bytesPtr = (const char *)[bytes bytes];
+    const char *bytesPtr = (const unsigned char *)[bytes bytes];
     unsigned    length = [self length];
     
     if(*pointer < length)
