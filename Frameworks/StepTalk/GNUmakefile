@@ -52,6 +52,10 @@ StepTalk_OBJC_FILES = \
     NSObject+additions.m \
     StepTalkScriptingInfo.m
 
+# FIXME: NOT FINISHED:
+#    STDistantConversation.m \
+#    STDistantEnvironment.m \
+
 STEPTALK_HEADER_FILES = \
     STBundleInfo.h \
     STConversation.h \

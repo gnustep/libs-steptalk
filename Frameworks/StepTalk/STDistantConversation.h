@@ -1,5 +1,7 @@
+/* FIXME: not used! just an unimplemented idea. 
+*/
 /**
-    STConversation
+    STDistantConversation
  
     Copyright (c) 2002 Free Software Foundation
  
@@ -24,31 +26,17 @@
  
  */
 
-#import <Foundation/NSObject.h>
+#import "STConversation.h"
 
-@class STLanguage;
-@class STEngine;
-@class STEnvironment;
+@class STDistantEnvironment;
 
-@interface STConversation:NSObject
+@interface STDistantConversation:STConversation
 {
+    STDistantEnvironment *environment;
+    STConversation       *proxy;
+    NSString             *languageName;
 }
-/*
-+ conversationWithApplication:(NSString *)appName
-                     language:(NSString *)langName;
-*/                     
-+ conversationWithEnvironment:(STEnvironment *)env 
-                     language:(NSString *)langName;
-                   
-- initWithEnvironment:(STEnvironment *)env 
-             language:(NSString *)aString;
-
-- (void)setLanguage:(NSString *)newLanguage;
-- (NSString *)language;
-
-- (STEnvironment *)environment;
 - (BOOL)isResumable;
 - (BOOL)resume;
-
-- (id)runScriptFromString:(NSString *)aString;
 @end
+

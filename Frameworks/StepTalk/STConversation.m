@@ -32,6 +32,19 @@
 #import "STEnvironment.h"
 #import "STLanguage.h"
 
+// FIXME: add these two:
+// @class STDistantEnvironment;
+// @class STDistantConversation;
+
+@interface STConcreteLocalConversation:NSObject
+{
+    STLanguage    *lanuage;
+    STEngine      *engine;
+    NSString      *languageName;
+    STEnvironment *environment;
+}
+@end
+
 @implementation STConversation
 /** Creates a new conversation with environment created using default 
     description and default language. */
@@ -41,6 +54,68 @@
     
     return AUTORELEASE([[self alloc] initWithEnvironment:env language:nil]);
 }
+/** Creates a new conversation with environment created using default 
+    description and language with name <var>langName</var>. */
++ conversationWithEnvironment:(STEnvironment *)env 
+                     language:(NSString *)langName
+{
+    STConversation *c;
+
+/* FIXME: use this:
+    if([env isKindOfClass:[STDistantEnvironment class]])
+    {
+        c = [[STDistantConversation alloc] initWithEnvironment:env language:langName];
+    }
+    else
+    {
+        c = [[STConcreteLocalConversation alloc] initWithEnvironment:env language:langName];
+    }
+*/
+    c = [[STConcreteLocalConversation alloc] initWithEnvironment:env language:langName];
+ 
+    return AUTORELEASE(c);
+}
+
+- initWithEnvironment:(STEnvironment *)env 
+             language:(NSString *)langName
+{
+    [self subclassResponsibility:_cmd];
+    return nil;
+}
+
+- (void)setLanguage:(NSString *)newLanguage
+{
+    [self subclassResponsibility:_cmd];
+}
+
+/** Return name of the language used in the receiver conversation */
+- (NSString *)language
+{
+    [self subclassResponsibility:_cmd];
+    return nil;
+}
+- (STEnvironment *)environment
+{
+    [self subclassResponsibility:_cmd];
+    return nil;
+}
+- (id)runScriptFromString:(NSString *)aString
+{
+    [self subclassResponsibility:_cmd];
+    return nil;
+}
+- (BOOL)isResumable
+{
+    return NO;
+}
+- (BOOL)resume
+{
+    [self subclassResponsibility:_cmd];
+    return NO;
+}
+@end
+
+@implementation STConcreteLocalConversation
 /** Creates a new conversation with environment created using default 
     description and language with name <var>langName</var>. */
 + conversationWithEnvironment:(STEnvironment *)env 
@@ -82,6 +157,7 @@
     RELEASE(languageName);
     RELEASE(environment);
     RELEASE(engine);
+    [super dealloc];
 }
 
 - (void)_createEngine
@@ -114,7 +190,6 @@
     {
         [self _createEngine];
     }
-    NSLog(@"Run script in %@", environment);
     return [engine executeCode: aString inEnvironment:environment];
 }
 @end

@@ -61,7 +61,7 @@
 + environmentWithDescription:(STEnvironmentDescription *)aDescription;
 
 - initWithDefaultDescription;
-- initWithDescription:(STEnvironmentDescription *)aDescription;
+- initWithDescription:(bycopy STEnvironmentDescription *)aDescription;
 
 /** Full scripting */
 

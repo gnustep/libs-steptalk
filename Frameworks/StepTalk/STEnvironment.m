@@ -138,7 +138,7 @@ STEnvironment *sharedEnvironment = nil;
    Initialises scripting environment using scripting description
    <var>aDescription</var>.
  */
-- initWithDescription:(STEnvironmentDescription *)aDescription
+- initWithDescription:(bycopy STEnvironmentDescription *)aDescription
 {
     NSEnumerator *enumerator;
     NSString     *name;
@@ -177,7 +177,17 @@ STEnvironment *sharedEnvironment = nil;
 
     RETAIN(description);
 
+    [self afterInit];
     return self;
+}
+
+/**
+   Override in subclasses.
+ */
+
+-(void)afterInit
+{
+    /* Do nothing */
 }
 
 - (void)dealloc
