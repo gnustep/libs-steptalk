@@ -28,7 +28,10 @@
 
 #import <objc/objc-api.h>
 
+#import <StepTalk/STunctions.h>
+
 #import <Foundation/NSArray.h>
+#import <Foundation/NSString.h>
 
 static ObjectiveCRuntime *sharedRuntime=nil;
 
@@ -67,5 +70,27 @@ static ObjectiveCRuntime *sharedRuntime=nil;
 {
     return NSStringFromClass(class);
 }
+- (NSArray *)selectorsContainingString:(NSString *)string
+{
+    NSEnumerator *enumerator;
+    NSArray      *array = STAllObjectiveCSelectors();
+    NSArray      *sels = [NSMutableArray array];
+    NSString     *sel;
+    NSRange       range;
+    enumerator = [array objectEnumerator];
+    
+    while( (sel = [enumerator nextObject]) )
+    {
+        range = [sel rangeOfString:string];
+        
+        if(range.location != NSNotFound)
+        {
+            [sels addObject:sel];
+        }
+    }
+
+    return [NSArray arrayWithArray:sels];
+}
 @end
+
 
