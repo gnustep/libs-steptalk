@@ -26,7 +26,6 @@
 
 #import "SmalltalkEngine.h"
 
-#import "STBytecodeInterpreter.h"
 #import "STCompiler.h"
 #import "STCompiledCode.h"
 #import "STCompiledScript.h"

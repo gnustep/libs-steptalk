@@ -39,11 +39,11 @@
 {
     [super init];
 
-    bytecodes = [[STBytecodes alloc] initWithData:RETAIN(data)];
+    bytecodes = [[STBytecodes alloc] initWithData:data];
     literals = RETAIN(anArray);
     tempCount = count;
     stackSize = size;
-    ASSIGN(externRefs,refs);
+    externRefs = RETAIN(refs);
 
     return self;
 }

@@ -26,7 +26,6 @@
 #import "STCompiledMethod.h"
 
 #import "STMessage.h"
-#import "STBytecodes.h"
 
 #import <StepTalk/STScripting.h>
 

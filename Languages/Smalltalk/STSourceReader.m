@@ -142,9 +142,8 @@ static NSString *_STNormalizeStringToken(NSString *token)
 - (void)dealloc
 {
     RELEASE(source);
+    [super dealloc];
 }
-
-
 - initWithString:(NSString *)aString
 {
     return [self initWithString:aString range:NSMakeRange(0,[aString length])];

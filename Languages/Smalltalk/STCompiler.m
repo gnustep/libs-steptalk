@@ -120,19 +120,16 @@ extern int STCparse(void *context);
 
 - (void)setEnvironment:(STEnvironment *)env
 {
-    if(!reader)
-    {
-        reader = [[STSourceReader alloc] init];
-    }
     ASSIGN(environment,env);
 }
 
 
 - (STCompiledScript *)compileString:(NSString *)aString
 {
-    NSString       *exceptionFmt = @"Syntax error at line %i near '%@', "
+    STCompiledScript *result;
+    NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
                                    @"reason: %@.";
-    int             parsRetval = 0;
+    int               parsRetval = 0;
 
 
     NSDebugLLog(@"STCompiler", @"Compile string", aString);
@@ -159,6 +156,9 @@ extern int STCparse(void *context);
     {
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
+            RELEASE(reader);
+            reader = nil;
+            
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
                                 [reader currentLine],
@@ -170,9 +170,13 @@ extern int STCparse(void *context);
     }
     NS_ENDHANDLER
 
+    RELEASE(receiverVars);
     RELEASE(reader);
+
+    result = script;
+    script = nil;
     
-    return script;
+    return AUTORELEASE(result);
 }
 
 - (void)compileMethod:(STCMethod *)method
@@ -204,8 +208,8 @@ extern int STCparse(void *context);
     tempVars = [NSMutableArray arrayWithArray:[messagePattern arguments]];
 
     code = [self compileStatements:[method statements]];
-    
-    compiledMethod = [STCompiledMethod methodWithCode:code 
+   
+    compiledMethod = [STCompiledMethod methodWithCode:AUTORELEASE(code)
                                        messagePattern:messagePattern];
                                        
     [script addMethod:compiledMethod];
@@ -217,6 +221,7 @@ extern int STCparse(void *context);
     int              count;
     int              i;
     
+    /* FIXME: create another class */
     [self initializeCompilationContext];
     
     NSDebugLLog(@"STCompiler", @"compiling statements");
@@ -256,6 +261,8 @@ extern int STCparse(void *context);
                               stackSize:stackSize
                        externReferences:externVars];
 
+    [self destroyCompilationContext];
+    
     return compiledCode;
 }
 
@@ -327,7 +334,7 @@ extern int STCparse(void *context);
 
     ref = [[STObjectReferenceLiteral alloc] initWithObjectName:varName
                                                       poolName:nil];
-    [externVars addObject:ref];
+    [externVars addObject:AUTORELEASE(ref)];
 
     return count;
 }
@@ -340,9 +347,26 @@ extern int STCparse(void *context);
 
 - (void) initializeCompilationContext
 {
-    byteCodes  = [NSMutableData  data];
-    externVars = [NSMutableArray array];
-    literals   = [NSMutableArray array];
+    RELEASE(byteCodes);
+    RELEASE(externVars);
+    RELEASE(literals);
+    byteCodes  = [[NSMutableData  alloc] init];
+    externVars = [[NSMutableArray alloc] init];
+    literals   = [[NSMutableArray alloc] init];
+    
+    stackSize = stackPos = 0;
+    tempsSize = tempsCount = 0;
+    bcpos = 0;
+}
+
+- (void) destroyCompilationContext
+{
+    RELEASE(byteCodes);
+    RELEASE(externVars);
+    RELEASE(literals);
+    byteCodes  = nil;
+    externVars = nil;
+    literals   = nil;
     
     stackSize = stackPos = 0;
     tempsSize = tempsCount = 0;
