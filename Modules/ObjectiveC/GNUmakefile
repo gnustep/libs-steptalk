@@ -1,9 +1,10 @@
 #
-#  Main Makefile for the StepTalk
-#  
-#  Copyright (C) 2000 Stefan Urbanek
+#  ObjectiveC module
 #
-#  Written by:	Stefan Urbanek <urbane@decef.elf.stuba.sk>
+#  Copyright (C)2002 Stefan Urbanek
+#
+#  Written by: Stefan Urbanek
+#  Date: 2002 Jun 14
 #
 #  This file is part of the StepTalk
 #
@@ -19,28 +20,31 @@
 #
 #  You should have received a copy of the GNU Library General Public
 #  License along with this library; if not, write to the Free
-#  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA
+#  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02111, USA.
 #
-
-GNUSTEP_INSTALLATION_DIR = $(GNUSTEP_USER_ROOT)
 
 GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
-APPKIT=AppKit
+BUNDLE_NAME = ObjectiveC
+    
+ObjectiveC_OBJC_FILES = \
+        ObjectiveCModule.m \
+        ObjectiveCRuntime.m \
+        NSObject+additions.m
 
-ifeq ($(appkit),no)
-    APPKIT= 
-endif
+ObjectiveC_PRINCIPAL_CLASS = ObjectiveCModule
+        
 
-SUBPROJECTS = \
-    SimpleTranscript \
-    Foundation \
-    ObjectiveC \
-    $(APPKIT)
+ObjectiveC_BUNDLE_LIBS += -lStepTalk
+ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
+ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
 
--include GNUMakefile.preamble
-include $(GNUSTEP_MAKEFILES)/aggregate.make
+
+BUNDLE_EXTENSION := .stmodule
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
+
+-include GNUmakefile.preamble
+include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble
-
