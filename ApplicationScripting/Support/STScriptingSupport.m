@@ -33,12 +33,12 @@
 #include "STScriptingSupport.h"
 
 #include <AppKit/NSApplication.h>
+#include <AppKit/NSPanel.h>
 
 #include <Foundation/NSArray.h>
 #include <Foundation/NSBundle.h>
 #include <Foundation/NSEnumerator.h>
 #include <Foundation/NSFileManager.h>
-#include <Foundation/NSPanel.h>
 #include <Foundation/NSPathUtilities.h>
 #include <Foundation/NSString.h>
 
