@@ -381,10 +381,23 @@ static NSString *_STNormalizeStringToken(NSString *token)
 
             if(!isDigit)
             {
-                tokenRange = NSMakeRange(start,srcOffset - start + 1);
-                [NSException raise:STCompilerSyntaxException
-                            format:@"Invalid character '%c' after decimal point",
-                            c];
+                if([wsCharacterSet characterIsMember:c])
+                {
+                    /* If there is whitespace or newline after a decimal point,
+                       we treat it as dot '.' - end of a statement. We have 
+                       to put back that dot.
+                    */
+                    srcOffset --;
+                    tokenRange = NSMakeRange(start,srcOffset - start);
+                    return STIntNumberTokenType;
+                }
+                else
+                {
+                    tokenRange = NSMakeRange(start,srcOffset - start + 1);
+                    [NSException raise:STCompilerSyntaxException
+                                format:@"Invalid character '%c' after decimal point",
+                                c];
+                }
                 return STErrorTokenType;
             }
     

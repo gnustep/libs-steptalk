@@ -1,4 +1,9 @@
-2003 May 9
+2003 May 17   Stefan Urbanek <urbanek@host.sk>
+
+    * STSourceReader: treat decimal point followed by whitespace as '.' dot - 
+    end of statement.
+
+2003 May 9   Stefan Urbanek <urbanek@host.sk>
 
     * NSString+additions: added   
 
