@@ -262,9 +262,9 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 break;
             }
         }
-        srcOffset--;
         if(!AT_END)
         {
+            srcOffset--;
             c = PEEK_CHAR;
             if(c == ':')
             {
