@@ -12,11 +12,11 @@
     object := STScriptObject scriptObject.
     object setEnvironment:Environment.
     
-" This is the source of new method "
-    source := 'sayHi Transcript showLine: \'Hi.\'. ^self'.
-
 " Get the proper engine "
     engine := STEngine engineForLanguageWithName:'Smalltalk'.
+
+" This is the source of new method "
+    source := 'sayHi Transcript showLine: \'Hi.\'. ^self'.
 
 " Create method "
     method := engine methodFromSource:source 
@@ -26,7 +26,16 @@
 " Add the method to the object "
     object addMethod:method.
 
+" Add another method with an argument "
+    source := 'sayHiTo:someone Transcript showLine: (\'Hi \', someone). ^self'.
+    method := engine methodFromSource:source 
+                          forReceiver:object
+                        inEnvironment:Environment.
+    object addMethod:method.
+
+
 " Sent it! "
     object sayHi.
+    object sayHiTo:'GNUstep'.
     
     
