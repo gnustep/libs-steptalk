@@ -1,4 +1,15 @@
-0.7.2
+0.8.0
+
+    NOTE: You HAVE to remove your previous installation of StepTalk to be
+    able to install new one. (especially Local/Library/Headers/StepTalk).
+
+    Major changes:
+    * Changed StepTalk from library to a framework
+    * Added script objects.
+
+    Other:
+    * StepTalk module was removed, because it was no longer required.
+    * Added framework loading support in environment description files (.stenv)
 
     * Added some autogsdoc generated documentation
     * Implemented Framework support and new Environment method: includeFramework:
