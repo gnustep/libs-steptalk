@@ -89,10 +89,9 @@ int complete_handler(void)
                                  selector:@selector(bundleLoaded:)
                                      name:NSBundleDidLoadNotification
                                    object:nil];
-    
-    prompt = @"StepTalk > ";
-
+   
     scriptsManager = RETAIN([STScriptsManager defaultManager]);
+    prompt = @"StepTalk > ";
     
     return self;
 }
@@ -389,5 +388,13 @@ int complete_handler(void)
     }
     
     return result;
+}
+- (void)setPrompt:(NSString *)aString
+{
+    ASSIGN(prompt, aString);
+}
+- (NSString *)prompt
+{
+    return prompt;
 }
 @end
