@@ -349,7 +349,7 @@
     return AUTORELEASE(ref);
 }
 
-/* FIXME: rewrite */
+/* FIXME: rewrite, it is too sloooooow */
 - (STClassInfo *)findClassInfoForObject:(id)anObject
 {
     STClassInfo *info = nil;

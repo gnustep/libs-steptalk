@@ -2,4 +2,4 @@
 
 array := NSMutableArray array.
 
-1 to: 2000 do: [ :i | array addObject: i].
+1 to: 200000 do: [ :i | array addObject: i].

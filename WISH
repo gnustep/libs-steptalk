@@ -90,7 +90,7 @@ Future
         applications
       - provide 'script objects' where one can create an object, define its
         behaviour with 'script methods' in any language. Make it similar to
-        prototype based language - Self.
+        prototype based language - Self. (Google for: self language)
 
 Conclusion
 ----------

@@ -1,7 +1,10 @@
+2003 Apr 21 Stefan Urbanek <urbanek@host.sk>
+
+    * Version 0.7.1
+
 2003 Apr 6 Stefan Urbanek <urbanek@host.sk>
 
     * STCompiler: compileString: fixed exception reporting.
-
 
 2003 Apr 04  David Ayers  <d.ayers@inode.at>
 

@@ -37,6 +37,13 @@ install it separately by doing:
     > make install
 
     
+Scripts
+-------
+Scripts are stored per application domain in 
+*/Library/StepTalk/Scripts/application_name. For example GNUmail is searhing
+for scripts in */Library/StepTalk/Scripts/GNUmail.
+
+
 Feedback
 --------
 Any bug reports and comments are welcome at urbanek@host.sk

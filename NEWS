@@ -1,3 +1,14 @@
+0.7.1
+
+    * Prepared StepTalk for application scripting support
+    * Added application scripting support bundle
+    * Added documentation for application scripting
+    * Many source cleanups by David Ayers  <d.ayers@inode.at>
+    * Some bugfixes in Smalltalk source reader
+
+    For more information about scripting bundle see ApplicationScripting
+    directory.
+
 0.7.0
 
     * Added ability to use any bundle or framework for scripting 
