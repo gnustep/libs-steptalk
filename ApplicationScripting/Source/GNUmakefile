@@ -36,7 +36,7 @@ ApplicationScripting_OBJC_FILES = \
     NSTextView+ScriptExecution.m \
     STTranscript.m 
 
-ADDITIONAL_BUNDLE_LIBS = -lStepTalk $(GUI_LIBS)
+ApplicationScripting_BUNDLE_LIBS = -lStepTalk $(GUI_LIBS)
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
 
