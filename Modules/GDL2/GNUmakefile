@@ -48,7 +48,7 @@ BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
--include GNUMakefile.postamble
+-include GNUmakefile.postamble
 
 
 GDL2Constants.m : GDL2Constants.list
