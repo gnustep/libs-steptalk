@@ -53,12 +53,16 @@
     
     return nil;
 }
+- (void)showError:(NSString *)errString
+{
+    fprintf(stderr, "%s\n\n", [errString cString]);
+}
 
 - showResult:(id)obj
 {
-    int objIndex = [objectStack count] - 1;
-    int i;
     const char *className = [NSStringFromClass([obj class]) cString];
+    int         objIndex = [objectStack count] - 1;
+    int         i;
     
     if(obj)
     {
@@ -132,11 +136,12 @@
     
     return self;
 }
+
 - (id)listObjects
 {
-    int i;
-    id  object;
     NSString *str;
+    int       i;
+    id        object;
     
     printf("Objects\n");
     for(i = 0; i < [objectStack count]; i++)

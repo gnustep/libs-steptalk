@@ -1,3 +1,7 @@
+2002 Jun 21
+
+    * Added executeScriptNamed:
+    
 2002 Jun 8
 
     * Reflect STEnvironment changes

@@ -85,6 +85,8 @@
 /**
    Initialises scripting environment using description with name
    <var>descName</var>.
+   
+   <init />
  */
 - initWithDescriptionName:(NSString *)descName
 {
@@ -178,7 +180,8 @@
 }
 
 /**
-    Add classes specified by the names in the <var>names</var> array.
+    Add classes specified by the names in the <var>names</var> array. 
+    This method is used internally to add classes provided by modules.
 */
 - (void)addClassesWithNames:(NSArray *)names
 {
@@ -199,6 +202,9 @@
     [self addClassesWithNames:[module providedClasses]];
 }
 
+/**
+    Returns a dictionary of all named objects in the environment.
+*/
 - (NSMutableDictionary *)objectDictionary
 {
     return defaultPool;

@@ -29,12 +29,14 @@
 
 @class STEngine;
 @class STEnvironment;
+@class STScriptsManager;
 @class NSMutableArray;
 
 @interface STShell:NSObject
 {
-    STEnvironment *env;
-    STEngine      *engine;
+    STScriptsManager *scriptsManager;
+    STEnvironment    *env;
+    STEngine         *engine;
     
     NSString      *prompt;
     NSString      *source;

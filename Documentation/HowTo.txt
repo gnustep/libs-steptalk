@@ -1,7 +1,7 @@
 StepTalk HowTo
 --------------
 
-NOTE: This file has to be written!
+NOTE: This file has to be written.
 
 You may consult StepTalk header files.
 
@@ -43,7 +43,7 @@ How to execute a code?
     id        result;
 
     NS_DURING
-        result = [engine executeCode:line inEnvironment:env];
+        result = [engine executeCode:string inEnvironment:env];
     NS_HANDLER
         /* handle the exception */        
     NS_ENDHANDLER

@@ -44,7 +44,7 @@ static Class NSString_class = nil;
 static Class NSValue_class = nil;
 
 #define CASE_NUMBER_TYPE(otype,type,msgtype)\
-            case otype: object = [NSNumber_class numberWith##msgtype:*((type *)value)];\
+            case otype: object = [NSNumber numberWith##msgtype:*((type *)value)];\
                         NSDebugLLog(@"STStructure",\
                                    @"    is number value '%@'", object);\
                         break
@@ -77,12 +77,12 @@ id STObjectFromValueOfType(void *value, const char *type)
     CASE_NUMBER_TYPE(_C_FLT,float,Float);
     CASE_NUMBER_TYPE(_C_DBL,double,Double);
     case _C_PTR: 
-                object = [NSValue_class valueWithPointer:*((void **)value)];
+                object = [NSValue valueWithPointer:*((void **)value)];
                 NSDebugLLog(@"STStructure",
                            @"    is pointer value %p", *((void **)value));
                 break;
     case _C_CHARPTR: 
-                object = [NSString_class stringWithCString:*((char **)value)];
+                object = [NSString stringWithCString:*((char **)value)];
                 NSDebugLLog(@"STStructure",
                            @"    is string value '%s'", *((char **)value));
                 break;
@@ -182,12 +182,16 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 
 
 @implementation NSInvocation(STAdditions)
+#if 0
+/* with this method it does not work, it is not posiible to create an 
+   invocation*/
 + (void)initialize
 {
     NSNumber_class = [NSNumber class];
     NSString_class = [NSString class];
     NSValue_class = [NSValue class];
 }
+#endif
 
 + invocationWithTarget:(id)target selectorName:(NSString *)selectorName
 {
@@ -208,7 +212,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
         return nil;
     }
   
-    invocation = [self invocationWithMethodSignature:signature];
+    invocation = [NSInvocation invocationWithMethodSignature:signature];
 
     [invocation setSelector:sel];
     [invocation setTarget:target];

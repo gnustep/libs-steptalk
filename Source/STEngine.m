@@ -103,7 +103,7 @@ void _STInitMallocZone(void)
     ASSIGN(defaultEnvironment,anEnvironment);
 }
 
-/** Execude source code <var>code</var> in default scripting environment. */
+/** Execude source code <var>code</var> in default scripting environment.  */
 - (id)  executeCode:(NSString *)code
 {
    return [self    executeCode:code 
@@ -113,8 +113,8 @@ void _STInitMallocZone(void)
 /** Execude source code <var>code</var> in an environment <var>env</var>. 
     This is the method, that has to be implemented by those who are writing 
     a language engine. 
-    
-    <override-subclass /> */
+    <override-subclass /> 
+*/
 - (id)  executeCode:(NSString *)code 
       inEnvironment:(STEnvironment *)env
 {

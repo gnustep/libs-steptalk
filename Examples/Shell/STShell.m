@@ -81,6 +81,8 @@ int complete_handler(void)
                                    object:nil];
     
     prompt = @"StepTalk > ";
+
+    scriptsManager = RETAIN([STScriptsManager defaultManager]);
     
     return self;
 }
@@ -99,6 +101,7 @@ int complete_handler(void)
 {
     RELEASE(objectStack);
     RELEASE(completitionList);
+    RELEASE(scriptsManager);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
@@ -339,5 +342,32 @@ int complete_handler(void)
 {   
     /* FIXME: this is not nice */
     exit(0);
+}
+
+- (id)executeScriptNamed:(NSString *)scriptName
+{
+    STScript *script = [scriptsManager scriptWithName:scriptName];
+    STEngine *scriptEngine;
+    id        result = nil;
+    
+    if(!script)
+    {
+        [self showError:[NSString stringWithFormat:
+                                        @"Unable to find script with name '%@'",
+                                        scriptName]];
+    }
+    else
+    {
+        scriptEngine = [STEngine engineForLanguageWithName:[script language]];
+    
+        NS_DURING
+            result = [scriptEngine   executeCode:[script source] 
+                                   inEnvironment:env];
+        NS_HANDLER
+            [self showException:localException];
+        NS_ENDHANDLER
+    }
+    
+    return result;
 }
 @end
