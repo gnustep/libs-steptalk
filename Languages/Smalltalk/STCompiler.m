@@ -183,8 +183,7 @@ extern int STCparse(void *context);
     int               parsRetval = 0;
 
 
-    //    NSDebugLLog(@"STCompiler", @"Compile method", aString);
-    NSLog(@"Compile method");
+    NSDebugLLog(@"STCompiler", @"Compile method", aString);
 
     if(!environment)
     {

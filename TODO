@@ -15,3 +15,5 @@ TODO list
 16 Remove StepTalk modules
 17 Fill implementation of STScriptObject, STMethod and related STEngine methods
 18 Rewrite Smalltalk compiler (grammar)
+19 Remove empty directories (Source, Modules/StepTalk)
+20 Replace STMethod languageName with map table of method class->engine class

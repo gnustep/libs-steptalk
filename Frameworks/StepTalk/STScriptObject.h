@@ -2,27 +2,34 @@
 
 #import <Foundation/NSObject.h>
 
+#import "STMethod.h"
+
 @class NSMutableDictionary;
 @class NSDictionary;
 @class NSArray;
-@class STMethod;
+@class STEnvironment;
 
 @interface STScriptObject:NSObject
 {
     NSMutableDictionary *ivars;
-    NSMutableDictionary *methods;
+    NSMutableDictionary *methodDictionary;
+    
+    STEnvironment       *environment;
 }
 + scriptObject;
 - initWithInstanceVariableNames:(NSString *)names;
+
+- (void)setEnvironment:(STEnvironment *)env;
+- (STEnvironment *)environment;
 
 - (void)setObject:(id)anObject forVariable:(NSString *)aName;
 - (id)objectForVariable:(NSString *)aName;
 
 - (NSArray *)instanceVariableNames;
 
-- (void)addMethod:(STMethod *)aMethod;
-- (STMethod *)methodWithName:(NSString *)aName;
-- (void)removeMethod:(STMethod *)aMethod;
+- (void)addMethod:(id <STMethod>)aMethod;
+- (id <STMethod>)methodWithName:(NSString *)aName;
+- (void)removeMethod:(id <STMethod>)aMethod;
 - (void)removeMethodWithName:(NSString *)aName;
 - (NSArray *)methodNames;
 - (NSDictionary *)methodDictionary;

@@ -110,4 +110,14 @@
 
     return desc;
 }
+
+/* Script object method info */
+- (NSString *)methodName
+{
+    return selector;
+}
+- (NSString *)languageName
+{
+    return @"Smalltalk";
+}
 @end

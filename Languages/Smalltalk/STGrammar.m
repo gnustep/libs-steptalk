@@ -1197,7 +1197,7 @@ yyreduce:
   case 4:
 #line 80 "STGrammar.y"
     {
-                                [COMPILER compileMethod:yyvsp[-2]];
+                                [COMPILER compileMethod:yyvsp[0]];
                             ;}
     break;
 

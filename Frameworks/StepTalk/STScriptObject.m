@@ -2,6 +2,13 @@
 
 #import "STScriptObject.h"
 
+#import "STEngine.h"
+#import "STFunctions.h"
+
+#import <Foundation/NSArray.h>
+#import <Foundation/NSDictionary.h>
+#import <Foundation/NSException.h>
+
 @implementation STScriptObject
 /** Return new instance of script object without any instance variables */
 + scriptObject
@@ -12,7 +19,7 @@
 {
     self = [super init];
     
-    methods = [[NSMutableDictionary alloc] init];
+    methodDictionary = [[NSMutableDictionary alloc] init];
     
     return self;
 }
@@ -22,7 +29,7 @@
 }
 - (void)dealloc
 {
-    RELEASE(methods);
+    RELEASE(methodDictionary);
     RELEASE(ivars);
     [super dealloc];
 }
@@ -41,28 +48,102 @@
     return [ivars allKeys];
 }
 
-- (void)addMethod:(STMethod *)aMethod
+- (void)addMethod:(id <STMethod>)aMethod
 {
-    [methods setObject:aMethod forKey:[aMethod methodName]];
+    [methodDictionary setObject:aMethod forKey:[aMethod methodName]];
 }
-- (STMethod *)methodWithName:(NSString *)aName
+- (id <STMethod>)methodWithName:(NSString *)aName
 {
-    return [methods objectForKey:aName];
+    return [methodDictionary objectForKey:aName];
 }
-- (void)removeMethod:(STMethod *)aMethod
+- (void)removeMethod:(id <STMethod>)aMethod
 {
     [self notImplemented:_cmd];
 }
 - (void)removeMethodWithName:(NSString *)aName
 {
-    [methods removeObjectForKey:aName];
+    [methodDictionary removeObjectForKey:aName];
 }
 - (NSArray *)methodNames
 {
-    return [methods allKeys];
+    return [methodDictionary allKeys];
 }
 - (NSDictionary *)methodDictionary
 {
-    return [NSDictionary dictionaryWithDictionary:methods];
+    return [NSDictionary dictionaryWithDictionary:methodDictionary];
+}
+/** Set object's environment. Note: This method should be replaced by
+some other, more clever mechanism. */
+- (void)setEnvironment:(STEnvironment *)env
+{
+    ASSIGN(environment, env);
+}
+- (STEnvironment *)environment
+{
+    return environment;
+}
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+    if( [super respondsToSelector:(SEL)aSelector] )
+    {
+        return YES;
+    }
+    
+    return ([methodDictionary objectForKey:NSStringFromSelector(aSelector)] != nil);
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
+{
+    NSMethodSignature *signature = nil;
+    
+    signature = [super methodSignatureForSelector:sel];
+
+    if(!signature)
+    {
+        signature = STMethodSignatureForSelector(sel);
+    }
+
+    return signature;
+}
+
+- (void) forwardInvocation:(NSInvocation *)invocation
+{
+    STEngine       *engine;
+    id <STMethod>  *method;
+    NSString       *methodName = NSStringFromSelector([invocation selector]);
+    NSMutableArray *args;
+    id              arg;
+    int             index;
+    int             count;
+    id              retval = nil;
+
+    method = [methodDictionary objectForKey:methodName];
+    
+    if(!method)
+    {
+        [NSException raise:@"STScriptObjectException"
+                     format:@"No script object method with name '%@'",
+                            methodName];
+        return;
+    }
+
+    engine = [STEngine engineForLanguageWithName:[method languageName]];   
+
+    /* Get arguments as array */
+    count = [[invocation methodSignature] numberOfArguments];
+    args = [NSMutableArray array];
+    
+    for(index = 2; index < count; index++)
+    {
+        arg = [invocation getArgumentAsObjectAtIndex:index];
+        [args addObject:arg];
+    }
+
+    retval = [engine executeMethod:method
+                       forReceiver:self
+                     withArguments:args
+                     inEnvironment:environment];
+
+    [invocation setReturnValue:&retval];
 }
 @end

@@ -78,7 +78,7 @@ source: /* empty string */  {
     /* FIXME: this is a hack */
     |   TK_SEPARATOR TK_SEPARATOR method              
                             {
-                                [COMPILER compileMethod:$1];
+                                [COMPILER compileMethod:$3];
                             }
                             
     | 
