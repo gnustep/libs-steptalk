@@ -126,10 +126,10 @@ const char *STExecutorCommonOptions =
         }
         else
         {
-            NSDebugLog(@"Using language fo file extension %@", 
+            NSDebugLog(@"Using language for file extension %@", 
                        [file pathExtension]);
 
-            engine = [STEngine engineForLanguageWithName:[file pathExtension]];
+            engine = [STEngine engineForFileType:[file pathExtension]];
         }
         
         if(!engine)
@@ -137,7 +137,7 @@ const char *STExecutorCommonOptions =
             NSDebugLog(@"Using default language %@", 
                        [STLanguage defaultLanguageName]);
 
-            engine = [STEngine engineForLanguage:[STLanguage defaultLanguageName]];
+            engine = [STEngine engineForLanguageWithName:[STLanguage defaultLanguageName]];
         }
         
         if(engine)

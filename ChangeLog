@@ -1,3 +1,10 @@
+2002 May 29
+    
+    * STExecutor: fixed typo
+    * STEnvironment: new method -allObjectsDictionary that returns a NSDictionary
+    with all named objects
+    * STObjCRuntime: new function STAllObjectiveCSelectors
+    
 2002 May 24
 
     * STEngine: engineForLanguage: renamed to engineForLanguageWithName:.
