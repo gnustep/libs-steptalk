@@ -36,6 +36,7 @@
 #import <Foundation/NSException.h>
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSNotification.h>
+#import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSString.h>
 
 static NSMutableDictionary *bundleInfoDict;
@@ -162,7 +163,6 @@ static NSMutableDictionary *bundleInfoDict;
 /** Return path for framework with name <var>aName</var>. */
 + (NSString *)pathForFrameworkWithName:(NSString *)aName
 {
-    NSMutableArray *names = [NSMutableArray array];
     NSFileManager  *manager = [NSFileManager defaultManager];
     NSArray        *paths;
     NSEnumerator   *fenum;

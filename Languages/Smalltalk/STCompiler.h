@@ -42,7 +42,7 @@
 
 @class NSMutableData;
 @class NSMutableArray;
-
+@protocol STScriptObject;
 /*" Parser context information "*/
 typedef struct _STParserContext
 {
@@ -105,6 +105,8 @@ typedef struct _STParserContext
 /*" Compilation "*/
 
 - (STCompiledScript *)compileString:(NSString *)aString;
+- (STCompiledMethod *)compileMethodFromSource:(NSString *)aString
+                                  forReceiver:(id <STScriptObject>)receiver;
 
 /*
 - (NSMutableArray *)compileString:(NSString *)string;
@@ -127,4 +129,5 @@ typedef struct _STParserContext
 - (void)setReceiverVariables:(NSArray *)vars;
 
 - (void)addTempVariable:(NSString *)varName;
+- (BOOL)beginScript;
 @end

@@ -26,7 +26,8 @@
  */
 
 #import <Foundation/NSObject.h>
-#import <StepTalk/STMethod.h>
+
+@protocol STMethod;
 
 @class STEnvironment;
 @class STLanguageEngine;

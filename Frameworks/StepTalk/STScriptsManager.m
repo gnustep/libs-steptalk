@@ -248,9 +248,7 @@ process name.*/
     NSFileManager *manager = [NSFileManager defaultManager];
     NSEnumerator  *enumerator;
     NSString      *file;
-    NSString      *str;
     NSString      *ext;
-    NSArray       *paths;
     NSSet         *types;
     
     types = [NSSet setWithArray:[STLanguage allKnownFileTypes]];

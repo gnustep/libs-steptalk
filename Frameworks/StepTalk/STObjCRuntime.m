@@ -196,7 +196,7 @@ SEL STCreateTypedSelector(SEL sel)
 
 NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 {
-    char *types;
+    const char *types;
     
     types = sel_get_type(sel);
     

@@ -22,7 +22,7 @@
 
 #import "STCompiledCode.h"
 
-#import <StepTalk/STMethod.h>
+@protocol STMethod;
 
 @class STMessage;
 

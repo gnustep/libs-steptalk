@@ -29,6 +29,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSArray.h>
+#import <Foundation/NSCoder.h>
 
 @implementation STCompiledCode
 - initWithBytecodesData:(NSData *)data

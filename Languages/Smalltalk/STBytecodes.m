@@ -28,9 +28,9 @@
 #import "Externs.h"
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSCoder.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSException.h>
-#import <Foundation/NSObject.h>
 
 
 NSArray *STBytecodeNames;

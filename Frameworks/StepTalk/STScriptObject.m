@@ -3,12 +3,14 @@
 #import "STScriptObject.h"
 
 #import "STEngine.h"
-#import "STFunctions.h"
+#import "STObjCRuntime.h"
+#import "NSInvocation+additions.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSCoder.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSInvocation.h>
 
 @implementation STScriptObject
 /** Return new instance of script object without any instance variables */
@@ -42,6 +44,7 @@
 - (id)objectForVariable:(NSString *)aName
 {
     [self notImplemented:_cmd];
+    return nil;
 }
 
 - (NSArray *)instanceVariableNames
@@ -110,7 +113,7 @@ some other, more clever mechanism. */
 - (void) forwardInvocation:(NSInvocation *)invocation
 {
     STEngine       *engine;
-    id <STMethod>  *method;
+    id <STMethod>   method;
     NSString       *methodName = NSStringFromSelector([invocation selector]);
     NSMutableArray *args;
     id              arg;

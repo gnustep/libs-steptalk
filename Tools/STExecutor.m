@@ -62,7 +62,9 @@ const char *STExecutorCommonOptions =
 
 - (void)executeScripts
 {
+#ifndef DEBUG
     NSString       *logFmt = @"'%@': execution failed, reason: %@";
+#endif
     NSMutableArray *scriptArgs;
     NSString       *script;
     NSString       *arg;

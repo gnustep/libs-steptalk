@@ -28,6 +28,7 @@
 
 #import "STCompiler.h"
 #import "STCompiledCode.h"
+#import "STCompiledMethod.h"
 #import "STCompiledScript.h"
 #import "STBytecodeInterpreter.h"
 
@@ -84,8 +85,8 @@
                    forReceiver:(id)receiver
                  inEnvironment:(STEnvironment *)env
 {
-    STCompiler  *compiler;
-    STCompiledMethod *method;
+    STCompiler   *compiler;
+    id <STMethod> method;
     
     compiler = [STCompiler compilerWithEnvironment:env];
     
@@ -103,7 +104,7 @@
     id                     result;
     interpreter = [STBytecodeInterpreter interpreterWithEnvrionment:env];
 
-    result = [interpreter interpretMethod:aMethod
+    result = [interpreter interpretMethod:(STCompiledMethod *)aMethod
                               forReceiver:anObject
                                 arguments:args];
     return result;

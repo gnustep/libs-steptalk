@@ -25,7 +25,6 @@
  
  */
 #import <Foundation/NSObject.h>
-#import <StepTalk/STScripting.h>
 
 @interface STUndefinedObject:NSObject
 @end

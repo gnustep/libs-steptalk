@@ -114,7 +114,6 @@ Class STBlockContextClass = nil;
     STExecutionContext *parentContext;
     STBlockContext     *context;
     STStack            *stack;
-    BOOL                usingShared = NO;
     unsigned int        i;
     id                  retval;
 

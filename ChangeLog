@@ -1,3 +1,7 @@
+2003 Aug 9
+
+    * Removed compiler warnings in StepTalk.framework, Smalltalk and Tools
+
 2003 Aug 6
 
     * Frameworks: new directory

@@ -62,6 +62,10 @@ ADDITIONAL_BUNDLE_LIBS = -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
 
+ifeq ($(check),yes)
+    ADDITIONAL_OBJCFLAGS += -Werror
+endif
+
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble

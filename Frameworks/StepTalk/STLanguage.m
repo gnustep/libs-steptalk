@@ -112,7 +112,7 @@ static NSDictionary *fileTypeDictionary = nil;
     return AUTORELEASE([[STLanguage alloc] initWithPath:path]);
 }
 /** Update information about handling various files with StepTalk. */
-+ (NSDictionary *)updateFileTypeDictionary
++ (void)updateFileTypeDictionary
 {
     NSString      *path = STUserConfigPath();
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -135,7 +135,7 @@ static NSDictionary *fileTypeDictionary = nil;
     {
         [NSException  raise:STGenericException
                      format:@"Unable to get languages configuration file"];
-        return nil;
+        return;
     }
 
     dict = [NSDictionary dictionaryWithContentsOfFile:path];

@@ -9,7 +9,11 @@
 @class NSArray;
 @class STEnvironment;
 
-@interface STScriptObject:NSObject<NSCoding>
+@protocol STScriptObject
+- (NSArray *)instanceVariableNames;
+@end
+
+@interface STScriptObject:NSObject<NSCoding, STScriptObject>
 {
     NSMutableDictionary *ivars;
     NSMutableDictionary *methodDictionary;

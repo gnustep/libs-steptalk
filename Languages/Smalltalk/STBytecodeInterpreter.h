@@ -49,7 +49,9 @@
     BOOL                stopRequested;
 }
 
-+ (STBytecodeInterpreter *)sharedInterpreter;
++ interpreterWithEnvrionment:(STEnvironment *)env;
+- initWithEnvironment:(STEnvironment *)env;
+
 - (void)setEnvironment:(STEnvironment *)env;
 
 - (id)interpretMethod:(STCompiledMethod *)method 

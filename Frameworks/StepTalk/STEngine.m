@@ -31,6 +31,7 @@
 #import "STExterns.h"
 #import "STFunctions.h"
 #import "STLanguage.h"
+#import "STMethod.h"
 #import "STUndefinedObject.h"
 
 #import <Foundation/NSDictionary.h>

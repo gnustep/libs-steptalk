@@ -28,11 +28,13 @@
 #import "STMessage.h"
 #import "STBytecodes.h"
 
+#import <StepTalk/STMethod.h>
 #import <StepTalk/STScripting.h>
 
-#import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
+#import <Foundation/NSCoder.h>
 #import <Foundation/NSData.h>
+#import <Foundation/NSString.h>
 
 @implementation STCompiledMethod
 + methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern
@@ -137,5 +139,8 @@
 
     return self;
 }
-
+- (NSString *)source
+{
+    return nil;
+}
 @end

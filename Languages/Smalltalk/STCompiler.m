@@ -35,6 +35,7 @@
 
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STObjectReference.h>
+#import <StepTalk/STScriptObject.h>
 #import <StepTalk/STSelector.h>
 
 #import <Foundation/NSArray.h>
@@ -174,7 +175,7 @@ extern int STCparse(void *context);
 }
 
 - (STCompiledMethod *)compileMethodFromSource:(NSString *)aString
-                                  forReceiver:(id)receiver
+                                  forReceiver:(id <STScriptObject>)receiver
 {
     STCompiledMethod *result;
     NSString         *hackedSource;

@@ -48,6 +48,11 @@ ADDITIONAL_LIB_DIRS += -L../Frameworks/StepTalk/StepTalk.framework/Versions/Curr
 
 ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
 
+ifeq ($(check),yes)
+    ADDITIONAL_OBJCFLAGS += -Werror
+endif
+
+
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make
 -include GNUMakefile.postamble

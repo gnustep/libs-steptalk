@@ -96,6 +96,11 @@ ifeq ($(GNUSTEP_TARGET_OS),mingw32)
     StepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
 endif
 
+ifeq ($(check),yes)
+    ADDITIONAL_OBJCFLAGS += -Werror
+endif
+
+
 -include GNUmakefile.preamble
 
 include $(GNUSTEP_MAKEFILES)/framework.make

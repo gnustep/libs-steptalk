@@ -208,7 +208,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     if(!sel)
     {
         // NSLog(@"REGISTERING SELECTOR");
-        char *name = [selectorName cString];
+        const char *name = [selectorName cString];
         
         sel = sel_register_name(name);
 

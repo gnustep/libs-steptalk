@@ -29,6 +29,7 @@
 
 #import "STEnvironment.h"
 
+#import "STScripting.h"
 #import "STClassInfo.h"
 #import "STEnvironmentDescription.h"
 #import "STExterns.h"
@@ -37,7 +38,6 @@
 #import "STObjCRuntime.h"
 #import "STObjectReference.h"
 #import "STUndefinedObject.h"
-#import "STScripting.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
@@ -262,7 +262,7 @@
     if([loadedBundles containsObject:[aBundle bundlePath]])
     {
         NSDebugLog(@"Bundle '%@' already included.", [aBundle bundlePath]);
-        return;
+        return YES;
     }
 
     info = [STBundleInfo infoForBundle:aBundle];
