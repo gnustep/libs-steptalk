@@ -28,7 +28,7 @@ TOOL_NAME = stshell
 
 stshell_OBJC_FILES = STShell.m STShell+output.m stshell.m
 
-ADDITIONAL_TOOL_LIBS += -lStepTalk -lreadline
+ADDITIONAL_TOOL_LIBS += -lStepTalk -lreadline -lncurses
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make
