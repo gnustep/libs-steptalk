@@ -22,11 +22,10 @@
           <em>Description forthcoming.</em>
         </desc>
         <method type="STEnvironment*" factory="yes">
-          <sel>defaultScriptingEnvironment</sel>
+          <sel>environmentWithDefaultDescription</sel>
           <desc>
-            Creating environment <br /> Creates and
-            initialises scripting environment using
-            standard description.
+            Creates and initialises new scripting environment
+            using default description.
           </desc>
         </method>
         <method type="id" factory="yes">
@@ -38,11 +37,11 @@
           </desc>
         </method>
         <method type="id" factory="yes">
-          <sel>environmentWithDescriptionName:</sel>
-          <arg type="NSString*">descName</arg>
+          <sel>sharedEnvironment</sel>
           <desc>
-            Creates and initialises scripting environment using
-            description with name <var>descName</var>.
+            Creating environment <br /> Returns an instance of
+            the scripting environment that is shared in the scope
+            of actual application or process.
           </desc>
         </method>
         <method type="void">
@@ -84,7 +83,7 @@
             bundle is already loaded, nothing happens.
           </desc>
         </method>
-        <method type="void">
+        <method type="BOOL">
           <sel>includeFramework:</sel>
           <arg type="NSString*">frameworkName</arg>
           <desc>
@@ -95,7 +94,7 @@
           </desc>
         </method>
         <method type="id" init="yes">
-          <sel>initDefault</sel>
+          <sel>initWithDefaultDescription</sel>
           <desc>
             Initialises scripting environment using default
             description.
@@ -107,14 +106,6 @@
           <desc>
             Initialises scripting environment using
             scripting description <var>aDescription</var>.
-          </desc>
-        </method>
-        <method type="id" init="yes">
-          <sel>initWithDescriptionName:</sel>
-          <arg type="NSString*">descName</arg>
-          <desc>
-            Initialises scripting environment using
-            description with name <var>descName</var>.
           </desc>
         </method>
         <method type="NSArray*">

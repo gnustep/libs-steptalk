@@ -46,7 +46,9 @@
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forReceiver:inEnvironment:">-methodFromSource:forReceiver:inEnvironment:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forScriptObject:">-methodFromSource:forScriptObject:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-setDefaultEnvironment:">-setDefaultEnvironment:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-setValue:forOption:">-setValue:forOption:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-understandsCode:">-understandsCode:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-valueForOption:">-valueForOption:</a></li>
     </ul>
     <hr width="50%" align="left" />
     <h3><a name="method$STEngine+engineForFileType:">engineForFileType:</a></h3>
@@ -67,24 +69,6 @@
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-defaultEnvironment">defaultEnvironment</a></h3>
-    - (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*) <b>defaultEnvironment</b>;<br />
-    <p>
-      
-            Scripting Environment <br /> Return the default
-            scripting environment for the engine.
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-executeCode:">executeCode:</a></h3>
-    - (id) <b>executeCode:</b> (NSString*)code;<br />
-    <p>
-      
-            Execude source <var>code</var> <var>code</var> in
-            default scripting environment.
-          
-    </p>
-    <hr width="25%" align="left" />
     <h3><a name="method$STEngine-executeCode:inEnvironment:">executeCode:inEnvironment:</a></h3>
     - (id) <b>executeCode:</b> (NSString*)code<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
 Subclasses <strong>should</strong> override this method.<br />
@@ -98,7 +82,7 @@ Subclasses <strong>should</strong> override this method.<br />
     </p>
     <hr width="25%" align="left" />
     <h3><a name="method$STEngine-executeMethod:forReceiver:withArguments:inEnvironment:">executeMethod:forReceiver:withArguments:inEnvironment:</a></h3>
-    - (id) <b>executeMethod:</b> (id&#60;<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod<b> forReceiver:</b> (id)anObject<b> withArguments:</b> (NSArray*)args<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
+    - (id) <b>executeMethod:</b> (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod<b> forReceiver:</b> (id)anObject<b> withArguments:</b> (NSArray*)args<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
     <p>
       
             <em>Description forthcoming.</em>
@@ -113,11 +97,13 @@ Subclasses <strong>should</strong> override this method.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-setDefaultEnvironment:">setDefaultEnvironment:</a></h3>
-    - (void) <b>setDefaultEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)anEnvironment;<br />
+    <h3><a name="method$STEngine-setValue:forOption:">setValue:forOption:</a></h3>
+    - (void) <b>setValue:</b> (id)anObject<b> forOption:</b> (NSString*)anOption;<br />
     <p>
       
-            Set the default scripting environment for the engine.
+            Set engine specific option. Refer to particuliar
+            language engine documentation for more
+            information.
           
     </p>
     <hr width="25%" align="left" />
@@ -126,6 +112,14 @@ Subclasses <strong>should</strong> override this method.<br />
     <p>
       
             <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-valueForOption:">valueForOption:</a></h3>
+    - (id) <b>valueForOption:</b> (NSString*)anOption;<br />
+    <p>
+      
+            Returs a value for engine specific option
           
     </p>
     <hr width="25%" align="left" />

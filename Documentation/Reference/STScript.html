@@ -36,47 +36,33 @@
     <b>Method summary</b>
     <ul>
       <li><a rel="gsdoc" href="STScript.html#method$STScript+scriptWithFile:">+scriptWithFile:</a></li>
+      <li><a rel="gsdoc" href="STScript.html#method$STScript+scriptWithSource:language:">+scriptWithSource:language:</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-compareByLocalizedName:">-compareByLocalizedName:</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-fileName">-fileName</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-initWithFile:">-initWithFile:</a></li>
+      <li><a rel="gsdoc" href="STScript.html#method$STScript-initWithSource:language:">-initWithSource:language:</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-language">-language</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-localizedName">-localizedName</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-scriptDescription">-scriptDescription</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-scriptName">-scriptName</a></li>
+      <li><a rel="gsdoc" href="STScript.html#method$STScript-setLanguage:">-setLanguage:</a></li>
+      <li><a rel="gsdoc" href="STScript.html#method$STScript-setSource:">-setSource:</a></li>
       <li><a rel="gsdoc" href="STScript.html#method$STScript-source">-source</a></li>
     </ul>
     <hr width="50%" align="left" />
-    <h3><a name="method$STScript+scriptWithFile:">scriptWithFile:</a></h3>
-    + (id) <b>scriptWithFile:</b> (NSString*)file;<br />
+    <h3><a name="method$STScript+scriptWithSource:language:">scriptWithSource:language:</a></h3>
+    + (id) <b>scriptWithSource:</b> (NSString*)aString<b> language:</b> (NSString*)lang;<br />
     <p>
       
             <em>Description forthcoming.</em>
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STScript-compareByLocalizedName:">compareByLocalizedName:</a></h3>
-    - (NSComparisonResult) <b>compareByLocalizedName:</b> (<a rel="gsdoc" href="#class$STScript">STScript</a>*)aScript;<br />
+    <h3><a name="method$STScript-initWithSource:language:">initWithSource:language:</a></h3>
+    - (id) <b>initWithSource:</b> (NSString*)aString<b> language:</b> (NSString*)lang;<br />
     <p>
       
-            Compare scripts by localized name.
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STScript-fileName">fileName</a></h3>
-    - (NSString*) <b>fileName</b>;<br />
-    <p>
-      
-            Return file name of the receiver.
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STScript-initWithFile:">initWithFile:</a></h3>
-    - (id) <b>initWithFile:</b> (NSString*)aFile;<br />
-    <p>
-      
-            Create a new script from file <var>aFile&gt;</var>.
-            Script information will be read from &apos;aFile.stinfo&apos;
-            file containing a dictionary property list.
+            <em>Description forthcoming.</em>
           
     </p>
     <hr width="25%" align="left" />
@@ -88,28 +74,19 @@
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STScript-localizedName">localizedName</a></h3>
-    - (NSString*) <b>localizedName</b>;<br />
+    <h3><a name="method$STScript-setLanguage:">setLanguage:</a></h3>
+    - (void) <b>setLanguage:</b> (NSString*)name;<br />
     <p>
       
-            Returns localized name of the receiver script.
+            Set language of the script.
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STScript-scriptDescription">scriptDescription</a></h3>
-    - (NSString*) <b>scriptDescription</b>;<br />
+    <h3><a name="method$STScript-setSource:">setSource:</a></h3>
+    - (void) <b>setSource:</b> (NSString*)aString;<br />
     <p>
       
-            Returns localized description of the script.
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STScript-scriptName">scriptName</a></h3>
-    - (NSString*) <b>scriptName</b>;<br />
-    <p>
-      
-            Returns a script name by which the script is
-            identified
+            <em>Description forthcoming.</em>
           
     </p>
     <hr width="25%" align="left" />
@@ -117,7 +94,7 @@
     - (NSString*) <b>source</b>;<br />
     <p>
       
-            Returns source string of the receiver script.
+            <em>Description forthcoming.</em>
           
     </p>
     <hr width="25%" align="left" />

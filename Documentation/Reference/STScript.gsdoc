@@ -22,32 +22,21 @@
           <em>Description forthcoming.</em>
         </desc>
         <method type="id" factory="yes">
-          <sel>scriptWithFile:</sel>
-          <arg type="NSString*">file</arg>
+          <sel>scriptWithSource:</sel>
+          <arg type="NSString*">aString</arg>
+          <sel>language:</sel>
+          <arg type="NSString*">lang</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
         </method>
-        <method type="NSComparisonResult">
-          <sel>compareByLocalizedName:</sel>
-          <arg type="STScript*">aScript</arg>
-          <desc>
-            Compare scripts by localized name.
-          </desc>
-        </method>
-        <method type="NSString*">
-          <sel>fileName</sel>
-          <desc>
-            Return file name of the receiver.
-          </desc>
-        </method>
         <method type="id">
-          <sel>initWithFile:</sel>
-          <arg type="NSString*">aFile</arg>
+          <sel>initWithSource:</sel>
+          <arg type="NSString*">aString</arg>
+          <sel>language:</sel>
+          <arg type="NSString*">lang</arg>
           <desc>
-            Create a new script from file <var>aFile></var>.
-            Script information will be read from 'aFile.stinfo'
-            file containing a dictionary property list.
+            <em>Description forthcoming.</em>
           </desc>
         </method>
         <method type="NSString*">
@@ -56,29 +45,24 @@
             Returns language of the script.
           </desc>
         </method>
-        <method type="NSString*">
-          <sel>localizedName</sel>
+        <method type="void">
+          <sel>setLanguage:</sel>
+          <arg type="NSString*">name</arg>
           <desc>
-            Returns localized name of the receiver script.
+            Set language of the script.
           </desc>
         </method>
-        <method type="NSString*">
-          <sel>scriptDescription</sel>
+        <method type="void">
+          <sel>setSource:</sel>
+          <arg type="NSString*">aString</arg>
           <desc>
-            Returns localized description of the script.
-          </desc>
-        </method>
-        <method type="NSString*">
-          <sel>scriptName</sel>
-          <desc>
-            Returns a script name by which the script is
-            identified
+            <em>Description forthcoming.</em>
           </desc>
         </method>
         <method type="NSString*">
           <sel>source</sel>
           <desc>
-            Returns source string of the receiver script.
+            <em>Description forthcoming.</em>
           </desc>
         </method>
       </class>

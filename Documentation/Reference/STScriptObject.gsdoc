@@ -13,12 +13,27 @@
       </heading>
       <class name="STScriptObject" super="NSObject">
         <declared>StepTalk/STScriptObject.h</declared>
+        <conform>NSCoding</conform>
+        <conform>STScriptObject</conform>
         <desc>
           <em>Description forthcoming.</em>
         </desc>
+        <method type="id" factory="yes">
+          <sel>scriptObject</sel>
+          <desc>
+            Return new instance of script object without any
+            instance variables
+          </desc>
+        </method>
         <method type="void">
           <sel>addMethod:</sel>
-          <arg type="STMethod*">aMethod</arg>
+          <arg type="id&lt;STMethod&gt;">aMethod</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="STEnvironment*">
+          <sel>environment</sel>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
@@ -48,7 +63,7 @@
             <em>Description forthcoming.</em>
           </desc>
         </method>
-        <method type="STMethod*">
+        <method type="id&lt;STMethod&gt;">
           <sel>methodWithName:</sel>
           <arg type="NSString*">aName</arg>
           <desc>
@@ -64,7 +79,7 @@
         </method>
         <method type="void">
           <sel>removeMethod:</sel>
-          <arg type="STMethod*">aMethod</arg>
+          <arg type="id&lt;STMethod&gt;">aMethod</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
@@ -77,6 +92,14 @@
           </desc>
         </method>
         <method type="void">
+          <sel>setEnvironment:</sel>
+          <arg type="STEnvironment*">env</arg>
+          <desc>
+            Set object's environment. Note: This method should be
+            replaced by some other, more clever mechanism.
+          </desc>
+        </method>
+        <method type="void">
           <sel>setObject:</sel>
           <arg type="id">anObject</arg>
           <sel>forVariable:</sel>
@@ -86,6 +109,23 @@
           </desc>
         </method>
       </class>
+    </chapter>
+    <chapter>
+      <heading>
+        Software documentation for the STScriptObject protocol
+      </heading>
+      <protocol name="STScriptObject">
+        <declared>StepTalk/STScriptObject.h</declared>
+        <desc>
+          <em>Description forthcoming.</em>
+        </desc>
+        <method type="NSArray*">
+          <sel>instanceVariableNames</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+      </protocol>
     </chapter>
   </body>
 </gsdoc>

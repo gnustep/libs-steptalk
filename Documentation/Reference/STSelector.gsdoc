@@ -17,20 +17,27 @@
           <em>Description forthcoming.</em>
         </desc>
         <method type="id">
+          <sel>initWithName:</sel>
+          <arg type="NSString*">aString</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id">
           <sel>initWithSelector:</sel>
           <arg type="SEL">aSel</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
         </method>
-        <method type="SEL">
-          <sel>selectorValue</sel>
+        <method type="NSString*">
+          <sel>selectorName</sel>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
         </method>
-        <method type="NSString*">
-          <sel>stringValue</sel>
+        <method type="SEL">
+          <sel>selectorValue</sel>
           <desc>
             <em>Description forthcoming.</em>
           </desc>

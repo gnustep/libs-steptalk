@@ -38,21 +38,6 @@
             for language with specified <var>name</var>.
           </desc>
         </method>
-        <method type="STEnvironment*">
-          <sel>defaultEnvironment</sel>
-          <desc>
-            Scripting Environment <br /> Return the default
-            scripting environment for the engine.
-          </desc>
-        </method>
-        <method type="id">
-          <sel>executeCode:</sel>
-          <arg type="NSString*">code</arg>
-          <desc>
-            Execude source <var>code</var> <var>code</var> in
-            default scripting environment.
-          </desc>
-        </method>
         <method type="id" override="subclass">
           <sel>executeCode:</sel>
           <arg type="NSString*">code</arg>
@@ -90,10 +75,14 @@
           </desc>
         </method>
         <method type="void">
-          <sel>setDefaultEnvironment:</sel>
-          <arg type="STEnvironment*">anEnvironment</arg>
+          <sel>setValue:</sel>
+          <arg type="id">anObject</arg>
+          <sel>forOption:</sel>
+          <arg type="NSString*">anOption</arg>
           <desc>
-            Set the default scripting environment for the engine.
+            Set engine specific option. Refer to particuliar
+            language engine documentation for more
+            information.
           </desc>
         </method>
         <method type="BOOL">
@@ -101,6 +90,13 @@
           <arg type="NSString*">code</arg>
           <desc>
             <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id">
+          <sel>valueForOption:</sel>
+          <arg type="NSString*">anOption</arg>
+          <desc>
+            Returs a value for engine specific option
           </desc>
         </method>
       </class>

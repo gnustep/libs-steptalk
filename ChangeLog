@@ -1,3 +1,10 @@
+2004 Mar 28 Stefan Urbanek
+
+    Changes according to the Helge Hess:
+    * STBundleInfo: fix to use string instead of constant (OSX compatibility)
+    * STFileScript, STLanguage, STScript: added missing #imports
+
+
 2003 Nov 24 Stefan Urbanek <stefanu@altair.dcs.elf.stuba.sk>
 
     * Version 0.8.1

@@ -91,6 +91,10 @@
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
+    NSDebugLLog(@"STSending",
+                @"?? script object responds to %@",
+                NSStringFromSelector(aSelector));
+    
     if( [super respondsToSelector:(SEL)aSelector] )
     {
         return YES;

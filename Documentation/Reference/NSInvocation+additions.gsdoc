@@ -25,6 +25,15 @@
         <method type="id" factory="yes">
           <sel>invocationWithTarget:</sel>
           <arg type="id">target</arg>
+          <sel>selector:</sel>
+          <arg type="SEL">selector</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id" factory="yes">
+          <sel>invocationWithTarget:</sel>
+          <arg type="id">target</arg>
           <sel>selectorName:</sel>
           <arg type="NSString*">selectorName</arg>
           <desc>
@@ -70,7 +79,8 @@
         <arg type="void*">value</arg>
         <arg type="const char*">type</arg>
         <desc>
-          <em>Description forthcoming.</em>
+          This method is a factory method, that means that you
+          have to release the object when you no longer need it.
         </desc>
       </function>
     </chapter>

@@ -15,6 +15,17 @@
     </dl>
 
         <div>
+      <hr width="50%" align="left" />
+      <h3>Contents -</h3>
+      <ol>
+        <li>
+          <a href="#001000000000">Software documentation for the STScriptObject class</a>
+        </li>
+        <li>
+          <a href="#002000000000">Software documentation for the STScriptObject protocol</a>
+        </li>
+      </ol>
+      <hr width="50%" align="left" />
     </div>
 
           <h1><a name="001000000000">
@@ -27,6 +38,13 @@
         <dd>StepTalk/STScriptObject.h</dd>
       </dl>
     </blockquote>
+    <blockquote>
+      <dl>
+        <dt><b>Conforms to:</b></dt>
+        <dd>NSCoding</dd>
+        <dd><a rel="gsdoc" href="#protocol$(STScriptObject)">STScriptObject</a></dd>
+      </dl>
+    </blockquote>
     <p>
       
           <em>Description forthcoming.</em>
@@ -34,7 +52,9 @@
     </p>
     <b>Method summary</b>
     <ul>
+      <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject+scriptObject">+scriptObject</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-addMethod:">-addMethod:</a></li>
+      <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-environment">-environment</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-initWithInstanceVariableNames:">-initWithInstanceVariableNames:</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-instanceVariableNames">-instanceVariableNames</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-methodDictionary">-methodDictionary</a></li>
@@ -43,11 +63,29 @@
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-objectForVariable:">-objectForVariable:</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-removeMethod:">-removeMethod:</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-removeMethodWithName:">-removeMethodWithName:</a></li>
+      <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-setEnvironment:">-setEnvironment:</a></li>
       <li><a rel="gsdoc" href="STScriptObject.html#method$STScriptObject-setObject:forVariable:">-setObject:forVariable:</a></li>
     </ul>
     <hr width="50%" align="left" />
+    <h3><a name="method$STScriptObject+scriptObject">scriptObject</a></h3>
+    + (id) <b>scriptObject</b>;<br />
+    <p>
+      
+            Return new instance of script object without any
+            instance variables
+          
+    </p>
+    <hr width="25%" align="left" />
     <h3><a name="method$STScriptObject-addMethod:">addMethod:</a></h3>
-    - (void) <b>addMethod:</b> (<a rel="gsdoc" href="STMethod.html#class$STMethod">STMethod</a>*)aMethod;<br />
+    - (void) <b>addMethod:</b> (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STScriptObject-environment">environment</a></h3>
+    - (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*) <b>environment</b>;<br />
     <p>
       
             <em>Description forthcoming.</em>
@@ -87,7 +125,7 @@
     </p>
     <hr width="25%" align="left" />
     <h3><a name="method$STScriptObject-methodWithName:">methodWithName:</a></h3>
-    - (<a rel="gsdoc" href="STMethod.html#class$STMethod">STMethod</a>*) <b>methodWithName:</b> (NSString*)aName;<br />
+    - (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>) <b>methodWithName:</b> (NSString*)aName;<br />
     <p>
       
             <em>Description forthcoming.</em>
@@ -103,7 +141,7 @@
     </p>
     <hr width="25%" align="left" />
     <h3><a name="method$STScriptObject-removeMethod:">removeMethod:</a></h3>
-    - (void) <b>removeMethod:</b> (<a rel="gsdoc" href="STMethod.html#class$STMethod">STMethod</a>*)aMethod;<br />
+    - (void) <b>removeMethod:</b> (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod;<br />
     <p>
       
             <em>Description forthcoming.</em>
@@ -118,8 +156,46 @@
           
     </p>
     <hr width="25%" align="left" />
+    <h3><a name="method$STScriptObject-setEnvironment:">setEnvironment:</a></h3>
+    - (void) <b>setEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
+    <p>
+      
+            Set object&apos;s environment. Note: This method should be
+            replaced by some other, more clever mechanism.
+          
+    </p>
+    <hr width="25%" align="left" />
     <h3><a name="method$STScriptObject-setObject:forVariable:">setObject:forVariable:</a></h3>
     - (void) <b>setObject:</b> (id)anObject<b> forVariable:</b> (NSString*)aName;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+
+          <h1><a name="002000000000">
+        Software documentation for the STScriptObject protocol
+      </a></h1>
+    <h2><a name="protocol$(STScriptObject)">STScriptObject</a></h2>
+    <blockquote>
+      <dl>
+        <dt><b>Declared in:</b></dt>
+        <dd>StepTalk/STScriptObject.h</dd>
+      </dl>
+    </blockquote>
+    <p>
+      
+          <em>Description forthcoming.</em>
+        
+    </p>
+    <b>Method summary</b>
+    <ul>
+      <li><a rel="gsdoc" href="STScriptObject.html#method$(STScriptObject)-instanceVariableNames">-instanceVariableNames</a></li>
+    </ul>
+    <hr width="50%" align="left" />
+    <h3><a name="method$(STScriptObject)-instanceVariableNames">instanceVariableNames</a></h3>
+    - (NSArray*) <b>instanceVariableNames</b>;<br />
     <p>
       
             <em>Description forthcoming.</em>

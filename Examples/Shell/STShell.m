@@ -170,7 +170,7 @@ int complete_handler(void)
 
     [self showLine:@"Welcome to the StepTalk shell."];
     
-    NSLog(@"Environment %@", env);
+    // NSLog(@"Environment %@", env);
 
     while(1)
     {

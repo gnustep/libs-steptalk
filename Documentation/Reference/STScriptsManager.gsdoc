@@ -55,7 +55,7 @@
             /Resources/Scripts.
           </desc>
         </method>
-        <method type="STScript*">
+        <method type="STFileScript*">
           <sel>scriptWithName:</sel>
           <arg type="NSString*">aString</arg>
           <desc>
