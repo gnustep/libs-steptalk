@@ -39,7 +39,7 @@ Creating a scriptable application
         if([NSApp isScriptingSupported])
         {
             [menu addItemWithTitle: @"Scripting"
-	                    action: action
+	                    action: NULL
                      keyEquivalent: @""];
 
             [menu setSubmenu: [NSApp scriptingMenu]
