@@ -166,7 +166,7 @@
     NSProcessInfo *info = [NSProcessInfo processInfo];
     
     printf("%s - StepTalk shell\n"
-           "Usage: %s [options] simulationBundle\n\n"
+           "Usage: %s [options]\n\n"
            "Options are:\n"
            "    -help               this text\n"
            "    -language lang      use language lang\n"
