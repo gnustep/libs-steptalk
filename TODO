@@ -5,10 +5,11 @@ TODO list
  3 implement NSRect object
  5 Smalltalk: separate compiler and compilation context
  9 create a 'Shell' scripting environment
-10 Make loading of frameworks easier in STEnvironment, something like
-   loadFrameworkWithName:
 11 Create ApplicationScripting framework, instead of bundle. It should offer
    passive application scripting (without linking) and active app. scripting
    (linking with the framewotk). Give it some reasonable name, becauase that one
    is already used by Apple
 13 Change source directory structure (see DevelopmentNotes.txt in Doumentation)
+14 Add framework list into environment description
+15 Change Modules to Framework
+16 Remove StepTalk modules

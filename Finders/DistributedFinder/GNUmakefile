@@ -33,6 +33,7 @@ DistributedFinder_BUNDLE_LIBS += -lStepTalk
 
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
 ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+ADDITIONAL_TOOL_LIBS += -lStepTalk
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Finders
 

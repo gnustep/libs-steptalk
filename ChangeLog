@@ -1,4 +1,8 @@
-2003 May 10
+2003 May 11 Stefan Urbanek <urbanek@host.sk>
+
+    * Fixed linking of some bundles
+
+2003 May 10 Stefan Urbanek <urbanek@host.sk>
 
     * Fixed linking under mingw32
     * STBundleInfo: implemented framework searching

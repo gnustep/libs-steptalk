@@ -58,6 +58,9 @@ ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
         
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
 
+ADDITIONAL_TOOL_LIBS += -lStepTalk
+ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble
