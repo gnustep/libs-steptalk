@@ -49,9 +49,10 @@ ScriptPapers_OBJC_FILES= \
 ScriptPapers_LOCALIZED_RESOURCE_FILES= \
         ScriptPapers.gorm  \
         Paper.gorm
-        
-ScriptPapers_RESOURCE_FILES = \
 
+ScriptPapers_RESOURCE_FILES= \
+        Images/ScriptPaperFile.tiff  \
+        Images/ScriptPapers.tiff
         
 ADDITIONAL_OBJCFLAGS =  
 
