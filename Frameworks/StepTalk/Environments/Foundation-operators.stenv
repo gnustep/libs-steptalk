@@ -19,7 +19,17 @@
         All = {
             
         };
-        
+     
+        // added by mateu
+        "NSObject class" = {
+            SymbolicSelectors = {
+                "="  = "isEqual:";
+                "==" = "isSame:";
+                "~=" = "notEqual:";
+                "~~" = "notSame:";
+            };
+        };
+
         NSObject = {
             Use = ("NSObject-operators");
         };

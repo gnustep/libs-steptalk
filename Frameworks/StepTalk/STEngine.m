@@ -45,7 +45,8 @@ void _STInitMallocZone(void)
 {
     if(!STMallocZone)
     {
-        STMallocZone = NSCreateZone(NSPageSize(),NSPageSize(),NO);
+        /* FIXME: do some testing whether there should be YES or NO */
+        STMallocZone = NSCreateZone(NSPageSize(),NSPageSize(),YES);
     }
 }
 
