@@ -37,13 +37,7 @@ GDL2_PRINCIPAL_CLASS = STGDL2Module
         
 GDL2_RESOURCE_FILES = ScriptingInfo.plist
 
-GDL2_BUNDLE_LIBS += -lStepTalk \
-                          -lgnustep-db2 \
-                          -lgnustep-db2control \
-                          -lgnustep-db2modeler
-
-ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
-ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+GDL2_BUNDLE_LIBS += -lgnustep-db2 -lgnustep-db2control -lgnustep-db2modeler
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 

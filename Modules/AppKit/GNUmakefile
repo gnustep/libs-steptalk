@@ -39,9 +39,7 @@ AppKit_PRINCIPAL_CLASS = STAppKitModule
 
 AppKit_RESOURCE_FILES = ScriptingInfo.plist
         
-AppKit_BUNDLE_LIBS += -lStepTalk $(GUI_LIBS)
-ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
-ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+AppKit_BUNDLE_LIBS += $(GUI_LIBS)
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
