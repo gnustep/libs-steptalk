@@ -1,3 +1,10 @@
+2005 Mar 9 Stefan Urbanek
+
+    * Patch by Matthew D Swank:  patch that keeps the temp space allocated to a 
+    particular block, while avoiding naming conflicts by storing empty 
+    strings as placeholders _after_ the block has been compiled (and the 
+    names are no longer needed). 
+
 2004 Nov 9 Stefan Urbanek
 
     * Remove STMethodSignatureForSelector as it was deprecated because of

@@ -645,9 +645,28 @@ extern int STCparse(void *context);
     }
 
     /* cleanup unneeded temp variables */
-    [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
-                                               [tempVars count]-tempsSave)];
-    tempsCount = tempsSave;
+//
+//    [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
+//                                               [tempVars count]-tempsSave)];
+//    tempsCount = tempsSave;
+    tempsCount = [tempVars count];
+
+    if(blockFlag)
+    {
+      int i;      
+      /* Need to keep the block parameters allocated until we exit
+         the method context, but we also need to harvest the names*/
+      for (i = tempsSave; i < tempsCount; ++i)
+        [tempVars  replaceObjectAtIndex: i withObject:@""];
+     
+    }
+    else
+    {
+      /* cleanup unneeded temp variables */
+      [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
+                                                 tempsCount-tempsSave)];
+      tempsCount = tempsSave;  
+    }
 }
 
 - (void)compilePrimary:(STCPrimary *)primary
