@@ -1,7 +1,12 @@
 2003 Feb 3
 
-    * STSourceReader: fixed reading of a number terminated with '.', we
-    treat it as an integer. Reader was complaining about i := 1.
+    * Version 0.7.0
+    
+2003 Feb 3
+
+    * STSourceReader: fixed reading of a number terminated with '.', we treat
+    it as an integer. Reader was complaining about i := 1.; fixed reading of
+    var:=something. It was terating 'var:' as a selector keyword.
 
 2003 Jan 30
 

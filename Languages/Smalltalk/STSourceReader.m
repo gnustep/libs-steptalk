@@ -268,8 +268,9 @@ static NSString *_STNormalizeStringToken(NSString *token)
             c = PEEK_CHAR;
             if(c == ':')
             {
-                c = GET_CHAR;
-                if(c=='=')
+                GET_CHAR;
+                c = PEEK_CHAR;
+                if(c == '=')
                 {
                     srcOffset--; /* we got := */
                 }
