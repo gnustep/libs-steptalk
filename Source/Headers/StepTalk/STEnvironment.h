@@ -54,12 +54,10 @@
 + (STEnvironment *)defaultScriptingEnvironment;
 
 + environmentWithDescriptionName:(NSString *)descName;
-+ environmentWithDescriptionFromDictionary:(NSDictionary *)dict;
-+ environmentWithDescriptionFromFile:(NSString *)path;
++ environmentWithDescription:(NSString *)description;
 
 - initWithDescriptionName:(NSString *)descName;
-- initWithDescriptionFromDictionary:(NSDictionary *)dict;
-- initWithDescriptionFromFile:(NSString *)path;
+- initWithDescription:(STEnvironmentDescription *)aDescription;
 
 /** Full scripting */
 
@@ -71,13 +69,13 @@
 
 /** Modules */
 
-- (void) loadModule:(NSString *)moduleName;
+- (void)loadModule:(NSString *)moduleName;
 
 - (void)addClassesWithNames:(NSArray *)names;
 
 /** Named objects and object references */
 
-- (NSDictionary *)allObjectsDictionary;
+- (NSMutableDictionary *)objectDictionary;
 - (void)setObject:(id)anObject
           forName:(NSString *)objName;
 - (void)removeObjectWithName:(NSString *)objName;
@@ -87,9 +85,10 @@
 - (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name;
 
 /** Distributed objects */
-- (void)addObjectFinder:(id)finder name:(NSString*)name;
-- (void)addObjectFinderWithName:(NSString *)name;
+- (void)registerObjectFinder:(id)finder name:(NSString*)name;
+- (void)registerObjectFinderNamed:(NSString *)name;
 - (void)removeObjectFinderWithName:(NSString *)name;
+- (NSArray *)knownObjectNames;
 
 /** Selector translation */
 

@@ -1,3 +1,9 @@
+2002 Jun 8
+
+    * Reflect STEnvironment changes
+    * Removed loading of Foundation module as this is handleb by the 
+    STEnvironment
+    
 2002 Jun 7
 
     * Changed printing of result object (handle arrays, dictionaries and sets
@@ -10,7 +16,6 @@
 2002 Jun 4
 
     * add DistributedFinder object finder to the environment
-    * use allObjectNames instead of allObjectsDictionary
 
 2002 May 30
 

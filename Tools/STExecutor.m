@@ -198,16 +198,15 @@ const char *STExecutorCommonOptions =
 
 - (void)listObjects
 {
-    NSArray      *objects;    
     NSEnumerator *enumerator;
+    NSDictionary *dict;
     NSString     *name;
-    NSDictionary *pool;
+    NSArray      *objects;    
 
-    pool = [env defaultObjectPool];
+    dict = [env objectDictionary];
     
-    objects = [pool allKeys];
-    objects = [objects sortedArrayUsingSelector:@selector(compare:)];
-
+    objects = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    
     enumerator = [objects objectEnumerator];    
     
     if(listObjects == STListAll)
@@ -221,7 +220,7 @@ const char *STExecutorCommonOptions =
     {
         while( (name = [enumerator nextObject]) )
         {
-            if([[pool objectForKey:name] isClass])
+            if([[dict objectForKey:name] isClass])
             {
                 printf("%s\n", [name cString]);
             }
@@ -231,7 +230,7 @@ const char *STExecutorCommonOptions =
     {
         while( (name = [enumerator nextObject]) )
         {
-            if(! [[pool objectForKey:name] isClass])
+            if(! [[dict objectForKey:name] isClass])
             {
                 printf("%s\n", [name cString]);
             }

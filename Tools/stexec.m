@@ -57,7 +57,6 @@
         env = [STEnvironment environmentWithDescriptionName:envName];
     }
 
-    [env loadModule:@"Foundation"];
     [env loadModule:@"SimpleTranscript"];
           
     [env setCreatesUnknownObjects:YES];

@@ -108,27 +108,19 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 {
     return AUTORELEASE([[self alloc] initWithName:descriptionName]);
 }
-+ descriptionFromFile:(NSString *)fileName
-{
-    return AUTORELEASE([[self alloc] initFromFile:fileName]);
-}
 + descriptionFromDictionary:(NSDictionary *)dictionary
 {
     return AUTORELEASE([[self alloc] initFromDictionary:dictionary]);
 }
 - (void)dealloc
 {
-    RELEASE(behaviours);
+    RELEASE(usedDefs);
     RELEASE(classes);
-    [super dealloc];
-}
-
-- initFromFile:(NSString *)fileName
-{
-    NSDictionary *dict;
+    RELEASE(behaviours);
+    RELEASE(aliases);
+    RELEASE(modules);
     
-    dict = [NSDictionary dictionaryWithContentsOfFile:fileName];
-    return [self initFromDictionary:dict];
+    [super dealloc];
 }
 
 - initWithName:(NSString *)defName;
@@ -184,25 +176,21 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
         }
     }
 
-    [self updateUseListFromDictionary:def];
-    [self updateBehavioursFromDictionary:def];
-    [self updateClassesFromDictionary:def];
-    [self updateAliasesFromDictionary:def];
+    [self updateUseList:[def objectForKey:@"Use"]];
+    [self updateModuleList:[def objectForKey:@"Modules"]];
+    [self updateBehavioursFromDictionary:[def objectForKey:@"Behaviours"]];
+    [self updateClassesFromDictionary:[def objectForKey:@"Classes"]];
+    [self updateAliasesFromDictionary:[def objectForKey:@"Aliases"]];
 
     restriction = saveFlag;
 }
 
-- (void)updateUseListFromDictionary:(NSDictionary *)def
+- (void)updateUseList:(NSArray *)array
 {
     NSEnumerator *enumerator;
     NSString     *str;
 
-    if(!def)
-    {
-        return;
-    }
-
-    enumerator = [[def objectForKey:@"Use"] objectEnumerator];
+    enumerator = [array objectEnumerator];
 
     while( (str = [enumerator nextObject]) )
     {
@@ -210,29 +198,44 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
         {
             usedDefs = [[NSMutableArray alloc] init];
         } 
-        if( [usedDefs containsObject:str] )
-        {
-            continue;
-        }
-        else
+    
+        if( ![usedDefs containsObject:str] )
         {
             [usedDefs addObject:str];
+            [self updateFromDictionary:dictForDescriptionWithName(str)];
         }
         
-        [self updateFromDictionary:dictForDescriptionWithName(str)];
     }
-
 }
 
-- (void)updateBehavioursFromDictionary:(NSDictionary *)aDict
+- (void)updateModuleList:(NSArray *)array
+{
+    NSEnumerator *enumerator;
+    NSString     *str;
+
+    enumerator = [array objectEnumerator];
+
+    while( (str = [enumerator nextObject]) )
+    {
+        if(!modules)
+        {
+            modules = [[NSMutableArray alloc] init];
+        } 
+
+        if( ![modules containsObject:str] )
+        {
+            [modules addObject:str];
+        }
+    }
+}
+
+- (void)updateBehavioursFromDictionary:(NSDictionary *)dict
 {
     NSEnumerator    *enumerator;
-    NSDictionary    *dict;
     NSString        *name;
     
     STBehaviourInfo *behInfo;
 
-    dict = [aDict objectForKey:@"Behaviours"];
     enumerator = [dict keyEnumerator];
 
     while( (name = [enumerator nextObject]) )
@@ -252,7 +255,6 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
         behInfo = [[STBehaviourInfo alloc] initWithName:name];
         [behaviours setObject:behInfo forKey:name];
-//        NSDebugLog(@"Create behaviour %@", name);
 
         [self updateBehaviour:behInfo description:[dict objectForKey:name]];
     }
@@ -266,8 +268,6 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     NSEnumerator *enumerator;
     STBehaviourInfo *useInfo;
     
-
-//    NSDebugLog(@"Update behaviour '%@'", [behInfo behaviourName]);
 
     enumerator = [[def objectForKey:@"Use"] objectEnumerator];
     while( (str = [enumerator nextObject]) )
@@ -287,19 +287,16 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     [behInfo allowMethods:[NSSet setWithArray:[def objectForKey:@"AllowMethods"]]];
     [behInfo denyMethods:[NSSet setWithArray:[def objectForKey:@"DenyMethods"]]];
 
-    /* FIXME: should be special */
     [behInfo addTranslationsFromDictionary:[def objectForKey:@"SymbolicSelectors"]];
 
     [behInfo addTranslationsFromDictionary:[def objectForKey:@"Aliases"]];
 }
 
-- (void)updateClassesFromDictionary:(NSDictionary *)def
+- (void)updateClassesFromDictionary:(NSDictionary *)dict
 {
     NSEnumerator *enumerator;
-    NSDictionary *dict;
     NSString     *str;
 
-    dict = [def objectForKey:@"Classes"];
     enumerator = [dict keyEnumerator];
 
     while( (str = [enumerator nextObject]) )
@@ -392,13 +389,11 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     }
 }
 
-- (void)updateAliasesFromDictionary:(NSDictionary *)def
+- (void)updateAliasesFromDictionary:(NSDictionary *)dict
 {
     NSEnumerator *enumerator;
-    NSDictionary *dict;
     NSString     *str;
 
-    dict = [def objectForKey:@"Aliases"];
     enumerator = [dict keyEnumerator];
 
     while( (str = [enumerator nextObject]) )
@@ -412,6 +407,11 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     return classes;
 }
 
+- (NSArray *)modules
+{
+    return [NSArray arrayWithArray:modules];
+}
+
 - (void)fixupScriptingDescription
 {
     [self resolveSuperclasses];
@@ -419,10 +419,10 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
 - (void)resolveSuperclasses
 {
-    STClassInfo *class;
-    STClassInfo *superclass;
-    NSString    *className;
     NSEnumerator *enumerator;
+    STClassInfo  *superclass;
+    STClassInfo  *class;
+    NSString     *className;
     
     enumerator = [classes objectEnumerator];
                 
@@ -461,5 +461,3 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     }
 }
 @end
-
-

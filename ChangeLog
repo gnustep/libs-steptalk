@@ -1,3 +1,27 @@
+2002 Jun 8
+
+    * STEnvironmentDescription: added module list; little code cleanup; 
+    removed descriptionFromFile: and initFromFile: methods
+    * STEnvironment: removed methods:
+        environmentWithDescriptionFromFile:
+        environmentWithDescriptionFromDictionary:
+        initWithDescriptionFromFile: 
+        init
+        addAllClasses
+        addObject:withName:
+        allObjectNames
+    new methods:
+        environmentWithDescription:
+        initWithDescription:
+    renamed methods:
+        defaultObjectPool to objectDictionary
+        registerObjectFinderWithName: to registerObjectFinderNamed:
+    load modules from description at initialization;
+    * STExecutor: reflect STEnvironment changes        
+    * stexec: removed loading of the Foundation environment as this is handled
+    by the STEnvironment
+    * AppKit.stenv: new file
+    
 2002 Jun 7
 
     * STEnvironmentDescription: added abstract class 'All' that is root

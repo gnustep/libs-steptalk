@@ -145,8 +145,8 @@
         env = [STEnvironment environmentWithDescriptionName:envName];
     }
 
-    [env loadModule:@"Foundation"];
-    [env addObjectFinderWithName:@"DistributedFinder"];
+    //    [env loadModule:@"Foundation"];
+    [env registerObjectFinderNamed:@"DistributedFinder"];
 
     /* FIXME: make this an option */
     [env setFullScriptingEnabled:YES];

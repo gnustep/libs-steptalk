@@ -1,6 +1,5 @@
 /**
-    STEnvironmentDescription.m
-    Script executor
+    STEnvironmentDescription.h
  
     Copyright (c) 2002 Free Software Foundation
  
@@ -44,6 +43,7 @@ enum
     NSMutableDictionary *classes;
     NSMutableDictionary *behaviours;
     NSMutableDictionary *aliases;
+    NSMutableArray      *modules;
 
     int                  restriction;
 }

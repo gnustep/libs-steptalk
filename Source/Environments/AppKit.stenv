@@ -1,0 +1,11 @@
+/** AppKit.stenv 
+ */
+
+{
+    Name = "AppKit";
+
+    Modules = (AppKit);
+    
+    Use = (Foundation);
+
+}
