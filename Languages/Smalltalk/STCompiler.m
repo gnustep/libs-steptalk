@@ -275,6 +275,12 @@ extern int STCparse(void *context);
     }
     NS_HANDLER
     {
+        RELEASE(reader);
+        RELEASE(receiverVars);
+
+        receiverVars = nil;
+        reader = nil;
+
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
             NSString *tokenString;
@@ -282,11 +288,6 @@ extern int STCparse(void *context);
             
             tokenString = [reader tokenString];
             line = [reader currentLine];
-            RELEASE(reader);
-            RELEASE(receiverVars);
-
-            receiverVars = nil;
-            reader = nil;
             
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
