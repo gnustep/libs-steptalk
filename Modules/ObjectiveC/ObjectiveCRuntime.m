@@ -28,7 +28,7 @@
 
 #import <objc/objc-api.h>
 
-#import <StepTalk/STunctions.h>
+#import <StepTalk/STObjCRuntime.h>
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
@@ -90,6 +90,33 @@ static ObjectiveCRuntime *sharedRuntime=nil;
     }
 
     return [NSArray arrayWithArray:sels];
+}
+
+- (NSArray *)implementorsOfSelector:(NSString *)selector
+{
+    NSMutableArray *array = [NSMutableArray array];
+    NSEnumerator   *enumerator;
+    NSDictionary   *classes = STAllObjectiveCClasses();
+    NSString       *className;
+    NSArray        *methods;
+    Class           class;
+    
+    enumerator = [classes keyEnumerator];
+    
+    while( (className = [enumerator nextObject]) )
+    {
+        class = [classes objectForKey:className];
+        if([class respondsToSelector:@selector(instanceMethodNames)])
+        {
+            methods = [class instanceMethodNames];
+            if([methods containsObject:selector])
+            {
+                [array addObject:className];
+            }
+        }
+    }
+    
+    return [NSArray arrayWithArray:array];
 }
 @end
 

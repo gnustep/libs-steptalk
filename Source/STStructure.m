@@ -76,6 +76,8 @@
     int rem;
     
 
+    self = [super init];
+
     NSDebugLLog(@"STStructure",
                @"creating structure of type '%s' value ptr %p",type,value);
     
@@ -107,11 +109,9 @@
         {
             offset += align - rem;
         }
-
-
     }
 
-    return [super init];
+    return self;
 }
 - (void)dealloc
 {
@@ -296,11 +296,13 @@
 
 - (id)origin
 {
+    NSLog(@"Origin %@", [fields objectAtIndex:0]);
     return [fields objectAtIndex:0];
 }
 
 - (id)size
 {
+    NSLog(@"Size %@", [fields objectAtIndex:1]);
     return [fields objectAtIndex:1] ;
 }
 

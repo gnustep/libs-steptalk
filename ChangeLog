@@ -1,6 +1,7 @@
 2002 Nov 11
     
-    * ObjectiveC module: added selectorsContainingString:
+    * ObjectiveC module: added selectorsContainingString: and
+    implementorsOfSelector:
 
 2002 Nov 5
 

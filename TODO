@@ -4,3 +4,4 @@ TODO list
 2 fix class-info lookup for proxies in STEnvironment
 3 implement NSRect object
 4 write documentation for developers and users
+5 Smalltalk: separate compiler and compilation context
