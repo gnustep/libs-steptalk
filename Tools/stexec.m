@@ -69,8 +69,8 @@
 
     /* FIXME: remove this or use some command-line flag */
     [env setFullScriptingEnabled:enableFull];
-    conversation = [[STConversation alloc] initWithEnvironment:env
-                                                      language:nil];
+    conversation = [[STConversation alloc] initWithContext:env
+                                                  language:nil];
 }
 
 - (int)processOption:(NSString *)option

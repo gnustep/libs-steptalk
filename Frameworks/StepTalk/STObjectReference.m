@@ -34,57 +34,43 @@
 #import <Foundation/NSString.h>
 
 @implementation STObjectReference
-- initWithObjectName:(NSString *)name pool:(NSMutableDictionary *)aPool
+- initWithIdentifier:(NSString *)ident
+              target:(id)anObject;
 {
     self = [super init];
+    identifier = [ident copy];
+    target = RETAIN(anObject);
     
-    key = RETAIN(name);
-    pool = RETAIN(aPool);
-
     return self;
-}
-
+}                
 - (void)dealloc
 {
-    RELEASE(key);
-    RELEASE(pool);
+    RELEASE(identifier);
+    RELEASE(target);
 
     [super dealloc];
 }
 
+- (NSString *)identifier
+{
+    return identifier;
+}
+- (id) target
+{
+    return target;
+}
 - (void)setObject:anObject
 {
-    if(anObject)
+    if(!anObject)
     {
-        [pool setObject:anObject forKey:key];
+        anObject = STNil;
     }
-    else
-    {
-        [pool setObject:STNil forKey:key];
-    }
-}
 
+    [(NSMutableDictionary *)target setObject:anObject forKey:identifier];
+}
 - object
 {
-    return [pool objectForKey:key];
-}
-
-- (NSString *)objectName
-{
-    return key;
-}
-- (void)setObjectName:(NSString *)newName
-{
-    ASSIGN(key,newName);
-}
-
-- (NSMutableDictionary *) pool
-{
-    return pool;
-}
-- (void)setPool:(NSMutableDictionary *) aDict
-{
-    ASSIGN(pool,aDict);
+    return [(NSDictionary *)target objectForKey:identifier];
 }
 @end
 

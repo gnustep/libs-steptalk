@@ -30,11 +30,13 @@
 #import "STExterns.h"
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSBundle.h>
 #import <Foundation/NSEnumerator.h>
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSString.h>
 
+@class STContext;
 
 NSString *STFindResource(NSString *name,
                          NSString *resourceDir,
@@ -57,19 +59,23 @@ NSString *STFindResource(NSString *name,
         file = [file stringByAppendingPathComponent:resourceDir];
         file = [file stringByAppendingPathComponent:name];
 
-        if( [manager fileExistsAtPath:file isDirectory:NO] )
+        if( [manager fileExistsAtPath:file] )
         {
             return file;
         }
 
         file = [file stringByAppendingPathExtension:extension];
 
-        if( [manager fileExistsAtPath:file isDirectory:NO] )
+        if( [manager fileExistsAtPath:file] )
         {
             return file;
         }
     }
-    return nil;
+
+    return [[NSBundle bundleForClass:[STContext class]]
+                        pathForResource:name
+                                ofType:extension
+                                inDirectory:resourceDir];
 }
 
 NSArray *STFindAllResources(NSString *resourceDir, NSString *extension)

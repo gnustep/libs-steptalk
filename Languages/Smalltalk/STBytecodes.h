@@ -21,7 +21,7 @@
  
  */
 
-#import <Foundation/NSData.h>
+#import <Foundation/NSObject.h>
 
 
 /* Bytecode table */
@@ -82,7 +82,7 @@ extern NSArray *STBytecodeNames;
 extern NSString *STBytecodeName(unsigned short code);
 extern NSString *STDissasembleBytecode(STBytecode bytecode);
 
-@interface STBytecodes:NSData<NSCoding>
+@interface STBytecodes:NSObject
 {
     NSData *bytes;
 }

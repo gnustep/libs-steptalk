@@ -45,7 +45,7 @@
     
     [method    initWithSelector:[pattern selector]
                   argumentCount:[[pattern arguments] count]
-                  bytecodesData:[code bytecodes]
+                  bytecodesData:[[code bytecodes] data]
                        literals:[code literals]
                temporariesCount:[code temporariesCount]
                       stackSize:[code stackSize]

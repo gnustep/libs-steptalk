@@ -27,7 +27,7 @@
  
    */
 
-#import <Foundation/NSObject.h>
+#import <StepTalk/STContext.h>
 
 @class NSBundle;
 @class NSDictionary;
@@ -38,16 +38,11 @@
 @class STObjectReference;
 @class STEnvironmentDescription;
 
-@interface STEnvironment:NSObject
+@interface STEnvironment:STContext
 {
-    NSMutableDictionary      *defaultPool;
-
     STEnvironmentDescription *description;
     NSMutableDictionary      *classes;   /* from description */
 
-    BOOL                      fullScripting;
-    BOOL                      createsUnknownObjects;
-    
     NSMutableDictionary      *infoCache;
     
     NSMutableDictionary      *objectFinders;
@@ -63,14 +58,6 @@
 - initWithDefaultDescription;
 - initWithDescription:(bycopy STEnvironmentDescription *)aDescription;
 
-/** Full scripting */
-
-- (void)setFullScriptingEnabled:(BOOL)flag;
-- (BOOL)fullScriptingEnabled;
-
--(void)setCreatesUnknownObjects:(BOOL)flag;
--(BOOL)createsUnknownObjects;
-
 /** Modules */
 
 - (void)loadModule:(NSString *)moduleName;
@@ -80,22 +67,10 @@
 
 - (void)addClassesWithNames:(NSArray *)names;
 
-/** Named objects and object references */
-
-- (NSMutableDictionary *)objectDictionary;
-- (void)setObject:(id)anObject
-          forName:(NSString *)objName;
-- (void)removeObjectWithName:(NSString *)objName;
-- (void)addNamedObjectsFromDictionary:(NSDictionary *)dict;
-- (id)objectWithName:(NSString *)objName;
-
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name;
-
 /** Distributed objects */
 - (void)registerObjectFinder:(id)finder name:(NSString*)name;
 - (void)registerObjectFinderNamed:(NSString *)name;
 - (void)removeObjectFinderWithName:(NSString *)name;
-- (NSArray *)knownObjectNames;
 
 /** Selector translation */
 

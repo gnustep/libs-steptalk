@@ -3,7 +3,7 @@
  
     Copyright (c) 2002 Free Software Foundation
  
-    Written by: Stefan Urbanek <urbanek@host.sk>
+    Written by: Stefan Urbanek
     Date: 2003 Sep 21
    
     This file is part of the StepTalk project.
@@ -28,20 +28,20 @@
 
 #import <Foundation/NSException.h>
 
-#import "STEngine.h"
 #import "STEnvironment.h"
+#import "STEngine.h"
 #import "STLanguage.h"
 
 // FIXME: add these two:
 // @class STDistantEnvironment;
 // @class STDistantConversation;
 
-@interface STConcreteLocalConversation:NSObject
+@interface STConcreteLocalConversation:STConversation
 {
     STLanguage    *lanuage;
     STEngine      *engine;
     NSString      *languageName;
-    STEnvironment *environment;
+    STContext     *context;
 }
 @end
 
@@ -52,7 +52,8 @@
 {
     STEnvironment *env = [STEnvironment environmentWithDefaultDescription];
     
-    return AUTORELEASE([[self alloc] initWithEnvironment:env language:nil]);
+    NSLog(@"DEPRECATED");
+    return AUTORELEASE([[self alloc] initWithContext:env language:nil]);
 }
 /** Creates a new conversation with environment created using default 
     description and language with name <var>langName</var>. */
@@ -61,6 +62,7 @@
 {
     STConversation *c;
 
+    NSLog(@"Warning: conversationWithEnvironment:language: is deprecated");
 /* FIXME: use this:
     if([env isKindOfClass:[STDistantEnvironment class]])
     {
@@ -71,7 +73,7 @@
         c = [[STConcreteLocalConversation alloc] initWithEnvironment:env language:langName];
     }
 */
-    c = [[STConcreteLocalConversation alloc] initWithEnvironment:env language:langName];
+    c = [[STConcreteLocalConversation alloc] initWithContext:env language:langName];
  
     return AUTORELEASE(c);
 }
@@ -79,9 +81,18 @@
 - initWithEnvironment:(STEnvironment *)env 
              language:(NSString *)langName
 {
+    NSLog(@"Warning: initWithEnvironment:language: is deprecated");
+
+    return [self initWithContext:env language:langName];
+}
+
+- initWithContext:(STContext *)aContext
+         language:(NSString *)aLanguage
+{
     [self dealloc];
     
-    return [[STConcreteLocalConversation alloc] initWithEnvironment:env language:langName];
+    return [[STConcreteLocalConversation alloc] initWithContext:aContext 
+                                                       language:aLanguage];
 }
 
 - (void)setLanguage:(NSString *)newLanguage
@@ -97,6 +108,8 @@
 }
 - (STEnvironment *)environment
 {
+    NSLog(@"Warning: -environment in STConversation is deprecated, use -context");
+
     [self subclassResponsibility:_cmd];
     return nil;
 }
@@ -114,6 +127,14 @@
     [self subclassResponsibility:_cmd];
     return NO;
 }
+
+/** Returns all languages that are known in the receiver. Should be used by
+    remote calls instead of NSLanguage query which gives local list of
+    languages. */
+- (NSArray *)knownLanguages
+{
+    return [STLanguage allLanguageNames];
+}
 @end
 
 @implementation STConcreteLocalConversation
@@ -123,40 +144,45 @@
                    language:(NSString *)langName
 {
     STConversation *c;
-    c = [[self alloc] initWithEnvironment:env language:langName];
+ 
+    NSLog(@"WARNING: +[STConversaion conversationWithEnvironment:language:] is deprecated, "
+          @" use conversationWithContext:language: instead.");
+ 
+    c = [[self alloc] initWithContext:env language:langName];
     return AUTORELEASE(c);
 }
 
 - initWithEnvironment:(STEnvironment *)env 
              language:(NSString *)langName
 {
+    NSLog(@"WARNING: -[STConversaion initWithEnvironment:language:] is deprecated, "
+          @" use initWithContext:language: instead.");
+
+    return [self initWithContext:env language:langName];
+}
+
+- initWithContext:(STContext *)aContext
+         language:(NSString *)aLanguage
+{
     self = [super init];
 
-    if(!env)
-    {
-        [NSException raise:@"STConversationException"
-                     format:@"Unspecified environment for a conversation"];
-        [self dealloc];
-        return nil;
-    }
-
-    if(!langName || [langName isEqual:@""])
+    if(!aLanguage || [aLanguage isEqual:@""])
     {
         languageName = RETAIN([STLanguage defaultLanguageName]);
     }    
     else
     {
-        languageName = RETAIN(langName);
+        languageName = RETAIN(aLanguage);
     }
     
-    environment = RETAIN(env);
+    context = RETAIN(aContext);
     return self;
 }
 
 - (void)dealloc
 {
     RELEASE(languageName);
-    RELEASE(environment);
+    RELEASE(context);
     RELEASE(engine);
     [super dealloc];
 }
@@ -183,14 +209,22 @@
 }
 - (STEnvironment *)environment
 {
-    return environment;
+    NSLog(@"WARNING: -[STConversaion environment] is deprecated, "
+          @" use -context instead.");
+
+    return context;
 }
+- (STContext *)context
+{
+    return context;
+}
+
 - (id)runScriptFromString:(NSString *)aString
 {
     if(!engine)
     {
         [self _createEngine];
     }
-    return [engine executeCode: aString inEnvironment:environment];
+    return [engine executeCode: aString inEnvironment:context];
 }
 @end

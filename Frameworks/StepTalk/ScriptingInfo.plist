@@ -8,6 +8,8 @@
         STScriptsManager,
         STBundleInfo,
         STEngine,
-        STScriptObject
+        STScriptObject,
+        STConversation,
+        STContext
     );
 }

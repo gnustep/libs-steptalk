@@ -34,25 +34,17 @@
 # after-all::
 
 # Things to do before installing
-before-install::
-	$(MKDIRS) $(STEPTALK_LIBRARY_DIR)
-	$(MKDIRS) $(STEPTALK_ENVDEFS_DIR)
+# before-install::
+#	$(MKDIRS) $(STEPTALK_LIBRARY_DIR)
     
 # Things to do after installing
-after-install::
-	@(echo Copying scripting environments...; \
-	  cd Environments;\
-	  for file in *.stenv; do \
-	      $(INSTALL_DATA) $$file $(STEPTALK_ENVDEFS_DIR)/$$file ; \
-	  done;\
-	)
+# after-install::
 
 # Things to do before uninstalling
 # before-uninstall::
 
 # Things to do after uninstalling
-after-uninstall::
-	rm -rf $(STEPTALK_ENVDEFS_DIR)
+# after-uninstall::
 
 # Things to do before cleaning
 # before-clean::

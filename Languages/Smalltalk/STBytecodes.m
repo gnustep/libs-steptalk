@@ -176,14 +176,22 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
     return self;
 }
 */
-- (id) initWithBytes: (const void*)someBytes
-		      length: (unsigned int)length
+
+/* FIXME: rewrite this class - it is a leftover */
+
+- (id) initWithData: (NSData *)data
 {
-    bytes = [[NSData alloc] initWithBytes:someBytes 
-                                   length:length];
+    self = [super init];
+
+    bytes = RETAIN(data);
+    
     return self;
 }
 
+- (NSData *)data
+{
+    return bytes;
+}
 - (void)dealloc
 {
     RELEASE(bytes);

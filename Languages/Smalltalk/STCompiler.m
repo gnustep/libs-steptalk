@@ -34,7 +34,6 @@
 #import "Externs.h"
 
 #import <StepTalk/STExterns.h>
-#import <StepTalk/STObjectReference.h>
 #import <StepTalk/STScriptObject.h>
 #import <StepTalk/STSelector.h>
 

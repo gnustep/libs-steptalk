@@ -101,6 +101,11 @@ void update_languages(void)
     path = [path stringByAppendingPathComponent:STLanguagesConfigFile];
     
     [dict writeToFile:path atomically:YES];
+
+    if([dict count] == 0)
+    {
+        NSLog(@"No StepTalk language bundles found.");
+    }
 }
 
 

@@ -116,7 +116,7 @@
 
     [env setObject:target forName:objectName];
 
-    conversation = [[STConversation alloc] initWithEnvironment:env
+    conversation = [[STConversation alloc] initWithContext:env
                                                       language:nil];
 }
 

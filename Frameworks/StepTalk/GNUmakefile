@@ -30,6 +30,7 @@ StepTalk_OBJC_FILES = \
     STBehaviourInfo.m \
     STBundleInfo.m \
     STClassInfo.m \
+    STContext.m \
     STConversation.m \
     STEngine.m \
     STEnvironment.m \
@@ -58,6 +59,7 @@ StepTalk_OBJC_FILES = \
 
 STEPTALK_HEADER_FILES = \
     STBundleInfo.h \
+    STContext.h \
     STConversation.h \
     STEngine.h \
     STEnvironment.h \
@@ -82,10 +84,7 @@ StepTalk_HEADER_FILES = $(STEPTALK_HEADER_FILES) \
                             StepTalk.h
 
 
-StepTalk_RESOURCE_FILES = ScriptingInfo.plist        
-
-STEPTALK_LIBRARY_DIR = $(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk
-STEPTALK_ENVDEFS_DIR = $(STEPTALK_LIBRARY_DIR)/Environments
+StepTalk_RESOURCE_FILES = ScriptingInfo.plist Environments
 
 ADDITIONAL_CPPFLAGS += -pipe 
 ADDITIONAL_OBJCFLAGS = -Wno-import -DSTEPTALK_VERSION=$(STEPTALK_VERSION)

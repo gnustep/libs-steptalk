@@ -11,7 +11,7 @@
     {
         "NSObject-operators" = {
             Use = (Comparison, KeyValueCoding);
-        }
+        };
     };
     
     Classes = 
@@ -53,7 +53,7 @@
             {
                 "+=" = "addObject:";
                 "-=" = "removeObject:";
-            }
+            };
         };
 
         NSDictionary =
@@ -61,7 +61,7 @@
             Super = NSObject;
             SymbolicSelectors = {
                 "@" = "objectForKey:";
-            }
+            };
         };
 
         NSUserDefaults =
@@ -69,7 +69,7 @@
             Super = NSObject;
             SymbolicSelectors = {
                 "@" = "objectForKey:";
-            }
+            };
         };
 
         NSString =
@@ -93,7 +93,7 @@
             SymbolicSelectors = 
             {
                 "+=" = "appendString:";
-            }
+            };
         };
         
         NSSet = 
@@ -102,7 +102,7 @@
             SymbolicSelectors = 
             {
                 "<" = "isSubsetOfSet:";
-            }
+            };
         
         };
         NSMutableSet =
@@ -112,7 +112,7 @@
             {
                 "+=" = "addObject:";
                 "-=" = "removeObject:";
-            }
+            };
         };
 
         NSDate = 
@@ -121,7 +121,7 @@
             SymbolicSelectors = 
             {
                 "-" = "timeIntervalSinceDate:";
-            }
+            };
         
         };
 
@@ -135,7 +135,7 @@
                 "<>" = "rangeWith:";
                 "@" = "pointWith:";
                 "@@" = "sizeWith:";
-            }
+            };
         };
     }; /* Classes */
 }

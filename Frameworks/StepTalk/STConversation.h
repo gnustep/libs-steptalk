@@ -28,7 +28,7 @@
 
 @class STLanguage;
 @class STEngine;
-@class STEnvironment;
+@class STContext;
 
 @interface STConversation:NSObject
 {
@@ -37,18 +37,22 @@
 + conversationWithApplication:(NSString *)appName
                      language:(NSString *)langName;
 */                     
-+ conversationWithEnvironment:(STEnvironment *)env 
-                     language:(NSString *)langName;
-                   
-- initWithEnvironment:(STEnvironment *)env 
-             language:(NSString *)aString;
+/*
++ conversationWithContext:(STContext *)aContext
+                 language:(NSString *)aLanguage;
+*/                   
+- initWithContext:(STContext *)aContext 
+         language:(NSString *)aLanguage;
 
 - (void)setLanguage:(NSString *)newLanguage;
 - (NSString *)language;
 
-- (STEnvironment *)environment;
+- (STContext *)context;
+
 - (BOOL)isResumable;
 - (BOOL)resume;
 
 - (id)runScriptFromString:(NSString *)aString;
+
+- (NSArray *)knownLanguages;
 @end

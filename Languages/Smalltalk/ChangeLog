@@ -3,6 +3,11 @@
     * Remove STMethodSignatureForSelector as it was deprecated because of
     inportability to OSX.
     
+2004 Nov 2 Stefan Urbanek
+
+    * Changed super of STBytecodes from NSData to NSObject - there were some
+    OSX issues
+
 2004 Jul 10 Stefan Urbanek
 
     * Applied patch from Alexander V. Diemand (fixed bug #9595) - fixed

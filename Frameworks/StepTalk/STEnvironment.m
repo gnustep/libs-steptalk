@@ -145,7 +145,6 @@ STEnvironment *sharedEnvironment = nil;
     
     self = [super init];
     
-    defaultPool = [[NSMutableDictionary alloc] init];
     infoCache = [[NSMutableDictionary alloc] init];
 
     description = RETAIN(aDescription);
@@ -192,7 +191,6 @@ STEnvironment *sharedEnvironment = nil;
 
 - (void)dealloc
 {
-    RELEASE(defaultPool);
     RELEASE(description);
 
     RELEASE(infoCache);
@@ -202,46 +200,6 @@ STEnvironment *sharedEnvironment = nil;
     [super dealloc];
 }
 
-/**
-   Enable or disable full scripting. When full scripting is enabled, 
-   you may send any message to any object.
- */
-- (void)setFullScriptingEnabled:(BOOL)flag
-{
-    fullScripting = flag;
-}
-
-/**
-   Returns YES if full scripting is enabled.
- */
-- (BOOL)fullScriptingEnabled
-{
-    return fullScripting;
-}
-
-/**
-   <p>
-   Enable or disable creation of unknown objects. Normally you get nil if you
-   request for non-existant object. If <var>flag</var> is YES
-   then by requesting non-existant object, name for that object is created
-   and it is set no STNil.
-    </p>
-   <p>
-  Note: This method will be probably removed (moved to Smalltalk language bundle).
-   </p>
- */
--(void)setCreatesUnknownObjects:(BOOL)flag
-{
-    createsUnknownObjects = flag;
-}
-
-/**
-   Returns YES if unknown objects are being created.
- */
--(BOOL)createsUnknownObjects
-{
-    return createsUnknownObjects;
-}
 
 /**
     Add classes specified by the names in the <var>names</var> array. 
@@ -323,50 +281,9 @@ STEnvironment *sharedEnvironment = nil;
     return YES;
 }
 
-/**
-    Returns a dictionary of all named objects in the environment.
-*/
-- (NSMutableDictionary *)objectDictionary
-{
-    return defaultPool;
-}
-
 /* ----------------------------------------------------------------------- 
    Objects
    ----------------------------------------------------------------------- */
-
-/**
-    Register object <var>anObject</var> with name <var>objName</var>.
- */
-
-- (void)setObject:(id)anObject
-          forName:(NSString *)objName
-{
-    if(anObject)
-    {
-        [defaultPool setObject:anObject forKey:objName];
-    }
-    else
-    {
-        [defaultPool setObject:STNil forKey:objName];
-    }
-}
-
-/**
-    Remove object named <var>objName</var>.
-  */
-- (void)removeObjectWithName:(NSString *)objName
-{
-    [defaultPool removeObjectForKey:objName];
-}
-
-/**
-    
-  */
-- (void)addNamedObjectsFromDictionary:(NSDictionary *)dict
-{
-    [defaultPool addEntriesFromDictionary:dict];
-}
 
 /**
     Return object with name <var>objName</var>. If object is not found int the
@@ -382,7 +299,7 @@ STEnvironment *sharedEnvironment = nil;
     id            obj;
     id            finder;
     
-    obj = [defaultPool objectForKey:objName];
+    obj = [super objectWithName:objName];
 
     if(!obj)
     {
@@ -392,38 +309,13 @@ STEnvironment *sharedEnvironment = nil;
             obj = [finder objectWithName:objName];
             if(obj)
             {
-                [defaultPool setObject:obj forKey:objName];
+                [self setName:objName forObject:obj];
                 break;
             }
         }
     }
     
     return obj;
-}
-
-- (STObjectReference *)objectReferenceForObjectWithName:(NSString *)name
-{
-    STObjectReference *ref;
-    id                 pool = defaultPool;
-        
-    if( ![self objectWithName:name] )
-    {
-        if([[self knownObjectNames] containsObject:name])
-        {
-            pool = nil;
-        }
-        else if(createsUnknownObjects)
-        {
-            [defaultPool setObject:STNil forKey:name];
-        }
-    }
-
-    ref = [STObjectReference alloc];
-    
-    [ref initWithObjectName:name
-                       pool:defaultPool];
-
-    return AUTORELEASE(ref);
 }
 
 /* FIXME: rewrite, it is too sloooooow */
@@ -589,7 +481,7 @@ STEnvironment *sharedEnvironment = nil;
     NSEnumerator   *enumerator;
     id              finder;
     
-    [array addObjectsFromArray:[defaultPool allKeys]];
+    [array addObjectsFromArray:[super knownObjectNames]];
     
     enumerator = [objectFinders objectEnumerator];
     while( (finder = [enumerator nextObject]) )

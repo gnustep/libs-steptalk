@@ -89,7 +89,7 @@ int complete_handler(void)
     scriptsManager = RETAIN([STScriptsManager defaultManager]);
     prompt = @"StepTalk > ";
     
-    conversation = [[STConversation alloc] initWithEnvironment:env language:nil];
+    conversation = [[STConversation alloc] initWithContext:env language:nil];
     /* FIXME: make this more clever for completion handler */
     if(!sharedShell)
     {
@@ -147,12 +147,12 @@ int complete_handler(void)
 
 - (STEnvironment *)environment
 {
-    return [conversation environment];
+    return [conversation context];
 }
 
 - (void)run
 {
-    STEnvironment *env = [conversation environment];
+    STEnvironment *env = [conversation context];
     NSString      *line;
     id             result;
         
@@ -202,7 +202,7 @@ int complete_handler(void)
 }
 - (id)executeLine:(NSString *)line
 {
-    STEnvironment *env = [conversation environment];
+    STEnvironment *env = [conversation context];
     NSString      *cmd;
     id             result = nil;
 
@@ -261,7 +261,7 @@ int complete_handler(void)
 
 - (int)completion
 {
-    STEnvironment *env = [conversation environment];
+    STEnvironment *env = [conversation context];
     NSEnumerator  *enumerator;
     NSMutableSet  *set;
     NSString      *match;

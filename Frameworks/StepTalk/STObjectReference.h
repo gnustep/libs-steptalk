@@ -27,24 +27,20 @@
 #import <Foundation/NSObject.h>
 
 @class NSString;
-@class NSMutableDictionary;
 
 @interface STObjectReference:NSObject
 {
-    NSString            *key;
-    NSMutableDictionary *pool;
+    NSString *identifier;
+    id        target;
 }
 
-- initWithObjectName:(NSString *)name 
-                pool:(NSMutableDictionary *)aPool;
+- initWithIdentifier:(NSString *)ident
+              target:(id)anObject;
                 
 - (void)setObject:anObject;
-- object;
+- (id)object;
 
-- (NSString *)objectName;
-- (void)setObjectName:(NSString *)newName;
-
-- (NSMutableDictionary *) pool;
-- (void)setPool:(NSMutableDictionary *) aDict;
+- (NSString *)identifier;
+- (id) target;
 @end
 

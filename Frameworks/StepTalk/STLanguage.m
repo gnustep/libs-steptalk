@@ -124,6 +124,8 @@ static NSDictionary *fileTypeDictionary = nil;
     
     path = [path stringByAppendingPathComponent:STLanguagesConfigFile];
 
+    /* FIXME: use defaults instead. calling task with given argument is a bug*/
+
     if( ![fm fileExistsAtPath:path])
     {
         NSLog(@"Creating lanugages configuration file...");
