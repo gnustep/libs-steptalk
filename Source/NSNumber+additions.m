@@ -64,6 +64,19 @@
                                         / [number doubleValue])];
 }
 
+- modulo:(NSNumber *)number
+{
+    if([number doubleValue] == 0.0)
+    {
+        [NSException raise:STGenericException
+                     format:@"Division by zero"];
+        return self;
+    }
+    
+
+    return [NSNumber numberWithDouble:(fmod([self doubleValue],
+                                         [number doubleValue]))];
+}
 - (unsigned int)isLessThan:(NSNumber *)number
 {
     return ([self doubleValue] < [number doubleValue]);

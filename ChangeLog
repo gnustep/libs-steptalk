@@ -1,3 +1,8 @@
+2003 Jan 22
+
+    * NSNumber+additions: Added -modulo: method.
+    * Foundation bundle: added NSFileManager extensions
+    * Documentation/Additions.txt: new file
 2003 Jan 20
 
     * GNUMakefile: Removed inclusion of source-distribution.make, as it is
