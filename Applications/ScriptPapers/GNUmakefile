@@ -54,7 +54,7 @@ ScriptPapers_RESOURCE_FILES= \
         Images/ScriptPaperFile.tiff  \
         Images/ScriptPapers.tiff
         
-ADDITIONAL_OBJCFLAGS =  
+ADDITIONAL_OBJCFLAGS = -Wno-import
 
 ############################################################################
 
