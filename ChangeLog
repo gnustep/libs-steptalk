@@ -2,6 +2,7 @@
 
     * GNUMakefile: Removed inclusion of source-distribution.make, as it is
     not needed (suggested by Nicola Pero <nicola@brainstorm.co.uk>)
+    * Examples/Developer: new directory containing developer examples
     
 2003 Jan 15
 
