@@ -90,7 +90,8 @@ static NSArray *ivars_for_class(Class class)
 
 - (NSArray *)methodNames
 {
-    return [[self class] instanceMethodNames];
+    return [[[self class] instanceMethodNames] 
+                            sortedArrayUsingSelector:@selector(compare:)];
 }
 
 + (NSArray *)methodNames
