@@ -6,7 +6,7 @@ Author: Stefan Urbanek <urbanek@host.sk>
 
 What is stshell?
 -----------------
-The StepTalk shell.
+StepTalk Shell is an interactive tool for communicating with objects.
 
 Features
 --------

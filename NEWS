@@ -1,9 +1,11 @@
 0.6.0
 
     * Created 'Object Finders'
-    * Added DistributedObject finder
-    * Automated loading of modules using scripting environment description
+        Distributed Object Finder 
+        Application Finder
     * New example tool stshell - the StepTalk shell
+    * Automated loading of modules and finders using scripting environment 
+      descriptions
     * StepTalk defaults changed
     * Some source documentation added
     * Bugfixes in Smalltalk language
