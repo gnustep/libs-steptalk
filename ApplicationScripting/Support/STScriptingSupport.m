@@ -38,6 +38,8 @@
 #include <Foundation/NSBundle.h>
 #include <Foundation/NSEnumerator.h>
 #include <Foundation/NSFileManager.h>
+#include <Foundation/NSPanel.h>
+#include <Foundation/NSPathUtilities.h>
 #include <Foundation/NSString.h>
 
 @interface NSApplication (STPrivateMethods)
@@ -52,9 +54,12 @@
 
     if(![self isScriptingSupported])
     {
-        NSRunAlertPanel(@"Scripting is not available",
-                        @"Application scripting bundle is not installed. ",
+        NSRunAlertPanel(@"Invalid usage of scripting support",
+                        @"Please, contact the author of this application "
+                        @"and let him know about this error. The author forgot "
+                        @"to check whether the scripting is supported or not.",
                         @"Cancel", nil, nil);
+
         return NO;
     }
 
@@ -82,8 +87,8 @@
     }
     else
     {
-        NSRunAlertPanel(@"Cannot initialize scripting",
-                        @"Unable to load application scripting bundle.",
+        NSRunAlertPanel(@"Broken scripting support",
+                        @"Application scripting bundle cannot be loaded.",
                         @"Cancel", nil, nil);
         return NO;
     }
@@ -154,7 +159,7 @@
         NSLog(@"Error occured while loading application scripting support");
 
         isIn = NO;
-        return;
+        return nil;
     }
     
     isIn = YES;
