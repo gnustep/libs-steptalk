@@ -35,6 +35,8 @@ GDL2_OBJC_FILES = \
         
 GDL2_PRINCIPAL_CLASS = STGDL2Module
         
+GDL2_RESOURCE_FILES = ScriptingInfo.plist
+
 GDL2_BUNDLE_LIBS += -lStepTalk \
                           -lgnustep-db2 \
                           -lgnustep-db2control \
@@ -46,9 +48,15 @@ ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
 BUNDLE_EXTENSION := .stmodule
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
--include GNUmakefile.preamble
-include $(GNUSTEP_MAKEFILES)/bundle.make
--include GNUmakefile.postamble
+# Include gdl2.make IF there
+-include $(GNUSTEP_MAKEFILES)/Auxiliary/gdl2.make
+
+# If gdl2.make was included, compile the bundle; else, do nothing
+ifneq ($(GDL2_VERSION),)
+ include $(GNUSTEP_MAKEFILES)/bundle.make
+else
+ include $(GNUSTEP_MAKEFILES)/rules.make
+endif
 
 
 GDL2Constants.m : GDL2Constants.list

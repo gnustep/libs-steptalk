@@ -25,7 +25,7 @@
   
  */
 
-#import <StepTalk/STBundle.h>
+#import <StepTalk/STBundleInfo.h>
 
 #import <StepTalk/STFunctions.h>
 #import <StepTalk/STExterns.h>
@@ -101,6 +101,13 @@ static NSMutableDictionary *bundleInfoDict;
 
     return AUTORELEASE([[self alloc] initWithPath:file]);
 }
+- (NSDictionary *)scriptingInfoDictionary
+{
+    NSString     *file;
+
+    file = [self pathForResource:@"ScriptingInfo" ofType:@"plist"];
+    return [NSDictionary dictionaryWithContentsOfFile:file];
+}
 @end
 
 @implementation STBundleInfo
@@ -113,7 +120,7 @@ static NSMutableDictionary *bundleInfoDict;
 {
     STBundleInfo *info;
     NSString     *flagString;
-
+    NSDictionary *dict;
     if(!aBundle)
     {
         [NSException raise:@"STBundleException"
@@ -130,22 +137,36 @@ static NSMutableDictionary *bundleInfoDict;
         return RETAIN(info);
     }
 
-    /* FIXME: remove observer somewhere */
+    dict = [aBundle scriptingInfoDictionary];
 
+    if(!dict)
+    {
+        NSLog(@"Warning: Bundle '%@' does not provide scripting capabilities.",
+              [aBundle bundlePath]);
+        [self dealloc];
+        return nil;
+    }
+
+    ASSIGN(bundle, aBundle);
+
+#if 0                
+    /* FIXME: remove observer somewhere */
     [[NSNotificationCenter defaultCenter] 
              addObserver:self
                 selector:@selector(_bundleDidLoad:)
                     name:NSBundleDidLoadNotification
                   object:self];
+#endif
 
-    ASSIGN(bundle, aBundle);
-        
-    flagString = [[bundle infoDictionary] objectForKey:@"STUseAllClasses"];
+    flagString = [dict objectForKey:@"STUseAllClasses"];
     flagString = [flagString lowercaseString];
 
     useAllClasses = [flagString isEqualToString:@"yes"];
 
-    publicClasses = [[bundle infoDictionary] objectForKey:@"STClasses"];
+    publicClasses = [dict objectForKey:@"STClasses"];
+
+    scriptingInfoClassName = [dict objectForKey:@"STScriptingInfoClass"];
+
     RETAIN(publicClasses);
 
     if(!bundleInfoDict)
@@ -208,25 +229,14 @@ static NSMutableDictionary *bundleInfoDict;
 
 - (void)_initializeScriptingInfoClass
 {
-    NSString *className;
-
-    className = [[bundle infoDictionary] objectForKey:@"STScriptingInfoClass"];
-
-    if(!className || [className isEqualToString:@""])
-    {
-        [NSException raise:@"STBundleException"
-                     format:@"Scripting info class for bundle '%@' is not"
-                            @"specified.", [bundle bundlePath]];
-        return;
-    }
-
-    scriptingInfoClass = [bundle classNamed:className];
+    scriptingInfoClass = [bundle classNamed:scriptingInfoClassName];
 
     if(!scriptingInfoClass)
     {
         [NSException raise:@"STBundleException"
-                     format:@"Unable to get scripting info class for bundle"
-                            @" '%@'", [bundle bundlePath]];
+                     format:@"Unable to get scripting info class '%@' for "
+                            @"bundle '%@'", 
+                            scriptingInfoClassName, [bundle bundlePath]];
                      
     }
 }

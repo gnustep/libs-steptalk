@@ -1,8 +1,8 @@
 Bundles
 -------
 
-Any bundle (including application or framework) can provide information about
-scripting.
+Any bundle, including an application or a framework, can provide information
+about scripting.
 
 
 Info dictionary

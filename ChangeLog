@@ -1,3 +1,10 @@
+2003 Jan 24
+
+    * STBundleInfo: Use info from ScriptingInfo.plist instead of bundle's main
+    info dictionary
+    * Modules/*: Create ScriptingInfo.plist
+    * Modules/GNUmakefile: Compile GDL2 module if it is available.
+
 2003 Jan 22
 
     * STEnvironment: added includeBundle: method

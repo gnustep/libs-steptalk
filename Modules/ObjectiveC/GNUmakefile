@@ -36,6 +36,7 @@ ObjectiveC_OBJC_FILES = \
 
 ObjectiveC_PRINCIPAL_CLASS = ObjectiveCModule
         
+ObjectiveC_RESOURCE_FILES = ScriptingInfo.plist
 
 ObjectiveC_BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers

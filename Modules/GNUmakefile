@@ -37,6 +37,7 @@ SUBPROJECTS = \
     Foundation \
     ObjectiveC \
     StepTalk \
+    GDL2 \
     $(APPKIT)
 
 -include GNUMakefile.preamble

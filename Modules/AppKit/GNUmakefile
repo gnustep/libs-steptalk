@@ -36,6 +36,8 @@ AppKit_OBJC_FILES = \
         NSApplication+additions.m
         
 AppKit_PRINCIPAL_CLASS = STAppKitModule
+
+AppKit_RESOURCE_FILES = ScriptingInfo.plist
         
 AppKit_BUNDLE_LIBS += -lStepTalk $(GUI_LIBS)
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers

@@ -33,6 +33,8 @@ Foundation_OBJC_FILES = \
         
 Foundation_PRINCIPAL_CLASS = STFoundationModule
         
+Foundation_RESOURCE_FILES = ScriptingInfo.plist
+
 Foundation_BUNDLE_LIBS += -lStepTalk
 
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers

@@ -32,6 +32,7 @@ SimpleTranscript_OBJC_FILES = \
 
 SimpleTranscript_PRINCIPAL_CLASS = SimpleTranscriptModule
         
+SimpleTranscript_RESOURCE_FILES = ScriptingInfo.plist
 
 SimpleTranscript_BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers

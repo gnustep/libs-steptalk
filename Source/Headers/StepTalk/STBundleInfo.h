@@ -31,11 +31,12 @@
 
 @interface STBundleInfo:NSObject
 {
-    NSBundle *bundle;
-    BOOL     useAllClasses;
-    NSArray *publicClasses;
-    NSArray *allClasses;
-    Class    scriptingInfoClass;
+    NSBundle     *bundle;
+    BOOL          useAllClasses;
+    NSArray      *publicClasses;
+    NSArray      *allClasses;
+    NSString     *scriptingInfoClassName;
+    Class         scriptingInfoClass;
 }
 + infoForBundle:(NSBundle *)bundle;
 - initWithBundle:(NSBundle *)bundle;
@@ -49,4 +50,5 @@
 @interface NSBundle(STAdditions)
 + (NSArray *)stepTalkBundleNames;
 + stepTalkBundleWithName:(NSString *)moduleName;
+- (NSDictionary *)scriptingInfoDictionary;
 @end

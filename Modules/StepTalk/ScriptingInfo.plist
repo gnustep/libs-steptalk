@@ -1,0 +1,11 @@
+{
+    STScriptingInfoClass = StepTalkModule;
+    
+    STClasses = (
+        STEnvironment,
+        STLanguage,
+        STScript,
+        STScriptsManager,
+        STBundleInfo
+    );
+}

@@ -30,7 +30,8 @@ StepTalk_OBJC_FILES = \
         StepTalkModule.m 
 
 StepTalk_PRINCIPAL_CLASS = StepTalkModule
-        
+
+StepTalk_RESOURCE_FILES = ScriptingInfo.plist        
 
 StepTalk_BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
