@@ -1,0 +1,67 @@
+Application Scripting
+---------------------
+
+Creating a scriptable application
+---------------------------------
+
+1   Think of objects you want to provide for scripting.
+
+2   Make classes available in ScriptingInfo.plist:
+
+    {
+        STClasses = 
+        {
+            MessageComposition,
+            InternetAddress
+        };
+    }
+    
+    Add this line to your makefile:
+    
+        MyApp_RESOURCE_FILES = ScriptingInfo.plist
+
+
+3 Include bundle loading code
+
+    Copy file from Support directory called ScriptingSupport.m to your project 
+    and add this line to your make file:
+    
+        MyApp_OBJC_FILES += STScriptingSupport.m
+
+4   Make scripting available to the user
+
+    #import "STScriptingSupport.h"
+
+
+    ...
+    if([NSApp isScriptingSupported])
+    {
+        [menu addItemWithTitle:_(@"Scripting")
+	                action: action
+                 keyEquivalent: @""];
+    }
+
+    You may do it manually by adding following menu item into your menu:
+
+    if([NSApp isScriptingSupported])
+    {
+        NSMenu *scriptingMenu;
+        NSLog(@"Scripting is supported");
+        scriptingMenu = [[NSMenu alloc] init];
+        [menu setSubmenu: scriptingMenu
+                 forItem: [menu itemWithTitle:_(@"Scripting")]];
+        [scriptingMenu addItemWithTitle: _(@"Scripts panel...")
+	         action: @selector(orderFrontScriptsPanel:)
+	         keyEquivalent: @""];
+        [scriptingMenu addItemWithTitle: _(@"Show transcript")
+	         action: @selector(orderFrontTranscriptWindow:)
+	         keyEquivalent: @""];
+        RELEASE(scriptingMenu);
+    }
+    else
+    {
+      NSLog(@"Scripting is NOT supported");
+    }
+
+    Or you may use Gorm to add menu item into applications menu and make
+    necessary connections.

@@ -1,0 +1,26 @@
+Gorm Integration
+----------------
+
+To make scripting available to the user using gorm, one has to create and
+connect menu items activating scripting.
+
+Edit file ClassInformation.plist in Gorm resources by updating FirstResponder
+information:
+
+{
+    FirstResponder = {
+	Actions = (
+            /* ... */
+            orderFrontScriptsPanel:,
+            orderFrontTranscriptWindow:,
+            /* ... */
+	);
+
+        /* ... */
+
+    };
+}
+
+The file is located in $GNUSTEP_SYSTEM_ROOT/Applications/Gorm.app/Resources
+
+Note: This is not very nice solution, I know.

@@ -1,0 +1,30 @@
+2003 Mar 23
+
+    * Rewritten and changed from library to bundle.
+
+2002 Jun 18
+
+    * STScriptsManager: removed methods that are implemented in StepTalk
+    * STScript: moved to StepTalk
+    
+2002 May 24
+
+    * STScriptsManager: reflex renamed method in StepTalk
+    
+2002 Apr 13
+
+    * Created ScriptingSupport bundle
+    * Created Support/ScriptingSupport.m for loading application scripting 
+    support
+    * Updated Ink.app example to use loading of scripting support
+        
+2002 Apr 12
+
+    * STScriptsManager: Look for scripts also in all loaded bundles
+    * NSApplication+additions: Update scripting information from all bundles.
+    Read scripting info when new bundle is loaded.
+
+2002 Apr 12
+
+    * ChangeLog started
+    

@@ -1,0 +1,6 @@
+Installing AppTalk
+------------------
+
+Type:
+    > make
+    > make install

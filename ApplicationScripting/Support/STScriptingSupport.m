@@ -1,0 +1,148 @@
+/**
+    ScriptingSupport
+    Code for loading scripting
+    
+    NOTE: Copy and include this file into your application project.
+  
+  
+    Copyright (c) 2002 Stefan Urbanek
+  
+    Written by: Stefan Urbanek <stefanurbanek@yahoo.fr>
+    Date: 2002 Apr 13
+ 
+    This file is part of the StepTalk project.
+ 
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+  
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+   */
+
+
+#import <AppKit/NSApplication.h>
+
+#import <Foundation/NSArray.h>
+#import <Foundation/NSBundle.h>
+#import <Foundation/NSEnumerator.h>
+#import <Foundation/NSFileManager.h>
+#import <Foundation/NSString.h>
+
+@implementation NSApplication(STApplicationScriptingInit)
+- (BOOL)initializeApplicationScripting
+{
+    NSBundle      *bundle;
+
+    if(![self isScriptingSupported])
+    {
+        NSRunAlertPanel(@"Scripting is not available",
+                        @"Application scripting bundle is not installed. ",
+                        @"Cancel", nil, nil);
+        return NO;
+    }
+
+    NSLog(@"Loading application scripting support");
+
+    bundle = [self _applicationScriptingBundle];
+
+    if(bundle)
+    {
+        /* Load the bundle! */
+
+        [[bundle principalClass] class];
+        if([self respondsToSelector:@selector(setUpApplicationScripting)])
+        {
+            return [self setUpApplicationScripting];
+        }
+        else
+        {
+            NSRunAlertPanel(@"Broken scripting support",
+                            @"Scripting support cannot be loaded, because "
+                            @"the application scripting bundle is broken.",
+                            @"Cancel", nil, nil);
+            return NO;
+        }
+    }
+    else
+    {
+        NSRunAlertPanel(@"Cannot initialize scripting",
+                        @"Unable to load application scripting bundle.",
+                        @"Cancel", nil, nil);
+        return NO;
+    }
+}
+
+- (BOOL)isScriptingSupported
+{
+    return ([self _applicationScriptingBundle] != nil);
+}
+
+- (NSBundle *)_applicationScriptingBundle
+{
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSEnumerator  *enumerator;
+    NSString      *path;
+    NSArray       *paths;
+    BOOL           isDir;
+
+    paths = NSStandardLibraryPaths();
+
+    enumerator = [paths objectEnumerator];
+    
+    while( (path = [enumerator nextObject]) )
+    {
+    
+        path = [path stringByAppendingPathComponent:@"Bundles"];
+        path = [path stringByAppendingPathComponent:@"ApplicationScripting"];
+        path = [path stringByAppendingPathExtension:@"bundle"];
+
+        if( [manager fileExistsAtPath:path isDirectory:&isDir] && isDir)
+        {
+            return [NSBundle bundleWithPath:path];
+        }
+    }
+    
+    return nil;
+}
+
+- (void)_loadAppTalkAndRetryAction:(SEL)sel sender:(id)sender
+{
+    static BOOL isIn = NO;
+    
+    if(isIn)
+    {
+        NSLog(@"Error occured while loading application scripting support");
+
+        isIn = NO;
+        return;
+    }
+    
+    isIn = YES;
+
+    if([self initializeApplicationScripting])
+    {
+        [self performSelector:sel withObject:sender];
+    }
+
+    isIn = NO;
+}
+
+- (void)orderFrontScriptsPanel:(id)sender
+{
+    [self _loadAppTalkAndRetryAction:_cmd sender:sender];
+}
+
+- (void)orderFrontTranscriptWindow:(id)sender
+{
+    [self _loadAppTalkAndRetryAction:_cmd sender:sender];
+}
+@end

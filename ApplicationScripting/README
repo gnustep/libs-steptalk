@@ -1,0 +1,36 @@
+(unnamed bundle)
+----------------
+Ahthor: Stefan Urbanek  <urbanek@host.fr>
+
+
+NOTE: this bundle wants name and cleanup. 
+
+What is (unnamed) ?
+------------------
+Application scripting framework.
+
+With AppTalk it is possible to make applications scriptable by StepTalk.
+
+
+Where to get it?
+----------------
+AppTalk is part of the StepTalk and you can download StepTalk from 
+
+    http://steptalk.host.sk    
+
+
+Installation
+------------
+To install AppTalk type:
+    > make
+    > make install
+
+Examples
+--------
+
+    Ink.app example - Modified scriptable version of Ink.app.
+    
+Feedback
+--------
+Any bug reports and comments are welcome at
+<urbanek@host.sk>
