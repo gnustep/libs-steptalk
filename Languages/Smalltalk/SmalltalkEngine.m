@@ -70,9 +70,15 @@
 
     [compiler setEnvironment:env];
 
-    script = [compiler compileString:sourceCode];
-    retval = [script executeInEnvironment:env];
-    
+    NS_DURING
+        script = [compiler compileString:sourceCode];
+        retval = [script executeInEnvironment:env];
+    NS_HANDLER
+        RELEASE(compiler);
+        compiler = nil;
+        [localException raise];
+    NS_ENDHANDLER
+
     RELEASE(compiler);
     
     return retval;

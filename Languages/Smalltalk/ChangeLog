@@ -3,6 +3,7 @@
     * STSourceReader: added missing [super dealloc]
     * STCompiledCode: do not retain bytecode data
     * STCompiler: various memory leak fixes
+    * SmalltalkEngine: guard compilation exception and release the compiler
 
 2003 Mar 23
 

@@ -157,6 +157,8 @@ extern int STCparse(void *context);
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
             RELEASE(reader);
+            RELEASE(receiverVars);
+            receiverVars = nil;
             reader = nil;
             
             [NSException  raise:STCompilerSyntaxException
