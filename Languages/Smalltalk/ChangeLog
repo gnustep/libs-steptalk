@@ -1,3 +1,11 @@
+2003 May 9
+
+    * NSString+additions: added   
+
+2003 May 4  Stefan Urbanek <urbanek@host.sk>
+
+    * SmalltalkEngine: remove exception guard to allow debugging
+    
 2003 Apr 29 Stefan Urbanek <urbanek@host.sk>
 
     * STSourceReader: fixed reading of identifiers at the end of source

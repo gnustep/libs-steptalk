@@ -1,3 +1,7 @@
+2003 May 10
+
+    * Fixed linking under mingw32
+
 2003 May 2   Stefan Urbanek <urbanek@host.sk>
 
     * STBundleInfo: added objectReferenceDictionary; removed unnecessary ST 

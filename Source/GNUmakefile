@@ -90,6 +90,9 @@ StepTalk_AGSDOC_FLAGS = \
         -Declared StepTalk \
         -DocumentationDirectory ../Documentation/Reference
 
+ifeq ($(GNUSTEP_TARGET_OS),mingw32)
+    libStepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
+endif
 
 -include GNUmakefile.preamble
 
