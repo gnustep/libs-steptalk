@@ -266,5 +266,21 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
                        *pointer,length];
     return bytecode;
 }
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    // [super encodeWithCoder: coder];
+
+    [coder encodeObject:bytes];
+}
+
+- initWithCoder:(NSCoder *)decoder
+{
+    self = [super init]; // super initWithCoder: decoder];
+    
+    [decoder decodeValueOfObjCType: @encode(id) at: &bytes];
+
+    return self;
+}
+
 @end
 

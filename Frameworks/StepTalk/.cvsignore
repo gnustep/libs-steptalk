@@ -5,3 +5,5 @@ shared_*obj
 *.bundle
 *.stmodule
 *.stlanguage
+*.framework
+derived_src

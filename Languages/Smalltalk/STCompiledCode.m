@@ -80,4 +80,29 @@
 {
     return externRefs;
 }
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    // [super encodeWithCoder: coder];
+
+    [coder encodeObject:bytecodes];
+    [coder encodeObject:literals];
+    [coder encodeObject:externRefs];
+    [coder encodeValueOfObjCType: @encode(short) at: &tempCount];
+    [coder encodeValueOfObjCType: @encode(short) at: &stackSize];
+}
+
+- initWithCoder:(NSCoder *)decoder
+{
+    self = [super init]; // [super initWithCoder: decoder];
+    
+    [decoder decodeValueOfObjCType: @encode(id) at: &bytecodes];
+    [decoder decodeValueOfObjCType: @encode(id) at: &literals];
+    [decoder decodeValueOfObjCType: @encode(id) at: &externRefs];
+    [decoder decodeValueOfObjCType: @encode(short) at: &tempCount];
+    [decoder decodeValueOfObjCType: @encode(short) at: &stackSize];
+
+    return self;
+}
+
 @end

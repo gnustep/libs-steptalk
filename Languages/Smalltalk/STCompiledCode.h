@@ -27,7 +27,7 @@
 @class NSMutableArray;
 @class STBytecodes;
 
-@interface STCompiledCode:NSObject
+@interface STCompiledCode:NSObject<NSCoding>
 {
     STBytecodes        *bytecodes;
     NSArray            *literals;

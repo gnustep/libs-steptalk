@@ -80,7 +80,7 @@ extern NSArray *STBytecodeNames;
 extern NSString *STBytecodeName(unsigned short code);
 extern NSString *STDissasembleBytecode(STBytecode bytecode);
 
-@interface STBytecodes:NSData
+@interface STBytecodes:NSData<NSCoding>
 {
     NSData *bytes;
 }

@@ -11,7 +11,7 @@
 {
     Name = "StepTalk";
     
-    Modules = (StepTalk);
+    Frameworks = (StepTalk);
     
     Classes = 
     {

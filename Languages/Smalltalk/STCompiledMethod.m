@@ -120,4 +120,22 @@
 {
     return @"Smalltalk";
 }
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [super encodeWithCoder: coder];
+
+    [coder encodeObject:selector];
+    [coder encodeValueOfObjCType: @encode(short) at: &argCount];
+}
+
+- initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder: decoder];
+    
+    [decoder decodeValueOfObjCType: @encode(id) at: &selector];
+    [decoder decodeValueOfObjCType: @encode(short) at: &argCount];
+
+    return self;
+}
+
 @end

@@ -5,6 +5,11 @@
     * Modules: Removed StepTalk module as it is no more needed, because
     we have framework and it can provide scripting capabilities by it self
     * All GNUMakefiles modified to reflect change to Framework
+    * Added Framework loading in .stenv description files. 
+    Use: Frameworks = (name1, name2);
+    
+    NOTE: You HAVE to remove your previous installation of StepTalk to be
+    able to install new one. (especially Local/Library/Headers/StepTalk).
     
 2003 Aug 5  Stefan Urbanek <urbanek@host.sk>
     

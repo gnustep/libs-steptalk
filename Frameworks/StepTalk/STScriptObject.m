@@ -6,6 +6,7 @@
 #import "STFunctions.h"
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSCoder.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
 
@@ -146,4 +147,22 @@ some other, more clever mechanism. */
 
     [invocation setReturnValue:&retval];
 }
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    // [super encodeWithCoder: coder];
+
+    [coder encodeObject:methodDictionary];
+    [coder encodeObject:ivars];
+}
+
+- initWithCoder:(NSCoder *)decoder
+{
+    self = [super init]; //[super initWithCoder: decoder];
+    
+    [decoder decodeValueOfObjCType: @encode(id) at: &methodDictionary];
+    [decoder decodeValueOfObjCType: @encode(id) at: &ivars];
+    return self;
+}
+
+
 @end

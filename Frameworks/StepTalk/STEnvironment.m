@@ -133,6 +133,14 @@
         [self loadModule:name];
     }
 
+    /* Load frameworks */
+    enumerator = [[description frameworks] objectEnumerator];
+    
+    while( (name = [enumerator nextObject]) )
+    {
+        [self includeFramework:name];
+    }
+
     /* Register finders */
     enumerator = [[description objectFinders] objectEnumerator];    
     

@@ -44,6 +44,7 @@ enum
     NSMutableDictionary *behaviours;
     NSMutableDictionary *aliases;
     NSMutableArray      *modules;
+    NSMutableArray      *frameworks;
     NSMutableArray      *finders;
 
     int                  restriction;
@@ -61,6 +62,7 @@ enum
 
 - (NSMutableDictionary *)classes;
 - (NSArray *)modules;
+- (NSArray *)frameworks;
 - (NSArray *)objectFinders;
 @end
 

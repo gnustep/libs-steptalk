@@ -87,6 +87,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
 - (void)updateUseList:(NSArray *)array;
 - (void)updateModuleList:(NSArray *)array;
+- (void)updateFrameworkList:(NSArray *)array;
 - (void)updateFinderList:(NSArray *)array;
 @end
 
@@ -182,6 +183,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
     [self updateUseList:[def objectForKey:@"Use"]];
     [self updateModuleList:[def objectForKey:@"Modules"]];
+    [self updateFrameworkList:[def objectForKey:@"Frameworks"]];
     [self updateFinderList:[def objectForKey:@"Finders"]];
     [self updateBehavioursFromDictionary:[def objectForKey:@"Behaviours"]];
     [self updateClassesFromDictionary:[def objectForKey:@"Classes"]];
@@ -233,7 +235,30 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
         }
     }
 }
+- (void)updateFrameworkList:(NSArray *)array
+{
+    NSEnumerator *enumerator;
+    NSString     *str;
 
+    enumerator = [array objectEnumerator];
+
+    while( (str = [enumerator nextObject]) )
+    {
+        if(!frameworks)
+        {
+            frameworks = [[NSMutableArray alloc] init];
+        } 
+
+        if( ![frameworks containsObject:str] )
+        {
+            [frameworks addObject:str];
+        }
+    }
+}
+- (NSArray *)frameworks
+{
+    return [NSArray arrayWithArray:frameworks];
+}
 - (void)updateFinderList:(NSArray *)array
 {
     NSEnumerator *enumerator;
