@@ -1,3 +1,13 @@
+2003 Apr 04  David Ayers  <d.ayers@inode.at>
+
+    * GNUmakefile: Added flags to show all warnings except for import.
+    * STBlock.m: Initialzed variables to supress compiler warnings.
+    * STCompiledMethod.m: Added needed import.
+    * STCompiler.m: Added missing declaration.  Wrapped declarations only
+    needed for DEBUG into #ifdefs to supress compiler warnings.
+    Initialzed variables to supress compiler warnings.
+    * STExecutionContext.m: Unified name for private categories.
+
 2003 Mar 25
 
     * STSourceReader: added missing [super dealloc]

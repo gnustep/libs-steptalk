@@ -43,6 +43,8 @@ AppKit_BUNDLE_LIBS += $(GUI_LIBS)
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
+ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
+
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble

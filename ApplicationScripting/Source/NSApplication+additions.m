@@ -28,6 +28,7 @@
 
 #import "STScriptsPanel.h"
 #import "STTranscript.h"
+#import "STEnvironment+additions.h"
 
 #import <StepTalk/STBundleInfo.h>
 
@@ -37,6 +38,7 @@
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSProcessInfo.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSSet.h>
 
 #import <AppKit/NSPanel.h>
 
@@ -48,6 +50,15 @@ static BOOL                  bundleLoaded;
 static NSMutableSet         *scannedBundles;
 
 static STApplicationScriptingController *scriptingController = nil;
+
+@interface NSObject (STPrivateMethodDeclarations)
++ sharedTranscript;
+@end
+
+@interface NSApplication (STPrivateMethods)
+- (void)updateScriptingInfoFromBundles;
+- (void)_createDefaultScriptingEnvironment;
+@end
 
 @implementation NSApplication(STAppScriptingAdditions)
 - (BOOL)initializeApplicationScripting
@@ -83,11 +94,11 @@ static STApplicationScriptingController *scriptingController = nil;
 {
     STEnvironment *env = nil;
     STBundleInfo  *info;
-    NSString      *path;
+    //NSString      *path;
     NSString      *str = nil;
-    NSString      *reference;
-    NSDictionary  *dict;
-    id             object;
+    //NSString      *reference;
+    //NSDictionary  *dict;
+    //id             object;
 
     NSDebugLog(@"Creating scripting environment");
 
@@ -143,15 +154,15 @@ static STApplicationScriptingController *scriptingController = nil;
 {
     STEnvironment *env = [self scriptingEnvironment];
     NSEnumerator *enumerator;
-    NSDictionary *info;
-    NSString     *path;
+    //NSDictionary *info;
+    //NSString     *path;
     NSBundle     *bundle;
-    NSSet        *bundles;
+    NSMutableSet *bundles;
     
     NSDebugLog(@"Updating scripting info from bundles");
     
-    bundles = [NSMutableSet setWithArray:[NSBundle allBundles]];
-    bundles = [bundles minusSet:scannedBundles];
+    bundles = (id)[NSMutableSet setWithArray:[NSBundle allBundles]];
+    [bundles minusSet:scannedBundles];
     
     enumerator = [bundles objectEnumerator];
     

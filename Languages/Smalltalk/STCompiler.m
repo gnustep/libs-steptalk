@@ -50,6 +50,7 @@ extern int STCparse(void *context);
 @interface STCompiler(STCompilerPrivate)
 - (void)compile;
 - (void)initializeContext;
+- (void)destroyCompilationContext;
 - (unsigned)tempVariableIndex:(NSString *)varName;
 - (unsigned)externalVariableIndex:(NSString *)varName;
 
@@ -220,8 +221,10 @@ extern int STCparse(void *context);
 - (STCompiledCode *)compileStatements:(STCStatements *)statements
 {
     STCompiledCode  *compiledCode;
+#ifdef DEBUG
     int              count;
     int              i;
+#endif
     
     /* FIXME: create another class */
     [self initializeCompilationContext];
@@ -378,13 +381,13 @@ extern int STCparse(void *context);
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag
 {
     NSEnumerator   *enumerator;
-    STBlockLiteral *blockInfo;
+    STBlockLiteral *blockInfo = nil;
     STCExpression  *expr;
     NSArray        *array;
-    unsigned        tempsSave;      /* stored count of temporaries */
-    unsigned        stackPosSave;   /* stored previous stack value */  
-    unsigned        stackSizeSave;
-    unsigned        jumpIP;      /* location of jump bytecode for later fixup */
+    unsigned        tempsSave;           /* stored count of temporaries */
+    unsigned        stackPosSave  = 0;   /* stored previous stack value */  
+    unsigned        stackSizeSave = 0;
+    unsigned        jumpIP = 0; /* location of jump bytecode for later fixup */
     unsigned        index;
     unsigned        argCount=0;  /* argument count for block context */
         

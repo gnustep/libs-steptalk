@@ -47,7 +47,7 @@ NSArray *objcSelectors = nil;
 
 static STShell	*sharedShell = nil;
 
-@interface STShell(STPrivate)
+@interface STShell(STPrivateMethods)
 - (int) completion;
 - (NSString *)readLine;
 - (void)initReadline;

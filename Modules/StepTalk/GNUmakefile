@@ -36,7 +36,7 @@ StepTalk_RESOURCE_FILES = ScriptingInfo.plist
 StepTalk_BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
 ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
-
+ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 

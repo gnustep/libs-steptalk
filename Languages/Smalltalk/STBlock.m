@@ -178,7 +178,7 @@
 
 - whileTrue:(STBlock *)doBlock
 {
-    id retval;
+    id retval = nil;
     
     while([[self value] boolValue])
     {
@@ -189,7 +189,7 @@
 
 - whileFalse:(STBlock *)doBlock
 {
-    id retval;
+    id retval = nil;
     
     while(! [[self value] boolValue])
     {

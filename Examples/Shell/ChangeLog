@@ -1,3 +1,8 @@
+2003 Apr 04  David Ayers  <d.ayers@inode.at>
+
+    * GNUmakefile: Added flags to show all warnings except for import.
+    * STShell.m: Unified name for private categories.
+
 2003 Jan 16
 
     * GNUmakefile: Added -lncurses

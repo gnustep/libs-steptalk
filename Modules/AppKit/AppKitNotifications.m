@@ -46,8 +46,8 @@ NSDictionary *STGetAppKitNotifications(void)
     SEL numberWithFloat_sel = @selector(numberWithFloat:);
     SEL setObject_forKey_sel = @selector(setObject:forKey:);
 
-    numberWithInt = [NSNumber methodForSelector:numberWithInt_sel];
-    numberWithFloat = [NSNumber methodForSelector:numberWithFloat_sel];
+    numberWithInt = [numberClass methodForSelector:numberWithInt_sel];
+    numberWithFloat = [numberClass methodForSelector:numberWithFloat_sel];
     setObject_forKey = [dict methodForSelector:setObject_forKey_sel];
 
 #define ADD_id_OBJECT(obj, name) \

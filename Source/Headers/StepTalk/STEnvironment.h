@@ -58,7 +58,7 @@
 + (STEnvironment *)defaultScriptingEnvironment;
 
 + environmentWithDescriptionName:(NSString *)descName;
-+ environmentWithDescription:(STEnvironmentDescription *)description;
++ environmentWithDescription:(STEnvironmentDescription *)aDescription;
 
 - initWithDescriptionName:(NSString *)descName;
 - initWithDescription:(STEnvironmentDescription *)aDescription;

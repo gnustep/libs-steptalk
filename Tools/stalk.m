@@ -40,6 +40,10 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSFileManager.h>
 
+@interface NSObject (STPrivateMethodDeclarations)
+- (STEnvironment *)scriptingEnvironment;
+@end
+
 @interface Executor:STExecutor
 {
     NSString      *hostName;

@@ -41,6 +41,8 @@ GDL2_BUNDLE_LIBS += -lgnustep-db2 -lgnustep-db2control -lgnustep-db2modeler
 
 BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
 
+ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
+
 # Include gdl2.make IF there
 -include $(GNUSTEP_MAKEFILES)/Auxiliary/gdl2.make
 

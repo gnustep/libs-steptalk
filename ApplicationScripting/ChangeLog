@@ -1,3 +1,14 @@
+2003 Apr 04  David Ayers  <d.ayers@inode.at>
+
+    * GNUmakefile: Added flags to be able to compile from the building
+    directories and show all warnings except for import.
+    * NSApplication+additions.m: Added import of needed headers.  Added
+    interface declarations to supress compiler warnings.  Commented unused
+    variables to supress compiler warnings.  Corrected variable types and
+    added necessary casts.
+    * STScriptingSupport.m: Added interface declaraions to supress
+    compiler warnings.
+	
 2003 Mar 27
 
     * ScriptsPanel.gorm: disallow multiple selection in scripts list. It was

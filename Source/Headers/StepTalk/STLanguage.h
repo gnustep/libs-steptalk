@@ -32,7 +32,7 @@
 @interface STLanguage:NSBundle 
 + (NSArray *)allLanguageNames;
 + (NSString *)defaultLanguageName;
-+ (NSArray *)allLanguageNames;
++ (NSArray *)allKnownFileTypes;
 
 + languageWithName:(NSString *)languageName;
 + languageWithPath:(NSString *)path;

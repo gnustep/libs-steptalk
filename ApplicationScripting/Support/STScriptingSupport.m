@@ -39,6 +39,10 @@
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSString.h>
 
+@interface NSApplication (STPrivateMethods)
+- (BOOL)setUpApplicationScripting;
+@end
+
 @implementation NSApplication(STApplicationScriptingInit)
 - (BOOL)initializeApplicationScripting
 {

@@ -18,7 +18,7 @@
 
 static unsigned nextId = 1;
 
-@interface STExecutionContext(STPrivate)
+@interface STExecutionContext(STPrivateMethods)
 - (unsigned)contextId;
 @end
 

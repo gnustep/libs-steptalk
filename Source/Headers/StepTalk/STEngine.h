@@ -37,7 +37,7 @@
 }
 
 /** Instance creation */
-+ (STEngine *) engineForLanguageWithName:(NSString *)language;
++ (STEngine *) engineForLanguageWithName:(NSString *)name;
 + (STEngine *) engineForFileType:(NSString *)fileType;
 
 /** Scripting Environment */

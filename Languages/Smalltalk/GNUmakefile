@@ -55,7 +55,7 @@ Smalltalk_OBJC_FILES = \
         
 Smalltalk_PRINCIPAL_CLASS = SmalltalkEngine
         
-# ADDITIONAL_OBJCFLAGS = -Wall -Werror
+ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
         
 ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
 

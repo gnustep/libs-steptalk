@@ -45,7 +45,7 @@
 - (void)setScriptSearchPaths:(NSArray *)anArray;
 
 - (NSArray *)validScriptSearchPaths;
-- (STScript *)scriptWithName:(NSString*)name;
+- (STScript *)scriptWithName:(NSString*)aString;
 
 - (NSArray *)allScripts;
 @end

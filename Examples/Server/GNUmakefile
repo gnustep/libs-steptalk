@@ -30,6 +30,8 @@ Server_OBJC_FILES = Server.m
 
 ADDITIONAL_TOOL_LIBS = -lStepTalk
 
+ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
+
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make
 -include Makefile.postamble

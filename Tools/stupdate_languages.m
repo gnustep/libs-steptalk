@@ -62,16 +62,17 @@ BOOL create_directory(NSString *path)
 
 void update_languages(void)
 {
-    NSArray      *langNames = [STLanguage allLanguageNames];
-    NSString     *path = STUserConfigPath();
-    STLanguage   *lang;
-    NSString     *langName;
-    NSEnumerator *enumerator;
-    NSArray      *types;
-    NSEnumerator *typeenum;
-    NSString     *type;
-    NSDictionary *typeDict = [NSMutableDictionary dictionary];
-    NSDictionary *dict;
+    NSArray             *langNames = [STLanguage allLanguageNames];
+    NSString            *path = STUserConfigPath();
+    STLanguage          *lang;
+    NSString            *langName;
+    NSEnumerator        *enumerator;
+    NSArray             *types;
+    NSEnumerator        *typeenum;
+    NSString            *type;
+    NSMutableDictionary *typeDict;
+    NSDictionary        *dict;
+    typeDict = (id)[NSMutableDictionary dictionary];
     enumerator = [langNames objectEnumerator];
     
     NSLog(@"Updating languages...");

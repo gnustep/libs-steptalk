@@ -1,3 +1,33 @@
+2003 Apr 04  David Ayers  <d.ayers@inode.at>
+
+    * STEngine.h: Fixed declaration to match implementation to avoid
+    compiler warnings.
+    * STEnvironment.h: Ditto.
+    * STScriptsManager.h: Ditto.
+    * STLanguage.h: Corrected declaration.
+    * STScriptsManager.m: Added needed interface declaration.
+    * GNUmakefile:  Added flags to show all warnings except for import.
+    * Module/ObjectiveC/GNUmakefile:  Added flags to show all warnings
+    except for import.
+    * Module/Foundation/GNUmakefile:  Added flags to show all warnings
+    except for import.
+    * Module/AppKit/AppKitExceptions.m: Used variable to supress compiler
+    warnings.
+    * Module/AppKit/AppKitNotifications.m: Ditto.
+    * Module/AppKit/GNUmakefile:  Added flags to show all warnings except
+    for import.
+    * Module/GDL2/GDL2Constants.m: Used variable to supress compiler
+    warnings.
+    * Module/GDL2/GNUmakefile: Added flags to show all warnings except
+    for import.
+    * Module/SimpleTranscripts/GNUmakefile: Added flags to show all warnings
+    except for import.
+    * Module/StepTalk/GNUmakefile: Added flags to show all warnings
+    except for import.
+    * Tools/stalk.m: Added needed interface declaration.
+    * Tools/stupdate_languages.m: Corrected variable declaration and added
+    cast.
+
 2003 Apr 3   Stefan Urbanek <urbanek@host.sk>
 
     * STScript: added compareByLocalizedName:

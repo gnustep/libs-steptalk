@@ -44,6 +44,10 @@
 
 static STScriptsManager *sharedScriptsManager = nil;
 
+@interface STScriptsManager (STPriavteMethods)
+- (NSArray *)_scriptsAtPath:(NSString *)path;
+@end
+
 @implementation STScriptsManager
 
 /** Return default domain name for scripts. Usually this is application or

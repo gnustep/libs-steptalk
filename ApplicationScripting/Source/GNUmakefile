@@ -51,6 +51,11 @@ ApplicationScripting_LOCALIZED_RESOURCE_FILES = \
 #        ApplicationScripting.xlp \
 #        StepTalk.tiff
 
+ADDITIONAL_INCLUDE_DIRS += -I../../Source/Headers
+ADDITIONAL_TOOL_LIBS += -lStepTalk
+ADDITIONAL_LIB_DIRS += -L../../Source/$(GNUSTEP_OBJ_DIR)
+ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
+
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUmakefile.postamble
