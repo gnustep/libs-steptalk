@@ -35,7 +35,7 @@
 + (NSArray *)allLanguageNames;
 
 + languageWithName:(NSString *)languageName;
-+ languageWithBundle:(NSString *)path;
++ languageWithPath:(NSString *)path;
 
 + (NSString *)languageNameForFileType:(NSString *)fileType;
 + (STLanguage *)languageForFileType:(NSString *)fileType;

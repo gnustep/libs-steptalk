@@ -202,7 +202,7 @@
     [self addNamedObjectsFromDictionary:STAllObjectiveCClasses()];
 }
 /**
-    Add classes specified by name in <var>names</var> array.
+    Add classes specified by the names in the <var>names</var> array.
 */
 - (void)addClassesWithNames:(NSArray *)names
 {
@@ -210,10 +210,11 @@
 }
 
 /**
-   Load StepTalk module with name <var>moduleName</var>. You do not have to
-   add module extension .stmodule to <var>moduleName</var>. Modules are stored 
-   in Library/StepTalk/Modules
+   Load StepTalk module with the name <var>moduleName</var>. Module extension
+   '.stmodule' is optional. Modules are stored in the Library/StepTalk/Modules
+   directory.
  */
+
 - (void) loadModule:(NSString *)moduleName
 {
     STModule *module = [STModule moduleWithName:moduleName];
@@ -222,9 +223,6 @@
     [self addClassesWithNames:[module providedClasses]];
 }
 
-/**
-    Description forthcomming.
- */
 - (NSMutableDictionary *)defaultObjectPool
 {
     return defaultPool;
@@ -260,10 +258,6 @@
         [defaultPool setObject:STNil forKey:objName];
     }
 }
-
-/**
-    Description forthcomming.
- */
 
 - (NSMutableDictionary *) poolWithName:(NSString *)poolName
 {

@@ -59,6 +59,10 @@ void _STInitMallocZone(void)
     }
 }
 
+/**
+    Return a scripting engine for the language used in files of type 
+    <var>fileType</var>
+*/
 + (STEngine *) engineForFileType:(NSString *)fileType
 {
     STLanguage *language = [STLanguage languageForFileType:fileType];
@@ -66,7 +70,10 @@ void _STInitMallocZone(void)
     return [language engine];
 }
 
-+ (STEngine *) engineForLanguage:(NSString *)name
+/**
+    Return a scripting engine for language with specified name.
+*/
++ (STEngine *) engineForLanguageWithName:(NSString *)name
 {
     if(!name)
     {
@@ -84,21 +91,28 @@ void _STInitMallocZone(void)
     [super dealloc];
 }
 
+/** Return the default scripting environment for the engine. */
 - (STEnvironment *)defaultEnvironment
 {
     return defaultEnvironment;
 }
 
+/** Set the default scripting environment for the engine. */
 - (void) setDefaultEnvironment:(STEnvironment *)anEnvironment
 {
     ASSIGN(defaultEnvironment,anEnvironment);
 }
 
+/** Execude source code <var>code</var> in default scripting environment. */
 - (id)  executeCode:(NSString *)code
 {
    return [self    executeCode:code 
                  inEnvironment:defaultEnvironment];
 }
+
+/** Execude source code <var>code</var> in an environment <var>env</var>. 
+    This is the method, that has to be implemented by those who are writing 
+    a language engine. */
 - (id)  executeCode:(NSString *)code 
       inEnvironment:(STEnvironment *)env
 {

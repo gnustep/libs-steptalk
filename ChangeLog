@@ -1,3 +1,21 @@
+2002 May 24
+
+    * STEngine: engineForLanguage: renamed to engineForLanguageWithName:.
+    Some method documentation added.
+    * STExecutor: reflect method renaming
+    * STLanguage: read default language name from actual user defaults (not 
+    from the StepTalk domain) and renamed the key to STDefaultLanguageName. 
+    Renamed languageWithBundle: to languageWithPath:. Some method documentation 
+    added.
+    * STEnvironmentDescription: read default description name from actual user 
+    defaults (not from the StepTalk domain)
+    * STEnvironment: Some method documentation added.
+    * StepTalk.gsdoc: new file
+
+2002 May 13
+    
+    * Uploaded to the GNUstep CVS repository by Adam Fedor
+    
 2002 Apr 20
 
     * COPYING: updated

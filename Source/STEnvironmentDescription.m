@@ -94,8 +94,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     NSString       *name;
     
     defs = [NSUserDefaults standardUserDefaults];
-    dict = [defs persistentDomainForName:@"StepTalk"];
-    name = [dict objectForKey:@"DefaultEnvironmentDescriptionName"];
+    name = [defs objectForKey:@"STDefaultEnvironmentDescriptionName"];
     
     if(!name || [name isEqualToString:@""])
     {

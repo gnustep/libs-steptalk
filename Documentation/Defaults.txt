@@ -1,15 +1,19 @@
 StepTalk Defaults
 -----------------
 
-StepTalk uses defaults domain with name 'StepTalk'.
+NOTE: Defaults changed. 
 
 For example, to set default language name:
 
-    > defaults write StepTalk DefaultLanguageName Smalltalk
+    > defaults write NSGlobalDomain STDefaultLanguageName Smalltalk
+
+or to set scripting environment specific to an application:
+
+    > defaults write ApplicationName STDefaultEnvironmentDescriptionName Safe
 
 
-Name: DefaultLanguageName
+Name: STDefaultLanguageName
 Type: String
 
-Name: DefaultEnvironmentDescriptionName
+Name: STDefaultEnvironmentDescriptionName
 Type: String
