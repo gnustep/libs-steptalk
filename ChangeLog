@@ -1,6 +1,14 @@
+2002 Nov 11
+    
+    * ObjectiveC module: added selectorsContainingString:
+
+2002 Nov 5
+
+    * Added MyLanguage as empty example language bundle
+
 2002 Sep 17
     
-    * Patch from <deek@d2dc.net> with various bug-fixes
+    * Patch from Jeff Teunissen <deek@d2dc.net> with various bug-fixes
     * Added .cvsignore files
     
 2002 Sep 15
