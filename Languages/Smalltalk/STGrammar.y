@@ -379,7 +379,8 @@ literal: TK_NUMBER
     | TK_ARRAY_OPEN array TK_RPAREN
                         { $$ = [COMPILER createArrayLiteralFrom:$2]; }
 ;
-array: literal                   { $$ = [NSMutableArray array]; 
+array: /* nothing */    { $$ = [NSMutableArray array]; }
+    | literal                   { $$ = [NSMutableArray array]; 
                                    [$$ addObject:$1]; }
     | symbol                     { $$ = [NSMutableArray array];
                                    [$$ addObject:$1]; }

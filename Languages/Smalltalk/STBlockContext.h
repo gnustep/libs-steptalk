@@ -39,6 +39,4 @@
 - (void)setHomeContext:(STMethodContext *)context;
 - (unsigned)initialIP;
 - (void)initializeIntstructionPointer;
-
-- (void) forceReturn;
 @end

@@ -1,3 +1,16 @@
+2002 Jun 14
+
+    * STMethodContext: Raise exception on invalid reference, not on undefined 
+    object
+    
+2002 Jun 13
+
+    * STCompiledMethod: Removed unused methods
+    * STBytecodeInterpreter: rewritten context handling; removed unused methods
+    * STBlockContext: rewritten context handling; cleaned exception handler
+    * STGrammar.y: fixed empty arrays #()
+    * STExecutionContext: removed parent context as it is longer used
+    
 2002 Jun 7
 
     * STBytecodeInterpreter: fixed debug-log bug

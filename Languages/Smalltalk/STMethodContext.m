@@ -92,13 +92,12 @@
         NSDebugLLog(@"STBytecodeInterpreter",
                     @"  '%@' (%@)",[lit objectName], [lit poolName]);
                     
-        /* FIXME: use pools */
         ref = [env objectReferenceForObjectWithName:[lit objectName]];
 
-        if(![ref object])
+        if(!ref)
         {
             [NSException raise:STGenericException
-                        format:@"Unknown object with name '%@' ",
+                        format:@"Unable to get object reference for '%@' ",
                         [lit objectName]];
         }        
         [externs addObject:ref];
@@ -131,9 +130,9 @@
     RELEASE(method);
     method = nil;
 }
-- (BOOL)isInvalid
+- (BOOL)isValid
 {
-    return (!method);
+    return (method != nil);
 }
 
 - (STCompiledMethod*)method
@@ -179,9 +178,9 @@
 {
     return [method bytecodes];
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalAtIndex:(unsigned)index
 {
-    return [method literalObjectAtIndex:index];
+    return [method literalAtIndex:index];
 }
 
 - (void)setArgumentsFromArray:(NSArray *)args

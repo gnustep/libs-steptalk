@@ -119,7 +119,7 @@ static const short yyprhs[] = {     0,
    118,   121,   124,   128,   130,   133,   135,   137,   139,   141,
    144,   148,   151,   154,   158,   160,   162,   164,   166,   168,
    170,   172,   176,   178,   180,   182,   184,   186,   188,   190,
-   192,   196,   198,   200,   203,   206,   208,   210
+   192,   196,   197,   199,   201,   204,   207,   209,   211
 };
 
 static const short yyrhs[] = {    -1,
@@ -142,9 +142,9 @@ static const short yyrhs[] = {    -1,
      0,    47,     0,    44,     0,    50,     0,    54,     0,    32,
      0,     6,    36,     7,     0,    15,     0,    15,     0,    16,
      0,    17,     0,    18,     0,    19,     0,    20,     0,    21,
-     0,    10,    55,     7,     0,    54,     0,    56,     0,    55,
-    54,     0,    55,    56,     0,    15,     0,    52,     0,    17,
-     0
+     0,    10,    55,     7,     0,     0,    54,     0,    56,     0,
+    55,    54,     0,    55,    56,     0,    15,     0,    52,     0,
+    17,     0
 };
 
 #endif
@@ -158,7 +158,7 @@ static const short yyrline[] = { 0,
    271,   277,   282,   288,   293,   298,   301,   302,   303,   305,
    314,   323,   329,   334,   340,   341,   343,   344,   346,   350,
    354,   358,   363,   365,   367,   369,   371,   373,   375,   377,
-   379,   382,   384,   386,   387,   389,   391,   393
+   379,   382,   383,   385,   387,   388,   390,   392,   394
 };
 #endif
 
@@ -186,7 +186,7 @@ static const short yyr1[] = {     0,
     39,    40,    40,    41,    41,    41,    42,    42,    42,    43,
     44,    45,    46,    46,    47,    47,    48,    48,    49,    49,
     49,    49,    50,    51,    52,    53,    54,    54,    54,    54,
-    54,    55,    55,    55,    55,    56,    56,    56
+    54,    55,    55,    55,    55,    55,    56,    56,    56
 };
 
 static const short yyr2[] = {     0,
@@ -197,18 +197,18 @@ static const short yyr2[] = {     0,
      2,     2,     3,     1,     2,     1,     1,     1,     1,     2,
      3,     2,     2,     3,     1,     1,     1,     1,     1,     1,
      1,     3,     1,     1,     1,     1,     1,     1,     1,     1,
-     3,     1,     1,     2,     2,     1,     1,     1
+     3,     0,     1,     1,     2,     2,     1,     1,     1
 };
 
 static const short yydefact[] = {     1,
-     0,     0,     0,     0,     0,    63,    67,    68,    69,    70,
+     0,     0,     0,    72,     0,    63,    67,    68,    69,    70,
      2,     0,    61,     4,    27,    30,     0,    38,    36,    34,
     47,    48,    49,    57,     0,    32,    59,    60,     0,    19,
-     0,     0,     0,    21,     0,     0,     0,    76,    65,    78,
-    77,    72,     0,    73,    26,     5,    28,    39,    37,    35,
+     0,     0,     0,    21,     0,     0,     0,    77,    65,    79,
+    78,    73,     0,    74,    26,     5,    28,    39,    37,    35,
     33,     0,    41,    64,    50,    66,    52,     0,     0,    40,
     18,    20,    62,     0,     8,     9,     0,    15,     6,    13,
-     0,     0,    24,     0,     0,    22,    71,    74,    75,     0,
+     0,     0,    24,     0,     0,    22,    71,    75,    76,     0,
     31,    42,    46,    44,     0,     0,     0,    56,    51,    55,
     59,    58,    53,     3,     0,     0,    11,     0,     0,    14,
     16,     0,    25,    29,    45,    43,    54,    10,    12,    17,
@@ -1150,32 +1150,36 @@ case 71:
     break;}
 case 72:
 #line 382 "STGrammar.y"
+{ yyval = [NSMutableArray array]; ;
+    break;}
+case 73:
+#line 383 "STGrammar.y"
 { yyval = [NSMutableArray array]; 
                                    [yyval addObject:yyvsp[0]]; ;
     break;}
-case 73:
-#line 384 "STGrammar.y"
+case 74:
+#line 385 "STGrammar.y"
 { yyval = [NSMutableArray array];
                                    [yyval addObject:yyvsp[0]]; ;
-    break;}
-case 74:
-#line 386 "STGrammar.y"
-{ yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; ;
     break;}
 case 75:
 #line 387 "STGrammar.y"
 { yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; ;
     break;}
 case 76:
-#line 390 "STGrammar.y"
-{ yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; ;
+#line 388 "STGrammar.y"
+{ yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; ;
     break;}
 case 77:
-#line 392 "STGrammar.y"
+#line 391 "STGrammar.y"
 { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; ;
     break;}
 case 78:
-#line 394 "STGrammar.y"
+#line 393 "STGrammar.y"
+{ yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; ;
+    break;}
+case 79:
+#line 395 "STGrammar.y"
 { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; ;
     break;}
 }
@@ -1376,7 +1380,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 396 "STGrammar.y"
+#line 397 "STGrammar.y"
 
 
 int STCerror(const char *str)

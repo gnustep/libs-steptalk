@@ -31,7 +31,6 @@
 {
     unsigned            contextId;       /* for debugging */
     
-    STExecutionContext *parrentContext;  /* for return */
     STStack            *stack;
     
     unsigned            instructionPointer;
@@ -39,10 +38,7 @@
 - initWithStackSize:(unsigned)stackSize;
 
 - (void)invalidate;
-- (BOOL)isInvalid;
-
-- (STExecutionContext *)parrentContext;
-- (void)setParrentContext:(STExecutionContext *)context;
+- (BOOL)isValid;
 
 - (STMethodContext *)homeContext;
 - (void)setHomeContext:(STMethodContext *)context;
@@ -60,5 +56,7 @@
 - (void)setTemporary:anObject atIndex:(unsigned)index;
 - (id)externAtIndex:(unsigned)index;
 - (void)setExtern:anObject atIndex:(unsigned)index;
-- (id)literalObjectAtIndex:(unsigned)index;
+- (id)literalAtIndex:(unsigned)index;
+
+- (id)receiver;
 @end

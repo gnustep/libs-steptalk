@@ -41,11 +41,12 @@
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
           homeContext:(STMethodContext *)context
             initialIP:(unsigned)ptr
-                 info:(STBlockLiteral *)info
+        argumentCount:(int)count
+            stackSize:(int)size
 {
     homeContext = context;
-    argCount  = [info argumentCount];
-    stackSize = [info stackSize];
+    argCount  = count; 
+    stackSize = size;
     initialIP = ptr;
     interpreter = anInterpreter;
     
@@ -104,22 +105,14 @@
     return retval;
 }
 
-- (STBlockContext *)createBlockContext
-{
-    STBlockContext *context;
- 
-    context = [[STBlockContext alloc] initWithInterpreter:interpreter
-                                                initialIP:initialIP
-                                                stackSize:stackSize];
-
-    [context setHomeContext:homeContext];
- 
-    return context;
-}
 - valueWithArgs:(id *)args count:(unsigned)count;
 {
-    STBlockContext *context = nil;
-    id              retval;
+    STExecutionContext *parentContext;
+    STBlockContext     *savedContext;
+    STBlockContext     *context;
+    STStack            *stack;
+    int                 i;
+    id                  retval;
 
     if(argCount != count)
     {
@@ -129,77 +122,56 @@
         return nil;
     }
 
-    if(!defaultContext)
+    if(cachedContext)
     {
-        defaultContext = [self createBlockContext];
-        
-        context = RETAIN(defaultContext);
+        context = cachedContext;
+        savedContext = cachedContext;
+        cachedContext = nil;
+        [[context stack] empty];
+        [context resetInstructionPointer];
     }
     else
-    {    
-        if(!defaultContextInUse)
-        {
-            context = RETAIN(defaultContext);
-            defaultContextInUse = YES;
-        }
-        else
-        {
-            context = [self createBlockContext];
-        }
-    }
-    
-
-    NSDebugLLog(@"STExecutionContext",
-                @"new block context %@",context);
-
-    retval = [self evaluateInContext:context arguments:args count:count];
-    
-    if(defaultContext == context)
     {
-        defaultContextInUse = NO;
+        context = [[STBlockContext alloc] initWithInterpreter:interpreter
+                                                    initialIP:initialIP
+                                                    stackSize:stackSize];
+        AUTORELEASE(context);
     }
 
-    RELEASE(context);
-    
-    return retval;
-}
-
-- evaluateInContext:(STBlockContext *)context 
-          arguments:(id *)args 
-              count:(unsigned)count
-{
-    STStack *stack;
-    id       retval;
-    int      i;
+    /* push block arguments to the stack */
     
     stack = [context stack];
-
-    for(i=0;i<count;i++)
+    for(i = 0; i<count; i++)
     {
         [stack push:args[i]];
     }
 
-    retval = [interpreter valueOfBlockContext:context];
-    [stack empty];
+    [context setHomeContext:homeContext];
+
+    parentContext = [interpreter context];
+
+    [interpreter setContext:context];
+    retval = [interpreter interpret];
+    [interpreter setContext:parentContext];
 
     return retval;
 }
 
 - handler:(STBlock *)handlerBlock
 {
-    STBlockContext *context;
-    id              retval;
+    STExecutionContext *context;
+    id                  retval;
 
-    context = [self createBlockContext];
+    /* save the execution context for the case of exception */
+    context = [interpreter context];
 
     NS_DURING
-        retval = [self evaluateInContext:context arguments:(id *)nil count:0];
+        retval = [self value];
     NS_HANDLER
         retval = [handlerBlock valueWith:localException];
-        [context forceReturn];
+        /* restore the execution context */
+        [interpreter setContext:context];
     NS_ENDHANDLER
-
-    RELEASE(context);
 
     return retval;
 }

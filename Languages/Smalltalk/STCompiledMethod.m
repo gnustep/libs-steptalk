@@ -61,11 +61,11 @@
            stackSize:(unsigned)size
     externReferences:(NSMutableArray *)refs;
 {
-    [super initWithBytecodesData:data
-                        literals:anArray
-                temporariesCount:tCount
-                       stackSize:size
-                externReferences:refs];
+    self = [super initWithBytecodesData:data
+                               literals:anArray
+                       temporariesCount:tCount
+                              stackSize:size
+                       externReferences:refs];
 
     selector = RETAIN(sel);
     argCount = aCount;
@@ -82,18 +82,11 @@
     return selector;
 }
 
-- (void)setSelector:(NSString *)newSelector
-{
-    ASSIGN(selector,newSelector);
-}
 - (unsigned)argumentCount
 {
     return argCount;
 }
-- (void)setArgumentCount:(unsigned)count
-{
-    argCount = count;
-}
+
 - (NSString*)description
 {
     NSMutableString *desc = [NSMutableString string];

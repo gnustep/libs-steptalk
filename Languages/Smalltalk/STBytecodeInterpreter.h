@@ -52,18 +52,8 @@
 + (STBytecodeInterpreter *)sharedInterpreter;
 - (void)setEnvironment:(STEnvironment *)env;
 
-- executeCompiledMethod:(STCompiledMethod *)aScript;
-- executeCompiledMethod:(STCompiledMethod *)method 
-          withArguments:(NSArray *)args;
-- executeCompiledCode:(STCompiledCode *)code;
+- (id)interpretMethod:(STCompiledMethod *)method 
+          forReceiver:(id)anObject
+            arguments:(NSArray*)args;
 
-- (void)setReceiver:(id)anObject;
 @end
-
-@class STBlockContext;
-
-@interface STBytecodeInterpreter(STInterpreterPrivate)
-- valueOfBlockContext:(STBlockContext *)block;
-- (void)forceReturnFromBlockContext;
-@end
-

@@ -29,7 +29,6 @@ static unsigned nextId = 1;
 - (void)dealloc
 {
     RELEASE(stack);
-    RELEASE(parrentContext);
     [super dealloc];
 }
 - (unsigned)contextId
@@ -40,10 +39,9 @@ static unsigned nextId = 1;
 {
     NSMutableString *str;
     str = [NSMutableString stringWithFormat:
-                              @"%s[%i]{p:%i h:%i}",
-                              [self name],
+                              @"%@ %i (home %i)",
+                              [self className],
                               contextId,
-                              [parrentContext contextId],
                               [[self homeContext] contextId]];
     return str;
 }
@@ -51,20 +49,10 @@ static unsigned nextId = 1;
 {
     [self subclassResponsibility];
 }
-
-- (BOOL)isInvalid
+- (BOOL)isValid
 {
     [self subclassResponsibility];
-    return YES;
-}
-
-- (STExecutionContext *)parrentContext
-{
-    return parrentContext;
-}
-- (void)setParrentContext:(STExecutionContext *)context
-{
-    ASSIGN(parrentContext,context);
+    return NO;
 }
 - (unsigned)instructionPointer
 {
@@ -116,9 +104,14 @@ static unsigned nextId = 1;
     [self subclassResponsibility];
     return nil;
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalAtIndex:(unsigned)index
 {
     [self subclassResponsibility];
+    return nil;
+}
+- (id)receiver
+{
+    [self subclassResponsibility:_cmd];
     return nil;
 }
 @end
