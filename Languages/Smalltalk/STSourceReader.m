@@ -280,6 +280,10 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 }
             }
         }
+        else
+        {
+            srcOffset --;
+        }
         tokenRange = NSMakeRange(start,srcOffset - start);
         return STIdentifierTokenType;
     }

@@ -1,3 +1,7 @@
+2003 Apr 29 Stefan Urbanek <urbanek@host.sk>
+
+    * STSourceReader: fixed reading of identifiers at the end of source
+
 2003 Apr 21 Stefan Urbanek <urbanek@host.sk>
 
     * Version 0.7.1
