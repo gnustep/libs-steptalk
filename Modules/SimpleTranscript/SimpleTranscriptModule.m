@@ -32,7 +32,7 @@
 @class NSDictionary;
 
 @implementation SimpleTranscriptModule
-- (NSDictionary *)namedObjects
++ (NSDictionary *)namedObjectsForScripting
 {
     return [NSDictionary dictionaryWithObject:[SimpleTranscript sharedTranscript]
                                        forKey:@"Transcript"];

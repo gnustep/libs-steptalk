@@ -29,6 +29,7 @@
 
 #import <Foundation/NSObject.h>
 
+@class NSBundle;
 @class NSDictionary;
 @class NSMutableDictionary;
 @class NSMutableArray;
@@ -73,6 +74,8 @@
 /** Modules */
 
 - (void)loadModule:(NSString *)moduleName;
+
+- (void)includeBundle:(NSBundle *)aBundle;
 
 - (void)addClassesWithNames:(NSArray *)names;
 

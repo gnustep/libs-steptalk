@@ -31,7 +31,7 @@
 @class NSDictionary;
 
 @implementation ObjectiveCModule
-- (NSDictionary *)namedObjects
++ (NSDictionary *)namedObjectsForScripting
 {
     return [NSDictionary dictionaryWithObject:[ObjectiveCRuntime sharedRuntime]
                                        forKey:@"Runtime"];

@@ -1,4 +1,6 @@
 {
+    STScriptingInfoClass = STGDL2Module;
+    
     STClasses = (
         /* Classes from EOAccess */
         

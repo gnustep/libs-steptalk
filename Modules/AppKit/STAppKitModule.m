@@ -42,7 +42,7 @@ extern NSDictionary *STGetAppKitEvents();
     [NSApplication sharedApplication];
 }
 
-- (NSDictionary *)namedObjects
++ (NSDictionary *)namedObjectsForScripting
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
@@ -51,7 +51,7 @@ extern NSDictionary *STGetAppKitEvents();
     [dict addEntriesFromDictionary:STGetAppKitExceptions()];
     [dict addEntriesFromDictionary:STGetAppKitEvents()];
     
-    return [dict copy]; /* get immutable copy */
+    return [NSDictionary dictionaryWithDictionary:dict]; 
 }
 @end
 

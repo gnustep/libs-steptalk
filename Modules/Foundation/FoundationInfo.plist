@@ -1,4 +1,6 @@
 {
+    STScriptingInfoClass = STFoundationModule;
+    
     STClasses = (
 
         GSMimeCodingContext,

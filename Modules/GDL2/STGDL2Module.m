@@ -42,13 +42,14 @@ extern NSDictionary *STGetGDL2Constants();
     [EOQualifier class];
 }
 
-- (NSDictionary *)namedObjects
++ (NSDictionary *)namedObjectsForScripting
 {
+    NSLog(@"Testing namedObjects in GDL2 module");
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [dict addEntriesFromDictionary:STGetGDL2Constants()];
     
-    return [dict copy]; /* get immutable copy */
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 @end
 

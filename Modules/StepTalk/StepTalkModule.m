@@ -30,7 +30,7 @@
 @class NSDictionary;
 
 @implementation StepTalkModule
-- (NSDictionary *)namedObjects
++ (NSDictionary *)namedObjectsForScripting
 {
     return nil;
 }

@@ -1,4 +1,5 @@
 {
+    STScriptingInfoClass = ObjectiveCModule;
     STClasses = (
         ObjectiveCRuntime
     );

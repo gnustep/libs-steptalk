@@ -25,8 +25,8 @@
  
  */
 
-#import <StepTalk/STModule.h>
+#import <Foundation/NSObject.h>
 
-@interface StepTalkModule:STModule
+@interface StepTalkModule:NSObject
 @end
 

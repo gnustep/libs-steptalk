@@ -196,25 +196,33 @@
 }
 
 /**
-   Load StepTalk module with the name <var>moduleName</var>. Module extension
-   '.stmodule' is optional. Modules are stored in the Library/StepTalk/Modules
-   directory.
+   Load StepTalk module with the name <var>moduleName</var>. Modules are stored
+   in the Library/StepTalk/Modules directory.
  */
 
 - (void) loadModule:(NSString *)moduleName
 {
-    STBundleInfo *info;
     NSBundle     *bundle;
     
     bundle = [NSBundle stepTalkBundleWithName:moduleName];
 
-    if([loadedBundles containsObject:[bundle bundlePath]])
+    [self includeBundle:bundle];
+}
+
+/**
+    Include scripting capabilities advertised by bundle <ivar>aBundle</ivar>
+*/
+- (void)includeBundle:(NSBundle *)aBundle
+{
+    STBundleInfo *info;
+    
+    if([loadedBundles containsObject:[aBundle bundlePath]])
     {
-        NSLog(@"Module '%@' already loaded", moduleName);
+        NSLog(@"Bundle '%@' already loaded", [aBundle bundlePath]);
         return;
     }
 
-    info = [STBundleInfo infoForBundle:bundle];
+    info = [STBundleInfo infoForBundle:aBundle];
 
     [self addNamedObjectsFromDictionary:[info namedObjects]];
     [self addClassesWithNames:[info publicClassNames]];
@@ -223,6 +231,9 @@
     {
         loadedBundles = [[NSMutableArray alloc] init];
     }
+
+    /* FIXME: is this sufficient? */
+    [loadedBundles addObject:[aBundle bundlePath]];
 }
 
 /**

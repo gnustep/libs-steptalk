@@ -1,9 +1,21 @@
 2003 Jan 22
 
+    * STEnvironment: added includeBundle: method
+
+2003 Jan 22
+
+    * STModule: removed
+    * STBundleInfo: added new class STBundleInfo and additional methods to 
+    NSBundle
+    * STEnvironment: reflect change from STModule to NSBundle/STBundleInfo;
+    * Modules/*: reflect change from STModule to NSBundle/STBundleInfo
+
+2003 Jan 22
+
     * NSNumber+additions: Added -modulo: method.
     * Foundation bundle: added NSFileManager extensions; added missing constants
     * Documentation/Additions.txt: new file
-    
+   
 2003 Jan 20
 
     * GNUMakefile: Removed inclusion of source-distribution.make, as it is

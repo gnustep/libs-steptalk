@@ -33,13 +33,13 @@
 extern NSDictionary *STGetFoundationConstants();
 
 @implementation STFoundationModule
-- (NSDictionary *)namedObjects
++ (NSDictionary *)namedObjectsForScripting
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [dict addEntriesFromDictionary:STGetFoundationConstants()];
     
-    return [dict copy]; /* get immutable copy */
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 @end
 

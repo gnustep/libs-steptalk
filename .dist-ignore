@@ -7,5 +7,6 @@ shared_debug_obj
 *.bundle
 *.o
 New
+Old
 Extensions
 .snap-ignore
