@@ -33,7 +33,7 @@
 #import <StepTalk/STEnvironmentDescription.h>
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STFunctions.h>
-#import <StepTalk/STModule.h>
+#import <StepTalk/STBundleInfo.h>
 #import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STObjectReference.h>
 #import <StepTalk/STUndefinedObject.h>
@@ -140,6 +140,7 @@
 
     RELEASE(infoCache);
     RELEASE(objectFinders);
+    RELEASE(loadedBundles);
     
     [super dealloc];
 }
@@ -202,10 +203,26 @@
 
 - (void) loadModule:(NSString *)moduleName
 {
-    STModule *module = [STModule moduleWithName:moduleName];
+    STBundleInfo *info;
+    NSBundle     *bundle;
     
-    [self addNamedObjectsFromDictionary:[module namedObjects]];
-    [self addClassesWithNames:[module providedClasses]];
+    bundle = [NSBundle stepTalkBundleWithName:moduleName];
+
+    if([loadedBundles containsObject:[bundle bundlePath]])
+    {
+        NSLog(@"Module '%@' already loaded", moduleName);
+        return;
+    }
+
+    info = [STBundleInfo infoForBundle:bundle];
+
+    [self addNamedObjectsFromDictionary:[info namedObjects]];
+    [self addClassesWithNames:[info publicClassNames]];
+
+    if(!loadedBundles)
+    {
+        loadedBundles = [[NSMutableArray alloc] init];
+    }
 }
 
 /**

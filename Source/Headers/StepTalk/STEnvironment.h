@@ -31,6 +31,7 @@
 
 @class NSDictionary;
 @class NSMutableDictionary;
+@class NSMutableArray;
 @class NSMutableSet;
 
 @class STObjectReference;
@@ -49,6 +50,8 @@
     NSMutableDictionary      *infoCache;
     
     NSMutableDictionary      *objectFinders;
+    
+    NSMutableArray           *loadedBundles;
 }
 /** Creating environment */
 + (STEnvironment *)defaultScriptingEnvironment;

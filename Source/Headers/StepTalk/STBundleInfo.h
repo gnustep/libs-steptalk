@@ -1,11 +1,11 @@
 /**
-    STModule.h
-    StepTalk module
+    STBundleInfo.h
+    Bundle scripting information
  
     Copyright (c) 2002 Free Software Foundation
  
     Written by: Stefan Urbanek <urbanek@host.sk>
-    Date: 2001 May 7 
+    Date: 2003 Jan 22 
  
     This file is part of the StepTalk project.
  
@@ -25,23 +25,28 @@
  
  */
 
-#import <Foundation/NSObject.h>
+#import <Foundation/NSBundle.h>
 
 @class NSArray;
-@class NSString;
-@class NSBundle;
 
-@interface STModule:NSObject
+@interface STBundleInfo:NSObject
 {
+    NSBundle *bundle;
+    BOOL     useAllClasses;
+    NSArray *publicClasses;
+    NSArray *allClasses;
+    Class    scriptingInfoClass;
 }
-
-+ (NSArray *)allModuleNames;
-
-+ moduleWithName:(NSString *)moduleName;
-+ moduleWithPath:(NSString *)modulePath;
++ infoForBundle:(NSBundle *)bundle;
+- initWithBundle:(NSBundle *)bundle;
 
 - (NSDictionary *)namedObjects;
-- (NSBundle *)bundle;
 
-- (NSArray *)providedClasses;
+- (NSArray *)publicClassNames;
+- (NSArray *)allClassNames;
+@end
+
+@interface NSBundle(STAdditions)
++ (NSArray *)stepTalkBundleNames;
++ stepTalkBundleWithName:(NSString *)moduleName;
 @end
