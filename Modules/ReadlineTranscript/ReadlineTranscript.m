@@ -89,8 +89,10 @@ static ReadlineTranscript *sharedTranscript;
 	res = readline([prompt cString]);
 	if (res)
 	{
-		resret = [NSString stringWithCString: res];
+		resret = [[NSString alloc] initWithCStringNoCopy: res 
+                                                  length: strlen(res) 
+                                            freeWhenDone: YES];
 	}
-	return resret;
+	return AUTORELEASE(resret);
 }
 @end
