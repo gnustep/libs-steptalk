@@ -29,7 +29,6 @@
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STFunctions.h>
 #import <StepTalk/STLanguage.h>
-#import <StepTalk/STModule.h>
 #import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STObjectReference.h>
 #import <StepTalk/STScript.h>

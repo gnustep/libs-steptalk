@@ -1,3 +1,7 @@
+2003 Feb 21
+
+    * StepTalk.h: Removed #import of STModule.h as it is no longer there
+
 2003 Feb 11
 
     * Source/GNUmakefile: fixed installation of documentation
