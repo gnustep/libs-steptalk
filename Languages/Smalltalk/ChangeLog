@@ -1,3 +1,7 @@
+2003 Mar 23
+
+    * STSourceReader: added some end of string checks
+
 2003 Feb 3
 
     * Version 0.7.0

@@ -254,7 +254,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
     if([identStartCharacterSet characterIsMember:c])
     {
         start=srcOffset++;
-        while([identCharacterSet characterIsMember:c])
+        while([identCharacterSet characterIsMember:c] && !AT_END)
         {
             c = GET_CHAR;
             if(AT_END)
@@ -291,31 +291,37 @@ static NSString *_STNormalizeStringToken(NSString *token)
         BOOL isReal = NO;
                 
         start = srcOffset++;
-
-        c = GET_CHAR;
-        if(![numericCharacterSet characterIsMember:c] && maybesym)
-        {
-            if([symbolicSelectorCharacterSet characterIsMember:c])
-            {
-                tokenRange = NSMakeRange(start,2);
-            }
-            else
-            {
-                srcOffset--;
-                tokenRange = NSMakeRange(start, 1);
-            }
-
-            return STBinarySelectorTokenType;
-        }
-        
-        while([numericCharacterSet characterIsMember:c])
+        if(!AT_END)
         {
             c = GET_CHAR;
-            if(AT_END)
-                break;
+            if(![numericCharacterSet characterIsMember:c] && maybesym)
+            {
+                if([symbolicSelectorCharacterSet characterIsMember:c])
+                {
+                    tokenRange = NSMakeRange(start,2);
+                }
+                else
+                {
+                    srcOffset--;
+                    tokenRange = NSMakeRange(start, 1);
+                }
+
+                return STBinarySelectorTokenType;
+            }
+        }        
+
+        while([numericCharacterSet characterIsMember:c] && !AT_END)
+        {
+            c = GET_CHAR;
+        }
+
+        if(AT_END)
+        {
+            tokenRange = NSMakeRange(start,srcOffset - start);
+            return STIntNumberTokenType;
         }
         
-        if(c == '.')
+        if(c == '.'  && !AT_END)
         {
             c = GET_CHAR;
             while([numericCharacterSet characterIsMember:c])
@@ -341,10 +347,10 @@ static NSString *_STNormalizeStringToken(NSString *token)
             isReal = YES;
         }
             
-        if(c == 'e' || c == 'E')
+        if((c == 'e' || c == 'E')  && !AT_END)
         {
             c = GET_CHAR;
-            if(c == '+' || c == '-')
+            if((c == '+' || c == '-')  && !AT_END)
             {
                 c = GET_CHAR;
             }
