@@ -31,7 +31,7 @@
         <method type="NSArray*">
           <sel>allClassNames</sel>
           <desc>
-            <em>Description forthcoming.</em>
+            Return an array of all class names.
           </desc>
         </method>
         <method type="id">
@@ -44,7 +44,16 @@
         <method type="NSDictionary*">
           <sel>namedObjects</sel>
           <desc>
-            <em>Description forthcoming.</em>
+            Return a dictionary of named objects.
+          </desc>
+        </method>
+        <method type="NSDictionary*">
+          <sel>objectReferenceDictionary</sel>
+          <desc>
+            This method is for application scripting support.
+            Return dictionary containing object references where
+            a key is name of an object and value is a path to the
+            object relative to application delegate.
           </desc>
         </method>
         <method type="NSArray*">

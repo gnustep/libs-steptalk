@@ -26,11 +26,14 @@
 
 #import "STApplicationScriptingController.h"
 
+#import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSKeyValueCoding.h>
 
 #import <AppKit/NSApplication.h>
 
+#import <StepTalk/STBundleInfo.h>
 #import <StepTalk/STEngine.h>
 #import <StepTalk/STEnvironment.h>
 #import <StepTalk/STLanguage.h>
@@ -42,6 +45,22 @@
 #import "NSApplication+additions.h"
 
 @implementation STApplicationScriptingController
+- init
+{
+    STBundleInfo *info;
+    
+    [super init];
+
+    info = [STBundleInfo infoForBundle:[NSBundle mainBundle]];
+    objectRefereceDict = RETAIN([info objectReferenceDictionary]);
+    
+    return self;
+}
+- (void)dealloc
+{
+    RELEASE(objectRefereceDict);
+    [super dealloc];
+}
 - (void)createScriptsPanel
 {
     scriptsPanel = [[STScriptsPanel alloc] init];
@@ -97,10 +116,11 @@
             return nil;
         }
     }
-    NSLog(@"Scripting menu: %@", scriptingMenu);
     return scriptingMenu;
 }
 
+/** Execute script <var>script</var> in actual scripting environment. If an 
+    exception occured, it will be logged into the Transcript window. */
 - (id)executeScript:(STScript *)script
 {
     STEnvironment  *env = [self actualScriptingEnvironment];
@@ -108,7 +128,7 @@
     NSString       *error;
     id             retval;
     
-    NSLog(@"Execute script a '%@'", [script localizedName]);
+    NSDebugLog(@"Execute a script '%@'", [script localizedName]);
 
     engine = [STEngine engineForLanguageWithName:[script language]];
 
@@ -125,6 +145,10 @@
         NSLog(@"No scripting environment");
         return nil;
     }
+    
+    NSDebugLog(@"Updating references");
+    [self updateObjectReferences];
+
 #ifndef DEBUG_EXCEPTIONS
     NS_DURING
 #endif
@@ -149,6 +173,7 @@
     return retval;
 }
 
+/** Execute script string <var>source</var> in environment <var>env</var>. */
 - (id)executeScriptString:(NSString *)source
             inEnvironment:(STEnvironment *)env
 {
@@ -170,10 +195,11 @@
         return nil;
     }
 
+    NSLog(@"Updating references");
+    [self updateObjectReferences];
+
     NS_DURING
-        NSLog(@"Execute '%@'", source);
         retval = [engine executeCode:source inEnvironment:env];
-        NSLog(@"Pre-returned %@", retval);
     NS_HANDLER
         error = [NSString stringWithFormat:
                             @"Error: "
@@ -187,8 +213,42 @@
 
         retval = nil;
     NS_ENDHANDLER
-    
-        NSLog(@"HERE 4");
+
     return retval;
+}
+/* FIXME: rewrite this */
+- (void)updateObjectReferences
+{
+    STEnvironment  *env = [self actualScriptingEnvironment];
+    NSEnumerator *enumerator;
+    NSString     *name;
+    NSString     *object = nil;
+    NSString     *reference;
+    id            target;
+    
+    target = [NSApp delegate];
+    
+    enumerator = [objectRefereceDict keyEnumerator];
+    
+    while( (name = [enumerator nextObject]) )
+    {
+        reference = [objectRefereceDict objectForKey:name];
+
+        NSLog(@"Adding reference '%@' object '%@'", name, reference);
+        
+        NS_DURING
+            object = [target valueForKeyPath:reference];
+            [env setObject:object forName:name];
+        NS_HANDLER
+            if([[localException name] isEqualToString:NSUnknownKeyException])
+            {
+                NSLog(@"Warning: Invalid object reference '%@'.", reference);
+            }
+            else
+            {
+                [localException raise];
+            }
+        NS_ENDHANDLER
+    }
 }
 @end

@@ -35,11 +35,14 @@
     BOOL          useAllClasses;
     NSArray      *publicClasses;
     NSArray      *allClasses;
+    NSDictionary *objectReferenceDictionary;
     NSString     *scriptingInfoClassName;
     Class         scriptingInfoClass;
 }
 + infoForBundle:(NSBundle *)aBundle;
 - initWithBundle:(NSBundle *)aBundle;
+
+- (NSDictionary *)objectReferenceDictionary;
 
 - (NSDictionary *)namedObjects;
 

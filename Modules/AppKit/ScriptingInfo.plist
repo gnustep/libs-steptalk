@@ -1,7 +1,7 @@
 {
-    STScriptingInfoClass = STAppKitModule;
+    ScriptingInfoClass = STAppKitModule;
     
-    STClasses = 
+    Classes = 
     (
         NSActionCell,
         NSAffineTransform,

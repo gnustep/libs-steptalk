@@ -1,3 +1,9 @@
+2003 May 2  Stefan Urbanek <urbanek@host.sk>
+
+    * Added 'Objects' searching in application.
+    * Added ScriptingInfo.plist template
+    * GNUmakefile: removed inclusion of source-distribution.make
+    
 2003 May 1  Stefan Urbanek <urbanek@host.sk>
 
     * Support: updated files to use #include instead of #import

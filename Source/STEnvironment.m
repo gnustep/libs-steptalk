@@ -217,9 +217,10 @@
 {
     STBundleInfo *info;
     
+    /* Ignore already included bundles. */
     if([loadedBundles containsObject:[aBundle bundlePath]])
     {
-        NSLog(@"Bundle '%@' already loaded", [aBundle bundlePath]);
+        NSDebugLog(@"Bundle '%@' already included.", [aBundle bundlePath]);
         return;
     }
 
@@ -232,7 +233,6 @@
 
     [self addNamedObjectsFromDictionary:[info namedObjects]];
 
-    // NSLog(@"Adding classes %@", [info publicClassNames]);
     [self addClassesWithNames:[info publicClassNames]];
 
     if(!loadedBundles)

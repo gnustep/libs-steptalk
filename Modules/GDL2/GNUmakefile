@@ -23,8 +23,6 @@
 #  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02111, USA.
 #
 
-GNUSTEP_MAKEFILES = $(GNUSTEP_SYSTEM_ROOT)/Makefiles
-
 include $(GNUSTEP_MAKEFILES)/common.make
 
 BUNDLE_NAME = GDL2

@@ -30,9 +30,12 @@
 @class STScript;
 @class STEnvironment;
 @class NSMenu;
+@class NSDictionary;
 
 @interface STApplicationScriptingController:NSObject
 {
+    NSDictionary   *objectRefereceDict;
+
     STScriptsPanel *scriptsPanel;
     NSMenu         *scriptingMenu;
 }

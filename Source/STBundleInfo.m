@@ -34,6 +34,7 @@
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSFileManager.h>
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSString.h>
 
@@ -103,10 +104,19 @@ static NSMutableDictionary *bundleInfoDict;
 }
 - (NSDictionary *)scriptingInfoDictionary
 {
-    NSString     *file;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString      *file;
 
     file = [self pathForResource:@"ScriptingInfo" ofType:@"plist"];
-    return [NSDictionary dictionaryWithContentsOfFile:file];
+    
+    if([manager fileExistsAtPath:file])
+    {
+        return [NSDictionary dictionaryWithContentsOfFile:file];
+    }
+    else
+    {
+        return nil;
+    }
 }
 + allAvailableFrameworkPaths
 {
@@ -177,16 +187,39 @@ static NSMutableDictionary *bundleInfoDict;
                   object:self];
 #endif
 
-    flagString = [dict objectForKey:@"STUseAllClasses"];
+    flagString = [dict objectForKey:@"UseAllClasses"];
     flagString = [flagString lowercaseString];
 
     useAllClasses = [flagString isEqualToString:@"yes"];
 
-    publicClasses = [dict objectForKey:@"STClasses"];
+    if([dict objectForKey: @"STClasses"])
+    {
+        NSLog(@"WARNING: Use 'Classes' instead of 'STClasses' in "
+              @"ScriptingInfo.plist for bundle '%@'", [aBundle bundlePath]);
 
-    scriptingInfoClassName = [dict objectForKey:@"STScriptingInfoClass"];
-
+        publicClasses = [dict objectForKey:@"STClasses"];
+    }
+    else
+    {
+        publicClasses = [dict objectForKey:@"Classes"];
+    }
     RETAIN(publicClasses);
+
+
+    if([dict objectForKey: @"STScriptingInfoClass"])
+    {
+        NSLog(@"WARNING: Use 'ScriptingInfoClass' instead of 'STScriptingInfoClass' in "
+              @"ScriptingInfo.plist for bundle '%@'", [aBundle bundlePath]);
+
+        scriptingInfoClassName = [dict objectForKey:@"STScriptingInfoClass"];
+    }
+    else
+    {
+        scriptingInfoClassName = [dict objectForKey:@"ScriptingInfoClass"];
+    }
+    RETAIN(scriptingInfoClassName);
+    
+    objectReferenceDictionary = [dict objectForKey:@"Objects"];
 
     if(!bundleInfoDict)
     {
@@ -229,13 +262,16 @@ static NSMutableDictionary *bundleInfoDict;
         return publicClasses;
     }
 }
+
+/** Return an array of all class names. */
 - (NSArray *)allClassNames
 {
-/*    return allClasses; */
+    /* FIXME: not implemented; */
     NSLog(@"Warning: All bundle classes requested, using public classes only.");
     return publicClasses;
 }
-/* Subclass responsibility */
+
+/** Return a dictionary of named objects. */
 - (NSDictionary *)namedObjects
 {
     if(!scriptingInfoClass)
@@ -262,4 +298,14 @@ static NSMutableDictionary *bundleInfoDict;
 #endif
     }
 }
+
+/** This method is for application scripting support. Return dictionary 
+    containing object references where a key is name of an object and 
+    value is a path to the object relative to application delegate. 
+*/
+- (NSDictionary *)objectReferenceDictionary
+{
+    return objectReferenceDictionary;
+}
+
 @end

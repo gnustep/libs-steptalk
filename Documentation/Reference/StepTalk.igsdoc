@@ -215,6 +215,9 @@
 	"-objectName" = {
 	    STObjectReference = STObjectReference;
 	};
+	"-objectReferenceDictionary" = {
+	    STBundleInfo = STBundleInfo;
+	};
 	"-objectReferenceForObjectWithName:" = {
 	    STEnvironment = STEnvironment;
 	};
@@ -465,6 +468,7 @@
 	    "-allClassNames" = STBundleInfo;
 	    "-initWithBundle:" = STBundleInfo;
 	    "-namedObjects" = STBundleInfo;
+	    "-objectReferenceDictionary" = STBundleInfo;
 	    "-publicClassNames" = STBundleInfo;
 	};
 	STEngine = {

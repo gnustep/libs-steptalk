@@ -53,6 +53,7 @@
       <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo-allClassNames">-allClassNames</a></li>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo-initWithBundle:">-initWithBundle:</a></li>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo-namedObjects">-namedObjects</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo-objectReferenceDictionary">-objectReferenceDictionary</a></li>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo-publicClassNames">-publicClassNames</a></li>
     </ul>
     <hr width="50%" align="left" />
@@ -68,7 +69,7 @@
     - (NSArray*) <b>allClassNames</b>;<br />
     <p>
       
-            <em>Description forthcoming.</em>
+            Return an array of all class names.
           
     </p>
     <hr width="25%" align="left" />
@@ -84,7 +85,18 @@
     - (NSDictionary*) <b>namedObjects</b>;<br />
     <p>
       
-            <em>Description forthcoming.</em>
+            Return a dictionary of named objects.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STBundleInfo-objectReferenceDictionary">objectReferenceDictionary</a></h3>
+    - (NSDictionary*) <b>objectReferenceDictionary</b>;<br />
+    <p>
+      
+            This method is for application scripting support.
+            Return dictionary containing object references where
+            a key is name of an object and value is a path to the
+            object relative to application delegate.
           
     </p>
     <hr width="25%" align="left" />

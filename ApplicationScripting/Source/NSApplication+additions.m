@@ -44,8 +44,7 @@
 
 #import "STApplicationScriptingController.h"
 
-static STEnvironment        *STAppScriptingEnvironment = nil;
-static NSMutableDictionary  *STAppObjectReferences = nil;
+static STEnvironment        *scriptingEnvironment = nil;
 static NSMutableSet         *scannedBundles;
 
 static STApplicationScriptingController *scriptingController = nil;
@@ -56,6 +55,9 @@ static STApplicationScriptingController *scriptingController = nil;
 @end
 
 @implementation NSApplication(STAppScriptingAdditions)
+
+/** Method for preventing multiple initialization. It will show alert panel
+    on invocation. You should not invoke this method.*/
 - (BOOL)initializeApplicationScripting
 {
     /* FIXME: make it more human-readable */
@@ -66,25 +68,31 @@ static STApplicationScriptingController *scriptingController = nil;
     return YES;
 }
 
+/** Do real initialization of application scripting. You should not invoke 
+    this method directly. */
 - (BOOL)setUpApplicationScripting
 {
+//    STBundleInfo  *info;
+
+//    info = [STBundleInfo infoForBundle:[NSBundle mainBundle]];
+
+    /* FIXME: use info */
     scriptingController = [[STApplicationScriptingController alloc] init];
     return YES;
 }
 
+/** Return shared scripting environment. If there is none, create one. */
 - (STEnvironment *)scriptingEnvironment
 {
-    if(!STAppScriptingEnvironment)
+    if(!scriptingEnvironment)
     {
         [self _createDefaultScriptingEnvironment];
     }
 
-    [STAppScriptingEnvironment updateReferencesFromDictionary:STAppObjectReferences
-                                                       target:[self delegate]];
-
-    return STAppScriptingEnvironment;
+    return scriptingEnvironment;
 }
 
+/** Create shared scripting environment. */
 - (void)_createDefaultScriptingEnvironment
 {
     STEnvironment *env = nil;
@@ -130,12 +138,10 @@ static STApplicationScriptingController *scriptingController = nil;
     [env loadModule:@"AppKit"];
     [env includeBundle:[NSBundle mainBundle]];
     [env setObject:self forName:@"Application"];
+    [env setObject:self forName:[self applcationNameForScripting]];
     [env setObject:[STTranscript sharedTranscript] forName:@"Transcript"];
 
-    /* FIXME: do this */
-    // [self addScriptingInfoFromDictionary:info];
-
-    STAppScriptingEnvironment = RETAIN(env);
+    scriptingEnvironment = RETAIN(env);
 
     [self updateScriptingInfoFromBundles];
 
@@ -145,6 +151,8 @@ static STApplicationScriptingController *scriptingController = nil;
                                 name:NSBundleDidLoadNotification 
                               object:nil];
 }
+
+/** Include information from loaded modules and bundles. */
 - (void)updateScriptingInfoFromBundles
 {
     STEnvironment *env = [self scriptingEnvironment];
@@ -164,71 +172,66 @@ static STApplicationScriptingController *scriptingController = nil;
     while( (bundle = [enumerator nextObject]) )
     {
 
-        if(![env includeBundle:bundle])
+        /* If bundle provides scripting capabilities, try to include it. */
+        if([bundle scriptingInfoDictionary])
         {
-            NSLog(@"Bundle '%@' is not scriptable.",[bundle bundlePath]);
+            if(![env includeBundle:bundle])
+            {
+                NSLog(@"Failed to include bundle scripting of '%@'.",
+                        [bundle bundlePath]);
+            }
         }
-        
-        /* FIXME: load STObjects from bundle scripting info */
     }
     
     [scannedBundles unionSet:bundles];
 }
 
+/** Called on NSBundleDidLoad notification. You */
 - (void)updateScriptingInfoOnBundleLoad:(NSNotification *)notif
 {
     [self updateScriptingInfoFromBundles];
 }
 
-- (void)addScriptingInfoFromDictionary:(NSDictionary *)info
-{
-    NSDictionary *dict;
-    
-    if(!STAppObjectReferences)
-    {
-        STAppObjectReferences = [[NSMutableDictionary alloc] init];
-    }
-
-    [STAppObjectReferences addEntriesFromDictionary: 
-                                [info objectForKey:@"STObjectReferences"]];
-
-    dict = [info objectForKey:@"STConstantObjectReferences"];
-    
-    [STAppScriptingEnvironment updateReferencesFromDictionary:dict
-                                                       target:[self delegate]];
-}
-
+/** Name of application object */
 - (NSString *)applcationNameForScripting
 {
     return [[NSProcessInfo processInfo] processName];
 }
 
+/** Order the scripts panel into the front. */
 - (void)orderFrontScriptsPanel:(id)sender
 {
     [scriptingController orderFrontScriptsPanel:nil];
 }
 
 /** Return scripting menu. The default menu is provided by 
-STApplicationScriptingController */
+    STApplicationScriptingController */
 - (NSMenu *)scriptingMenu
 {
     return [scriptingController scriptingMenu];
 }
+
 /** Set application Scripting menu */
 - (void)setScriptingMenu:(NSMenu *)menu
 {
     [scriptingController setScriptingMenu:menu];
 }
 
+/** Order the Transcript window into the front. */
 - (void)orderFrontTranscriptWindow:(id)sender
 {
     [scriptingController orderFrontTranscriptWindow:nil];
 }
+
+/** Return YES if scripting is supported, otherwise returns NO. Because
+    this method is called when framework is loaded, allways returns YES. */
 - (BOOL)isScriptingSupported
 {
     return YES;
 }
 
+/** Return object that is responsible for controlling application scriptign 
+*/
 - (STApplicationScriptingController *)scriptingController
 {
     return scriptingController;

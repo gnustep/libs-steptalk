@@ -1,7 +1,7 @@
 {
-    STScriptingInfoClass = StepTalkModule;
+    ScriptingInfoClass = StepTalkModule;
     
-    STClasses = (
+    Classes = (
         STEnvironment,
         STLanguage,
         STScript,

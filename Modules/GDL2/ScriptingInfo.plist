@@ -1,7 +1,7 @@
 {
-    STScriptingInfoClass = STGDL2Module;
+    ScriptingInfoClass = STGDL2Module;
     
-    STClasses = (
+    Classes = (
         /* Classes from EOAccess */
         
         EOAccessArrayFaultHandler,

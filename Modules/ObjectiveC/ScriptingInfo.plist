@@ -1,6 +1,6 @@
 {
-    STScriptingInfoClass = ObjectiveCModule;
-    STClasses = (
+    ScriptingInfoClass = ObjectiveCModule;
+    Classes = (
         ObjectiveCRuntime
     );
 }
