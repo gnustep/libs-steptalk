@@ -42,6 +42,9 @@
     NSMutableArray *objectStack;
     
     BOOL           exitRequest;
+
+    BOOL           updateCompletitionList;
+    NSArray        *completitionList;
 }
 + sharedShell;
 

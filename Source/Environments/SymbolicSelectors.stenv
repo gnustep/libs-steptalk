@@ -38,5 +38,13 @@
                 "/" = "divide:";
             };
         };
+        
+        KeyValueCoding =
+        {
+            SymbolicSelectors = 
+            {
+                "->" = "valueForKeyPath:";
+            };
+        };
     };
 }

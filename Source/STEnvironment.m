@@ -526,7 +526,7 @@
         return;
     }
     
-    NSLog(@"Finder '%@'", path);
+    NSDebugLog(@"Finder '%@'", path);
 
     bundle = [NSBundle bundleWithPath:path];
     if(!bundle)

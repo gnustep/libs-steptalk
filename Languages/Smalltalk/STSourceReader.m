@@ -61,13 +61,6 @@ static NSCharacterSet *validCharacterCharacterSet;
 #define PEEK_CHAR [source characterAtIndex:srcOffset]
 #define GET_CHAR [source characterAtIndex:srcOffset++]
 
-/*
-static unichar (*characterAtIndex)(NSString*, SEL, unsigned int);
-static unichar (*characterIsMember)(NSCharacterSet*, SEL, unichar);
-*/
-
-/* FIXME: temporary (slow) solution */
-
 @interface NSMutableString(CharacterAppending)
 - (void)appendCharacter:(unichar)character;
 @end
@@ -138,11 +131,6 @@ static NSString *_STNormalizeStringToken(NSString *token)
     RETAIN(numericCharacterSet);
     RETAIN(symbolicSelectorCharacterSet);
 
-/*
-    set = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
-    [set formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-    [set formUnionWithCharacterSet:[NSCharacterSet nonBaseCharacterSet]];
-*/
     set = [[NSCharacterSet controlCharacterSet] mutableCopy];
     [set formUnionWithCharacterSet:[NSCharacterSet illegalCharacterSet]];
     [set formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -150,12 +138,6 @@ static NSString *_STNormalizeStringToken(NSString *token)
     validCharacterCharacterSet = RETAIN([set invertedSet]);
     
     RELEASE(set);
-/*
-    characterAtIndex = (unichar (*)(NSString*, SEL, unsigned int))
-        [NSString instanceMethodForSelector: @selector(characterAtIndex:)];
-    characterIsMember = (unichar (*)(NSString*, SEL, unsigned int))
-        [NSCharacterSet instanceMethodForSelector: @selector(characterAtIndex:)];
-*/
 }
 - (void)dealloc
 {
@@ -303,28 +285,43 @@ static NSString *_STNormalizeStringToken(NSString *token)
     }
     else if ( c == '-' || [numericCharacterSet characterIsMember:c])
     {
-        start=srcOffset;
+        BOOL maybesym = (c == '-');
+        
+        start = srcOffset++;
 
         c = GET_CHAR;
+        if(![numericCharacterSet characterIsMember:c] && maybesym)
+        {
+            if([symbolicSelectorCharacterSet characterIsMember:c])
+            {
+                tokenRange = NSMakeRange(start,2);
+            }
+            else
+            {
+                srcOffset--;
+                tokenRange = NSMakeRange(start, 1);
+            }
 
+            return STBinarySelectorTokenType;
+        }
+        
         while([numericCharacterSet characterIsMember:c])
         {
             c = GET_CHAR;
             if(AT_END)
                 break;
         }
-        
-        srcOffset--;
+        srcOffset --;
         tokenRange = NSMakeRange(start,srcOffset - start);
 
-        c = PEEK_CHAR;
-        if([identCharacterSet characterIsMember:c])
+        if([identStartCharacterSet characterIsMember:c])
         {
             tokenRange = NSMakeRange(start,srcOffset - start + 1);
             [NSException raise:STCompilerSyntaxException
-                        format:@"Letters in number"];
+                        format:@"Letter '%c' in number", c];
             return STErrorTokenType;
         }
+        
         return STNumberTokenType;
         
     }

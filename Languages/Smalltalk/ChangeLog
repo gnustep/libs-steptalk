@@ -1,3 +1,9 @@
+2002 Jun 6
+
+    * STSourceReader: fixed bug in reading number token type and binary
+    selectors beginning with the '-' character.
+    * Moved NSObject-additions to the StepTalk sources
+
 2002 May 29
 
     * STCompiledScript: assign return value on executing single-method script

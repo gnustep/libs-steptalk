@@ -72,8 +72,6 @@ int complete_handler(void)
     
     [self initReadline];
 
-    objcSelectors = RETAIN(STAllObjectiveCSelectors());
-    
     objectStack = [[NSMutableArray alloc] init];
     
     [[NSNotificationCenter defaultCenter]
@@ -86,18 +84,30 @@ int complete_handler(void)
     
     return self;
 }
+
+- (void)updateCompletitionList
+{
+    RELEASE(completitionList);
+    
+    completitionList = [[NSMutableArray alloc] init];
+    [completitionList addObjectsFromArray:STAllObjectiveCSelectors()];
+    [completitionList addObjectsFromArray:[env knownObjectNames]];
+    
+    updateCompletitionList = NO;
+}
+
 - (void)dealloc
 {
     RELEASE(objectStack);
+    RELEASE(completitionList);
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [super dealloc];
 }
 -(void)bundleLoaded:(NSNotification *)notif
 {
-    /* FIXME: update only loaded classes */
-    RELEASE(objcSelectors);
-    objcSelectors = RETAIN(STAllObjectiveCSelectors());
+    updateCompletitionList = YES;
 }
 
 - (void)initReadline
@@ -250,19 +260,12 @@ int complete_handler(void)
 
     set = [NSMutableSet set];
     
-    enumerator = [[env knownObjectNames] objectEnumerator];
-    while( (str = [enumerator nextObject]) )
+    if(!completitionList || updateCompletitionList)
     {
-        if( [str hasPrefix:match] )
-        {
-            [set addObject:str];
-        }
+        [self updateCompletitionList];
     }
     
-    /* FIXME: update on change */
-    array = objcSelectors;
-
-    enumerator = [array objectEnumerator];
+    enumerator = [completitionList objectEnumerator];
     while( (str = [enumerator nextObject]) )
     {
         if( [str hasPrefix:match] )

@@ -1,3 +1,11 @@
+2002 Jun 6
+
+    * Added symbolic selector '->' for valueForKeyPath:
+    * StepTalk.stenv: allow whileTrue: and whileFalse: in STBlock
+    * NSObject+additions: moved from Smalltalk; added -isSame: method
+    * DistributedFinder: prevent NSDictionary log when there is no file for 
+    teh requested object; changed NSLogs to NSDebugLLogs with 'STFinder'
+    
 2002 Jun 4
 
     * STEnvironment: new methods -addObjectFinder:name:,

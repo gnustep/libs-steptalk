@@ -45,7 +45,12 @@ static NSDictionary *STDOInfo(NSString *name)
 
     file = STFindResource(name, @"DistributedObjects", @"plist");
     
-    return [NSDictionary dictionaryWithContentsOfFile:file];
+    if(file)
+    {
+        return [NSDictionary dictionaryWithContentsOfFile:file];
+    }
+    
+    return nil;
 }
 
 @implementation STDistributedFinder:NSObject
@@ -67,7 +72,7 @@ static NSDictionary *STDOInfo(NSString *name)
     /* find object on host 'Host' */
     host = [dict objectForKey:@"Host"];
 
-    NSLog(@"Looking up '%@' at '%@'", distantName, host);
+    NSDebugLLog(@"STFinder", @"Looking up '%@' at '%@'", distantName, host);
     obj = [NSConnection rootProxyForConnectionWithRegisteredName:distantName
                                                             host:host];
     if(obj)
@@ -80,7 +85,7 @@ static NSDictionary *STDOInfo(NSString *name)
     
     while( (host = [enumerator nextObject]) )
     {
-        NSLog(@"Looking up '%@' at '%@'", distantName, host);
+        NSDebugLLog(@"STFinder", @"Looking up '%@' at '%@'", distantName, host);
         obj = [NSConnection rootProxyForConnectionWithRegisteredName:distantName
                                                                 host:host];
         if(obj)
@@ -108,7 +113,7 @@ static NSDictionary *STDOInfo(NSString *name)
         return obj;
     }
     
-    NSLog(@"Launching '%@'", toolName);
+    NSDebugLLog(@"STFinder", @"Launching '%@'", toolName);
     task = [NSTask launchedTaskWithLaunchPath:toolName
                                     arguments:[dict objectForKey:@"Arguments"]];
     
@@ -121,7 +126,8 @@ static NSDictionary *STDOInfo(NSString *name)
 
     if(!task)
     {
-        NSLog(@"Unable to launch task '%@'", toolName);
+        NSLog(@"(StepTalk) Unable to launch task '%@'", toolName);
+        return nil;
     }
     
     [NSTimer scheduledTimerWithTimeInterval: delay
