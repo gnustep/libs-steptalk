@@ -1,3 +1,8 @@
+2004 Nov 9 Stefan Urbanek
+
+    * Remove STMethodSignatureForSelector as it was deprecated because of
+    inportability to OSX.
+    
 2004 Sep 6  Stefan Urbanek
 
     * stshell: fix for compiler

@@ -37,8 +37,10 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-#define SELECTOR_TYPES_COUNT 6
+#define SELECTOR_TYPES_COUNT 10
 
+/* Predefined default selector types up to 10 arguments for fast creation.
+   It should be faster than manually constructing the string. */
 static const char *selector_types[] = 
                         {
                             "@8@0:4",
@@ -47,6 +49,10 @@ static const char *selector_types[] =
                             "@20@0:4@8@12@16",
                             "@24@0:4@8@12@16@20",
                             "@28@0:4@8@12@16@20@24" 
+                            "@32@0:4@8@12@16@20@24@28" 
+                            "@36@0:4@8@12@16@20@24@28@32" 
+                            "@40@0:4@8@12@16@20@24@28@32@36" 
+                            "@44@0:4@8@12@16@20@24@28@32@36@40" 
                         };
 
 NSMutableDictionary *STAllObjectiveCClasses(void)
@@ -162,6 +168,8 @@ SEL STCreateTypedSelector(SEL sel)
 
     SEL         newSel;
 
+    NSLog(@"STCreateTypedSelector is deprecated.");
+
     ptr = name;
 
     while(*ptr)
@@ -194,10 +202,51 @@ SEL STCreateTypedSelector(SEL sel)
     return newSel;
 }
 
+NSMethodSignature *STConstructMethodSignatureForSelector(SEL sel)
+{
+    const char *name = sel_get_name(sel);
+    const char *ptr;
+    const char *types = (const char *)0;
+    int         argc = 0;
+
+    ptr = name;
+
+    while(*ptr)
+    {
+        if(*ptr == ':')
+        {
+            argc ++;
+        }
+        ptr++;
+    }
+
+    if( argc < SELECTOR_TYPES_COUNT )
+    {
+        NSDebugLLog(@"STSending",
+                   @"registering selector '%s' "
+                   @"with %i arguments, types:'%s'",
+                    name,argc,selector_types[argc]);
+
+        types = selector_types[argc];
+    }
+
+    if(!types)
+    {
+        [NSException raise:STInternalInconsistencyException
+                     format:@"Unable to construct types for selector '%s'",
+                            name];
+        return 0;
+    }
+
+    return [NSMethodSignature signatureWithObjCTypes:types];
+}
+
 NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 {
     const char *types;
     
+    NSLog(@"STMethodSignatureForSelector is deprecated.");
+
     types = sel_get_type(sel);
     
     if(!types)

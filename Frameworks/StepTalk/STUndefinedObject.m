@@ -62,7 +62,7 @@ STUndefinedObject *STNil = nil;
 
     if(!signature)
     {
-        signature = STMethodSignatureForSelector(sel);
+        signature = STConstructMethodSignatureForSelector(sel);
     }
 
     return signature;

@@ -1,3 +1,8 @@
+2004 Nov 9 Stefan Urbanek
+
+    * Remove STMethodSignatureForSelector as it was deprecated because of
+    inportability to OSX.
+    
 2004 Jul 10 Stefan Urbanek
 
     * Applied patch from Alexander V. Diemand (fixed bug #9595) - fixed

@@ -42,5 +42,8 @@ extern NSArray             *STAllObjectiveCSelectors(void);
 extern NSValue           *STValueFromSelector(SEL sel);
 extern SEL                STSelectorFromValue(NSValue *val);
 extern SEL                STSelectorFromString(NSString *aString);
+extern NSMethodSignature *STConstructMethodSignatureForSelector(SEL sel);
+
+/* Deprecated - remove */
 extern NSMethodSignature *STMethodSignatureForSelector(SEL sel);
 
