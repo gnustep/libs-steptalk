@@ -12,6 +12,7 @@
     NSMutableDictionary *ivars;
     NSMutableDictionary *methods;
 }
++ scriptObject;
 - initWithInstanceVariableNames:(NSString *)names;
 
 - (void)setObject:(id)anObject forVariable:(NSString *)aName;

@@ -48,7 +48,7 @@ StepTalk_OBJC_FILES = \
     STUndefinedObject.m  \
     NSNumber+additions.m \
     NSObject+additions.m \
-    SteptalkScriptingInfo.m
+    StepTalkScriptingInfo.m
 
 STEPTALK_HEADER_FILES = \
     STBundleInfo.h \
