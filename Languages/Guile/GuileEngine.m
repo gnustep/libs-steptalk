@@ -33,16 +33,28 @@
 
 @class NSEnumerator;
 
-int fake_guile_main(int argc, char **argv)
+@implementation GuileEngine
+- (BOOL)understandsCode:(NSString *)code
 {
-    NSString      *sourceCode = (NSString *)argv[1];
-    STEnvironment *env        = (STEnvironment *)argv[2];
-    GuileInterpreter *interp;
+    NSLog(@"Do not know how to chceck if code is Guile.");
+    return NO;
+}
+
+- (id) executeCode:(NSString *)sourceCode 
+       inEnvironment:(STEnvironment *)env
+{
+   GuileInterpreter *interp;
     GuileScript      *script;
     GuileSCM         *result;
     NSEnumerator     *e;
     id               *obj;
-    
+
+
+  /*
+    call this multiple times initializes one interpreter 
+    you are stuck with it until exit 
+  */
+   scm_init_guile();
     gstep_init();
 //    gstep_link_base();
 
@@ -60,31 +72,8 @@ int fake_guile_main(int argc, char **argv)
     [script setUserDictionary:[env objectDictionary]];
     [script setDelegate:sourceCode];
     result = [interp executeScript:script];
-    
-    /* FIXME: ignore result */
-    
-    return 0;
-}
 
-
-@implementation GuileEngine
-- (BOOL)understandsCode:(NSString *)code
-{
-    NSLog(@"Do not know how to chceck if code is Guile.");
-    return NO;
-}
-
-- (id) executeCode:(NSString *)sourceCode 
-       inEnvironment:(STEnvironment *)env
-{
-    char *args[3];
-
-    args[0] = "dummy";
-    args[1] = (char *)sourceCode;
-    args[2] = (char *)env;
-
-    /* FIXME: ugly trick */
-    gh_enter(3, args, fake_guile_main);
+   
 }
 @end
 

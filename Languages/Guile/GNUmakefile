@@ -39,8 +39,4 @@ Guile_BUNDLE_LIBS += -lgstep_guile -lScriptKit $(GUILE_LIBS)
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make
--include GNUMakefile.postamble
-
-STGrammar.m: STGrammar.y
-	$(YACC) -d -pSTC -o$@ $<
-
+-include GNUmakefile.postamble
