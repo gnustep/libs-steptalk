@@ -98,7 +98,7 @@ enum{
 + message;
 - (void) addKeyword:(NSString *)keyword object:object;
 - (NSString *)selector;
-- (NSArray*)args;
+- (NSArray*)arguments;
 @end
 
 

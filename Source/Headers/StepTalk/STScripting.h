@@ -36,8 +36,6 @@
 + (NSString *)className;
 - (Class) classForScripting;
 + (Class) classForScripting;
-
-- (STEnvironment *)scriptingEnvironment;
 @end
 
 

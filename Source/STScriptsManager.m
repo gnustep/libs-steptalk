@@ -36,11 +36,11 @@
 #import <Foundation/NSEnumerator.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSFileManager.h>
+#import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSProcessInfo.h>
 #import <Foundation/NSString.h>
 
 static STScriptsManager *sharedScriptsManager = nil;
-static NSString         *scriptsDomainName = nil;
 
 @implementation STScriptsManager
 
@@ -108,7 +108,6 @@ static NSString         *scriptsDomainName = nil;
     NSEnumerator   *enumerator;
     NSString       *path;
     NSString       *str;
-    NSArray        *bundles;
     NSArray        *paths;
     NSBundle       *bundle;
     
@@ -180,7 +179,6 @@ static NSString         *scriptsDomainName = nil;
     NSString      *path;
     NSString      *file;
     NSString      *str;
-    STScript      *script;
     NSArray       *paths;
 
     paths = [self validScriptSearchPaths];

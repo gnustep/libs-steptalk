@@ -49,8 +49,6 @@ typedef enum
     STCharacterTokenType,           //  $a (any single alphanum character)
     STNumberTokenType,              //  -?[0-9]+
     
-    STMethodTokenType,              //  method token (for chunk reader)
-    
     STEndTokenType
     
 } STTokenType;

@@ -1,7 +1,12 @@
+2002 Aug 27
+
+    * Source/*.m: Cleanup to remove compiler warnings.
+    
 2002 Jun 18
 
     * STScript: new class (from AppTalk)
     * STScriptsManager: new class (from AppTalk)
+    * Modules/StepTalk: new module
 
 2002 Jun 14
 

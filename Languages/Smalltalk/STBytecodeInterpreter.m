@@ -26,12 +26,13 @@
 #import "Externs.h"
 #import "STBlock.h"
 #import "STBlockContext.h"
-#import "STLiterals.h"
 #import "STBytecodes.h"
 #import "STCompiledMethod.h"
 #import "STExecutionContext.h"
-#import "STMethodContext.h"
+#import "STLiterals.h"
 #import "STMessage.h"
+#import "STMethodContext.h"
+#import "STScriptObject.h"
 #import "STStack.h"
 
 #import <StepTalk/STEnvironment.h>
@@ -60,7 +61,6 @@
 
 - (void)sendSelectorAtIndex:(unsigned)index withArgs:(unsigned)argCount;
 
-- (void)setContext:(STExecutionContext *)context;
 - (id)interpret;
 - (void)returnValue:(id)value;
 @end
@@ -69,12 +69,10 @@ static  STBytecodeInterpreter *sharedInterpreter = nil;
 
 static  SEL sendSelectorAtIndexSel;
 static  IMP sendSelectorAtIndexImp;
-static  SEL dispatchBytecodeSel;
-static  IMP dispatchBytecodeImp;
 static  SEL pushSel;
 static  IMP pushImp;
 static  SEL popSel;
-static  id (*popImp)(id obj, SEL sel);
+static  IMP popImp;
 
 static Class NSInvocation_class = nil;
 
@@ -144,7 +142,7 @@ static Class NSInvocation_class = nil;
     [newContext setArgumentsFromArray:args];
     [newContext setReceiver:anObject];
 
-    oldContext = [self context];
+    oldContext = activeContext;
     [self setContext:newContext];
 
     retval = [self interpret];
@@ -452,7 +450,8 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushRecVarBytecode:
-                object = [receiver instanceVariableAtIndex:bytecode.arg1];
+                object = [(STScriptObject *)receiver instanceVariableAtIndex:
+                                                                bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
@@ -477,8 +476,8 @@ static Class NSInvocation_class = nil;
 
     case STPopAndStoreRecVarBytecode:
                 STDebugBytecode(bytecode);
-                [receiver setInstanceVariable:STPop(stack) 
-                                      atIndex:bytecode.arg1];
+                [(STScriptObject *)receiver setInstanceVariable:STPop(stack) 
+                                                        atIndex:bytecode.arg1];
                 break;
 
     case STPopAndStoreExternBytecode: 

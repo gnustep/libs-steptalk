@@ -56,4 +56,9 @@
           forReceiver:(id)anObject
             arguments:(NSArray*)args;
 
+- (void)setContext:(STExecutionContext *)context;
+- (STExecutionContext *)context;
+
+- (id)interpret;
+- (void)halt;
 @end

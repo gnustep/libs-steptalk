@@ -48,7 +48,6 @@
     #define COMPILER (CONTEXT->compiler)
     #define READER   (CONTEXT->reader)
     #define RESULT   (CONTEXT->result)
-
 %}
 
 %pure_parser
@@ -267,7 +266,7 @@ assignments: assignment
 
 assignment: variable_name TK_ASSIGNMENT
                             { $$ = $1;}
-
+;
 cascade: message_expression cascade_list
                             { 
                                 /* FIXME: check if this is this OK */
@@ -326,6 +325,7 @@ keyword_expression: binary_object keyword_expr_list
                                 /**/        messageExpressionWithTarget:$1
                                 /**/        message:$2];
                             }
+;
 keyword_expr_list: keyword binary_object 
                             { 
                                 $$ = [STCMessage message];
@@ -393,7 +393,7 @@ symbol: TK_IDENTIFIER
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
     | TK_KEYWORD
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
-
+;
 %%
 
 int STCerror(const char *str)

@@ -51,10 +51,8 @@ enum
 + (NSString *)defaultEnvironmentDescriptionName;
 
 + descriptionWithName:(NSString *)descriptionName;
-+ descriptionFromFile:(NSString *)fileName;
 + descriptionFromDictionary:(NSDictionary *)dictionary;
 
-- initFromFile:(NSString *)fileName;
 - initWithName:(NSString *)defName;
 - initFromDictionary:(NSDictionary *)def;
 
@@ -62,5 +60,7 @@ enum
 - (void)updateClassWithName:(NSString *)className description:(NSDictionary *)def;
 
 - (NSMutableDictionary *)classes;
+- (NSArray *)modules;
+- (NSArray *)objectFinders;
 @end
 

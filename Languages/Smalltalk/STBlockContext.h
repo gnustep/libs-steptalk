@@ -38,5 +38,5 @@
   stackSize:(unsigned)size;
 - (void)setHomeContext:(STMethodContext *)context;
 - (unsigned)initialIP;
-- (void)initializeIntstructionPointer;
+- (void)resetInstructionPointer;
 @end

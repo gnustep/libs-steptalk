@@ -84,13 +84,16 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 - (void)updateAliasesFromDictionary:(NSDictionary *)def;
 - (void)fixupScriptingDescription;
 - (void)resolveSuperclasses;
+
+- (void)updateUseList:(NSArray *)array;
+- (void)updateModuleList:(NSArray *)array;
+- (void)updateFinderList:(NSArray *)array;
 @end
 
 @implementation STEnvironmentDescription
 + (NSString *)defaultEnvironmentDescriptionName
 {
     NSUserDefaults *defs;
-    NSDictionary   *dict;
     NSString       *name;
     
     defs = [NSUserDefaults standardUserDefaults];

@@ -34,6 +34,8 @@
     NSString *description;
     NSString *language;
 }
++ scriptWithFile:(NSString *)file;
+
 - initWithFile:(NSString *)aFile;
 - (NSString *)fileName;
 - (NSString *)source;

@@ -34,6 +34,7 @@
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STFunctions.h>
 #import <StepTalk/STModule.h>
+#import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STObjectReference.h>
 #import <StepTalk/STUndefinedObject.h>
 #import <StepTalk/STScripting.h>
@@ -77,9 +78,9 @@
    Creates and initialises scripting environment using environment description 
    <var>description</var>.
  */
-+ environmentWithDescription:(NSString *)description
++ environmentWithDescription:(STEnvironmentDescription *)aDescription
 {
-    return AUTORELEASE([[self alloc] initWithDescription:description]);
+    return AUTORELEASE([[self alloc] initWithDescription:aDescription]);
 }
 
 /**
@@ -311,7 +312,7 @@
     STClassInfo *info = nil;
     NSString    *className;
     NSString    *origName;
-    Class       *class;
+    Class        class;
     
     if(!anObject)
     {

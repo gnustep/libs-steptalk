@@ -28,6 +28,7 @@
 #import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STExterns.h>
 
+#import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
@@ -69,12 +70,12 @@ NSMutableDictionary *STAllObjectiveCClasses(void)
     return dict;
 }
 
-NSMutableDictionary *STClassDictionaryWithNames(NSArray *classNames)
+NSDictionary *STClassDictionaryWithNames(NSArray *classNames)
 {
     NSEnumerator        *enumerator = [classNames objectEnumerator];
     NSString            *className;
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    Class               *class;
+    Class                class;
     
     while( (className = [enumerator nextObject]) )
     {
@@ -89,7 +90,7 @@ NSMutableDictionary *STClassDictionaryWithNames(NSArray *classNames)
         }
     }
     
-    return dict;
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 NSValue *STValueFromSelector(SEL sel)
@@ -204,8 +205,8 @@ NSArray *STAllObjectiveCSelectors(void)
     }
     
     /* get rid of duplicates */
-    array = [[NSSet setWithArray:array] allObjects];
-    array = [array sortedArrayUsingSelector:@selector(compare:)];
+    array = (NSMutableArray *)[[NSSet setWithArray:(NSArray *)array] allObjects];
+    array = (NSMutableArray *)[array sortedArrayUsingSelector:@selector(compare:)];
 
     return array;
 }

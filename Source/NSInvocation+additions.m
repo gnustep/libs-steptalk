@@ -39,9 +39,11 @@
 #import <StepTalk/STSelector.h>
 #import <StepTalk/STStructure.h>
 
+#if 0
 static Class NSNumber_class = nil;
 static Class NSString_class = nil;
 static Class NSValue_class = nil;
+#endif
 
 #define CASE_NUMBER_TYPE(otype,type,msgtype)\
             case otype: object = [NSNumber numberWith##msgtype:*((type *)value)];\

@@ -34,6 +34,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSException.h>
 #import <Foundation/NSEnumerator.h>
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSTask.h>

@@ -149,7 +149,7 @@
     return fileName;
 }
 
-- (NSString *)localizedName
+- (NSString *)localizedScriptName
 {
     return localizedName;
 }

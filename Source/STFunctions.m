@@ -30,6 +30,7 @@
 #import <StepTalk/STExterns.h>
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSEnumerator.h>
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSString.h>
