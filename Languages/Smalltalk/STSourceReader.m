@@ -326,10 +326,15 @@ static NSString *_STNormalizeStringToken(NSString *token)
             }
             if(!scannedSomething)
             {
+#if 0
                 tokenRange = NSMakeRange(start,srcOffset - start + 1);
                 [NSException raise:STCompilerSyntaxException
                             format:@"Expected digit after the decimal point"];
                 return STErrorTokenType;
+#endif
+                srcOffset-=2; /* eat next character and the dot */
+                tokenRange = NSMakeRange(start,srcOffset - start);
+                return STIntNumberTokenType;
             }
             scannedSomething = NO;
             isReal = YES;

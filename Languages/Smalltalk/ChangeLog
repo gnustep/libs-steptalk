@@ -1,3 +1,8 @@
+2003 Feb 3
+
+    * STSourceReader: fixed reading of a number terminated with '.', we
+    treat it as an integer. Reader was complaining about i := 1.
+
 2003 Jan 30
 
     * ChangeLog, STBlock.m, STBytecodes.h, 
