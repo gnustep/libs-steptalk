@@ -5,3 +5,8 @@ TODO list
 3 implement NSRect object
 4 write documentation for developers and users
 5 Smalltalk: separate compiler and compilation context
+6 rename modules to bundles, use just .bundle extension and create cote for
+  STEnvironment to handle all bundles with specified protocol (including
+  frameworks)
+7 make GDL2 bundle automatically if GDL2 is present
+8 prevent multiple loading of bundles in STEnvironment
