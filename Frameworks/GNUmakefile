@@ -23,24 +23,9 @@
 #
 
 include $(GNUSTEP_MAKEFILES)/common.make
-include Version
-
-PACKAGE_NAME = StepTalk
-CVS_MODULE_NAME = StepTalk
-
-APPSCRIPT=ApplicationScripting
-
-ifeq ($(appkit),no)
-    APPSCRIPT= 
-endif
 
 SUBPROJECTS = \
-    Frameworks \
-    Languages \
-    Finders \
-    Modules \
-    Tools \
-    $(APPSCRIPT)
+    StepTalk
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make

@@ -65,8 +65,6 @@
 - (void)returnValue:(id)value;
 @end
 
-static  STBytecodeInterpreter *sharedInterpreter = nil;
-
 static  SEL sendSelectorAtIndexSel;
 static  IMP sendSelectorAtIndexImp;
 static  SEL pushSel;
@@ -89,16 +87,17 @@ static Class NSInvocation_class = nil;
 
     NSInvocation_class = [NSInvocation class];
 }
-
-+ (STBytecodeInterpreter *)sharedInterpreter
++ interpreterWithEnvrionment:(STEnvironment *)env
 {
-    if(!sharedInterpreter)
-    {
-        sharedInterpreter = [[self alloc] init];
-    }
-    return sharedInterpreter;
+    return AUTORELEASE([[self alloc] initWithEnvironment:env]);
 }
 
+- initWithEnvironment:(STEnvironment *)env
+{
+    self = [super init];
+    environment = RETAIN(env);
+    return self;
+}
 - (void)setEnvironment:(STEnvironment *)env
 {
     ASSIGN(environment,env);

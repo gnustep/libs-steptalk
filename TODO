@@ -13,3 +13,5 @@ TODO list
 14 Add framework list into environment description
 15 Change Modules to Framework
 16 Remove StepTalk modules
+17 Fill implementation of STScriptObject, STMethod and related STEngine methods
+18 Rewrite Smalltalk compiler (grammar)

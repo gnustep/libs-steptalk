@@ -57,10 +57,6 @@ typedef struct _STParserContext
 /*" Get source reader from parser context "*/
 #define STParserContextGetReader(context)\
             (((STParserContext *)context)->reader)
-#define STParserContextGetResult(context)\
-            (((STParserContext *)context)->result)
-#define STParserContextSetResult(context, c)\
-            ( ASSIGN(((STParserContext *)(context))->result, (c)) )
 
 /*" Initialize parser context "*/
 #define STParserContextInit(context,aCompiler,aReader) \
@@ -76,13 +72,16 @@ typedef struct _STParserContext
     STSourceReader   *reader;
     STParserContext   context;
 
+    STCompiledScript *resultScript;
+    STCompiledMethod *resultMethod;
+    
     NSMutableData    *byteCodes;
     NSMutableArray   *tempVars;
     NSMutableArray   *externVars;
     NSMutableArray   *receiverVars;
     NSMutableArray   *literals;
 
-    STCompiledScript *script;
+    BOOL              isSingleMethod;
     
     unsigned          stackSize;    /* Required stack size */
     unsigned          stackPos;     /* Current stack pointer */
@@ -97,6 +96,8 @@ typedef struct _STParserContext
     Class           realNumberLiteralClass; /* default: NSNumber */
     Class           symbolLiteralClass; /* default: NSString */
 }
++ compilerWithEnvironment:(STEnvironment *)env;
+- initWithEnvironment:(STEnvironment *)env;
 /*" Environment "*/
 - (void)setEnvironment:(STEnvironment *)env;
 - (STSourceReader *)sourceReader;

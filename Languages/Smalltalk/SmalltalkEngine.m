@@ -29,8 +29,10 @@
 #import "STCompiler.h"
 #import "STCompiledCode.h"
 #import "STCompiledScript.h"
+#import "STBytecodeInterpreter.h"
 
 #import <StepTalk/STEnvironment.h>
+#import <StepTalk/STMethod.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 
@@ -76,5 +78,34 @@
     retval = [script executeInEnvironment:env];
 
     return retval;
+}
+
+- (id <STMethod>)methodFromSource:(NSString *)sourceString
+                   forReceiver:(id)receiver
+                 inEnvironment:(STEnvironment *)env
+{
+    STCompiler  *compiler;
+    STCompiledMethod *method;
+    
+    compiler = [STCompiler compilerWithEnvironment:env];
+    
+    method = [compiler compileMethodFromSource:sourceString
+                                   forReceiver:receiver];
+
+    return method;
+}
+- (id)  executeMethod:(id <STMethod>)aMethod
+          forReceiver:(id)anObject
+        withArguments:(NSArray *)args
+        inEnvironment:(STEnvironment *)env
+{
+    STBytecodeInterpreter *interpreter;
+    id                     result;
+    interpreter = [STBytecodeInterpreter interpreterWithEnvrionment:env];
+
+    result = [interpreter interpretMethod:aMethod
+                              forReceiver:anObject
+                                arguments:args];
+    return result;
 }
 @end

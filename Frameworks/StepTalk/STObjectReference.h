@@ -1,9 +1,13 @@
 /**
-    STCompiledMethod.h
+    STObjectReference.h
+    Reference to object in NSDictionary.
  
     Copyright (c) 2002 Free Software Foundation
  
-    This file is part of the StepTalk.
+    Written by: Stefan Urbanek <urbanek@host.sk>
+    Date: 2000
+   
+    This file is part of StepTalk.
  
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -20,29 +24,27 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#import "STCompiledCode.h"
+#import <Foundation/NSObject.h>
 
-#import <StepTalk/STMethod.h>
+@class NSString;
+@class NSMutableDictionary;
 
-@class STMessage;
-
-@interface STCompiledMethod:STCompiledCode<STMethod>
+@interface STObjectReference:NSObject
 {
-    NSString *selector;
-    short     argCount;
-
-//  unsigned primitive; 
+    NSString            *key;
+    NSMutableDictionary *pool;
 }
-+ methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern;
 
--   initWithSelector:(NSString *)sel
-       argumentCount:(unsigned)aCount
-       bytecodesData:(NSData *)data
-            literals:(NSArray *)anArray
-    temporariesCount:(unsigned)tCount
-           stackSize:(unsigned)size
-    externReferences:(NSMutableArray *)refs;
+- initWithObjectName:(NSString *)name 
+                pool:(NSMutableDictionary *)aPool;
+                
+- (void)setObject:anObject;
+- object;
 
-- (NSString *)selector;
-- (unsigned)argumentCount;
+- (NSString *)objectName;
+- (void)setObjectName:(NSString *)newName;
+
+- (NSMutableDictionary *) pool;
+- (void)setPool:(NSMutableDictionary *) aDict;
 @end
+

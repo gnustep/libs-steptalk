@@ -1,9 +1,10 @@
 /**
-    STCompiledMethod.h
+    NSObject-additions.h
+    Various methods for NSObject
  
     Copyright (c) 2002 Free Software Foundation
  
-    This file is part of the StepTalk.
+    This file is part of the StepTalk project.
  
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -18,31 +19,13 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
  */
 
-#import "STCompiledCode.h"
+#import <Foundation/NSObject.h>
 
-#import <StepTalk/STMethod.h>
-
-@class STMessage;
-
-@interface STCompiledMethod:STCompiledCode<STMethod>
-{
-    NSString *selector;
-    short     argCount;
-
-//  unsigned primitive; 
-}
-+ methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern;
-
--   initWithSelector:(NSString *)sel
-       argumentCount:(unsigned)aCount
-       bytecodesData:(NSData *)data
-            literals:(NSArray *)anArray
-    temporariesCount:(unsigned)tCount
-           stackSize:(unsigned)size
-    externReferences:(NSMutableArray *)refs;
-
-- (NSString *)selector;
-- (unsigned)argumentCount;
+@interface NSObject (STAdditions)
+- (BOOL)isSame:(id)anObject;
+- (BOOL)isNil;
+- (BOOL)notNil;
 @end

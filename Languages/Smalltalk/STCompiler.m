@@ -47,6 +47,31 @@
 
 extern int STCparse(void *context);
 
+/* FIXME: rewrite parser 
+
+    We need three kinds of grammars:
+
+    1. <source> = <statements> | <temp_variables> <statements>
+
+    2. <source> = '[|' <method_list> ']'
+       <method_list> = <method> | <method> '!' <method_list>
+       <method> =  <statements> | <temp_variables> <statements>
+
+    3. <source> = <method>
+       <method> =  <statements> | <temp_variables> <statements>
+
+    Parser 1. are 2. are for scripts. Parser 3. is for script object
+    methods. Because majority of the grammar is reused in all three
+    parsers we use only one grammar definition. There is no problem
+    in haveng 1. and 2. in one file. To be able to have 3. in the same
+    file we do a hack: we add a prefix '!!' for method source. Then
+    we diferentiate it in grammar file by changin the rule:
+
+        3. <source> = '!' '!' <method>
+
+    See STGrammar.y
+*/
+
 @interface STCompiler(STCompilerPrivate)
 - (void)compile;
 - (void)initializeContext;
@@ -94,6 +119,17 @@ extern int STCparse(void *context);
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 @implementation STCompiler
++ compilerWithEnvironment:(STEnvironment *)env
+{
+    return AUTORELEASE([[self alloc] initWithEnvironment:env]);
+}
+- initWithEnvironment:(STEnvironment *)env
+{
+    self = [self init];
+    [self setEnvironment:env];
+    return self;
+}
+
 - init
 {
     [super init];
@@ -113,7 +149,20 @@ extern int STCparse(void *context);
     [super dealloc];
 }
 
+- (BOOL)beginScript
+{
+    if(isSingleMethod)
+    {
+        [NSException raise:@"STCompilerException"
+                    format:@"Script source given for single method"];
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 
+}
 /* ---------------------------------------------------------------------------
  * Compilation
  * ---------------------------------------------------------------------------
@@ -124,6 +173,74 @@ extern int STCparse(void *context);
     ASSIGN(environment,env);
 }
 
+- (STCompiledMethod *)compileMethodFromSource:(NSString *)aString
+                                  forReceiver:(id)receiver
+{
+    STCompiledMethod *result;
+    NSString         *hackedSource;
+    NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
+                                   @"reason: %@.";
+    int               parsRetval = 0;
+
+
+    //    NSDebugLLog(@"STCompiler", @"Compile method", aString);
+    NSLog(@"Compile method");
+
+    if(!environment)
+    {
+        [NSException  raise:STCompilerGenericException
+                     format:@"Compilation environment is not initialized"];
+        return nil;
+    }
+        
+    hackedSource = [@"!!" stringByAppendingString:aString];
+    reader = [[STSourceReader alloc] initWithString:hackedSource];
+    receiverVars = [[NSArray alloc] 
+                                initWithArray:[receiver instanceVariableNames]];
+
+    isSingleMethod = YES;   
+    STParserContextInit(&context,self,reader);
+    
+    NS_DURING
+    {
+        // extern int STCdebug;
+        // STCdebug = 1;
+        parsRetval = STCparse(&context);
+    }
+    NS_HANDLER
+    {
+        if ([[localException name] isEqualToString: STCompilerSyntaxException])
+        {
+            NSString *tokenString;
+            int       line;
+            
+            tokenString = [reader tokenString];
+            line = [reader currentLine];
+            RELEASE(reader);
+            RELEASE(receiverVars);
+
+            receiverVars = nil;
+            reader = nil;
+            
+            [NSException  raise:STCompilerSyntaxException
+                         format:exceptionFmt,
+                                line,
+                                tokenString,
+                                [localException reason]];
+                         
+        }
+        [localException raise];
+    }
+    NS_ENDHANDLER
+
+    RELEASE(receiverVars);
+    RELEASE(reader);
+
+    result = AUTORELEASE(resultMethod);
+    resultMethod = nil;
+    
+    return result;
+}
 
 - (STCompiledScript *)compileString:(NSString *)aString
 {
@@ -134,6 +251,8 @@ extern int STCparse(void *context);
 
 
     NSDebugLLog(@"STCompiler", @"Compile string", aString);
+
+    isSingleMethod = NO;
 
     if(!environment)
     {
@@ -182,10 +301,10 @@ extern int STCparse(void *context);
     RELEASE(receiverVars);
     RELEASE(reader);
 
-    result = script;
-    script = nil;
+    result = AUTORELEASE(resultScript);
+    resultScript = nil;
     
-    return AUTORELEASE(result);
+    return result;
 }
 
 - (void)compileMethod:(STCMethod *)method
@@ -194,15 +313,6 @@ extern int STCparse(void *context);
     STCompiledCode   *code;
     STMessage        *messagePattern;
     
-    if(!script)
-    {
-        NSDebugLLog(@"STCompiler",
-                    @"Creating script with %i variables",[receiverVars count]);
-                    
-        script = [[STCompiledScript alloc] initWithVariableCount:
-                                                 [receiverVars count]];
-    }
-
     /* FIXME: unite STCMessage and STMessage */
     messagePattern = (STMessage *)[method messagePattern];
     
@@ -221,7 +331,41 @@ extern int STCparse(void *context);
     compiledMethod = [STCompiledMethod methodWithCode:AUTORELEASE(code)
                                        messagePattern:messagePattern];
                                        
-    [script addMethod:compiledMethod];
+    if(!isSingleMethod)
+    {
+
+        if(resultMethod)
+        {
+            [NSException  raise:@"STCompilerException"
+                         format:@"Method is present when compiling a script"];
+            return;
+        }
+        if(!resultScript)
+        {
+            NSDebugLLog(@"STCompiler",
+                        @"Creating script with %i variables",[receiverVars count]);
+
+            resultScript = [[STCompiledScript alloc] initWithVariableCount:
+                                                     [receiverVars count]];
+        }
+        [resultScript addMethod:compiledMethod];
+    }
+    else
+    {
+        if(resultMethod)
+        {
+            [NSException  raise:@"STCompilerException"
+                         format:@"More than one method compiled for single method request"];
+            return;
+        }
+        if(resultScript)
+        {
+            [NSException  raise:@"STCompilerException"
+                         format:@"Compiled script is present when compiling single method"];
+            return;
+        }
+        resultMethod = RETAIN(compiledMethod);
+    }
 }
 
 - (STCompiledCode *)compileStatements:(STCStatements *)statements

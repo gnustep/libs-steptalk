@@ -1,48 +1,51 @@
 /**
-    STCompiledMethod.h
+    STScriptsManager
+  
+    Copyright (c)2002 Stefan Urbanek
+  
+    Written by: Stefan Urbanek <urbanek@host.sk>
+    Date: 2002 Mar 10
  
-    Copyright (c) 2002 Free Software Foundation
- 
-    This file is part of the StepTalk.
+    This file is part of the StepTalk project.
  
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
     version 2 of the License, or (at your option) any later version.
- 
+
     This library is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     Lesser General Public License for more details.
- 
+  
     You should have received a copy of the GNU Lesser General Public
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
 
-#import "STCompiledCode.h"
+   */
 
-#import <StepTalk/STMethod.h>
+#import <Foundation/NSObject.h>
 
-@class STMessage;
+@class NSArray;
+@class STScript;
 
-@interface STCompiledMethod:STCompiledCode<STMethod>
+@interface STScriptsManager:NSObject
 {
-    NSString *selector;
-    short     argCount;
-
-//  unsigned primitive; 
+    NSString *scriptsDomainName;
+    NSArray  *scriptSearchPaths;
 }
-+ methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern;
++ defaultManager;
 
--   initWithSelector:(NSString *)sel
-       argumentCount:(unsigned)aCount
-       bytecodesData:(NSData *)data
-            literals:(NSArray *)anArray
-    temporariesCount:(unsigned)tCount
-           stackSize:(unsigned)size
-    externReferences:(NSMutableArray *)refs;
+- initWithDomainName:(NSString *)name;
 
-- (NSString *)selector;
-- (unsigned)argumentCount;
+- (NSString *)scriptsDomainName;
+
+- (void)setScriptSearchPathsToDefaults;
+- (NSArray *)scriptSearchPaths;
+- (void)setScriptSearchPaths:(NSArray *)anArray;
+
+- (NSArray *)validScriptSearchPaths;
+- (STScript *)scriptWithName:(NSString*)aString;
+
+- (NSArray *)allScripts;
 @end

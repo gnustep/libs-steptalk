@@ -1,0 +1,17 @@
+/** Common.stenv 
+ *  Common scripting environment description 
+ */
+
+{
+    Name = "Common";
+    
+    Bundles = (CommonEnvironment);
+    
+    Import = ( "SymbolicSelectors", 
+               "Foundation", 
+               "AppKit",
+               "StepTalk"
+             );
+          
+    Applications = ( All );
+}

@@ -22,8 +22,10 @@
 	STEngine = STEngine;
 	STEnvironment = STEnvironment;
 	STLanguage = STLanguage;
+	STMethod = STMethod;
 	STObjectReference = STObjectReference;
 	STScript = STScript;
+	STScriptObject = STScriptObject;
 	STScriptsManager = STScriptsManager;
 	STSelector = STSelector;
 	STUndefinedObject = STUndefinedObject;
@@ -119,6 +121,9 @@
 	"-addClassesWithNames:" = {
 	    STEnvironment = STEnvironment;
 	};
+	"-addMethod:" = {
+	    STScriptObject = STScriptObject;
+	};
 	"-addNamedObjectsFromDictionary:" = {
 	    STEnvironment = STEnvironment;
 	};
@@ -150,6 +155,12 @@
 	    STEngine = STEngine;
 	};
 	"-executeCode:inEnvironment:" = {
+	    STEngine = STEngine;
+	};
+	"-executeMethod:forReceiver:withArguments:inEnvironment:" = {
+	    STEngine = STEngine;
+	};
+	"-executeMethod:forScriptObject:" = {
 	    STEngine = STEngine;
 	};
 	"-fileName" = {
@@ -185,11 +196,17 @@
 	"-initWithFile:" = {
 	    STScript = STScript;
 	};
+	"-initWithInstanceVariableNames:" = {
+	    STScriptObject = STScriptObject;
+	};
 	"-initWithObjectName:pool:" = {
 	    STObjectReference = STObjectReference;
 	};
 	"-initWithSelector:" = {
 	    STSelector = STSelector;
+	};
+	"-instanceVariableNames" = {
+	    STScriptObject = STScriptObject;
 	};
 	"-isClass" = {
 	    "(STScripting)" = STScripting;
@@ -207,13 +224,34 @@
 	    STScript = STScript;
 	};
 	"-languageName" = {
+	    "(STMethod)" = STMethod;
 	    STLanguage = STLanguage;
+	    STMethod = STMethod;
 	};
 	"-loadModule:" = {
 	    STEnvironment = STEnvironment;
 	};
 	"-localizedName" = {
 	    STScript = STScript;
+	};
+	"-methodDictionary" = {
+	    STScriptObject = STScriptObject;
+	};
+	"-methodFromSource:forReceiver:inEnvironment:" = {
+	    STEngine = STEngine;
+	};
+	"-methodFromSource:forScriptObject:" = {
+	    STEngine = STEngine;
+	};
+	"-methodName" = {
+	    "(STMethod)" = STMethod;
+	    STMethod = STMethod;
+	};
+	"-methodNames" = {
+	    STScriptObject = STScriptObject;
+	};
+	"-methodWithName:" = {
+	    STScriptObject = STScriptObject;
 	};
 	"-namedObjects" = {
 	    STBundleInfo = STBundleInfo;
@@ -226,6 +264,9 @@
 	};
 	"-objectDictionary" = {
 	    STEnvironment = STEnvironment;
+	};
+	"-objectForVariable:" = {
+	    STScriptObject = STScriptObject;
 	};
 	"-objectName" = {
 	    STObjectReference = STObjectReference;
@@ -250,6 +291,12 @@
 	};
 	"-registerObjectFinderNamed:" = {
 	    STEnvironment = STEnvironment;
+	};
+	"-removeMethod:" = {
+	    STScriptObject = STScriptObject;
+	};
+	"-removeMethodWithName:" = {
+	    STScriptObject = STScriptObject;
 	};
 	"-removeObjectFinderWithName:" = {
 	    STEnvironment = STEnvironment;
@@ -299,6 +346,9 @@
 	"-setObject:forName:" = {
 	    STEnvironment = STEnvironment;
 	};
+	"-setObject:forVariable:" = {
+	    STScriptObject = STScriptObject;
+	};
 	"-setObjectName:" = {
 	    STObjectReference = STObjectReference;
 	};
@@ -312,6 +362,8 @@
 	    STScriptsManager = STScriptsManager;
 	};
 	"-source" = {
+	    "(STMethod)" = STMethod;
+	    STMethod = STMethod;
 	    STScript = STScript;
 	};
 	"-stringValue" = {
@@ -352,6 +404,9 @@
 	Headers/StepTalk/STLanguage.h = (
 	    ../Documentation/Reference/STLanguage.gsdoc
 	);
+	Headers/StepTalk/STMethod.h = (
+	    ../Documentation/Reference/STMethod.gsdoc
+	);
 	Headers/StepTalk/STObjCRuntime.h = (
 	    ../Documentation/Reference/STObjCRuntime.gsdoc
 	);
@@ -360,6 +415,9 @@
 	);
 	Headers/StepTalk/STScript.h = (
 	    ../Documentation/Reference/STScript.gsdoc
+	);
+	Headers/StepTalk/STScriptObject.h = (
+	    ../Documentation/Reference/STScriptObject.gsdoc
 	);
 	Headers/StepTalk/STScripting.h = (
 	    ../Documentation/Reference/STScripting.gsdoc
@@ -375,6 +433,7 @@
 	);
     };
     protocol = {
+	"(STMethod)" = STMethod;
 	"(STScripting)" = STScripting;
     };
     source = {
@@ -402,6 +461,9 @@
 	Headers/StepTalk/STLanguage.h = (
 	    STLanguage.m
 	);
+	Headers/StepTalk/STMethod.h = (
+	    STMethod.m
+	);
 	Headers/StepTalk/STObjCRuntime.h = (
 	    STObjCRuntime.m
 	);
@@ -410,6 +472,9 @@
 	);
 	Headers/StepTalk/STScript.h = (
 	    STScript.m
+	);
+	Headers/StepTalk/STScriptObject.h = (
+	    STScriptObject.m
 	);
 	Headers/StepTalk/STScripting.h = (
 	    STScripting.m
@@ -429,8 +494,10 @@
 	STEngine = NSObject;
 	STEnvironment = NSObject;
 	STLanguage = NSBundle;
+	STMethod = NSObject;
 	STObjectReference = NSObject;
 	STScript = NSObject;
+	STScriptObject = NSObject;
 	STScriptsManager = NSObject;
 	STSelector = NSObject;
 	STUndefinedObject = NSObject;
@@ -444,9 +511,11 @@
 	STExterns = "STExterns autogsdoc generated documentation";
 	STFunctions = "STFunctions autogsdoc generated documentation";
 	STLanguage = "STLanguage class documentation";
+	STMethod = "STMethod autogsdoc generated documentation";
 	STObjCRuntime = "STObjCRuntime autogsdoc generated documentation";
 	STObjectReference = "STObjectReference class documentation";
 	STScript = "STScript class documentation";
+	STScriptObject = "STScriptObject class documentation";
 	STScripting = "STScripting protocol documentation";
 	STScriptsManager = "STScriptsManager class documentation";
 	STSelector = "STSelector class documentation";
@@ -454,6 +523,11 @@
 	StepTalk = "StepTalk Documentation";
     };
     unitmethods = {
+	"(STMethod)" = {
+	    "-languageName" = STMethod;
+	    "-methodName" = STMethod;
+	    "-source" = STMethod;
+	};
 	"(STScripting)" = {
 	    "+classForScripting" = STScripting;
 	    "+className" = STScripting;
@@ -495,6 +569,10 @@
 	    "-defaultEnvironment" = STEngine;
 	    "-executeCode:" = STEngine;
 	    "-executeCode:inEnvironment:" = STEngine;
+	    "-executeMethod:forReceiver:withArguments:inEnvironment:" = STEngine;
+	    "-executeMethod:forScriptObject:" = STEngine;
+	    "-methodFromSource:forReceiver:inEnvironment:" = STEngine;
+	    "-methodFromSource:forScriptObject:" = STEngine;
 	    "-setDefaultEnvironment:" = STEngine;
 	    "-understandsCode:" = STEngine;
 	};
@@ -536,6 +614,11 @@
 	    "-engine" = STLanguage;
 	    "-languageName" = STLanguage;
 	};
+	STMethod = {
+	    "-languageName" = STMethod;
+	    "-methodName" = STMethod;
+	    "-source" = STMethod;
+	};
 	STObjectReference = {
 	    "-initWithObjectName:pool:" = STObjectReference;
 	    "-object" = STObjectReference;
@@ -555,6 +638,18 @@
 	    "-scriptDescription" = STScript;
 	    "-scriptName" = STScript;
 	    "-source" = STScript;
+	};
+	STScriptObject = {
+	    "-addMethod:" = STScriptObject;
+	    "-initWithInstanceVariableNames:" = STScriptObject;
+	    "-instanceVariableNames" = STScriptObject;
+	    "-methodDictionary" = STScriptObject;
+	    "-methodNames" = STScriptObject;
+	    "-methodWithName:" = STScriptObject;
+	    "-objectForVariable:" = STScriptObject;
+	    "-removeMethod:" = STScriptObject;
+	    "-removeMethodWithName:" = STScriptObject;
+	    "-setObject:forVariable:" = STScriptObject;
 	};
 	STScriptsManager = {
 	    "+defaultManager" = STScriptsManager;

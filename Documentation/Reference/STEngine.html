@@ -9,9 +9,7 @@
     <h1><a name="title$STEngine">STEngine class documentation</a></h1>
     <h3>Authors</h3>
     <dl>
-      <dt>Stefan Urbanek(<a href="mailto:urbanek@host.sk"><code>
-        urbanek@host.sk
-      </code></a>)</dt>
+      <dt>Stefan Urbanek (<a href="mailto:urbanek@host.sk"><code>urbanek@host.sk</code></a>)</dt>
       <dd>
       </dd>
     </dl>
@@ -43,6 +41,10 @@
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-defaultEnvironment">-defaultEnvironment</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeCode:">-executeCode:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeCode:inEnvironment:">-executeCode:inEnvironment:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeMethod:forReceiver:withArguments:inEnvironment:">-executeMethod:forReceiver:withArguments:inEnvironment:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeMethod:forScriptObject:">-executeMethod:forScriptObject:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forReceiver:inEnvironment:">-methodFromSource:forReceiver:inEnvironment:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forScriptObject:">-methodFromSource:forScriptObject:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-setDefaultEnvironment:">-setDefaultEnvironment:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-understandsCode:">-understandsCode:</a></li>
     </ul>
@@ -92,6 +94,22 @@ Subclasses <strong>should</strong> override this method.<br />
             an environment <var>env</var>. This is the method, that
             has to be implemented by those who are writing a
             language engine.
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-executeMethod:forReceiver:withArguments:inEnvironment:">executeMethod:forReceiver:withArguments:inEnvironment:</a></h3>
+    - (id) <b>executeMethod:</b> (id&#60;<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod<b> forReceiver:</b> (id)anObject<b> withArguments:</b> (NSArray*)args<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="method$STEngine-methodFromSource:forReceiver:inEnvironment:">methodFromSource:forReceiver:inEnvironment:</a></h3>
+    - (<a rel="gsdoc" href="STMethod.html#class$STMethod">STMethod</a>*) <b>methodFromSource:</b> (NSString*)sourceString<b> forReceiver:</b> (id)receiver<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
           
     </p>
     <hr width="25%" align="left" />

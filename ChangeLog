@@ -1,3 +1,8 @@
+2003 Aug 6
+
+    * Frameworks: new directory
+    * Changed StepTalk from library to framework
+    
 2003 Aug 5  Stefan Urbanek <urbanek@host.sk>
     
     * Added STScriptObject and STMethod.

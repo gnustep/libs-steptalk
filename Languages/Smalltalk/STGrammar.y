@@ -71,17 +71,26 @@ source: /* empty string */  {
                             }
 
 
-    |   single_method       {
+    |   plain_code       {
                                 [COMPILER compileMethod:$1];
                             }
         
+    /* FIXME: this is a hack */
+    |   TK_SEPARATOR TK_SEPARATOR method              
+                            {
+                                [COMPILER compileMethod:$1];
+                            }
+                            
     | 
         TK_BLOCK_OPEN TK_BAR
+                            {
+                                [COMPILER beginScript];
+                            }
             methods 
-        TK_BLOCK_CLOSE
+        TK_BLOCK_CLOSE      
 ;
 
-single_method: statements
+plain_code: statements
                             {
                                 $$ =  [STCMethod methodWithPattern:nil
                                 /**/                    statements:$1];

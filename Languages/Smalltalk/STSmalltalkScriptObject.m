@@ -128,8 +128,7 @@
         NSDebugLLog(@"STEngine",
                    @"creating new interpreter for script '%@'",
                    name);
-        interpreter = [[STBytecodeInterpreter alloc] init];
-        [interpreter setEnvironment:environment];
+        interpreter = [[STBytecodeInterpreter alloc] initWithEnvironment:environment];
     }
     
 

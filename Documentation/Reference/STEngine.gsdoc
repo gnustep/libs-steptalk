@@ -65,6 +65,30 @@
             language engine.
           </desc>
         </method>
+        <method type="id">
+          <sel>executeMethod:</sel>
+          <arg type="id&lt;STMethod&gt;">aMethod</arg>
+          <sel>forReceiver:</sel>
+          <arg type="id">anObject</arg>
+          <sel>withArguments:</sel>
+          <arg type="NSArray*">args</arg>
+          <sel>inEnvironment:</sel>
+          <arg type="STEnvironment*">env</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="STMethod*">
+          <sel>methodFromSource:</sel>
+          <arg type="NSString*">sourceString</arg>
+          <sel>forReceiver:</sel>
+          <arg type="id">receiver</arg>
+          <sel>inEnvironment:</sel>
+          <arg type="STEnvironment*">env</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
         <method type="void">
           <sel>setDefaultEnvironment:</sel>
           <arg type="STEnvironment*">anEnvironment</arg>
