@@ -23,6 +23,9 @@ You can download StepTalk from
 
 Installation
 ------------
+
+You need to have GNUstep which you can get from http://www.gnustep.org
+
 To install StepTalk type:
 
     > make

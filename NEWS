@@ -1,4 +1,5 @@
-0.6.3
+0.7.0
+
     * Added ability to use any bundle or framework for scripting 
     * Moved scripting information from bundle info dictionary into separate
     file.
@@ -8,7 +9,7 @@
     * Small improvements and bug-fixes.
 
     IMPORTANT NOTE: You have to rebuild and reinstall all modules, because the
-    format has changed.
+    bundle format has changed.
 
 0.6.2
 
