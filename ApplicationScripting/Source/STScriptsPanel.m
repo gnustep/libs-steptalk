@@ -117,7 +117,6 @@ static NSString *NameColumn = @"NameColumn";
 
     if(script)
     {
-        NSLog(@"HEHEHEHERE");
         [delegate executeScript:script];
     }
 }
@@ -135,6 +134,7 @@ static NSString *NameColumn = @"NameColumn";
     {
     case 1: [self update:nil]; break;
     case 2: [self browse:nil]; break;
+    case 3: [self showHelp:nil]; break;
     }
 }
 - (void)browse:(id)sender
@@ -158,7 +158,6 @@ static NSString *NameColumn = @"NameColumn";
 
 - (STScript *)selectedScript
 {
-    NSLog(@"SL %i", [scriptList selectedRowInColumn:0]);
     if([scriptList selectedCell])
     {
         return [scripts objectAtIndex:[scriptList selectedRowInColumn:0]];
@@ -189,5 +188,23 @@ static NSString *NameColumn = @"NameColumn";
     [cell setLeaf:YES];
     name = [[scripts objectAtIndex:row] localizedName];
     [cell setStringValue:name];
+}
+- (void)showHelp:(id)sender
+{
+	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+	NSString *file;
+    
+    file = [bundle pathForResource: @"ApplicationScripting" 
+                            ofType: @"xlp"]; 
+ 
+	if (file) 
+    {
+		[[NSWorkspace sharedWorkspace] openFile: file];
+		return;
+   	}
+    else
+    {
+        NSBeep();
+    }
 }
 @end

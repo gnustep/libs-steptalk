@@ -47,7 +47,9 @@ ApplicationScripting_RESOURCE_FILES = ScriptingInfo.plist
 ApplicationScripting_LOCALIZED_RESOURCE_FILES = \
         ScriptsPanel.gorm \
         TranscriptWindow.gorm \
-        ScriptingMenu.gorm
+        ScriptingMenu.gorm \
+#        ApplicationScripting.xlp \
+#        StepTalk.tiff
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make

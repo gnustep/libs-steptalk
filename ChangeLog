@@ -1,3 +1,7 @@
+2003 Mar 30  Stefan Urbanek <urbanek@host.sk>
+
+    * WISH: new file
+
 2003 Mar 25
 
     * STScriptsManager: new method setScriptSearchPathsToDefaults; new method 
