@@ -1,6 +1,8 @@
 Application Scripting
 ---------------------
 
+NOTE: This is obsolete!
+
 To make your applications scriptable, you have to make and install AppTalk
 library.
 
