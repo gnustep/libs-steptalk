@@ -1,3 +1,7 @@
+2002 Jun 10
+
+    * NSObject+additions: removed -className as it was added to the base library
+
 2002 Jun 8
 
     * STEnvironmentDescription: added module amd finder list; little code 

@@ -2,8 +2,6 @@
 
 main
     
-    array := #(A B C D E F G H).
-    
     self testBlock.
     self testExceptions.
     ^self
@@ -11,14 +9,26 @@ main
 !    
 
 testBlock
-    | count |
+    | count array |
 
     Transcript showLine:'> Block test'.
     
+    array := #( ).
+    1 to: 5 do: [ :i | array addObject:i ].
+
     count := 0.
     array do: [ :element | count := count + 1. ].
 
-   Transcript showLine:'    Count ', (count stringValue).
+    Transcript showLine:'count ', (count stringValue).
+    
+    array do: [ :i |
+        array do: [ :j |
+            Transcript show:((i stringValue), (j stringValue),' ').
+        
+        ].
+        Transcript show:'\n'.
+    ].
+    
     ^self
     
     

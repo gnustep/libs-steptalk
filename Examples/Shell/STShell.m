@@ -91,7 +91,6 @@ int complete_handler(void)
     
     completitionList = [[NSMutableArray alloc] init];
     [completitionList addObjectsFromArray:STAllObjectiveCSelectors()];
-    [completitionList addObjectsFromArray:[env knownObjectNames]];
     
     updateCompletitionList = NO;
 }
@@ -269,6 +268,15 @@ int complete_handler(void)
     }
     
     enumerator = [completitionList objectEnumerator];
+    while( (str = [enumerator nextObject]) )
+    {
+        if( [str hasPrefix:match] )
+        {
+            [set addObject:str];
+        }
+    }
+
+    enumerator = [[env knownObjectNames] objectEnumerator];
     while( (str = [enumerator nextObject]) )
     {
         if( [str hasPrefix:match] )

@@ -80,7 +80,7 @@
             obj = [[obj allObjects] sortedArrayUsingSelector:@selector(compare:)];
             for(i = 0;i<[obj count]; i++)
             {
-                printf("%s\n", i, 
+                printf("%s\n", 
                        [self displayCStringForObject:[obj objectAtIndex:i]]); 
             }
             

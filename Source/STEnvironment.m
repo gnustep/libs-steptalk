@@ -182,7 +182,7 @@
 */
 - (void)addClassesWithNames:(NSArray *)names
 {
-    [self addNamedObjectsFromDictionary:STClassDictionaryFromNames(names)];
+    [self addNamedObjectsFromDictionary:STClassDictionaryWithNames(names)];
 }
 
 /**
@@ -414,6 +414,7 @@
     STClassInfo *class;
     NSString    *selector;
 
+    selector = [selectorCache objecForKey:aString]
     class = [self findClassInfoForObject:anObject];
 
     NSDebugLLog(@"STSending",

@@ -70,7 +70,7 @@ NSMutableDictionary *STAllObjectiveCClasses(void)
     return dict;
 }
 
-NSMutableDictionary *STClassDictionaryFromNames(NSArray *classNames)
+NSMutableDictionary *STClassDictionaryWithNames(NSArray *classNames)
 {
     NSEnumerator        *enumerator = [classNames objectEnumerator];
     NSString            *className;

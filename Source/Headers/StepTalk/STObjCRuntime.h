@@ -34,7 +34,7 @@
 
 extern NSMutableDictionary *STAllObjectiveCClasses(void);
 extern NSMutableDictionary *STGetFoundationConstants(void);
-extern NSMutableDictionary *STClassDictionaryFromNames(NSArray *classNames);
+extern NSMutableDictionary *STClassDictionaryWithNames(NSArray *classNames);
 extern NSArray             *STAllObjectiveCSelectors(void);
 
 extern NSValue *STValueFromSelector(SEL sel);
