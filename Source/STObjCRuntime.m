@@ -154,10 +154,60 @@ SEL STSelectorFromString(NSString *aString)
     return sel;
 }
 
+SEL STCreateTypedSelector(SEL sel)
+{
+    const char *name = sel_get_name(sel);
+    const char *ptr;
+    int         argc = 0;
+
+    SEL         newSel;
+
+    ptr = name;
+
+    while(*ptr)
+    {
+        if(*ptr == ':')
+        {
+            argc ++;
+        }
+        ptr++;
+    }
+
+    if( argc < SELECTOR_TYPES_COUNT )
+    {
+        NSDebugLLog(@"STSending",
+                   @"registering selector '%s' "
+                   @"with %i arguments, types:'%s'",
+                    name,argc,selector_types[argc]);
+
+        newSel = sel_register_typed_name(name, selector_types[argc]);
+    }
+
+    if(!newSel)
+    {
+        [NSException raise:STInternalInconsistencyException
+                     format:@"Unable to register typed selector '%s'",
+                            name];
+        return NULL;
+    }
+
+    return newSel;
+}
+
 NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 {
-    return [NSMethodSignature signatureWithObjCTypes:sel_get_type(sel)];
+    char *types;
+    
+    types = sel_get_type(sel);
+    
+    if(!types)
+    {
+        sel = STCreateTypedSelector(sel);
+        types = sel_get_type(sel);
+    }
+    return [NSMethodSignature signatureWithObjCTypes:types];
 }
+
 
 static NSArray *selectors_from_list(struct objc_method_list *methods)
 {

@@ -2,6 +2,7 @@
 
     * NSInvocation+additions: added unknown selector creation; created a
     workaround for gnustep DO bug
+    * STObjCRuntime: Fixed creation of signature.
 
 2003 May 11 Stefan Urbanek <urbanek@host.sk>
 

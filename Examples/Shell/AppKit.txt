@@ -33,7 +33,7 @@ How to open a file using the open panel
 Text
 ----
 
-How to display an RTF file
+How to display a RTF file
 
     > text := NSAttributedString alloc
     > text initWithPath: file documentAttributes:nil
