@@ -1,7 +1,7 @@
 StepTalk
 --------
 
-Ahthor: Stefan Urbanek  <urbanek@host.sk>
+Ahthor: Stefan Urbanek (Google the name for contact)
 License: LGPL (see file COPYING)
 
 
@@ -21,7 +21,7 @@ StepTalk requires GNUstep http://www.gnustep.org
 
 You can download StepTalk from 
 
-    http://steptalk.host.sk
+    http://www.gnustep.org/experience/StepTalk.html
 
 Documentation for users and developers:
 
@@ -107,5 +107,6 @@ See Documentation/Defaults.txt
 
 Feedback
 --------
-Any bug reports and comments are welcome at
-<urbanek@host.sk>
+Send comments, questions and suggestions to: discus-gnustep@gnu.org
+
+Send bug reports to: bug-gnustep@gnu.org
