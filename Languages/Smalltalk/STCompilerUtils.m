@@ -11,7 +11,6 @@
 #import "STCompiler.h"
 
 #import "STCompilerUtils.h"
-#import "STGrammar.m.h"
 #import "STSourceReader.h"
 
 #import <StepTalk/STExterns.h>

@@ -87,6 +87,7 @@
 /*        NSSimpleHorizontalTypesetter,*/
         NSSlider,
         NSSliderCell,
+        NSSound,
         NSSpellChecker,
         NSSpellServer,
         NSSplitView,

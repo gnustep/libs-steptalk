@@ -31,6 +31,7 @@
 #import "STCompiledMethod.h"
 #import "STCompilerUtils.h"
 #import "STSourceReader.h"
+#import "Externs.h"
 
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STObjectReference.h>
@@ -38,12 +39,11 @@
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSAutoreleasePool.h>
-#import <Foundation/NSDebug.h>
 #import <Foundation/NSData.h>
+#import <Foundation/NSDebug.h>
+#import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSValue.h>
-
-#import "STGrammar.m.h"
 
 extern int STCparse(void *context);
 
@@ -53,7 +53,7 @@ extern int STCparse(void *context);
 - (unsigned)tempVariableIndex:(NSString *)varName;
 - (unsigned)externalVariableIndex:(NSString *)varName;
 
-- (void) initializeCompilation;
+- (void) initializeCompilationContext;
 
 - (NSDictionary *)exceptionInfo;
 
@@ -82,6 +82,10 @@ extern int STCparse(void *context);
 - (void)emitDuplicateStackTop;
 - (void)emitJump:(short)offset;
 - (void)emitLongJump:(short)offset;
+- (void)emitPushNil;
+- (void)emitPushTrue;
+- (void)emitPushFalse;
+
 - (void)fixupLongJumpAt:(unsigned)index with:(short)offset;
 - (unsigned)currentBytecode;
 @end
@@ -705,7 +709,7 @@ extern int STCparse(void *context);
     NSDictionary *dict;
     
     dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                            [reader currentLine], 
+                            [NSNumber numberWithInt:[reader currentLine]], 
                                 @"LineNumber", 
                             [reader tokenString], 
                                 @"Token",      

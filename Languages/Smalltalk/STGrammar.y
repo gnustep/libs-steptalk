@@ -32,6 +32,7 @@
     #import "STCompiler.h"
     #import "STCompilerUtils.h"
     #import "STSourceReader.h"
+    #import "Externs.h"
     
     #import <StepTalk/STExterns.h>
 
@@ -47,7 +48,6 @@
     #define COMPILER (CONTEXT->compiler)
     #define READER   (CONTEXT->reader)
     #define RESULT   (CONTEXT->result)
-
 %}
 
 %pure_parser
@@ -266,7 +266,7 @@ assignments: assignment
 
 assignment: variable_name TK_ASSIGNMENT
                             { $$ = $1;}
-
+;
 cascade: message_expression cascade_list
                             { 
                                 /* FIXME: check if this is this OK */
@@ -325,6 +325,7 @@ keyword_expression: binary_object keyword_expr_list
                                 /**/        messageExpressionWithTarget:$1
                                 /**/        message:$2];
                             }
+;
 keyword_expr_list: keyword binary_object 
                             { 
                                 $$ = [STCMessage message];
@@ -378,7 +379,8 @@ literal: TK_NUMBER
     | TK_ARRAY_OPEN array TK_RPAREN
                         { $$ = [COMPILER createArrayLiteralFrom:$2]; }
 ;
-array: literal                   { $$ = [NSMutableArray array]; 
+array: /* nothing */    { $$ = [NSMutableArray array]; }
+    | literal                   { $$ = [NSMutableArray array]; 
                                    [$$ addObject:$1]; }
     | symbol                     { $$ = [NSMutableArray array];
                                    [$$ addObject:$1]; }
@@ -391,7 +393,7 @@ symbol: TK_IDENTIFIER
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
     | TK_KEYWORD
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
-
+;
 %%
 
 int STCerror(const char *str)

@@ -42,4 +42,6 @@
 
 - (NSDictionary *)namedObjects;
 - (NSBundle *)bundle;
+
+- (NSArray *)providedClasses;
 @end

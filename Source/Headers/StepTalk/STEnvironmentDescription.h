@@ -1,6 +1,5 @@
 /**
-    STEnvironmentDescription.m
-    Script executor
+    STEnvironmentDescription.h
  
     Copyright (c) 2002 Free Software Foundation
  
@@ -44,16 +43,16 @@ enum
     NSMutableDictionary *classes;
     NSMutableDictionary *behaviours;
     NSMutableDictionary *aliases;
+    NSMutableArray      *modules;
+    NSMutableArray      *finders;
 
     int                  restriction;
 }
 + (NSString *)defaultEnvironmentDescriptionName;
 
 + descriptionWithName:(NSString *)descriptionName;
-+ descriptionFromFile:(NSString *)fileName;
 + descriptionFromDictionary:(NSDictionary *)dictionary;
 
-- initFromFile:(NSString *)fileName;
 - initWithName:(NSString *)defName;
 - initFromDictionary:(NSDictionary *)def;
 
@@ -61,5 +60,7 @@ enum
 - (void)updateClassWithName:(NSString *)className description:(NSDictionary *)def;
 
 - (NSMutableDictionary *)classes;
+- (NSArray *)modules;
+- (NSArray *)objectFinders;
 @end
 

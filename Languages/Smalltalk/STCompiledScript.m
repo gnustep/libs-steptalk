@@ -113,7 +113,8 @@ static SEL finalizeSelector;
         SEL       sel = STSelectorFromString(selName);
 
         NSDebugLog(@"Executing single-method script. (%@)", selName);
-        [object performSelector:sel];
+
+        retval = [object performSelector:sel];
     }
     else if(![object respondsToSelector:mainSelector])
     {

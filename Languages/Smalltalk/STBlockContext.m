@@ -66,20 +66,16 @@
 }
 - (void)invalidate
 {
-    [self setParrentContext:nil];
+    [self setHomeContext:nil];
 }
-- (BOOL)isInvalid
+- (BOOL)isValid
 {
-    return (!parrentContext);
+    return [homeContext isValid];
 }
 
 - (unsigned)initialIP
 {
     return initialIP;
-}
-- (void)initializeIntstructionPointer
-{
-    [self setInstructionPointer:initialIP];
 }
 
 - temporaryAtIndex:(unsigned)index;
@@ -100,18 +96,21 @@
     [homeContext setExtern:anObject atIndex:index];
 }
 
-- (void) forceReturn
-{
-    NSDebugLLog(@"STBytecodeInterpreter",
-                @"!!! force return from block context");
-    [interpreter forceReturnFromBlockContext];
-}
 - (STBytecodes *)bytecodes
 {
     return [homeContext bytecodes];
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalAtIndex:(unsigned)index
 {
-    return [homeContext literalObjectAtIndex:index];
+    return [homeContext literalAtIndex:index];
+}
+- (id)receiver
+{
+    return [homeContext receiver];
+}
+
+- (void)resetInstructionPointer
+{
+    [self setInstructionPointer:initialIP];
 }
 @end

@@ -32,7 +32,9 @@
 #import <StepTalk/STModule.h>
 #import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STObjectReference.h>
+#import <StepTalk/STScript.h>
 #import <StepTalk/STScripting.h>
+#import <StepTalk/STScriptsManager.h>
 #import <StepTalk/STUndefinedObject.h>
 
 #import <StepTalk/NSInvocation+additions.h>

@@ -26,12 +26,13 @@
 #import "Externs.h"
 #import "STBlock.h"
 #import "STBlockContext.h"
-#import "STLiterals.h"
 #import "STBytecodes.h"
 #import "STCompiledMethod.h"
 #import "STExecutionContext.h"
-#import "STMethodContext.h"
+#import "STLiterals.h"
 #import "STMessage.h"
+#import "STMethodContext.h"
+#import "STScriptObject.h"
 #import "STStack.h"
 
 #import <StepTalk/STEnvironment.h>
@@ -51,47 +52,29 @@
 #import  <objc/encoding.h>
 
 @interface STBytecodeInterpreter(STPrivateMethods)
-- (void)fetchContextRegisters;
-
 - (short)fetchBytecode;
 - (BOOL)dispatchBytecode:(STBytecode)bytecode;
 - (void)invalidBytecode:(STBytecode)bytecode;
 
 - (void)setInstructionPointer:(unsigned)newIP;
-- (unsigned) instructionPointer;
-
-- temporaryAtIndex:(unsigned)index;
-- externAtIndex:(unsigned)index;
-- literalAtIndex:(unsigned)index;
-- (void)setTemporary:anObject atIndex:(unsigned)index;
-- (void)registerObject:anObject withName:(NSString *)name;
+- (unsigned)instructionPointer;
 
 - (void)sendSelectorAtIndex:(unsigned)index withArgs:(unsigned)argCount;
 
-- (void)resolveExternReferencesFrom:(NSArray *)array;
-
-- (void)setArgumentsFromArray:(NSArray *)args;
-- (void)prepareHomeContextWithMethod:(STCompiledMethod *)aMethod;
-- (id)  interpretInContext:(STExecutionContext *)context;
-- (void)setNewActiveContext:(STExecutionContext *)newContext;
-- (void)fetchContextRegisters;
-- (void)blockCopyWithInfo:(STBlockLiteral *)info;
-- (id)  valueOfBlockContext:(STBlockContext *)block;
-- (void)blockReturnValue:(id)value;
+- (id)interpret;
 - (void)returnValue:(id)value;
-- (void)returnToContext:(STExecutionContext *)context;
 @end
 
 static  STBytecodeInterpreter *sharedInterpreter = nil;
 
 static  SEL sendSelectorAtIndexSel;
 static  IMP sendSelectorAtIndexImp;
-static  SEL dispatchBytecodeSel;
-static  IMP dispatchBytecodeImp;
 static  SEL pushSel;
 static  IMP pushImp;
 static  SEL popSel;
-static  id (*popImp)(id obj, SEL sel);
+static  IMP popImp;
+
+static Class NSInvocation_class = nil;
 
 @implementation STBytecodeInterpreter
 + (void)initialize
@@ -103,6 +86,8 @@ static  id (*popImp)(id obj, SEL sel);
     sendSelectorAtIndexImp = [STBytecodeInterpreter instanceMethodForSelector:sendSelectorAtIndexSel];
     pushImp = [STStack instanceMethodForSelector:pushSel];
     popImp = [STStack instanceMethodForSelector:popSel];
+
+    NSInvocation_class = [NSInvocation class];
 }
 
 + (STBytecodeInterpreter *)sharedInterpreter
@@ -119,16 +104,13 @@ static  id (*popImp)(id obj, SEL sel);
     ASSIGN(environment,env);
 }
 
-- executeCompiledMethod:(STCompiledMethod *)aScript
+- (id)interpretMethod:(STCompiledMethod *)method 
+          forReceiver:(id)anObject
+            arguments:(NSArray*)args
 {
-    return [self executeCompiledMethod:aScript withArguments:nil];
-}
-
-- executeCompiledMethod:(STCompiledMethod *)method 
-          withArguments:(NSArray *)args
-{
-    STMethodContext *newContext;
-    id retval;
+    STExecutionContext *oldContext;
+    STMethodContext    *newContext;
+    id                  retval;
     
     if(!environment)
     {
@@ -148,59 +130,92 @@ static  id (*popImp)(id obj, SEL sel);
     if([args count] != [method argumentCount])
     {
         [NSException  raise:STInterpreterGenericException
-                     format:@"Invalid argument count %i(%i) for method %@ ",
-                            [args count],[method argumentCount], [method selector]];
+                     format:@"Invalid argument count %i (should be %i)"
+                            @" for method %@ ",
+                            [args count],[method argumentCount], 
+                            [method selector]];
     }
     
     newContext = [STMethodContext methodContextWithMethod:method
                                               environment:environment];
 
     [newContext setArgumentsFromArray:args];
+    [newContext setReceiver:anObject];
 
-    retval = [self interpretInContext:newContext];
+    oldContext = activeContext;
+    [self setContext:newContext];
+
+    retval = [self interpret];
+
+    [self setContext:oldContext];
 
     return retval;
 }
-
-- executeCompiledCode:(STCompiledCode *)code
-{
-    STCompiledMethod *method;
-    STMethodContext  *newContext;
-    STMessage        *pattern;
-    id                retval;
-
-    pattern = [STMessage messageWithSelector:@"_anonymous_code"    
-                                   arguments:nil];
-
-    method = [STCompiledMethod  methodWithCode:code
-                                messagePattern:pattern];
-
-    return [self executeCompiledMethod:method  withArguments:nil];
-}
-
 
 /* ---------------------------------------------------------------------------
  * Interpret
  * ---------------------------------------------------------------------------
  */
-- (id)interpretInContext:(STExecutionContext *)newContext
+
+- (void)setContext:(STExecutionContext *)newContext
+{
+    
+    NSDebugLLog(@"STExecutionContext", @"Switch from context %@ to context %@",
+                activeContext, newContext);
+
+    if(!newContext)
+    {
+        RELEASE(activeContext);
+        activeContext = nil;
+        stack = nil;
+        bytecodes = nil;
+        instructionPointer = 0;
+        receiver = nil;
+        
+        return;
+    }
+    
+    if( ![newContext isValid])
+    {
+        [NSException raise:STInterpreterGenericException
+                    format:@"Trying to set an invalid context"];
+    }
+
+    [activeContext setInstructionPointer:instructionPointer];
+
+    ASSIGN(activeContext,newContext);
+
+    stack = [activeContext stack];
+    receiver = [activeContext receiver];
+
+    if(!stack)
+    {
+        [NSException raise:STInternalInconsistencyException
+                    format:@"No execution stack"];
+    }
+
+    instructionPointer = [activeContext instructionPointer];
+    bytecodes = [activeContext bytecodes];
+}
+
+- (STExecutionContext *)context
+{
+    return activeContext;
+}
+
+- (id)interpret
 {
     STBytecode bytecode;
-    id    retval;
+    id         retval;
     
     entry++;
+
     NSDebugLLog(@"STBytecodeInterpreter", @"Interpreter entry %i", entry);
-
-    [newContext setParrentContext:activeContext];
-
-    [self setNewActiveContext:newContext];
-    
-    NSDebugLLog(@"STBytecodeInterpreter", @"IP %i %x", instructionPointer, [bytecodes length]);
+    NSDebugLLog(@"STBytecodeInterpreter", @"IP %x %x", instructionPointer, [bytecodes length]);
 
     if(!bytecodes)
     {
-        [NSException raise:STInterpreterGenericException
-                    format:@"No bytecodes"];
+        NSLog(@"Smalltalk: No bytecodes.");
         return nil;
     }
 
@@ -240,47 +255,6 @@ static  id (*popImp)(id obj, SEL sel);
     NSDebugLLog(@"STBytecode interpreter",@"Halt!");
     stopRequested = YES;
 }
-/* ---------------------------------------------------------------------------
- * Context manipulation
- * ---------------------------------------------------------------------------
- */
-
-- (void)setNewActiveContext:(STExecutionContext *)newContext
-{
-    
-    NSDebugLLog(@"STExecutionContext", @"Switch from context %@ to context %@",
-                activeContext, newContext);
-
-    [activeContext setInstructionPointer:instructionPointer];
-
-    if( [newContext isInvalid])
-    {
-        [NSException raise:STInterpreterGenericException
-                    format:@"Invalid context"];
-    }
-    
-    ASSIGN(activeContext,newContext);
-
-    if(activeContext)
-    {
-        stack = [activeContext stack];
-
-        if(!stack)
-        {
-            [NSException raise:STInternalInconsistencyException
-                        format:@"No execution stack"];
-        }
-
-        instructionPointer = [activeContext instructionPointer];
-
-        bytecodes = [activeContext bytecodes];
-    }
-    else
-    {
-        instructionPointer = 0;
-        bytecodes = nil;
-    }
-}
 
 /* ---------------------------------------------------------------------------
  * Return
@@ -294,59 +268,21 @@ static  id (*popImp)(id obj, SEL sel);
                 @"%@ return value '%@' from method",
                 activeContext,value);
 
-    [self returnToContext:[activeContext parrentContext]];
+    [activeContext invalidate];
     [stack push:value];
 }
 
-- (void)returnToContext:(STExecutionContext *)context
-{
-    NSDebugLLog(@"STExecutionContext",
-                @"%@ return to context %@",activeContext,context);
-
-
-    [activeContext invalidate];
-
-    [self setNewActiveContext:context];
-}
-
-- (unsigned) instructionPointer
+- (unsigned)instructionPointer
 {
     return instructionPointer;
 }
 
+
 /* ---------------------------------------------------------------------------
-    Variables manipulation
- * ---------------------------------------------------------------------------
- */
-- (id)temporaryAtIndex:(unsigned)index
-{
-    id object = [activeContext temporaryAtIndex:index];
-    return object;
-}
-
-- (id)literalAtIndex:(unsigned)index
-{
-    return [activeContext literalObjectAtIndex:index];
-}
-
-- (id)externAtIndex:(unsigned)index
-{
-    return [activeContext externAtIndex:index];
-}
-
-
-- (void)setReceiver:(id)anObject
-{
-    NSDebugLLog(@"STBytecodeInterpreter",
-                @"set receiver '%@'",anObject);
-    ASSIGN(receiver,anObject);
-}
-
-/* FIXME: ---------------------------------------------------------------------
  * Block manipulation
  * ---------------------------------------------------------------------------
  */
-- (void)blockCopyWithInfo:(STBlockLiteral *)info
+- (void)createBlockWithArgumentCount:(int)argCount stackSize:(int)stackSize
 {
     unsigned ptr;
     STBlock        *block;
@@ -354,65 +290,22 @@ static  id (*popImp)(id obj, SEL sel);
     ptr = instructionPointer + STLongJumpBytecodeSize;
 
     NSDebugLLog(@"STExecutionContext",
-                @"%@ create block",activeContext);
-
-    NSDebugLLog(@"STExecutionContext",
-                @"%@   argc:%i stack:%i ip:0x%04x",
+                @"%@ Create block: argc:%i stack:%i ip:0x%04x",
                  activeContext, 
-                 [info argumentCount],
-                 [info stackSize],
+                 argCount,
+                 stackSize,
                  ptr);
-
 
     block = [STBlock alloc];
     
     [block initWithInterpreter:self
                    homeContext:[activeContext homeContext]
                      initialIP:ptr
-                          info:info];
+                 argumentCount:argCount
+                     stackSize:stackSize];
   
     [stack push:block];
 }
-
-- (id)valueOfBlockContext:(STBlockContext *)block
-{
-    id retval;
-
-    NSDebugLLog(@"STBytecodeInterpreter",@"evaluating block context");
-
-    NSDebugLLog(@"STExecutionContext",
-                @"%@ evaluate block %@",
-                activeContext, block);
-
-    [block setParrentContext:activeContext];
-    [block initializeIntstructionPointer];
-
-    retval = [self interpretInContext:block];
-
-    NSDebugLLog(@"STBytecodeInterpreter",
-                @"Returning '%@' from block",retval);
-
-    return retval;
-}
-
-- (void)forceReturnFromBlockContext
-{
-    NSDebugLLog(@"STBytecodeInterpreter",
-                @"Forced return from block");
-    [self blockReturnValue:[stack pop]];
-}
-
-- (void)blockReturnValue:(id)value
-{
-    NSDebugLLog(@"STExecutionContext",
-                @"%@ block return value '%@' to parrent",
-                activeContext,value);
-                
-    [self returnToContext:[activeContext parrentContext]];
-    [stack push:value];
-}
-
-
 
 /* ---------------------------------------------------------------------------
     send selector (see also STEnvironment class)
@@ -429,7 +322,7 @@ static  id (*popImp)(id obj, SEL sel);
 
     NSDebugLLog(@"STSending",
                 @"send selector '%@' with %i args'",
-                [self literalAtIndex:selIndex],argCount);
+                [activeContext literalAtIndex:selIndex],argCount);
                 
     target = [stack valueFromTop:argCount];
     
@@ -439,19 +332,19 @@ static  id (*popImp)(id obj, SEL sel);
         target = STNil;
     }
     
-    selector = [self literalAtIndex:selIndex];
+    selector = [activeContext literalAtIndex:selIndex];
 
     NSDebugLLog(@"STSending",
-               @"  %s receiver:%@ (%s) selector:%@",
+               @"  %s receiver:%@ (%@) selector:%@",
                [receiver isProxy] ? "proxy for" : "",
                target,
-               [target name],
+               NSStringFromClass([target class]),
                selector);
 
     selector = [environment translateSelector:selector forReceiver:target];
 
-    invocation = [NSInvocation invocationWithTarget:target
-                                       selectorName:selector];
+    invocation = [NSInvocation_class invocationWithTarget:target
+                                             selectorName:selector];
                                        
     if(!invocation)
     {
@@ -557,33 +450,34 @@ static  id (*popImp)(id obj, SEL sel);
                 break;
 
     case STPushRecVarBytecode:
-                object = [receiver instanceVariableAtIndex:bytecode.arg1];
+                object = [(STScriptObject *)receiver instanceVariableAtIndex:
+                                                                bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
 
     case STPushExternBytecode:
-                object = [self externAtIndex:bytecode.arg1];
+                object = [activeContext externAtIndex:bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
 
     case STPushTemporaryBytecode:
-                object = [self temporaryAtIndex:bytecode.arg1];
+                object = [activeContext temporaryAtIndex:bytecode.arg1];
                 STPush(stack,object);
                 STDebugBytecodeWith(bytecode,object);
                 break;
 
     case STPushLiteralBytecode:
-                object = [self literalAtIndex:bytecode.arg1];
+                object = [activeContext literalAtIndex:bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
 
     case STPopAndStoreRecVarBytecode:
                 STDebugBytecode(bytecode);
-                [receiver setInstanceVariable:STPop(stack) 
-                                      atIndex:bytecode.arg1];
+                [(STScriptObject *)receiver setInstanceVariable:STPop(stack) 
+                                                        atIndex:bytecode.arg1];
                 break;
 
     case STPopAndStoreExternBytecode: 
@@ -598,7 +492,7 @@ static  id (*popImp)(id obj, SEL sel);
 
     case STSendSelectorBytecode:
                 STDebugBytecodeWith(bytecode,
-                                    [self literalAtIndex:bytecode.arg1]);
+                                    [activeContext literalAtIndex:bytecode.arg1]);
 
                 (*sendSelectorAtIndexImp)(self, sendSelectorAtIndexSel,
                                           bytecode.arg1,bytecode.arg2);
@@ -623,18 +517,18 @@ static  id (*popImp)(id obj, SEL sel);
                 break;
 
     case STReturnBytecode:
+    case STReturnBlockBytecode:
                 STDebugBytecode(bytecode);
                 [self returnValue:[stack pop]];
                 return NO;
 
-    case STReturnBlockBytecode:
-                STDebugBytecode(bytecode);
-                [self blockReturnValue:[stack pop]];
-                return NO;
-
     case STBlockCopyBytecode: 
                 STDebugBytecode(bytecode);
-                [self blockCopyWithInfo:[stack pop]];
+                {
+                    STBlockLiteral *info = [stack pop];
+                    [self createBlockWithArgumentCount:[info argumentCount]
+                                             stackSize:[info stackSize]];
+                }
                 break;
 
     default:

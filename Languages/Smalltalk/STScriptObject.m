@@ -141,8 +141,6 @@
 
     method = [script methodWithName:methodName];
     
-    [interpreter setReceiver:self];
-    
     count = [[invocation methodSignature] numberOfArguments];
 
     NSDebugLLog(@"STSending",
@@ -160,7 +158,9 @@
     NSDebugLLog(@"STSending",
                 @">> forwarding to self ...");
 
-    retval = [interpreter executeCompiledMethod:method withArguments:args];
+    retval = [interpreter interpretMethod:method 
+                              forReceiver:self
+                                arguments:args];
 
     NSDebugLLog(@"STSending",
                 @"<< returned from forwarding");

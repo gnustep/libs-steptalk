@@ -1,8 +1,11 @@
 /**
-    NSObject-additions.h
-    Various methods for NSObject
+    StepTalkModule.
+    Module to bring StepTalk classes
  
     Copyright (c) 2002 Free Software Foundation
+
+    Written by: Stefan Urbanek <urbanek@host.sk>
+    Date: 2002 Jun 18
  
     This file is part of the StepTalk project.
  
@@ -22,9 +25,14 @@
  
  */
 
-#import <Foundation/NSObject.h>
+#import "StepTalkModule.h"
 
-@interface NSObject (STAdditions)
-- (BOOL)isNil;
-- (BOOL)notNil;
+@class NSDictionary;
+
+@implementation StepTalkModule
+- (NSDictionary *)namedObjects
+{
+    return nil;
+}
 @end
+

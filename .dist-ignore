@@ -1,3 +1,11 @@
+obj
+shared_obj
+shared_debug_obj
+*.app
+*.debug
+*.bundle
+*.o
 New
 Ignore
+Extensions
 .snap-ignore

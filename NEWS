@@ -1,3 +1,21 @@
+0.6.1
+
+    * Code cleanup
+    * New modules: ObjectiveC and StepTalk
+    * New classes: STScript and STScriptManager
+
+0.6.0
+
+    * Created 'Object Finders'
+        Distributed Object Finder 
+        Application Finder
+    * New example tool stshell - the StepTalk shell
+    * Automated loading of modules and finders using scripting environment 
+      descriptions
+    * StepTalk defaults changed
+    * Some source documentation added
+    * Bugfixes in Smalltalk language
+    
 0.5.2
 
     * Separated AppTalk

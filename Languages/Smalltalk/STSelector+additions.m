@@ -24,6 +24,8 @@
 
 #import "STSelector+additions.h"
 
+#import <StepTalk/STObjCRuntime.h>
+
 @implementation STSelector(SmalltalkCompiler)
 + symbolFromString:(NSString *)aString
 {

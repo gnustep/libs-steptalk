@@ -10,16 +10,24 @@
     Behaviours =
     {
         "NSObject-operators" = {
-            Use = (Comparison);
+            Use = (Comparison, KeyValueCoding);
         }
     };
     
     Classes = 
     {
+        All = {
+            
+        };
+        
         NSObject = {
             Use = ("NSObject-operators");
         };
         
+        NSProxy = {
+            Use = (KeyValueCoding);
+        };
+
         NSArray = {
             Super = "NSObject";
             SymbolicSelectors = {

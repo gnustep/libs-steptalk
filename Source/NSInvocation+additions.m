@@ -39,6 +39,12 @@
 #import <StepTalk/STSelector.h>
 #import <StepTalk/STStructure.h>
 
+#if 0
+static Class NSNumber_class = nil;
+static Class NSString_class = nil;
+static Class NSValue_class = nil;
+#endif
+
 #define CASE_NUMBER_TYPE(otype,type,msgtype)\
             case otype: object = [NSNumber numberWith##msgtype:*((type *)value)];\
                         NSDebugLLog(@"STStructure",\
@@ -178,6 +184,17 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 
 
 @implementation NSInvocation(STAdditions)
+#if 0
+/* with this method it does not work, it is not posiible to create an 
+   invocation*/
++ (void)initialize
+{
+    NSNumber_class = [NSNumber class];
+    NSString_class = [NSString class];
+    NSValue_class = [NSValue class];
+}
+#endif
+
 + invocationWithTarget:(id)target selectorName:(NSString *)selectorName
 {
     NSMethodSignature *signature;

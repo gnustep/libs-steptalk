@@ -34,6 +34,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSException.h>
 #import <Foundation/NSEnumerator.h>
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSTask.h>
@@ -42,6 +43,7 @@
 static NSDictionary *fileTypeDictionary = nil;
 
 @implementation STLanguage
+/** Returns an array containing the names of all available languages*/
 + (NSArray *)allLanguageNames
 {
     NSArray        *bundles;
@@ -57,19 +59,22 @@ static NSDictionary *fileTypeDictionary = nil;
     
     while( (path = [enumerator nextObject]) )
     {
-        lang = [STLanguage languageWithBundle:path];
+        lang = [STLanguage languageWithPath:path];
         
         [languages addObject:[lang languageName]];        
     }
     
     return AUTORELEASE([languages copy]);
 }
+
+/** Returns the name of default scripting language specified by the
+    STDefaultLanguageName default. If there is no such default in user's
+    defaults database, then Smalltalk is used. */
+
 + (NSString *)defaultLanguageName
 {
     NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-    NSDictionary   *dict = [defs persistentDomainForName:@"StepTalk"];
-    NSString       *name;
-    name = [dict objectForKey:@"DefaultLanguageName"];
+    NSString       *name= [defs objectForKey:@"STDefaultLanguageName"];
     
     if(!name)
     {
@@ -81,6 +86,7 @@ static NSDictionary *fileTypeDictionary = nil;
     }
 }
 
+/** Returns language bundle for a language with name <var>languageName</var> */
 + languageWithName:(NSString *)languageName
 {
     NSString   *file = STFindResource(languageName, STLanguageBundlesDirectory,
@@ -91,11 +97,12 @@ static NSDictionary *fileTypeDictionary = nil;
         return nil;
     }
     
-    return [self languageWithBundle:file];
+    return [self languageWithPath:file];
 
 }
 
-+ languageWithBundle:(NSString *)path
+/** Returns language bundle for language with name <var>languageName</var>. */
++ languageWithPath:(NSString *)path
 {
     if(!path)
     {
@@ -105,6 +112,7 @@ static NSDictionary *fileTypeDictionary = nil;
     return AUTORELEASE([[STLanguage alloc] initWithPath:path]);
 }
 
+/** Returns name of a language used by files of type <var>fileType</var>. */
 + (NSString *)languageNameForFileType:(NSString *)fileType
 {
     if(!fileTypeDictionary)
@@ -139,6 +147,8 @@ static NSDictionary *fileTypeDictionary = nil;
     return [fileTypeDictionary objectForKey:fileType];
 }
 
+/** Returns the language bundle for a language used by files of type 
+    <var>fileType</var>. */
 + (STLanguage *)languageForFileType:(NSString *)fileType
 {
     NSString     *langName = [STLanguage languageNameForFileType:fileType];
@@ -154,6 +164,7 @@ static NSDictionary *fileTypeDictionary = nil;
     return nil;
 }
 
+/** Returns the name of the language */
 - (NSString *)languageName
 {
     NSString *name;
@@ -170,9 +181,7 @@ static NSDictionary *fileTypeDictionary = nil;
     return name;
 }
 
-/**
-    Returns default language engine.
-*/
+/** Returns a scripting engine provided by the language. */
 - (STEngine *)engine
 {
     NSString  *className =[[self infoDictionary] objectForKey:@"STEngine"];

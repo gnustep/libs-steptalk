@@ -42,7 +42,6 @@ NSString *STInterpreterInconsistencyException = @"STInterpreterInconsistencyExce
 
 NSString *STLibraryDirectory = @"StepTalk";
 NSString *STScriptsDirectory = @"Scripts";
-// NSString *STScriptExtension  = @"stalk";
 
 NSString *STModulesDirectory = @"Modules";
 NSString *STModuleExtension  = @"stmodule";

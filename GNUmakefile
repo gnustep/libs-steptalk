@@ -28,13 +28,14 @@ include $(GNUSTEP_MAKEFILES)/common.make
 include Version
 
 PACKAGE_NAME = StepTalk
+CVS_MODULE_NAME = StepTalk
 
 SUBPROJECTS = \
     Source \
     Languages \
+    Finders \
     Modules \
     Tools 
-
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make

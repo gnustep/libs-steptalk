@@ -33,8 +33,8 @@
 - (void)invalidPointer:(unsigned)ptr
 {
     [NSException raise:STInternalInconsistencyException
-                format:@"%s (%p): invalid pointer %i (sp=%i size=%i)",
-                        [self name],self,
+                format:@"%@: invalid pointer %i (sp=%i size=%i)",
+                        self,
                         ptr,
                         pointer,
                         size];

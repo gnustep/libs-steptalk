@@ -28,37 +28,43 @@ include ../Version
 LIBRARY_NAME = libStepTalk
 
 libStepTalk_OBJC_FILES = \
+    NSInvocation+additions.m \
     STBehaviourInfo.m \
     STClassInfo.m \
+    STEngine.m \
     STEnvironment.m \
+    STEnvironmentDescription.m \
     STExterns.m \
     STFunctions.m \
     STLanguage.m \
-    STObjectReference.m  \
-    STUndefinedObject.m  \
-    NSInvocation+additions.m \
-    STEnvironmentDescription.m \
-    STObjCRuntime.m \
-    STStructure.m \
-    STEngine.m \
     STModule.m \
+    STObjCRuntime.m \
+    STObjectReference.m  \
+    STScript.m \
+    STScriptsManager.m \
     STScripting.m \
     STSelector.m \
-    NSNumber+additions.m
+    STStructure.m \
+    STUndefinedObject.m  \
+    NSNumber+additions.m \
+    NSObject+additions.m
 
 STEPTALK_HEADER_FILES = \
+    STEngine.h \
     STEnvironment.h \
     STExterns.h \
     STFunctions.h \
     STLanguage.h \
-    STObjectReference.h  \
-    STUndefinedObject.h   \
-    NSInvocation+additions.h \
-    STObjCRuntime.h \
-    STEngine.h \
     STModule.h \
+    STObjCRuntime.h \
+    STObjectReference.h  \
+    STScript.h \
+    STScriptsManager.h \
     STScripting.h  \
-    STSelector.h
+    STSelector.h \
+    STUndefinedObject.h  \
+    NSInvocation+additions.h \
+    NSObject+additions.h
 
 libStepTalk_HEADER_FILES = $(STEPTALK_HEADER_FILES) \
                             StepTalk.h

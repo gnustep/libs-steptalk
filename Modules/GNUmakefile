@@ -37,6 +37,8 @@ endif
 SUBPROJECTS = \
     SimpleTranscript \
     Foundation \
+    ObjectiveC \
+    StepTalk \
     $(APPKIT)
 
 -include GNUMakefile.preamble

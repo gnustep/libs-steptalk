@@ -1,0 +1,8 @@
+{
+    STClasses = (
+        STEnvironment,
+        STLanguage,
+        STScript,
+        STScriptsManager
+    );
+}

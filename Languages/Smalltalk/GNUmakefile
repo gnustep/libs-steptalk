@@ -32,7 +32,6 @@ Smalltalk_OBJC_FILES = \
         SmalltalkEngine.m \
         NSArray+additions.m \
         NSNumber+additions.m \
-        NSObject+additions.m \
         STBlock.m \
         STBlockContext.m \
         STBytecodeInterpreter.m \
@@ -63,5 +62,5 @@ include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUMakefile.postamble
 
 STGrammar.m: STGrammar.y
-	$(YACC) -d -pSTC -o$@ $<
+	$(BISON) -p STC -o $@ $<
 

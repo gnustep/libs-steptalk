@@ -28,16 +28,17 @@
 #import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STExterns.h>
 
+#import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSMethodSignature.h>
+#import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class NSProcessInfo ;
-/* FIXME: this is just for testing */
 #define SELECTOR_TYPES_COUNT 6
+
 static const char *selector_types[] = 
                         {
                             "@8@0:4",
@@ -69,12 +70,12 @@ NSMutableDictionary *STAllObjectiveCClasses(void)
     return dict;
 }
 
-NSMutableDictionary *STClassDictionaryFromNames(NSArray *classNames)
+NSDictionary *STClassDictionaryWithNames(NSArray *classNames)
 {
     NSEnumerator        *enumerator = [classNames objectEnumerator];
     NSString            *className;
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    Class               *class;
+    Class                class;
     
     while( (className = [enumerator nextObject]) )
     {
@@ -89,7 +90,7 @@ NSMutableDictionary *STClassDictionaryFromNames(NSArray *classNames)
         }
     }
     
-    return dict;
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 NSValue *STValueFromSelector(SEL sel)
@@ -156,4 +157,56 @@ SEL STSelectorFromString(NSString *aString)
 NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 {
     return [NSMethodSignature signatureWithObjCTypes:sel_get_type(sel)];
+}
+
+static NSArray *selectors_from_list(struct objc_method_list *methods)
+{
+    NSMutableArray *array = [NSMutableArray array];
+    int             count = methods->method_count;
+    int             i;
+    
+    for(i=0;i<count;i++)
+    {
+        [array addObject:NSStringFromSelector(methods->method_list[i].method_name)];
+    }
+
+    if(methods->method_next)
+    {
+        [array addObjectsFromArray:selectors_from_list(methods->method_next)];
+    }
+    
+    return array;
+}
+
+
+NSArray *STAllObjectiveCSelectors(void)
+{
+    NSMutableArray *array;
+    NSArray        *methods;
+    Class           class;
+    void           *state = NULL;
+    
+    array = [[NSMutableArray alloc] init];
+
+    while( (class = objc_next_class(&state)) )
+    {
+        if(class->methods)
+        {
+            methods = selectors_from_list(class->methods);
+            [array addObjectsFromArray:methods];
+        }
+        class = class->class_pointer;
+
+        if(class->methods)
+        {
+            methods = selectors_from_list(class->methods);
+            [array addObjectsFromArray:methods];
+        }
+    }
+    
+    /* get rid of duplicates */
+    array = (NSMutableArray *)[[NSSet setWithArray:(NSArray *)array] allObjects];
+    array = (NSMutableArray *)[array sortedArrayUsingSelector:@selector(compare:)];
+
+    return array;
 }

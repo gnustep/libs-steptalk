@@ -96,17 +96,13 @@ typedef struct _STParserContext
     Class           numberLiteralClass; /* default: NSNumber */
     Class           symbolLiteralClass; /* default: NSString */
 }
-/*" Instance creation "*/
-+ (STCompiler *)sharedCompiler;
-
 /*" Environment "*/
 - (void)setEnvironment:(STEnvironment *)env;
 - (STSourceReader *)sourceReader;
 
 /*" Compilation "*/
 
-- (STCompiledCode *)compileString:(NSString *)aString;
-- (STCompiledScript *)compileScript:(NSString *)script;
+- (STCompiledScript *)compileString:(NSString *)aString;
 
 /*
 - (NSMutableArray *)compileString:(NSString *)string;

@@ -38,13 +38,14 @@
     unsigned               argCount;
     unsigned               stackSize;
 
-    STBlockContext        *defaultContext;
-    BOOL                   defaultContextInUse;
+    STBlockContext        *cachedContext;
 }
+
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
           homeContext:(STMethodContext *)context
             initialIP:(unsigned)ptr
-                 info:(STBlockLiteral *)info;
+        argumentCount:(int)count
+            stackSize:(int)size;
                  
 - (unsigned)argumentCount;
 
