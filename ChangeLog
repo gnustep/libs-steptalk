@@ -10,6 +10,9 @@
     * STEnvironment: reflect change from STModule to NSBundle/STBundleInfo;
     * Modules/*: reflect change from STModule to NSBundle/STBundleInfo
 
+    IMPORTANT NOTE: You have to rebuild all modules, because the format has
+    changed.
+
 2003 Jan 22
 
     * NSNumber+additions: Added -modulo: method.
