@@ -30,12 +30,17 @@
 
 #import <AppKit/NSAttributedString.h>
 #import <AppKit/NSColor.h>
+#import <AppKit/NSTextView.h>
+#import <AppKit/NSWindow.h>
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSEnumerator.h>
 #import <Foundation/NSFileManager.h>
 #import <Foundation/NSUserDefaults.h>
+#import <Foundation/NSValue.h>
+
+#import "NSObject+NibLoading.h"
 
 static STTranscript *sharedTranscript;
 

@@ -46,14 +46,9 @@
 
 static STEnvironment        *STAppScriptingEnvironment = nil;
 static NSMutableDictionary  *STAppObjectReferences = nil;
-static BOOL                  bundleLoaded;
 static NSMutableSet         *scannedBundles;
 
 static STApplicationScriptingController *scriptingController = nil;
-
-@interface NSObject (STPrivateMethodDeclarations)
-+ sharedTranscript;
-@end
 
 @interface NSApplication (STPrivateMethods)
 - (void)updateScriptingInfoFromBundles;

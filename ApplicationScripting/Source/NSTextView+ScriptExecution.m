@@ -29,6 +29,7 @@
 #import "NSTextView+ScriptExecution.h"
 
 #import "NSApplication+additions.h"
+#import "STApplicationScriptingController.h"
 
 @implementation NSTextView(STScriptExecution)
 - (void)executeSelectionScript:(id)sender
@@ -51,7 +52,6 @@
     NSString           *selectedString;
     NSRange             range = [self selectedRange];
     id                  retval = nil;
-    id                  string;
     
     NSLog(@"Do and Show!");
 

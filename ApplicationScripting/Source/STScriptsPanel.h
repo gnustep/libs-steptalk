@@ -27,6 +27,7 @@
 #import <AppKit/NSPanel.h>
 
 @class STScriptsManager;
+@class STScript;
 @class NSPopUpButton;
 
 @interface STScriptsPanel : NSPanel
@@ -44,6 +45,12 @@
 }
 - (void) run: (id)sender;
 - (void) command: (id)sender;
-- (void) setDelegate:(id)anObject;
-- (id)delegate;
+- (void) update: (id)sender;
+- (void) browse: (id)sender;
+- (void) showHelp: (id)sender;
+
+- (STScript *) selectedScript;
+
+- (void) setDelegate: (id)anObject;
+- (id) delegate;
 @end

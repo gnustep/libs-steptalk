@@ -36,9 +36,10 @@
 #import <AppKit/NSPopUpButton.h>
 #import <AppKit/NSWorkspace.h>
 
-STScriptsPanel *sharedScriptsPanel = nil;
+#import "NSObject+NibLoading.h"
+#import "STApplicationScriptingController.h"
 
-static NSString *NameColumn = @"NameColumn";
+STScriptsPanel *sharedScriptsPanel = nil;
 
 @implementation STScriptsPanel
 + sharedScriptsPanel
@@ -53,9 +54,7 @@ static NSString *NameColumn = @"NameColumn";
 
 - init
 {
-    NSEnumerator *enumerator;
     NSView       *view;
-    NSView       *contentView;
 
     if(![self loadMyNibNamed:@"ScriptsPanel"])
     {

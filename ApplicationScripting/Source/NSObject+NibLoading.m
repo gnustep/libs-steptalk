@@ -28,6 +28,8 @@
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSDictionary.h>
 
+#import <AppKit/NSPanel.h>
+
 @implementation NSObject(AFNibLoading)
 - (BOOL)loadMyNibNamed:(NSString *)aName
 {

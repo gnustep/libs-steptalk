@@ -28,9 +28,11 @@
 #import <AppKit/NSApplication.h>
 
 @class STEnvironment;
+@class STApplicationScriptingController;
 
 @interface NSApplication(STAppScriptingAdditions)
 - (STEnvironment *)scriptingEnvironment;
+- (STApplicationScriptingController *)scriptingController;
 
 - (void)orderFrontScriptsPanel:(id)sender;
 - (void)orderFrontTranscriptWindow:(id)sender;

@@ -39,6 +39,7 @@
 #import "STScriptsPanel.h"
 #import "STTranscript.h"
 #import "NSObject+NibLoading.h"
+#import "NSApplication+additions.h"
 
 @implementation STApplicationScriptingController
 - (void)createScriptsPanel

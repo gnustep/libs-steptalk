@@ -34,6 +34,8 @@
     NSWindow   *window;
     NSTextView *textView;
 }
++ sharedTranscript;
 - show:(id)anObject;
 - showLine:(id)anObject;
+- showError:(NSString *)errorText;
 @end

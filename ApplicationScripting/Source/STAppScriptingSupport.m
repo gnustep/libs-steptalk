@@ -26,6 +26,8 @@
    
 #import "STAppScriptingSupport.h"
 
+#import <Foundation/NSDictionary.h>
+
 #import <StepTalk/STEnvironment.h>
 #import <StepTalk/STScriptsManager.h>
 

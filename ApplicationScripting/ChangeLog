@@ -2,12 +2,22 @@
 
     * GNUmakefile: Added flags to be able to compile from the building
     directories and show all warnings except for import.
-    * NSApplication+additions.m: Added import of needed headers.  Added
-    interface declarations to supress compiler warnings.  Commented unused
-    variables to supress compiler warnings.  Corrected variable types and
-    added necessary casts.
+    * NSApplication+additions.h: Added missing declaration.
+    * NSApplication+additions.m: Added import of needed headers.  Removed
+    and commented unused variables to supress compiler warnings.
+    Corrected variable types and added necessary casts.
+    * NSObject+NibLoading.m: Added missing import.
+    * NSTextView+ScriptExecution.m: Removed unused variables.
+    * STAppScriptingSupport.m: Added missing import.
+    * STApplicationScriptingController.m: Ditto.
+    * STEnvironment+additions.m: Ditto.
+    * STScriptsPanel.h: Added missing declarations.
+    * STScriptsPanel.m: Added missing imports.  Removed unused variables.
     * STScriptingSupport.m: Added interface declaraions to supress
     compiler warnings.
+    * STTranscript.h: Added missing declarations.
+    * STTranscript.m:  Added missing imports.
+
 	
 2003 Mar 27
 
