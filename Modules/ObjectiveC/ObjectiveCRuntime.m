@@ -29,6 +29,7 @@
 #import <objc/objc-api.h>
 
 #import <StepTalk/STObjCRuntime.h>
+#import <StepTalk/STSelector.h>
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
@@ -92,7 +93,7 @@ static ObjectiveCRuntime *sharedRuntime=nil;
     return [NSArray arrayWithArray:sels];
 }
 
-- (NSArray *)implementorsOfSelector:(NSString *)selector
+- (NSArray *)implementorsOfSelector:(id)selector
 {
     NSMutableArray *array = [NSMutableArray array];
     NSEnumerator   *enumerator;
@@ -102,6 +103,10 @@ static ObjectiveCRuntime *sharedRuntime=nil;
     Class           class;
     
     enumerator = [classes keyEnumerator];
+    if([selector isKindOfClass:[STSelector class]])
+    {
+        selector = [selector stringValue];
+    }
     
     while( (className = [enumerator nextObject]) )
     {
