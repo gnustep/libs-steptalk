@@ -3,6 +3,7 @@
         STEnvironment,
         STLanguage,
         STScript,
-        STScriptsManager
+        STScriptsManager,
+        STBundle
     );
 }

@@ -10,3 +10,4 @@ TODO list
   frameworks)
 7 make GDL2 bundle automatically if GDL2 is present
 8 prevent multiple loading of bundles in STEnvironment
+9 Add Shell scripting environment

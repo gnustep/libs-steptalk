@@ -1,3 +1,8 @@
+2003 Jan 20
+
+    * GNUMakefile: Removed inclusion of source-distribution.make, as it is
+    not needed (suggested by Nicola Pero <nicola@brainstorm.co.uk>)
+    
 2003 Jan 15
 
     * GDL2: added installation of GDL2.stenv

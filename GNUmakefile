@@ -39,6 +39,5 @@ SUBPROJECTS = \
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make
-include $(GNUSTEP_MAKEFILES)/Master/source-distribution.make
 -include GNUMakefile.postamble
 
