@@ -1,3 +1,15 @@
+2002 Sep 15
+
+    * Version 0.6.1
+
+2002 Sep 15
+
+    * Modules/AppKit/AppKitConstants.list: commented out undefined constants
+    
+2002 Sep 7
+
+    * Modules/AppKit/AppKitInfo.plist: added NSSound class
+    
 2002 Aug 27
 
     * Source/*.m: Cleanup to remove compiler warnings.

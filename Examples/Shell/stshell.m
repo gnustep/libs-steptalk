@@ -47,7 +47,6 @@
 - (NSString *)nextArgument;
 - (void)reuseArgument;
 - (void)run;
-- (void)registerFarm;
 - (void)printHelp;
 @end
 

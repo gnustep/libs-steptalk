@@ -31,6 +31,7 @@
 @class STEnvironment;
 @class STScriptsManager;
 @class NSMutableArray;
+@class NSException;
 
 @interface STShell:NSObject
 {
@@ -38,15 +39,15 @@
     STEnvironment    *env;
     STEngine         *engine;
     
-    NSString      *prompt;
-    NSString      *source;
+    NSString         *prompt;
+    NSString         *source;
     
-    NSMutableArray *objectStack;
+    NSMutableArray   *objectStack;
     
-    BOOL           exitRequest;
+    BOOL              exitRequest;
 
-    BOOL           updateCompletitionList;
-    NSArray        *completitionList;
+    BOOL              updateCompletitionList;
+    NSArray          *completitionList;
 }
 + sharedShell;
 
@@ -59,4 +60,9 @@
 - show:(id)anObject;
 - showLine:(id)anObject;
 
+- (id)executeLine:(NSString *)line;
+
+- showResult:(id)obj;
+- showException:(NSException *)exception;
+- (void)showError:(NSString *)errString;
 @end

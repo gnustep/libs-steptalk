@@ -332,9 +332,9 @@ int NSDragOperationAll
 
 # GSFileWrapperType
 
-int GSFileWrapperDirectoryType
-int GSFileWrapperRegularFileType
-int GSFileWrapperSymbolicLinkType
+# int GSFileWrapperDirectoryType
+# int GSFileWrapperRegularFileType
+# int GSFileWrapperSymbolicLinkType
 
 int NSControlGlyph
 int NSNullGlyph

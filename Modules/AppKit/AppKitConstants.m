@@ -333,9 +333,6 @@ NSDictionary *STGetAppKitConstants(void)
     ADD_int_OBJECT(NSDragOperationGeneric,@"NSDragOperationGeneric");
     ADD_int_OBJECT(NSDragOperationPrivate,@"NSDragOperationPrivate");
     ADD_int_OBJECT(NSDragOperationAll,@"NSDragOperationAll");
-    ADD_int_OBJECT(GSFileWrapperDirectoryType,@"GSFileWrapperDirectoryType");
-    ADD_int_OBJECT(GSFileWrapperRegularFileType,@"GSFileWrapperRegularFileType");
-    ADD_int_OBJECT(GSFileWrapperSymbolicLinkType,@"GSFileWrapperSymbolicLinkType");
     ADD_int_OBJECT(NSControlGlyph,@"NSControlGlyph");
     ADD_int_OBJECT(NSNullGlyph,@"NSNullGlyph");
     ADD_int_OBJECT(NSGlyphBelow,@"NSGlyphBelow");

@@ -47,9 +47,15 @@ NSArray *objcSelectors = nil;
 
 static STShell *sharedShell = nil;
 
+@interface STShell(STPrivate)
+- (int)_completition;
+- (NSString *)readLine;
+- (void)initReadline;
+@end
+
 int complete_handler(void)
 {
-    return [sharedShell completition];
+    return [sharedShell _completition];
 }
 
 @implementation STShell
@@ -89,11 +95,15 @@ int complete_handler(void)
 
 - (void)updateCompletitionList
 {
+    NSMutableArray *array;
     RELEASE(completitionList);
     
-    completitionList = [[NSMutableArray alloc] init];
-    [completitionList addObjectsFromArray:STAllObjectiveCSelectors()];
-    
+    array = [[NSMutableArray alloc] init];
+
+    [array addObjectsFromArray:STAllObjectiveCSelectors()];
+
+    completitionList = [[NSArray alloc] initWithArray:array];
+
     updateCompletitionList = NO;
 }
 
@@ -234,7 +244,7 @@ int complete_handler(void)
     return line;
 }
 
-- (int)completition
+- (int)_completition
 {
     NSEnumerator *enumerator;
     NSMutableSet *set;
