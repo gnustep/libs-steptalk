@@ -135,6 +135,20 @@ process name.*/
         str = [path stringByAppendingPathComponent:@"Shared"];
         [scriptPaths addObject:str];
     }
+
+    /* Add same, but without StepTalk (only Library/Scripts) */
+    enumerator = [paths objectEnumerator];
+
+    while( (path = [enumerator nextObject]) )
+    {
+        path = [path stringByAppendingPathComponent:@"Scripts"];
+
+        str = [path stringByAppendingPathComponent: scriptsDomainName];
+        [scriptPaths addObject:str];
+
+        str = [path stringByAppendingPathComponent:@"Shared"];
+        [scriptPaths addObject:str];
+    }
     
     enumerator = [[NSBundle allBundles] objectEnumerator];
 
@@ -191,6 +205,7 @@ process name.*/
     {
         if( [manager fileExistsAtPath:path isDirectory:&isDir] && isDir )
         {
+            // NSLog(@"VARLIOD %@", path);
             [scriptPaths addObject:path];
         }
     }
@@ -217,6 +232,7 @@ process name.*/
 
     while( (path = [pEnumerator nextObject]) )
     {
+        // NSLog(@"IN %@", path);
         sEnumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
         
         while( (file = [sEnumerator nextObject]) )

@@ -1,3 +1,13 @@
+2004 Aug 2  Stefan Urbanek
+
+    * Search for scripts in */Library/Scripts/*
+    * stexec: use scripts manager to look for scripts in default locations. For
+    this tool it is .../Library/Scripts/Shell or .../Library/StepTalk/Scripts/Shell
+
+2004 Jul 26 Stefan Urbanek
+
+    * Added NSString containsString: to Foundation module.
+    
 2004 Jun 27 Stefan Urbanek
 
     * Added examples:

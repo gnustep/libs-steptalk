@@ -116,16 +116,17 @@ const char *STExecutorCommonOptions =
     NSFileManager *manager = [NSFileManager defaultManager];
     STEnvironment *env;
     NSString      *convLanguageName;    
+    NSString      *source;
     
     if( [manager fileExistsAtPath:file isDirectory:NO] )
     {
-        NSString *source = [NSString stringWithContentsOfFile:file];
+        source = [NSString stringWithContentsOfFile:file];
 
         if(langName)
         {
             NSDebugLog(@"Using language %@", langName);
 
-            [conversation setLanguage:langName];
+            convLanguageName = langName;
         }
         else
         {
@@ -133,31 +134,47 @@ const char *STExecutorCommonOptions =
                        [file pathExtension]);
 
             convLanguageName = [STLanguage languageNameForFileType:[file pathExtension]];
-            [conversation setLanguage:convLanguageName];
-        }
-        
-
-        if(conversation)
-        {
-            NSDebugLog(@"Executing file '%@'",file);
-
-            env = [conversation environment];
-            [env setObject:args forName:@"Args"];
-            [env setObject:env forName:@"Environment"];
-            
-            [conversation runScriptFromString:source];
-        }
-        else
-        {
-            [NSException  raise:STExecutorException
-                 format:@"Unable to create a StepTalk conversation."];
-
         }
     }
     else
     {
+        STScriptsManager *sm;
+        STFileScript     *script;
+
+        /* Try to find it in standard script locations */
+        sm  = [[STScriptsManager alloc] initWithDomainName:@"Shell"];
+        
+        script = [sm scriptWithName:file];
+        source = [script source];
+        if(!source)
+        {
+            [NSException  raise:STExecutorException
+                         format:@"Could not find script '%@'", file];
+            return;
+        }
+        else
+        {
+            convLanguageName = [script language];
+        }
+    }
+
+    [conversation setLanguage:convLanguageName];
+
+    if(conversation)
+    {
+        NSDebugLog(@"Executing script '%@'",file);
+
+        env = [conversation environment];
+        [env setObject:args forName:@"Args"];
+        [env setObject:env forName:@"Environment"];
+
+        [conversation runScriptFromString:source];
+    }
+    else
+    {
         [NSException  raise:STExecutorException
-                     format:@"Could not find script '%@'", file];
+             format:@"Unable to create a StepTalk conversation."];
+
     }
 }
 
