@@ -71,7 +71,7 @@ cat file
 
     > ('string' writeToFile:'file' atomically:YES)
 
-"create a string from a fle"
+"create a string from a file"
 
     > str := NSString stringWithContentsOfFile:'file'
 

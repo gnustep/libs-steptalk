@@ -35,6 +35,6 @@ Text
 
 How to display an RTF file
 
-    > text := NSArrtibutedString alloc
+    > text := NSAttributedString alloc
     > text initWithPath: file documentAttributes:nil
     > Transcript show: (text string)
