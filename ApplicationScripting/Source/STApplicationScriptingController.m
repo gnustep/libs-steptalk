@@ -105,8 +105,6 @@
         NSLog(@"No scripting environment");
         return nil;
     }
-    NSLog(@"Execute in environmentxxxxxx");
-    NSLog(@"Execute in environment %@", env);
 #ifndef DEBUG_EXCEPTIONS
     NS_DURING
 #endif

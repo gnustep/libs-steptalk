@@ -89,7 +89,7 @@ static STApplicationScriptingController *scriptingController = nil;
     NSDictionary  *dict;
     id             object;
 
-    NSLog(@"Creating scripting environment");
+    NSDebugLog(@"Creating scripting environment");
 
     scannedBundles = [[NSMutableSet alloc] init];
 
@@ -117,7 +117,7 @@ static STApplicationScriptingController *scriptingController = nil;
     }
     if(!env)
     {
-        NSLog(@"Using default scripting environment");
+        NSDebugLog(@"Using default scripting environment");
         env = [STEnvironment defaultScriptingEnvironment];
     }
 
@@ -130,7 +130,7 @@ static STApplicationScriptingController *scriptingController = nil;
     // [self addScriptingInfoFromDictionary:info];
 
     STAppScriptingEnvironment = RETAIN(env);
-    NSLog(@"%@ %i", env, [env retainCount]);
+
     [self updateScriptingInfoFromBundles];
 
     [[NSNotificationCenter defaultCenter]
@@ -148,8 +148,7 @@ static STApplicationScriptingController *scriptingController = nil;
     NSBundle     *bundle;
     NSSet        *bundles;
     
-    NSLog(@"UPDATING");
-    NSLog(@"Updating scripting info from bundles");
+    NSDebugLog(@"Updating scripting info from bundles");
     
     bundles = [NSMutableSet setWithArray:[NSBundle allBundles]];
     bundles = [bundles minusSet:scannedBundles];
