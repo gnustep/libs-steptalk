@@ -27,7 +27,8 @@ What is the goal of StepTalk?
     functionality they miss, or want to automatize, or want to do in a batch.
 
     StepTalk is a framework that wants to fill the gap between application
-    author and users with their needs.
+    author and users with their needs. It wants to provide a feel of single
+    common object universe.
 
 
 Language and Interaction
@@ -67,7 +68,11 @@ The Framework
 
     Language context - is represented by STEnvironment. Maybe not very good
         name and it should be changed to STContext rather. Context defines
-        names for concrete objects and defines mappings of werbs (selectors).
+        names for concrete objects and defines mappings of verbs (selectors).
+
+    Nouns - Objects with names. Some names should refer no non-concrete
+        objects. The meaning of such names is provided by object finders, which
+        will assign concrete object to that name, when requested.
 
     Script - Just plain NSString.
 
@@ -75,6 +80,7 @@ The Framework
         written in specific language. Engines should refer to the language
         context to find out the objects behind names refered by users and
         provided by developers.
+        
 
 Future
 ------
