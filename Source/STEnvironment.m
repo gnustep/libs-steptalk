@@ -232,7 +232,7 @@
 
     [self addNamedObjectsFromDictionary:[info namedObjects]];
 
-    NSLog(@"Adding classes %@", [info publicClassNames]);
+    // NSLog(@"Adding classes %@", [info publicClassNames]);
     [self addClassesWithNames:[info publicClassNames]];
 
     if(!loadedBundles)
