@@ -1,3 +1,8 @@
+2005 Jul 19 Stefan Urbanek
+    
+    * STEnvironment: search class name namespace when no object is found for
+    given name and full scripting is enabled.
+    
 2005 Jan 4  Stefan Urbanek
 
     * First step of introducing contexts

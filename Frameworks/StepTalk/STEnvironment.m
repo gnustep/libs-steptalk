@@ -315,6 +315,14 @@ STEnvironment *sharedEnvironment = nil;
         }
     }
     
+    /* FIXME: Warning: possible security problem in the future */
+    /* If there is no such object and full scripting is enabled, then
+       class namespace is searched */
+    if(!obj && fullScripting)
+    {
+        obj = NSClassFromString(objName);
+    }
+
     return obj;
 }
 
