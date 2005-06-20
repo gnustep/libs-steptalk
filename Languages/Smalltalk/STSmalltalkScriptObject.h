@@ -36,11 +36,9 @@
     STBytecodeInterpreter *interpreter;
     STEnvironment         *environment;
     STCompiledScript      *script;
-    NSMutableArray        *variables;
+    NSMutableDictionary   *variables;
 }
 - initWithEnvironment:(STEnvironment *)env
        compiledScript:(STCompiledScript *)compiledScript;
        
-- (void)setInstanceVariable:(id)anObject atIndex:(int)anIndex;
-- (id)instanceVariableAtIndex:(int)anIndex;
 @end

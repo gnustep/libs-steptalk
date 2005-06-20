@@ -36,23 +36,22 @@
                literals:(NSArray *)anArray
        temporariesCount:(unsigned)count
               stackSize:(unsigned)size
-       externReferences:(NSMutableArray *)refs
+        namedReferences:(NSMutableArray *)refs
 {
     [super init];
 
     bytecodes = [[STBytecodes alloc] initWithData:data];
-    literals = RETAIN(anArray);
+    literals = [[NSArray alloc] initWithArray:anArray];
     tempCount = count;
     stackSize = size;
-    externRefs = RETAIN(refs);
-
+    namedRefs = [[NSArray alloc] initWithArray:refs];
     return self;
 }
 - (void)dealloc
 {
     RELEASE(bytecodes);
     RELEASE(literals);
-    RELEASE(externRefs);
+    RELEASE(namedRefs);
     [super dealloc];
 }
 - (STBytecodes *)bytecodes
@@ -77,9 +76,9 @@
     return [literals objectAtIndex:index];
 }
 
-- (NSMutableArray *)externReferences
+- (NSMutableArray *)namedReferences
 {
-    return externRefs;
+    return namedRefs;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
@@ -88,7 +87,7 @@
 
     [coder encodeObject:bytecodes];
     [coder encodeObject:literals];
-    [coder encodeObject:externRefs];
+    [coder encodeObject:namedRefs];
     [coder encodeValueOfObjCType: @encode(short) at: &tempCount];
     [coder encodeValueOfObjCType: @encode(short) at: &stackSize];
 }
@@ -99,7 +98,7 @@
     
     [decoder decodeValueOfObjCType: @encode(id) at: &bytecodes];
     [decoder decodeValueOfObjCType: @encode(id) at: &literals];
-    [decoder decodeValueOfObjCType: @encode(id) at: &externRefs];
+    [decoder decodeValueOfObjCType: @encode(id) at: &namedRefs];
     [decoder decodeValueOfObjCType: @encode(short) at: &tempCount];
     [decoder decodeValueOfObjCType: @encode(short) at: &stackSize];
 

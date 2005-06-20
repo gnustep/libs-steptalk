@@ -96,14 +96,10 @@ static unsigned nextId = 1;
 {
     [self subclassResponsibility:_cmd];
 }
-- (id)externAtIndex:(unsigned)index
+- (NSString *)referenceNameAtIndex:(unsigned)index
 {
     [self subclassResponsibility:_cmd];
     return nil;
-}
-- (void)setExtern:anObject atIndex:(unsigned)index
-{
-    [self subclassResponsibility:_cmd];
 }
 - (STBytecodes *)bytecodes
 {

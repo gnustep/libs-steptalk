@@ -49,7 +49,7 @@
                        literals:[code literals]
                temporariesCount:[code temporariesCount]
                       stackSize:[code stackSize]
-               externReferences:[code externReferences]];
+                namedReferences:[code namedReferences]];
                
 
     return AUTORELEASE(method);
@@ -61,13 +61,13 @@
             literals:(NSArray *)anArray
     temporariesCount:(unsigned)tCount
            stackSize:(unsigned)size
-    externReferences:(NSMutableArray *)refs;
+     namedReferences:(NSMutableArray *)refs;
 {
     self = [super initWithBytecodesData:data
                                literals:anArray
                        temporariesCount:tCount
                               stackSize:size
-                       externReferences:refs];
+                        namedReferences:refs];
 
     selector = RETAIN(sel);
     argCount = aCount;
@@ -105,7 +105,7 @@
                        selector,
                        [literals count],
                        [literals description],
-                       [externRefs description],
+                       [namedRefs description],
                        tempCount,
                        stackSize,
                        [bytecodes description]];

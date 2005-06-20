@@ -42,22 +42,24 @@
 - initWithEnvironment:(STEnvironment *)env
        compiledScript:(STCompiledScript *)compiledScript
 {
-    int count = [compiledScript variableCount];
-    int i;
+    NSEnumerator *enumerator;
+    NSString     *varName;
 
     [super init];
 
     NSDebugLLog(@"STEngine",
-                @"creating script object %p with %i ivars",compiledScript,
-                count);
+                @"creating script object %p with ivars %@",compiledScript,
+                [compiledScript variableNames]);
                 
     environment = RETAIN(env);
     script = RETAIN(compiledScript);
-    variables = [[NSMutableArray alloc] initWithCapacity:count];
+    variables = [[NSMutableDictionary alloc] init];
 
-    for(i=0;i<count;i++)
+    enumerator = [[compiledScript variableNames] objectEnumerator];
+
+    while( (varName = [enumerator nextObject]) )
     {
-        [variables addObject:STNil];
+        [variables setObject:STNil forKey:varName];
     }
     
     return self;
@@ -75,18 +77,35 @@
 {
     return script;
 }
-- (void)setInstanceVariable:(id)anObject atIndex:(int)anIndex;
+- (void)setValue:(id)value forKey:(NSString *)key
 {
-    if(anObject == nil)
+    if(value == nil)
     {
-        anObject = STNil;
+        value = STNil;
     }
-    
-    [variables replaceObjectAtIndex:anIndex withObject:anObject];
+
+    /* FIXME: check this for potential abuse and for speed improvements */    
+    if([variables objectForKey:key])
+    {
+        [variables setObject:value forKey:key];
+    }
+    else
+    {
+        [super setValue:value forKey:key];
+    }
 }
-- (id)instanceVariableAtIndex:(int)anIndex;
+- (id)valueForKey:(NSString *)key
 {
-    return [[variables objectAtIndex:anIndex] self];
+    id value = [variables objectForKey:key];
+
+    if(value)
+    {
+        return value;
+    }
+    else
+    {
+        return [super valueForKey:key];
+    }
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector

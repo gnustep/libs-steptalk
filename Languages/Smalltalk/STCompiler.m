@@ -44,6 +44,7 @@
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSValue.h>
+#import <Foundation/NSKeyValueCoding.h>
 
 extern int STCparse(void *context);
 
@@ -76,8 +77,7 @@ extern int STCparse(void *context);
 - (void)compile;
 - (void)initializeContext;
 - (void)destroyCompilationContext;
-- (unsigned)tempVariableIndex:(NSString *)varName;
-- (unsigned)externalVariableIndex:(NSString *)varName;
+- (unsigned)indexOfTemporaryVariable:(NSString *)varName;
 
 - (void) initializeCompilationContext;
 
@@ -127,6 +127,7 @@ extern int STCparse(void *context);
 {
     self = [self init];
     [self setEnvironment:env];
+
     return self;
 }
 
@@ -142,10 +143,15 @@ extern int STCparse(void *context);
     symbolLiteralClass    = [STSelector class];        
     characterLiteralClass = [NSString class];
     
+    receiverVars = [[NSMutableArray alloc] init];
+    namedReferences = [[NSMutableArray alloc] init];
+
     return self;
 }
 - (void)dealloc
 {
+    RELEASE(receiverVars);
+    RELEASE(namedReferences);
     [super dealloc];
 }
 
@@ -174,7 +180,7 @@ extern int STCparse(void *context);
 }
 
 - (STCompiledMethod *)compileMethodFromSource:(NSString *)aString
-                                  forReceiver:(id <STScriptObject>)receiver
+                                  forReceiver:(id)receiverObject
 {
     STCompiledMethod *result;
     NSString         *hackedSource;
@@ -194,8 +200,9 @@ extern int STCparse(void *context);
         
     hackedSource = [@"!!" stringByAppendingString:aString];
     reader = [[STSourceReader alloc] initWithString:hackedSource];
-    receiverVars = [[NSArray alloc] 
-                                initWithArray:[receiver instanceVariableNames]];
+    [receiverVars removeAllObjects];
+
+    receiver = RETAIN(receiverObject);
 
     isSingleMethod = YES;   
     STParserContextInit(&context,self,reader);
@@ -215,10 +222,8 @@ extern int STCparse(void *context);
             
             tokenString = [reader tokenString];
             line = [reader currentLine];
-            RELEASE(reader);
-            RELEASE(receiverVars);
 
-            receiverVars = nil;
+            RELEASE(reader);
             reader = nil;
             
             [NSException  raise:STCompilerSyntaxException
@@ -232,11 +237,13 @@ extern int STCparse(void *context);
     }
     NS_ENDHANDLER
 
-    RELEASE(receiverVars);
     RELEASE(reader);
 
     result = AUTORELEASE(resultMethod);
     resultMethod = nil;
+
+    RELEASE(receiver);
+    receiver = nil;
     
     return result;
 }
@@ -262,7 +269,7 @@ extern int STCparse(void *context);
     }
     
     reader = [[STSourceReader alloc] initWithString:aString];
-    receiverVars = [[NSMutableArray alloc] init];
+    [receiverVars removeAllObjects];
 
     STParserContextInit(&context,self,reader);
     
@@ -275,9 +282,6 @@ extern int STCparse(void *context);
     NS_HANDLER
     {
         RELEASE(reader);
-        RELEASE(receiverVars);
-
-        receiverVars = nil;
         reader = nil;
 
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
@@ -299,7 +303,6 @@ extern int STCparse(void *context);
     }
     NS_ENDHANDLER
 
-    RELEASE(receiverVars);
     RELEASE(reader);
 
     [pool release];
@@ -348,8 +351,8 @@ extern int STCparse(void *context);
             NSDebugLLog(@"STCompiler",
                         @"Creating script with %i variables",[receiverVars count]);
 
-            resultScript = [[STCompiledScript alloc] initWithVariableCount:
-                                                     [receiverVars count]];
+            resultScript = [[STCompiledScript alloc] initWithVariableNames:
+                                                                receiverVars];
         }
         [resultScript addMethod:compiledMethod];
     }
@@ -402,22 +405,21 @@ extern int STCparse(void *context);
                     @"    %2i %@", i, [literals objectAtIndex:i]);
     }
 
-    count = [externVars count];
-    NSDebugLLog(@"STCompiler",@"  extern vars count %i",count);
+    count = [namedReferences count];
+    NSDebugLLog(@"STCompiler",@"  named references count %i",count);
     for(i=0;i<count;i++)
     {
         NSDebugLLog(@"STCompiler",
-                    @"    %i %@",i,[externVars objectAtIndex:i]);
+                    @"    %i %@",i,[namedReferences objectAtIndex:i]);
     }
 #endif
     
     compiledCode = [STCompiledCode alloc];
-
     [compiledCode initWithBytecodesData:byteCodes
                                literals:literals
                        temporariesCount:tempsSize
                               stackSize:stackSize
-                       externReferences:externVars];
+                        namedReferences:namedReferences];
 
     [self destroyCompilationContext];
     
@@ -434,7 +436,7 @@ extern int STCparse(void *context);
  * ---------------------------------------------------------------------------
  */
 
-- (unsigned)tempVariableIndex:(NSString *)varName
+- (unsigned)indexOfTemporaryVariable:(NSString *)varName
 {
     return [tempVars indexOfObject:varName];
 }
@@ -442,11 +444,7 @@ extern int STCparse(void *context);
 - (void)setReceiverVariables:(NSArray *)array
 {
     ASSIGN(receiverVars,array);
-}
-
-- (unsigned)receiverVariableIndex:(NSString *)varName
-{
-    return [receiverVars indexOfObject:varName];
+    [namedReferences addObjectsFromArray:array];
 }
 
 - (void)addTempVariable:(NSString *)varName
@@ -473,28 +471,52 @@ extern int STCparse(void *context);
     [literals addObject:literal];
     return [literals count] - 1;
 }
-
-- (unsigned)externalVariableIndex:(NSString *)varName
+- (BOOL)isReceiverVariable:(NSString *)varName
 {
-    STObjectReferenceLiteral *ref;
-    unsigned i;
-    unsigned count;
+    return [receiverVars containsObject:varName];
+}
+- (unsigned)indexOfNamedReference:(NSString *)varName
+{
+    unsigned index;
+    id       obj;
     
-    count = [externVars count];
-    for(i=0;i<count;i++)
+    /* is it receiver or extern variable? */
+    index = [namedReferences indexOfObject:varName];
+    if(index != NSNotFound)
     {
-        ref = [externVars objectAtIndex:i];
-        if([[ref objectName] isEqualToString:varName])
-        {
-            return i;
-        }
+        return index;
     }
+    
+    /* try to find receiver variable */
+    if(receiver)
+    {
+        NS_DURING
+            /* test whether variable is an ivar s*/
+            obj = [receiver valueForKey:varName];
+            NSDebugLLog(@"STCompiler", "New name: receiver variable %@", varName);
+            [receiverVars addObject:varName];
+        NS_HANDLER
+            if([[localException name] isEqualToString:NSUnknownKeyException])
+            {
+            NSDebugLLog(@"STCompiler", "New name: extern %@", varName);
+                /* receiver has no such variable */
+                [externVars addObject:varName];
+            }
+            else
+            {
+                [localException raise];
+            }
+        NS_ENDHANDLER
+    }
+    else
+    {
+        NSDebugLLog(@"STCompiler", "New name: extern %@ (nil receiver)", varName);
+        [externVars addObject:varName];
+    }
+        
+    [namedReferences addObject:varName];
 
-    ref = [[STObjectReferenceLiteral alloc] initWithObjectName:varName
-                                                      poolName:nil];
-    [externVars addObject:AUTORELEASE(ref)];
-
-    return count;
+    return [namedReferences indexOfObject:varName];
 }
 
 
@@ -506,11 +528,11 @@ extern int STCparse(void *context);
 - (void) initializeCompilationContext
 {
     RELEASE(byteCodes);
-    RELEASE(externVars);
     RELEASE(literals);
     byteCodes  = [[NSMutableData  alloc] init];
-    externVars = [[NSMutableArray alloc] init];
     literals   = [[NSMutableArray alloc] init];
+    [externVars removeAllObjects];
+    [namedReferences removeAllObjects];
     
     stackSize = stackPos = 0;
     tempsSize = tempsCount = 0;
@@ -520,10 +542,8 @@ extern int STCparse(void *context);
 - (void) destroyCompilationContext
 {
     RELEASE(byteCodes);
-    RELEASE(externVars);
     RELEASE(literals);
     byteCodes  = nil;
-    externVars = nil;
     literals   = nil;
     
     stackSize = stackPos = 0;
@@ -679,7 +699,6 @@ extern int STCparse(void *context);
     switch([primary type])
     {
     case STCVariablePrimaryType:
-
             if([object isEqualToString:@"YES"]
                 || [object isEqualToString:@"true"])
             {
@@ -696,15 +715,10 @@ extern int STCparse(void *context);
             }
             else
             {
-                index = [self tempVariableIndex:object];
+                index = [self indexOfTemporaryVariable:object];
                 if(index != NSNotFound)
                 {
                     [self emitPushTemporary:index];
-                    break;
-                }
-                else if( (index = [self receiverVariableIndex:object])!= NSNotFound)
-                {
-                    [self emitPushReceiverVariable:index];
                     break;
                 }
                 else if( [object isEqual:@"self"] )
@@ -712,9 +726,19 @@ extern int STCparse(void *context);
                     [self emitPushSelf];
                     break;
                 }
+                else
+                {
+                    index = [self indexOfNamedReference:object];
 
-                index = [self externalVariableIndex:object];
-                [self emitPushVariable:index];
+                    if([self isReceiverVariable:object])
+                    {
+                        [self emitPushReceiverVariable:index];
+                    }
+                    else
+                    {
+                        [self emitPushVariable:index];
+                    }
+                }
             }
             break;
 
@@ -829,15 +853,10 @@ extern int STCparse(void *context);
         {
             varName = [array objectAtIndex:i];
 
-            index = [self tempVariableIndex:varName];
+            index = [self indexOfTemporaryVariable:varName];
             if(index != NSNotFound)
             {
                 [self emitPopAndStoreTemporary:index];
-                continue;
-            }
-            else if( (index = [self receiverVariableIndex:varName])!= NSNotFound)
-            {
-                [self emitPopAndStoreReceiverVariable:index];
                 continue;
             }
             if( [varName isEqual:@"self"] )
@@ -846,9 +865,18 @@ extern int STCparse(void *context);
                 [self emitPopStack];
                 continue;
             }
-            
-            index = [self externalVariableIndex:varName];
-            [self emitPopAndStoreVariable:index];
+            else
+            {
+                index = [self indexOfNamedReference:varName];
+                if([self isReceiverVariable:varName])
+                {
+                    [self emitPopAndStoreReceiverVariable:index];
+                }
+                else
+                {
+                    [self emitPopAndStoreVariable:index];
+                }
+            }
         }
     }
 }
@@ -1047,7 +1075,7 @@ extern int STCparse(void *context);
                 
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04x push receiver variable %i (%@)",
-                bcpos,index,[receiverVars objectAtIndex:index]);
+                bcpos,index,[namedReferences objectAtIndex:index]);
 
     EMIT_DOUBLE(STPushRecVarBytecode,index);
     STACK_PUSH;
@@ -1078,7 +1106,7 @@ extern int STCparse(void *context);
 {
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04x push external variable %i (%@)",
-                bcpos,index,[externVars objectAtIndex:index]);
+                bcpos,index,[namedReferences objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPushExternBytecode,index);
     STACK_PUSH;
@@ -1096,7 +1124,7 @@ extern int STCparse(void *context);
 {
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04x pop and store ext variable %i (%@)",
-                bcpos,index,[externVars objectAtIndex:index]);
+                bcpos,index,[namedReferences objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPopAndStoreExternBytecode,index);
     STACK_POP;
@@ -1105,7 +1133,7 @@ extern int STCparse(void *context);
 {
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04x pop and store rec variable %i (%@)",
-                bcpos,index,[receiverVars objectAtIndex:index]);
+                bcpos,index,[namedReferences objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPopAndStoreRecVarBytecode,index);
     STACK_POP;

@@ -79,7 +79,10 @@ typedef struct _STParserContext
     NSMutableArray   *tempVars;
     NSMutableArray   *externVars;
     NSMutableArray   *receiverVars;
+    NSMutableArray   *namedReferences;
     NSMutableArray   *literals;
+    
+    id                receiver;
 
     BOOL              isSingleMethod;
     

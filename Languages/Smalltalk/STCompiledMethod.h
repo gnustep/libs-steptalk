@@ -41,7 +41,7 @@
             literals:(NSArray *)anArray
     temporariesCount:(unsigned)tCount
            stackSize:(unsigned)size
-    externReferences:(NSMutableArray *)refs;
+     namedReferences:(NSMutableArray *)refs;
 
 - (NSString *)selector;
 - (unsigned)argumentCount;

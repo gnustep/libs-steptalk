@@ -30,10 +30,7 @@
 @interface STMethodContext:STExecutionContext
 {
     STCompiledMethod *method;
-
     NSMutableArray   *temporaries;
-    NSMutableArray   *externs;
-
     id                receiver;
 }
 

@@ -89,15 +89,10 @@
     [homeContext setTemporary:anObject atIndex:index];
 }
 
-- externAtIndex:(unsigned)index;
+- (NSString *)referenceNameAtIndex:(unsigned)index
 {
-    return [homeContext externAtIndex:index];
+    return [homeContext referenceNameAtIndex:index];
 }
-- (void)setExtern:anObject atIndex:(unsigned)index;
-{
-    [homeContext setExtern:anObject atIndex:index];
-}
-
 - (STBytecodes *)bytecodes
 {
     return [homeContext bytecodes];

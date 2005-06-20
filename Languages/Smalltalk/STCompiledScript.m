@@ -49,13 +49,19 @@ static SEL finalizeSelector;
     finalizeSelector = STSelectorFromString(@"finalize");
 }
 
-- initWithVariableCount:(unsigned)count
+- initWithVariableNames:(NSArray *)array;
 {
     [super init];
     
-    variableCount = count;
+    variableNames = RETAIN(array);
 
     return self;
+}
+- (void)dealloc
+{
+    RELEASE(methodDictionary);
+    RELEASE(variableNames);
+    [super dealloc];
 }
 - (void)addMethod:(STCompiledMethod *)method
 {
@@ -74,22 +80,15 @@ static SEL finalizeSelector;
     [methodDictionary setObject:method forKey:[method selector]];
 }
 
-- (void)dealloc
-{
-    RELEASE(methodDictionary);
-    [super dealloc];
-}
-
 - (STCompiledMethod *)methodWithName:(NSString *)name
 {
     return [methodDictionary objectForKey:name];
 }
 
-- (int)variableCount
+- (NSArray*)variableNames
 {
-    return variableCount;
+    return variableNames;
 }
-
 - (id)executeInEnvironment:(STEnvironment *)env
 {
     STSmalltalkScriptObject *object;

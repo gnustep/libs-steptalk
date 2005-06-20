@@ -26,20 +26,21 @@
 @class NSDictionary;
 @class NSMutableDictionary;
 @class NSString;
+@class NSArray;
 @class STCompiledMethod;
 @class STEnvironment;
 
 @interface STCompiledScript:NSObject
 {
     NSMutableDictionary *methodDictionary;
-    int                  variableCount;
+    NSArray             *variableNames;
 }
-- initWithVariableCount:(unsigned)count;
+- initWithVariableNames:(NSArray *)array;
 
 - (id)executeInEnvironment:(STEnvironment *)env;
 
 - (STCompiledMethod *)methodWithName:(NSString *)name;
 - (void)addMethod:(STCompiledMethod *)method;
-- (int)variableCount;
+- (NSArray *)variableNames;
 @end
 

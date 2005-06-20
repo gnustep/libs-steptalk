@@ -424,7 +424,8 @@ static Class NSInvocation_class = nil;
 
 - (BOOL)dispatchBytecode:(STBytecode)bytecode
 {
-    id object;
+    NSString *refName;
+    id        object;
     
     switch(bytecode.code)
     {
@@ -461,14 +462,16 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushRecVarBytecode:
-                object = [(STSmalltalkScriptObject *)receiver instanceVariableAtIndex:
-                                                                bytecode.arg1];
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                object = [receiver valueForKey:refName];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
 
     case STPushExternBytecode:
-                object = [activeContext externAtIndex:bytecode.arg1];
+//                NSLog(@"PUSH EXTERN ctx(%@): %@ %@", [activeContext className], [[activeContext method] selector], [[activeContext method] namedReferences]);
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                object = [environment objectWithName:refName];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
@@ -487,13 +490,18 @@ static Class NSInvocation_class = nil;
 
     case STPopAndStoreRecVarBytecode:
                 STDebugBytecode(bytecode);
-                [(STSmalltalkScriptObject *)receiver setInstanceVariable:STPop(stack) 
-                                                        atIndex:bytecode.arg1];
+
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                object = STPop(stack);
+                [receiver setValue:object forKey:refName];
+
                 break;
 
     case STPopAndStoreExternBytecode: 
                 STDebugBytecode(bytecode);
-                [activeContext setExtern:STPop(stack) atIndex:bytecode.arg1];
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                object = STPop(stack);
+                [environment setObject:object forName:refName];
                 break;
 
     case STPopAndStoreTempBytecode:

@@ -31,7 +31,7 @@
 {
     STBytecodes        *bytecodes;
     NSArray            *literals;
-    NSMutableArray     *externRefs;
+    NSMutableArray     *namedRefs;
     short               tempCount;
     short               stackSize;
 }
@@ -39,12 +39,12 @@
                literals:(NSArray *)anArray
        temporariesCount:(unsigned)count
               stackSize:(unsigned)size
-       externReferences:(NSMutableArray *)refs;
+        namedReferences:(NSMutableArray *)refs;
 
 - (STBytecodes *)bytecodes;
 - (unsigned)temporariesCount;
 - (unsigned)stackSize;
 - (id)literalObjectAtIndex:(unsigned)index;
-- (NSMutableArray *)externReferences;
+- (NSMutableArray *)namedReferences;
 - (NSArray *)literals;
 @end

@@ -63,52 +63,14 @@
     {
         [temporaries insertObject:STNil atIndex:i];
     }
-        
-    [self _resolveExternReferences:[method externReferences]
-                       environment:env];
     
     return [super initWithStackSize:[method stackSize]];
-}
-
-- (void)_resolveExternReferences:(NSArray *)array
-                     environment:(STEnvironment *)env
-{
-    STObjectReferenceLiteral *lit;
-    STObjectReference        *ref;
-    int i;
-    int count;
-    
-    NSDebugLLog(@"STBytecodeInterpreter",
-                @"Resolving external references...");
-
-    externs = [[NSMutableArray alloc] init];
-
-    count = [array count];
-    
-    for(i=0;i<count;i++)
-    {
-        lit = [array objectAtIndex:i];
-
-        NSDebugLLog(@"STBytecodeInterpreter",
-                    @"  '%@' (%@)",[lit objectName], [lit poolName]);
-                    
-        ref = [env objectReferenceForObjectWithName:[lit objectName]];
-
-        if(!ref)
-        {
-            [NSException raise:STGenericException
-                        format:@"Unable to get object reference for '%@' ",
-                        [lit objectName]];
-        }        
-        [externs addObject:ref];
-    }
 }
 
 - (void)dealloc
 {
     RELEASE(temporaries);
     RELEASE(method);
-    RELEASE(externs);
     [super dealloc];
 }
 - (BOOL)isBlockContext
@@ -162,18 +124,11 @@
     [temporaries replaceObjectAtIndex:index withObject:anObject];
 }
 
-- (id)externAtIndex:(unsigned)index
+- (NSString *)referenceNameAtIndex:(unsigned)index
 {
-    STObjectReference *ref = [externs objectAtIndex:index];
-    return [ref object];
+    return [[method namedReferences] objectAtIndex:index];
 }
 
-- (void)setExtern:anObject atIndex:(unsigned)index
-{
-    STObjectReference *reference = [externs objectAtIndex:index];
-    
-    [reference setObject:anObject];
-}
 - (STBytecodes *)bytecodes
 {
     return [method bytecodes];

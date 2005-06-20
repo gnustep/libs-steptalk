@@ -1,3 +1,11 @@
+2005 June 20 Stefan Urbanek
+
+    * Rewritten parts of STCompiler, STBytecodeInterpreter, STCompiled* and '
+    ST*Context: Smalltalk now refers to instance variables by name not by index.
+    This should allow creation of STActor class and final implementation of
+    instance variables in STScriptObject. Instance variables are accessed
+    by their name through Key-Value-Coding protocol.
+
 2005 Mar 9 Stefan Urbanek
 
     * Patch by Matthew D Swank:  patch that keeps the temp space allocated to a 
