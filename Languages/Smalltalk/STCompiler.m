@@ -496,7 +496,7 @@ extern int STCparse(void *context);
             NSDebugLLog(@"STCompiler", "New name: receiver variable %@", varName);
             [receiverVars addObject:varName];
         NS_HANDLER
-            if([[localException name] isEqualToString:NSUnknownKeyException])
+            if([[localException name] isEqualToString:NSUndefinedKeyException])
             {
             NSDebugLLog(@"STCompiler", "New name: extern %@", varName);
                 /* receiver has no such variable */

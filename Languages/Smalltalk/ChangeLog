@@ -1,3 +1,7 @@
+2005 June 24 Stefan Urbanek
+
+    * STCompiler: Fixed STUndefinedKeyException name as it was fixed in -base
+    
 2005 June 20 Stefan Urbanek
 
     * Rewritten parts of STCompiler, STBytecodeInterpreter, STCompiled* and '
