@@ -240,7 +240,7 @@
             object = [target valueForKeyPath:reference];
             [env setObject:object forName:name];
         NS_HANDLER
-            if([[localException name] isEqualToString:NSUnknownKeyException])
+            if([[localException name] isEqualToString:NSUndefinedKeyException])
             {
                 NSLog(@"Warning: Invalid object reference '%@'.", reference);
             }
