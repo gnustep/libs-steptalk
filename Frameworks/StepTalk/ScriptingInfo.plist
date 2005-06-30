@@ -2,6 +2,7 @@
     ScriptingInfoClass = StepTalkScriptingInfo;
     
     Classes = (
+        STActor,
         STEnvironment,
         STLanguage,
         STScript,

@@ -27,6 +27,7 @@ FRAMEWORK_NAME = StepTalk
 
 StepTalk_OBJC_FILES = \
     NSInvocation+additions.m \
+    STActor.m \
     STBehaviourInfo.m \
     STBundleInfo.m \
     STClassInfo.m \
@@ -58,6 +59,7 @@ StepTalk_OBJC_FILES = \
 #    STDistantEnvironment.m \
 
 STEPTALK_HEADER_FILES = \
+    STActor.h \
     STBundleInfo.h \
     STContext.h \
     STConversation.h \

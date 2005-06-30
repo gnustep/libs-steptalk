@@ -1,4 +1,13 @@
-2005 Jul 19 Stefan Urbanek
+2005 June 30
+
+    * STActor: new class
+    * Examples/Smalltalk/actor - new actor example
+
+2005 June 19
+
+    Version 0.9.0
+    
+2005 June 19 Stefan Urbanek
     
     * STEnvironment: search class name namespace when no object is found for
     given name and full scripting is enabled.

@@ -164,7 +164,7 @@ const char *STExecutorCommonOptions =
     {
         NSDebugLog(@"Executing script '%@'",file);
 
-        env = [conversation environment];
+        env = [conversation context];
         [env setObject:args forName:@"Args"];
         [env setObject:env forName:@"Environment"];
 
@@ -216,7 +216,7 @@ const char *STExecutorCommonOptions =
     NSString     *name;
     NSArray      *objects;    
 
-    dict = [[conversation environment] objectDictionary];
+    dict = [[conversation context] objectDictionary];
     
     objects = [[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     

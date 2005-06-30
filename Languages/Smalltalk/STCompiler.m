@@ -189,7 +189,7 @@ extern int STCparse(void *context);
     int               parsRetval = 0;
 
 
-    NSDebugLLog(@"STCompiler", @"Compile method", aString);
+    NSDebugLLog(@"STCompiler", @"Compile method for receiver %@", [receiverObject className]);
 
     if(!environment)
     {
@@ -493,12 +493,12 @@ extern int STCparse(void *context);
         NS_DURING
             /* test whether variable is an ivar s*/
             obj = [receiver valueForKey:varName];
-            NSDebugLLog(@"STCompiler", "New name: receiver variable %@", varName);
+            NSDebugLLog(@"STCompiler", @"New name: receiver variable %@", varName);
             [receiverVars addObject:varName];
         NS_HANDLER
             if([[localException name] isEqualToString:NSUndefinedKeyException])
             {
-            NSDebugLLog(@"STCompiler", "New name: extern %@", varName);
+            NSDebugLLog(@"STCompiler", @"New name: extern %@", varName);
                 /* receiver has no such variable */
                 [externVars addObject:varName];
             }
@@ -510,7 +510,7 @@ extern int STCparse(void *context);
     }
     else
     {
-        NSDebugLLog(@"STCompiler", "New name: extern %@ (nil receiver)", varName);
+        NSDebugLLog(@"STCompiler", @"New name: extern %@ (nil receiver)", varName);
         [externVars addObject:varName];
     }
         
