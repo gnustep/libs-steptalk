@@ -1,3 +1,33 @@
+2005 Sep 5 Stefan Urbanek
+
+    * Frameworks/StepTalk: compiler warnings removed
+
+2005 Aug 30 Stefan Urbanek
+
+    * STLanguageManager: new class
+    * STLanguage: removed
+    * STEngine: engineForLanguageWithName: and engineForFileType: removed, use 
+    STLanguageManager instead, added engineForLanguage:
+    * Tools/stexec - updated to use STLanguageManager
+    * Tools/stupdate_languages - removed as it was replaced by STLanguageManager
+    * Examples/Server - removed as it was replaced by stenvironment and distant
+    scripting
+    
+    Notes:
+    - you can delete */Library/StepTalk/Configuration directories
+    
+2005 Aug 17 Stefan Urbanek
+
+    * STConversation: renamed run* method to interpret*, interpretScript: does
+    not return value anymore (because of distant conversations), new methods
+    result and resultByCopy were added
+    * STEnvironment: removed depreciated methods
+    * STDistantConversation: new class for conversations with distant objects
+    * Tools/stenvironment: new tool for semi-persistent scripting environments
+    * Tools/stexec: added reading from stdin; reflect library changes
+    * Tools/stalk: removed
+    * STEngine: renamed methods (see STEngine.h for more information)
+    
 2005 June 30
 
     Version 0.9.1

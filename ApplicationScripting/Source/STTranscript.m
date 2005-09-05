@@ -26,8 +26,6 @@
 
 #import "STTranscript.h"
 
-#import <StepTalk/STLanguage.h>
-
 #import <AppKit/NSAttributedString.h>
 #import <AppKit/NSColor.h>
 #import <AppKit/NSTextView.h>

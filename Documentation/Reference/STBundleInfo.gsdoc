@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
 <gsdoc base="STBundleInfo" up="StepTalk">
   <head>
     <title>STBundleInfo class documentation</title>
@@ -21,6 +21,41 @@
         <desc>
           <em>Description forthcoming.</em>
         </desc>
+        <ivariable type="NSArray*" name="allClasses" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="NSBundle*" name="bundle" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="NSDictionary*" name="objectReferenceDictionary" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="NSArray*" name="publicClasses" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="Class" name="scriptingInfoClass" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="NSString*" name="scriptingInfoClassName" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="BOOL" name="useAllClasses" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
         <method type="id" factory="yes">
           <sel>infoForBundle:</sel>
           <arg type="NSBundle*">aBundle</arg>

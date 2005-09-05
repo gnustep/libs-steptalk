@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
 <gsdoc base="STEngine" up="StepTalk">
   <head>
     <title>STEngine class documentation</title>
@@ -26,16 +26,30 @@
           <sel>engineForFileType:</sel>
           <arg type="NSString*">fileType</arg>
           <desc>
-            Return a scripting engine for the language used in
-            files of type <var>fileType</var>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="STEngine*" factory="yes">
+          <sel>engineForLanguage:</sel>
+          <arg type="NSString*">name</arg>
+          <desc>
+            Return a scripting engine for language with
+            specified <var>name</var>. The engine is get from
+            default language manager.
           </desc>
         </method>
         <method type="STEngine*" factory="yes">
           <sel>engineForLanguageWithName:</sel>
           <arg type="NSString*">name</arg>
           <desc>
-            Instance creation <br /> Return a scripting engine
-            for language with specified <var>name</var>.
+            Instance creation
+          </desc>
+        </method>
+        <method type="BOOL">
+          <sel>canInterpret:</sel>
+          <arg type="NSString*">sourceCode</arg>
+          <desc>
+            <em>Description forthcoming.</em>
           </desc>
         </method>
         <method type="id" override="subclass">
@@ -63,6 +77,39 @@
             <em>Description forthcoming.</em>
           </desc>
         </method>
+        <method type="id">
+          <sel>interpretMethod:</sel>
+          <arg type="id&lt;STMethod&gt;">aMethod</arg>
+          <sel>forReceiver:</sel>
+          <arg type="id">anObject</arg>
+          <sel>withArguments:</sel>
+          <arg type="NSArray*">args</arg>
+          <sel>inContext:</sel>
+          <arg type="STContext*">context</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="id">
+          <sel>interpretScript:</sel>
+          <arg type="NSString*">script</arg>
+          <sel>inContext:</sel>
+          <arg type="STContext*">context</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="STMethod*">
+          <sel>methodFromSource:</sel>
+          <arg type="NSString*">sourceString</arg>
+          <sel>forReceiver:</sel>
+          <arg type="id">receiver</arg>
+          <sel>inContext:</sel>
+          <arg type="STContext*">context</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
         <method type="STMethod*">
           <sel>methodFromSource:</sel>
           <arg type="NSString*">sourceString</arg>
@@ -80,9 +127,7 @@
           <sel>forOption:</sel>
           <arg type="NSString*">anOption</arg>
           <desc>
-            Set engine specific option. Refer to particuliar
-            language engine documentation for more
-            information.
+            <em>Description forthcoming.</em>
           </desc>
         </method>
         <method type="BOOL">
@@ -96,7 +141,7 @@
           <sel>valueForOption:</sel>
           <arg type="NSString*">anOption</arg>
           <desc>
-            Returs a value for engine specific option
+            <em>Description forthcoming.</em>
           </desc>
         </method>
       </class>

@@ -1,5 +1,10 @@
 TODO list
 
+- find all defaults and document them
+- find all debug logs and document them
+- find all used .plist keys/values and document them (STLanguageManager,...)
+- optimalise method execution - each time language manager is fetched -can be expensive
+
 HIGH PRIORITY 
 
 - implement NSRect object

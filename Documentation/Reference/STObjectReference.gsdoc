@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
 <gsdoc base="STObjectReference" up="StepTalk">
   <head>
     <title>STObjectReference class documentation</title>
@@ -21,29 +21,33 @@
         <desc>
           <em>Description forthcoming.</em>
         </desc>
+        <ivariable type="NSString*" name="identifier" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <ivariable type="id" name="target" validity="protected">
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </ivariable>
+        <method type="NSString*">
+          <sel>identifier</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
         <method type="id">
-          <sel>initWithObjectName:</sel>
-          <arg type="NSString*">name</arg>
-          <sel>pool:</sel>
-          <arg type="NSMutableDictionary*">aPool</arg>
+          <sel>initWithIdentifier:</sel>
+          <arg type="NSString*">ident</arg>
+          <sel>target:</sel>
+          <arg type="id">anObject</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
         </method>
         <method type="id">
           <sel>object</sel>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="NSString*">
-          <sel>objectName</sel>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="NSMutableDictionary*">
-          <sel>pool</sel>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
@@ -55,16 +59,8 @@
             <em>Description forthcoming.</em>
           </desc>
         </method>
-        <method type="void">
-          <sel>setObjectName:</sel>
-          <arg type="NSString*">newName</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="void">
-          <sel>setPool:</sel>
-          <arg type="NSMutableDictionary*">aDict</arg>
+        <method type="id">
+          <sel>target</sel>
           <desc>
             <em>Description forthcoming.</em>
           </desc>

@@ -8,7 +8,7 @@
     actor setInstanceVariables:ivars.
     
 " Get the proper engine "
-    engine := STEngine engineForLanguageWithName:'Smalltalk'.
+    engine := STEngine engineForLanguage:'Smalltalk'.
 
 " This is the source of new method "
     source := 'increment
@@ -17,7 +17,7 @@
 " Create method "
     method := engine methodFromSource:source 
                           forReceiver:actor
-                        inEnvironment:Environment.
+                            inContext:Environment.
 
 " Add the method to the actor "
     actor addMethod:method.
@@ -26,7 +26,7 @@
     source := 'setNumber:i number := i. ^self'.
     method := engine methodFromSource:source 
                           forReceiver:actor
-                        inEnvironment:Environment.
+                            inContext:Environment.
     actor addMethod:method.
 
     source := 'print
@@ -34,7 +34,7 @@
                                                 (number description)). ^self'.
     method := engine methodFromSource:source 
                           forReceiver:actor
-                        inEnvironment:Environment.
+                            inContext:Environment.
     actor addMethod:method.
 
 " Send it! "

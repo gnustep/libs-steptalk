@@ -25,7 +25,7 @@ main
     env setObject:self forName:'Shell'.
     
     " Create and setup engine "
-    engine := STEngine engineForLanguageWithName:'Smalltalk'.
+    engine := STEngine engineForLanguage:'Smalltalk'.
 
     " Do the loop! "
     

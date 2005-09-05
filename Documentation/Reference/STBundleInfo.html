@@ -4,6 +4,7 @@
     <title>STBundleInfo class documentation</title>
   </head>
   <body>
+    <font face="serif">
     <a href="StepTalk.html">Up</a>
     <br />
     <h1><a name="title$STBundleInfo">STBundleInfo class documentation</a></h1>
@@ -45,6 +46,9 @@
           <em>Description forthcoming.</em>
         
     </p>
+    <hr width="50%" align="left" />
+    <a href="#_STBundleInfo_ivars">Instance Variables</a>
+    <br/><br/>
     <b>Method summary</b>
     <ul>
       <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo+infoForBundle:">+infoForBundle:</a></li>
@@ -55,7 +59,7 @@
       <li><a rel="gsdoc" href="STBundleInfo.html#method$STBundleInfo-publicClassNames">-publicClassNames</a></li>
     </ul>
     <hr width="50%" align="left" />
-    <h3><a name="method$STBundleInfo+infoForBundle:">infoForBundle:</a></h3>
+    <h3><a name="method$STBundleInfo+infoForBundle:">infoForBundle:&nbsp;</a></h3>
     + (id) <b>infoForBundle:</b> (NSBundle*)aBundle;<br />
     <p>
       
@@ -63,7 +67,7 @@
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STBundleInfo-allClassNames">allClassNames</a></h3>
+    <h3><a name="method$STBundleInfo-allClassNames">allClassNames&nbsp;</a></h3>
     - (NSArray*) <b>allClassNames</b>;<br />
     <p>
       
@@ -71,7 +75,7 @@
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STBundleInfo-initWithBundle:">initWithBundle:</a></h3>
+    <h3><a name="method$STBundleInfo-initWithBundle:">initWithBundle:&nbsp;</a></h3>
     - (id) <b>initWithBundle:</b> (NSBundle*)aBundle;<br />
 This is a designated initialiser for the class.<br />
     <p>
@@ -80,7 +84,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STBundleInfo-namedObjects">namedObjects</a></h3>
+    <h3><a name="method$STBundleInfo-namedObjects">namedObjects&nbsp;</a></h3>
     - (NSDictionary*) <b>namedObjects</b>;<br />
     <p>
       
@@ -90,7 +94,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STBundleInfo-objectReferenceDictionary">objectReferenceDictionary</a></h3>
+    <h3><a name="method$STBundleInfo-objectReferenceDictionary">objectReferenceDictionary&nbsp;</a></h3>
     - (NSDictionary*) <b>objectReferenceDictionary</b>;<br />
     <p>
       
@@ -101,7 +105,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STBundleInfo-publicClassNames">publicClassNames</a></h3>
+    <h3><a name="method$STBundleInfo-publicClassNames">publicClassNames&nbsp;</a></h3>
     - (NSArray*) <b>publicClassNames</b>;<br />
     <p>
       
@@ -109,6 +113,65 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
+<a name="_STBundleInfo_ivars"/>    <br/><hr width="50%" align="left" />
+    <h2>Instance Variables for STBundleInfo Class</h2>
+    <h3><a name="ivariable$STBundleInfo*allClasses">allClasses</a></h3>
+    @protected NSArray* <b>allClasses</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="ivariable$STBundleInfo*bundle">bundle</a></h3>
+    @protected NSBundle* <b>bundle</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="ivariable$STBundleInfo*objectReferenceDictionary">objectReferenceDictionary</a></h3>
+    @protected NSDictionary* <b>objectReferenceDictionary</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="ivariable$STBundleInfo*publicClasses">publicClasses</a></h3>
+    @protected NSArray* <b>publicClasses</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="ivariable$STBundleInfo*scriptingInfoClass">scriptingInfoClass</a></h3>
+    @protected Class <b>scriptingInfoClass</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="ivariable$STBundleInfo*scriptingInfoClassName">scriptingInfoClassName</a></h3>
+    @protected NSString* <b>scriptingInfoClassName</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <h3><a name="ivariable$STBundleInfo*useAllClasses">useAllClasses</a></h3>
+    @protected BOOL <b>useAllClasses</b>;<br />
+    <p>
+      
+            <em>Description forthcoming.</em>
+          
+    </p>
+    <hr width="25%" align="left" />
+    <br/><hr width="50%" align="left" /><br/>
 
           <h1><a name="002000000000">
         Software documentation for the NSBundle(STAdditions)
@@ -128,15 +191,15 @@ This is a designated initialiser for the class.<br />
     </p>
     <b>Method summary</b>
     <ul>
-      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+allFrameworkNames">+allFrameworkNames</a></li>
-      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+bundleForFrameworkWithName:">+bundleForFrameworkWithName:</a></li>
-      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+pathForFrameworkWithName:">+pathForFrameworkWithName:</a></li>
-      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+stepTalkBundleNames">+stepTalkBundleNames</a></li>
-      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle+stepTalkBundleWithName:">+stepTalkBundleWithName:</a></li>
-      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle-scriptingInfoDictionary">-scriptingInfoDictionary</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle(STAdditions)+allFrameworkNames">+allFrameworkNames</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle(STAdditions)+bundleForFrameworkWithName:">+bundleForFrameworkWithName:</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle(STAdditions)+pathForFrameworkWithName:">+pathForFrameworkWithName:</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle(STAdditions)+stepTalkBundleNames">+stepTalkBundleNames</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle(STAdditions)+stepTalkBundleWithName:">+stepTalkBundleWithName:</a></li>
+      <li><a rel="gsdoc" href="STBundleInfo.html#method$NSBundle(STAdditions)-scriptingInfoDictionary">-scriptingInfoDictionary</a></li>
     </ul>
     <hr width="50%" align="left" />
-    <h3><a name="method$NSBundle(STAdditions)+allFrameworkNames">allFrameworkNames</a></h3>
+    <h3><a name="method$NSBundle(STAdditions)+allFrameworkNames">allFrameworkNames&nbsp;</a></h3>
     + (NSArray*) <b>allFrameworkNames</b>;<br />
     <p>
       
@@ -145,7 +208,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$NSBundle(STAdditions)+bundleForFrameworkWithName:">bundleForFrameworkWithName:</a></h3>
+    <h3><a name="method$NSBundle(STAdditions)+bundleForFrameworkWithName:">bundleForFrameworkWithName:&nbsp;</a></h3>
     + (NSBundle*) <b>bundleForFrameworkWithName:</b> (NSString*)aName;<br />
     <p>
       
@@ -154,7 +217,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$NSBundle(STAdditions)+pathForFrameworkWithName:">pathForFrameworkWithName:</a></h3>
+    <h3><a name="method$NSBundle(STAdditions)+pathForFrameworkWithName:">pathForFrameworkWithName:&nbsp;</a></h3>
     + (NSString*) <b>pathForFrameworkWithName:</b> (NSString*)aName;<br />
     <p>
       
@@ -163,7 +226,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$NSBundle(STAdditions)+stepTalkBundleNames">stepTalkBundleNames</a></h3>
+    <h3><a name="method$NSBundle(STAdditions)+stepTalkBundleNames">stepTalkBundleNames&nbsp;</a></h3>
     + (NSArray*) <b>stepTalkBundleNames</b>;<br />
     <p>
       
@@ -172,7 +235,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$NSBundle(STAdditions)+stepTalkBundleWithName:">stepTalkBundleWithName:</a></h3>
+    <h3><a name="method$NSBundle(STAdditions)+stepTalkBundleWithName:">stepTalkBundleWithName:&nbsp;</a></h3>
     + (id) <b>stepTalkBundleWithName:</b> (NSString*)moduleName;<br />
     <p>
       
@@ -180,7 +243,7 @@ This is a designated initialiser for the class.<br />
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$NSBundle(STAdditions)-scriptingInfoDictionary">scriptingInfoDictionary</a></h3>
+    <h3><a name="method$NSBundle(STAdditions)-scriptingInfoDictionary">scriptingInfoDictionary&nbsp;</a></h3>
     - (NSDictionary*) <b>scriptingInfoDictionary</b>;<br />
     <p>
       
@@ -190,5 +253,6 @@ This is a designated initialiser for the class.<br />
     <hr width="25%" align="left" />
     <br />
     <a href="StepTalk.html">Up</a>
-  </body>
+    </font>
+</body>
 </html>

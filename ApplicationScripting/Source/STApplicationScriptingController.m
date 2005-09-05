@@ -36,7 +36,7 @@
 #import <StepTalk/STBundleInfo.h>
 #import <StepTalk/STEngine.h>
 #import <StepTalk/STEnvironment.h>
-#import <StepTalk/STLanguage.h>
+#import <StepTalk/STLanguageManager.h>
 #import <StepTalk/STScript.h>
 
 #import "STScriptsPanel.h"
@@ -182,7 +182,7 @@
     id             retval = nil;
     
     engine = [STEngine engineForLanguageWithName:
-                            [STLanguage defaultLanguageName]];
+                            [[STLanguageManager defaultManager] defaultLanguageName]];
     if(!engine)
     {
         NSLog(@"Unable to get scripting engine.");
