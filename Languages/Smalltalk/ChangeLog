@@ -1,3 +1,7 @@
+2005 Aug 17 Stefan Urbanek
+
+    * NSObject+additions: new file, new method ifNil:block
+    
 2005 June 24 Stefan Urbanek
 
     * STCompiler: Fixed STUndefinedKeyException name as it was fixed in -base

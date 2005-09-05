@@ -32,13 +32,14 @@
 #import "STCompiledScript.h"
 #import "STBytecodeInterpreter.h"
 
+#import <StepTalk/STContext.h>
 #import <StepTalk/STEnvironment.h>
 #import <StepTalk/STMethod.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 
 @implementation SmalltalkEngine
-- (BOOL)canExecuteCode:(NSString *)sourceCode
+- (BOOL)canInterpret:(NSString *)sourceCode
 {
     STCompiler            *compiler;
     STCompiledScript      *script = nil;
@@ -65,16 +66,24 @@
 - (id) executeCode:(NSString *)sourceCode 
        inEnvironment:(STEnvironment *)env
 {
+    NSLog(@"%@ is depreciated, use interpretScript:inContext: instead",
+                NSStringFromSelector(_cmd));
+    return [self interpretScript:sourceCode inContext:env];
+}
+
+- (id)interpretScript:(NSString *)script
+            inContext:(STContext *)context
+{
     STCompiler            *compiler;
-    STCompiledScript      *script;
+    STCompiledScript      *compiledScript;
     id                     retval = nil;
 
     compiler = [[STCompiler alloc] init];
 
-    [compiler setEnvironment:env];
+    [compiler setEnvironment:context];
 
-    script = [compiler compileString:sourceCode];
-    retval = [script executeInEnvironment:env];
+    compiledScript = [compiler compileString:script];
+    retval = [compiledScript executeInEnvironment:context];
 
     AUTORELEASE(compiler);
 
@@ -82,13 +91,24 @@
 }
 
 - (id <STMethod>)methodFromSource:(NSString *)sourceString
-                   forReceiver:(id)receiver
-                 inEnvironment:(STEnvironment *)env
+                      forReceiver:(id)receiver
+                    inEnvironment:(STEnvironment *)env
+{
+    NSLog(@"%@ is depreciated, use methodFromSource:forReceiver:inContext: instead",
+                NSStringFromSelector(_cmd));
+    return [self methodFromSource:sourceString
+                        forReceiver:receiver
+                            inContext:env];
+}
+
+- (id <STMethod>)methodFromSource:(NSString *)sourceString
+                      forReceiver:(id)receiver
+                        inContext:(STContext *)context
 {
     STCompiler   *compiler;
     id <STMethod> method;
     
-    compiler = [STCompiler compilerWithEnvironment:env];
+    compiler = [STCompiler compilerWithEnvironment:context];
     
     method = [compiler compileMethodFromSource:sourceString
                                    forReceiver:receiver];
@@ -100,9 +120,21 @@
         withArguments:(NSArray *)args
         inEnvironment:(STEnvironment *)env
 {
+    NSLog(@"%@ is depreciated, use ...inContext: instead",
+                NSStringFromSelector(_cmd));
+    return [self executeMethod:aMethod
+                    forReceiver:anObject
+                    withArguments:args
+                    inContext:env];
+}
+- (id)  executeMethod:(id <STMethod>)aMethod
+          forReceiver:(id)anObject
+        withArguments:(NSArray *)args
+            inContext:(STContext *)context
+{
     STBytecodeInterpreter *interpreter;
     id                     result;
-    interpreter = [STBytecodeInterpreter interpreterWithEnvrionment:env];
+    interpreter = [STBytecodeInterpreter interpreterWithEnvrionment:context];
 
     result = [interpreter interpretMethod:(STCompiledMethod *)aMethod
                               forReceiver:anObject
