@@ -38,11 +38,15 @@
 
 @interface STShellTool:NSObject
 {
-    NSArray      *arguments;
-    unsigned int  currentArg;
+    STConversation *conversation;
+    NSArray        *arguments;
+    unsigned int    currentArg;
 
-    NSString *envName;
-    NSString *languageName;
+    NSString       *environmentName;
+    NSString       *hostName;
+    NSString       *typeName;
+    NSString       *languageName;
+    
 }
 - (int)parseArguments;
 - (NSString *)nextArgument;
@@ -92,12 +96,32 @@
         }
         else if ([@"environment" hasPrefix:arg])
         {
-            RELEASE(envName);
-            envName = [self nextArgument];
-            if(!envName)
+            RELEASE(environmentName);
+            environmentName = [self nextArgument];
+            if(!environmentName)
             {
                 [NSException raise:@"STShellToolException"
                             format:@"Environment name expected"];
+            }
+        }
+        else if ([@"host" hasPrefix:arg])
+        {
+            RELEASE(hostName);
+            hostName = [self nextArgument];
+            if(!hostName)
+            {
+                [NSException raise:@"STShellToolException"
+                            format:@"Host name expected"];
+            }
+        }
+        else if ([@"type" hasPrefix:arg])
+        {
+            RELEASE(typeName);
+            typeName = [self nextArgument];
+            if(!typeName)
+            {
+                [NSException raise:@"STShellToolException"
+                            format:@"Environment description (type) name expected"];
             }
         }
         else if(!isOption)
@@ -128,36 +152,67 @@
 {
     currentArg--;
 }
-
-- (void)run
-{	
+/* Method taken from stexec.m - look there for updates */
+- (void)createConversation
+{
     STEnvironmentDescription *desc;
-    STEnvironment *env;
-    STShell       *shell;
+    STEnvironment            *environment;
     
-    [self parseArguments];
-    
-    if(!envName || [envName isEqualToString:@""])
+    if(environmentName)
     {
-        env = [STEnvironment environmentWithDefaultDescription];
+        /* user wants to connect to a distant environment */
+        conversation = [[STRemoteConversation alloc]
+                                    initWithEnvironmentName:environmentName
+                                                       host:hostName
+                                                   language:languageName];
+        if(!conversation)
+        {
+            NSLog(@"Unable to connect to %@@%@", environmentName, hostName);
+            return;
+        }
     }
     else
     {
-        desc = [STEnvironmentDescription descriptionWithName:envName];
-        env = [STEnvironment environmentWithDescription:desc];
+        /* User wants local temporary environment */
+        if(!typeName || [typeName isEqualToString:@""])
+        {
+            environment = [STEnvironment environmentWithDefaultDescription];
+        }
+        else
+        {
+            desc = [STEnvironmentDescription descriptionWithName:typeName];
+            environment = [STEnvironment environmentWithDescription:desc];
+        }
+
+        /* Register basic objects: Environment, Transcript */
+
+        [environment setObject:environment forName:@"Environment"];
+        [environment loadModule:@"SimpleTranscript"];
+        [environment setCreatesUnknownObjects:YES];
+    
+        /* FIXME: make this an option */
+        [environment setFullScriptingEnabled:YES];
+
+        conversation = [[STConversation alloc] initWithContext:environment
+                                                      language:languageName];
     }
+}
 
-    /* FIXME: make this an option */
-    [env setFullScriptingEnabled:YES];
+- (void)run
+{	
+    STShell       *shell;
+    
+    [self parseArguments];
+    [self createConversation];
           
-    shell = [[STShell alloc] initWithEnvironment:env];
-
     if(!languageName || [languageName isEqualToString:@""])
     {
-        languageName = [STLanguage defaultLanguageName];
+        languageName = [[STLanguageManager defaultManager] defaultLanguage];
     }
     
-    [shell setLanguage:languageName];
+    [conversation setLanguage:languageName];
+
+    shell = [[STShell alloc] initWithConversation:conversation];
     [shell run];
     
     NSDebugLog(@"Exiting StepTalk shell");    
@@ -172,7 +227,9 @@
            "Options are:\n"
            "    -help               this text\n"
            "    -language lang      use language lang\n"
-           "    -environment env    use scripting environment with name env\n",
+           "    -environment env    use scripting environment with name env\n"
+           "    -host host          find environment on host\n"
+           "    -type desc          use environment description with name 'desc'\n",
            [[info processName] cString],[[info processName] cString]
            );
 }

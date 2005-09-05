@@ -1,3 +1,16 @@
+2005 Aug 30
+
+    * use STLanguageManager instead of removed STLanguage
+
+2005 Aug 15
+
+    * Added distant environments
+    * Removed named objects as they were causing troubles with distant
+    environments
+    * Suspend completion for distant environments
+    
+    Warning: option 'environment' has different meaning. See stshell --help.
+
 2003 Sep 21
 
     * Added named objects FileManager, LastCommand and LastObject

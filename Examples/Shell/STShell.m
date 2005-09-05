@@ -72,7 +72,7 @@ int complete_handler(void)
     return sharedShell;
 }
 
-- initWithEnvironment:(STEnvironment *)env
+- initWithConversation:(STConversation *)conv
 {
     self = [super init];
     
@@ -89,7 +89,8 @@ int complete_handler(void)
     scriptsManager = RETAIN([STScriptsManager defaultManager]);
     prompt = @"StepTalk > ";
     
-    conversation = [[STConversation alloc] initWithContext:env language:nil];
+    conversation = RETAIN(conv);
+    
     /* FIXME: make this more clever for completion handler */
     if(!sharedShell)
     {
@@ -152,26 +153,23 @@ int complete_handler(void)
 
 - (void)run
 {
-    STEnvironment *env = [conversation context];
+    STEnvironment *env;
     NSString      *line;
     id             result;
-        
-    [env setCreatesUnknownObjects:YES];
-    
-    /* Add standard objects */
-    [env setObject:self forName:@"Shell"];
-    [env setObject:self forName:@"Transcript"];
-    [env setObject:objectStack forName:@"Objects"];
-
-    [env setObject:[NSFileManager defaultManager] forName:@"FileManager"];
-
-    /* FIXME: This is unsafe !*/
-    [env setObject:env forName:@"Environment"];
-
+            
     [self showLine:@"Welcome to the StepTalk shell."];
     
     // NSLog(@"Environment %@", env);
 
+    if(![conversation isKindOfClass:[STRemoteConversation class]])
+    {
+        completionEnabled = YES;
+    }
+    else
+    {
+        [self showLine:@"Note: Completion disabled for distant conversation"];
+    }    
+    
     while(1)
     {
         line = [self readLine];
@@ -202,7 +200,6 @@ int complete_handler(void)
 }
 - (id)executeLine:(NSString *)line
 {
-    STEnvironment *env = [conversation context];
     NSString      *cmd;
     id             result = nil;
 
@@ -210,14 +207,12 @@ int complete_handler(void)
 
     cmd = [line stringByAppendingString:@" "];
     NS_DURING
-        result = [conversation runScriptFromString:cmd];
+        [conversation interpretScript:cmd];
+        result = [conversation result];
     NS_HANDLER
         [self showException:localException];
     NS_ENDHANDLER
 
-    [env setObject:line forName:@"LastCommand"];
-    [env setObject:result forName:@"LastObject"];
-    
     return result;
 }
 
@@ -261,7 +256,7 @@ int complete_handler(void)
 
 - (int)completion
 {
-    STEnvironment *env = [conversation context];
+    STEnvironment *env;
     NSEnumerator  *enumerator;
     NSMutableSet  *set;
     NSString      *match;
@@ -270,6 +265,11 @@ int complete_handler(void)
     NSArray       *array;
     int pos = 0;
     int c;
+    
+    if(!completionEnabled)
+    {
+        return 0;
+    }
     
     if(rl_point <= 0)
     {
@@ -305,6 +305,7 @@ int complete_handler(void)
         }
     }
 
+    env = [conversation context];
     enumerator = [[env knownObjectNames] objectEnumerator];
     while( (str = [enumerator nextObject]) )
     {

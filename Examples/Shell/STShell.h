@@ -47,6 +47,8 @@
 
     BOOL              updateCompletionList;
     NSArray          *completionList;
+    BOOL              completionEnabled;
+
 }
 - initWithEnvironment:(STEnvironment *)env;
 
