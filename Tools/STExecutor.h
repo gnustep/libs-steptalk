@@ -62,6 +62,7 @@ enum
 - (void)printHelp;
 - (int)processOption:(NSString *)option;
 - (void)executeScript:(NSString *)fileName withArguments:(NSArray *)args;
+- (void)executeScriptFromStandardInputArguments:(NSArray *)args;
 - (int)parseOptions;
 - (void)executeScripts;
 - (NSString *)nextArgument;

@@ -1,9 +1,13 @@
 #import <Foundation/NSObject.h>
 
-@class STConversation;
+#import <StepTalk/STRemoteConversation.h>
 
-@interface STEnvironmentProcess:NSObject
+@class STConversation;
+@class STEnvironment;
+
+@interface STEnvironmentProcess:NSObject<STEnvironmentProcess>
 {
+    STEnvironment *environment;
 }
-- (STConversation *)createConversaion;
+- initWithDescriptionName:(NSString *)descName;
 @end

@@ -24,8 +24,6 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 TOOL_NAME = \
     stexec \
-    stalk  \
-    stupdate_languages \
     stenvironment
 
 COMMON_OBJC_FILES = \
@@ -35,17 +33,11 @@ stexec_OBJC_FILES = \
         $(COMMON_OBJC_FILES) \
         $(DEBUG_FILES) \
         stexec.m
-
-stalk_OBJC_FILES = \
-        $(COMMON_OBJC_FILES) \
-        stalk.m
-
-stupdate_languages_OBJC_FILES =  \
-        stupdate_languages.m
-
+        
 stenvironment_OBJC_FILES = \
         stenvironment.m \
         STEnvironmentProcess.m
+        
 ADDITIONAL_TOOL_LIBS = -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)

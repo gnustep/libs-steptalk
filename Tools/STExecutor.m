@@ -28,12 +28,15 @@
 #import "STExecutor.h"
 
 #import <StepTalk/StepTalk.h>
+#import <StepTalk/STFileScript.h>
 
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSFileHandle.h>
 #import <Foundation/NSFileManager.h>
+#import <Foundation/NSString.h>
 
 
 NSString *STExecutorException = @"STExecutorException";
@@ -66,14 +69,14 @@ const char *STExecutorCommonOptions =
     NSString       *logFmt = @"'%@': execution failed, reason: %@";
 #endif
     NSMutableArray *scriptArgs;
-    NSString       *script;
+    NSString       *scriptFileName;
     NSString       *arg;
     
-    script = [self nextArgument];
+    scriptFileName = [self nextArgument];
 
-    if(!script)
+    if(!scriptFileName)
     {
-        NSLog(@"No script name specified");
+        [self executeScriptFromStandardInputArguments:nil];
         return;
     }
 
@@ -92,14 +95,20 @@ const char *STExecutorCommonOptions =
 #ifndef DEBUG
         NS_DURING
 #endif
-
-            [self executeScript:script withArguments:scriptArgs];
+            if([scriptFileName isEqualToString:@"-"])
+            {
+                [self executeScriptFromStandardInputArguments:scriptArgs];
+            }
+            else
+            {
+                [self executeScript:scriptFileName withArguments:scriptArgs];
+            }
 
 #ifndef DEBUG
         NS_HANDLER
             if(contFlag)
             {
-                NSLog(logFmt,script,[localException reason]);
+                NSLog(logFmt,scriptFileName,[localException reason]);
             }
             else
             {
@@ -108,16 +117,63 @@ const char *STExecutorCommonOptions =
         NS_ENDHANDLER
 #endif
 
-    } while( (script = [self nextArgument]) );
+    } while( (scriptFileName = [self nextArgument]) );
+}
+- (void)executeScriptFromStandardInputArguments:(NSArray *)args
+{
+    NSFileHandle *handle;
+    STContext    *env;
+    NSString     *source;
+    NSData       *data;
+
+    handle = [NSFileHandle fileHandleWithStandardInput];
+    data = [handle readDataToEndOfFile];
+    
+    source  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    if(langName)
+    {
+        [conversation setLanguage:langName];
+    }
+    else
+    {
+        STLanguageManager *langManager = [STLanguageManager defaultManager];
+        [conversation setLanguage:[langManager defaultLanguage]];
+    }
+
+    if(conversation)
+    {
+        NSDebugLog(@"Executing script from stdin");
+
+        if([args count] > 0)
+        {
+            if([conversation isKindOfClass:[STRemoteConversation class]])
+            {
+                [NSException raise:@"STExecutorException"
+                             format:@"Passing arguments to distant environment"
+                                    @" is not implemented."];
+            }
+            else
+            {
+                env = [conversation context];
+                [env setObject:args forName:@"Args"];
+            }
+        }
+        
+        [conversation interpretScript:source];
+    }
+
+    RELEASE(source);
 }
 
 - (void)executeScript:(NSString *)file withArguments:(NSArray *)args;
 {
     NSFileManager *manager = [NSFileManager defaultManager];
     STEnvironment *env;
-    NSString      *convLanguageName;    
+    NSString      *useLanguage;
     NSString      *source;
     
+    /* Get proper language name */
     if( [manager fileExistsAtPath:file isDirectory:NO] )
     {
         source = [NSString stringWithContentsOfFile:file];
@@ -126,14 +182,14 @@ const char *STExecutorCommonOptions =
         {
             NSDebugLog(@"Using language %@", langName);
 
-            convLanguageName = langName;
+            useLanguage = langName;
         }
         else
         {
+            STLanguageManager *langManager = [STLanguageManager defaultManager];
             NSDebugLog(@"Using language for file extension %@", 
                        [file pathExtension]);
-
-            convLanguageName = [STLanguage languageNameForFileType:[file pathExtension]];
+            useLanguage = [langManager languageForFileType:[file pathExtension]];
         }
     }
     else
@@ -154,21 +210,33 @@ const char *STExecutorCommonOptions =
         }
         else
         {
-            convLanguageName = [script language];
+            useLanguage = [script language];
         }
     }
 
-    [conversation setLanguage:convLanguageName];
+    [conversation setLanguage:useLanguage];
 
     if(conversation)
     {
         NSDebugLog(@"Executing script '%@'",file);
 
-        env = [conversation context];
-        [env setObject:args forName:@"Args"];
-        [env setObject:env forName:@"Environment"];
+        if([args count] > 0)
+        {
+            if([conversation isKindOfClass:[STRemoteConversation class]])
+            {
+                [NSException raise:@"STExecutorException"
+                             format:@"Passing arguments to distant environment"
+                                    @" is not implemented."];
+            }
+            else
+            {
+                /* FIXME: do not cast */
+                env = (STEnvironment *)[conversation context];
+                [env setObject:args forName:@"Args"];
+            }
+        }
 
-        [conversation runScriptFromString:source];
+        [conversation interpretScript:source];
     }
     else
     {
@@ -184,7 +252,7 @@ const char *STExecutorCommonOptions =
     NSEnumerator *enumerator;
     NSString     *name;
     
-    languages = [STLanguage allLanguageNames];
+    languages = [[STLanguageManager defaultManager] availableLanguages];
 
     enumerator = [languages objectEnumerator];    
     
@@ -262,7 +330,11 @@ const char *STExecutorCommonOptions =
     while( (arg = [self nextArgument]) )
     {
         isOption = NO;
-        if( [arg hasPrefix:@"--"] )
+        if( [arg isEqualToString:@"-"] )
+        {
+            isOption = NO;
+        }
+        else if( [arg hasPrefix:@"--"] )
         {
             arg = [arg substringFromIndex:2];
             isOption = YES;

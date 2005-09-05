@@ -40,50 +40,92 @@
 
 @interface Executor:STExecutor
 {
-    NSString       *envName;
+    NSString       *typeName;
+    NSString       *environmentName;
+    NSString       *hostName;
     BOOL            enableFull;
 }
 @end
 
 @implementation Executor
-/* FIXME: This definitely needs to be rewritten. It is a quick hack 
-    after moving from STEngnie to STConversation */
 - (void)createConversation
 {
     STEnvironmentDescription *desc;
-    STEnvironment            *env;
+    STEnvironment            *environment;
     
-    if(!envName || [envName isEqualToString:@""])
+    if(environmentName)
     {
-        env = [STEnvironment environmentWithDefaultDescription];
+        /* user wants to connect to a distant environment */
+        conversation = [[STRemoteConversation alloc]
+                                    initWithEnvironmentName:environmentName
+                                                       host:hostName
+                                                   language:langName];
+        if(!conversation)
+        {
+            NSLog(@"Unable to connect to %@@%@", environmentName, hostName);
+            return;
+        }
     }
     else
     {
-        desc = [STEnvironmentDescription descriptionWithName:envName];
-        env = [STEnvironment environmentWithDescription:desc];
+        /* User wants local temporary environment */
+        if(!typeName || [typeName isEqualToString:@""])
+        {
+            environment = [STEnvironment environmentWithDefaultDescription];
+        }
+        else
+        {
+            desc = [STEnvironmentDescription descriptionWithName:typeName];
+            environment = [STEnvironment environmentWithDescription:desc];
+        }
+
+        /* Register basic objects: Environment, Transcript */
+
+        [environment setObject:environment forName:@"Environment"];
+        [environment loadModule:@"SimpleTranscript"];
+        [environment setCreatesUnknownObjects:YES];
+
+        /* FIXME: remove this or use some command-line flag */
+        [environment setFullScriptingEnabled:enableFull];
+        conversation = [[STConversation alloc] initWithContext:environment
+                                                      language:langName];
     }
-    
-    [env loadModule:@"SimpleTranscript"];
-          
-    [env setCreatesUnknownObjects:YES];
-
-    /* FIXME: remove this or use some command-line flag */
-    [env setFullScriptingEnabled:enableFull];
-    conversation = [[STConversation alloc] initWithContext:env
-                                                  language:nil];
 }
-
+- (void)dealloc
+{
+    RELEASE(typeName);
+    RELEASE(environmentName);
+    RELEASE(hostName);
+    
+    [super dealloc];
+}
 - (int)processOption:(NSString *)option
 {
-    if ([@"environment" hasPrefix:option])
+    if ([@"type" hasPrefix:option])
     {
-        RELEASE(envName);
-
-        envName = [self nextArgument];
-        if(!envName)
+        ASSIGN(typeName, [self nextArgument]);
+        if(!typeName)
+        {
+            [NSException raise:STExecutorException
+                        format:@"Environment description (type) name expected"];
+        }
+    }
+    else if ([@"environment" hasPrefix:option])
+    {
+        ASSIGN(environmentName,[self nextArgument]);
+        if(!environmentName)
         {
             [NSException raise:STExecutorException
                         format:@"Environment name expected"];
+        }
+    }
+    else if ([@"host" hasPrefix:option])
+    {
+        ASSIGN(hostName,[self nextArgument]);
+        if(!hostName)
+        {
+            [NSException raise:STExecutorException
+                        format:@"Host name expected"];
         }
     }
     else if ([@"full" hasPrefix:option])
@@ -106,11 +148,19 @@
 {
     printf(
 "stexec - execute StepTalk script (in GNUstep-base environment)\n"
-"Usage: stexec [options] script [args ...] [ , script ...]\n"
+"Usage: stexec [options] [script] [args ...] [ , script ...]\n"
 "   Options:\n"
 "%s"
 "   -full               enable full scripting\n"
-"   -environment env    use scripting environment with name env\n",
+"   -environment env    use scripting environment with name env\n"
+"   -host host          find environment on host\n"
+"   -type desc          use environment description with name 'desc'\n"
+"\n"
+"Notes:\n"
+"- if -environment is used, then -type is ignored"
+"- if no script is specified, standard input is used without arguments\n"
+"- if script name is '-' then standard input is used and arguments are passed"
+" to the script\n",
 STExecutorCommonOptions
     );
 }
@@ -136,12 +186,14 @@ int main(int argc, const char **argv)
         exit(1);
     }
 
+//GSDebugAllocationActive(YES);
     executor = [[Executor alloc] init];
 
     args = [procInfo arguments];
     [executor runWithArguments:args];
     
     RELEASE(executor);
+//printf("%s\n",GSDebugAllocationList(NO));
     RELEASE(pool);
 
     return 0;
