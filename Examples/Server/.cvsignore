@@ -1,7 +1,0 @@
-*.app
-*.debug
-*.profile
-shared_*obj
-*.bundle
-*.stmodule
-*.stlanguage

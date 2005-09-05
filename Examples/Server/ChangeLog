@@ -1,5 +1,0 @@
-2003 Apr 04  David Ayers  <d.ayers@inode.at>
-	
-    * ChangeLog: Added new file.
-    * GNUmakefile: Added flags to show all warnings except for import.
-
