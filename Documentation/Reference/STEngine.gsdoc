@@ -4,9 +4,6 @@
   <head>
     <title>STEngine class documentation</title>
     <author name="Stefan Urbanek">
-      <email address="urbanek@host.sk">
-        urbanek@host.sk
-      </email>
     </author>
     <copy>2002 Free Software Foundation</copy>
   </head>
@@ -23,45 +20,12 @@
           to intepret scripts.
         </desc>
         <method type="STEngine*" factory="yes">
-          <sel>engineForFileType:</sel>
-          <arg type="NSString*">fileType</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="STEngine*" factory="yes">
           <sel>engineForLanguage:</sel>
           <arg type="NSString*">name</arg>
           <desc>
-            Return a scripting engine for language with
-            specified <var>name</var>. The engine is get from
-            default language manager.
-          </desc>
-        </method>
-        <method type="STEngine*" factory="yes">
-          <sel>engineForLanguageWithName:</sel>
-          <arg type="NSString*">name</arg>
-          <desc>
-            Instance creation
-          </desc>
-        </method>
-        <method type="BOOL">
-          <sel>canInterpret:</sel>
-          <arg type="NSString*">sourceCode</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="id" override="subclass">
-          <sel>executeCode:</sel>
-          <arg type="NSString*">code</arg>
-          <sel>inEnvironment:</sel>
-          <arg type="STEnvironment*">env</arg>
-          <desc>
-            Execude source <var>code</var> <var>code</var> in
-            an environment <var>env</var>. This is the method, that
-            has to be implemented by those who are writing a
-            language engine.
+            Instance creation <br /> Return a scripting engine
+            for language with specified <var>name</var>. The engine
+            is get from default language manager.
           </desc>
         </method>
         <method type="id">
@@ -71,32 +35,22 @@
           <arg type="id">anObject</arg>
           <sel>withArguments:</sel>
           <arg type="NSArray*">args</arg>
-          <sel>inEnvironment:</sel>
-          <arg type="STEnvironment*">env</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="id">
-          <sel>interpretMethod:</sel>
-          <arg type="id&lt;STMethod&gt;">aMethod</arg>
-          <sel>forReceiver:</sel>
-          <arg type="id">anObject</arg>
-          <sel>withArguments:</sel>
-          <arg type="NSArray*">args</arg>
           <sel>inContext:</sel>
-          <arg type="STContext*">context</arg>
+          <arg type="STContext*">env</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
         </method>
-        <method type="id">
+        <method type="id" override="subclass">
           <sel>interpretScript:</sel>
           <arg type="NSString*">script</arg>
           <sel>inContext:</sel>
           <arg type="STContext*">context</arg>
           <desc>
-            <em>Description forthcoming.</em>
+            Interpret source code <var>code</var> in a
+            <var>context</var> <var>context</var>. This is the
+            method, that has to be implemented by those who are
+            writing a language engine.
           </desc>
         </method>
         <method type="STMethod*">
@@ -105,27 +59,7 @@
           <sel>forReceiver:</sel>
           <arg type="id">receiver</arg>
           <sel>inContext:</sel>
-          <arg type="STContext*">context</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="STMethod*">
-          <sel>methodFromSource:</sel>
-          <arg type="NSString*">sourceString</arg>
-          <sel>forReceiver:</sel>
-          <arg type="id">receiver</arg>
-          <sel>inEnvironment:</sel>
-          <arg type="STEnvironment*">env</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="void">
-          <sel>setValue:</sel>
-          <arg type="id">anObject</arg>
-          <sel>forOption:</sel>
-          <arg type="NSString*">anOption</arg>
+          <arg type="STContext*">env</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
@@ -133,13 +67,6 @@
         <method type="BOOL">
           <sel>understandsCode:</sel>
           <arg type="NSString*">code</arg>
-          <desc>
-            <em>Description forthcoming.</em>
-          </desc>
-        </method>
-        <method type="id">
-          <sel>valueForOption:</sel>
-          <arg type="NSString*">anOption</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>

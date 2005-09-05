@@ -10,7 +10,7 @@
     <h1><a name="title$STEngine">STEngine class documentation</a></h1>
     <h3>Authors</h3>
     <dl>
-      <dt>Stefan Urbanek (<a href="mailto:urbanek@host.sk"><code>urbanek@host.sk</code></a>)</dt>
+      <dt>Stefan Urbanek</dt>
       <dd>
       </dd>
     </dl>
@@ -37,82 +37,25 @@
     </p>
     <b>Method summary</b>
     <ul>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine+engineForFileType:">+engineForFileType:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine+engineForLanguage:">+engineForLanguage:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine+engineForLanguageWithName:">+engineForLanguageWithName:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-canInterpret:">-canInterpret:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-defaultEnvironment">-defaultEnvironment</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeCode:">-executeCode:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeCode:inEnvironment:">-executeCode:inEnvironment:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeMethod:forReceiver:withArguments:inEnvironment:">-executeMethod:forReceiver:withArguments:inEnvironment:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeMethod:forScriptObject:">-executeMethod:forScriptObject:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-interpretMethod:forReceiver:withArguments:inContext:">-interpretMethod:forReceiver:withArguments:inContext:</a></li>
+      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-executeMethod:forReceiver:withArguments:inContext:">-executeMethod:forReceiver:withArguments:inContext:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-interpretScript:inContext:">-interpretScript:inContext:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forReceiver:inContext:">-methodFromSource:forReceiver:inContext:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forReceiver:inEnvironment:">-methodFromSource:forReceiver:inEnvironment:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-methodFromSource:forScriptObject:">-methodFromSource:forScriptObject:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-setDefaultEnvironment:">-setDefaultEnvironment:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-setValue:forOption:">-setValue:forOption:</a></li>
       <li><a rel="gsdoc" href="STEngine.html#method$STEngine-understandsCode:">-understandsCode:</a></li>
-      <li><a rel="gsdoc" href="STEngine.html#method$STEngine-valueForOption:">-valueForOption:</a></li>
     </ul>
     <hr width="50%" align="left" />
-    <h3><a name="method$STEngine+engineForFileType:">engineForFileType:&nbsp;</a></h3>
-    + (<a rel="gsdoc" href="#class$STEngine">STEngine</a>*) <b>engineForFileType:</b> (NSString*)fileType;<br />
-    <p>
-      
-            <em>Description forthcoming.</em>
-          
-    </p>
-    <hr width="25%" align="left" />
     <h3><a name="method$STEngine+engineForLanguage:">engineForLanguage:&nbsp;</a></h3>
     + (<a rel="gsdoc" href="#class$STEngine">STEngine</a>*) <b>engineForLanguage:</b> (NSString*)name;<br />
     <p>
       
-            Return a scripting engine for language with
-            specified <var>name</var>. The engine is get from
-            default language manager.
+            Instance creation <br /> Return a scripting engine
+            for language with specified <var>name</var>. The engine
+            is get from default language manager.
           
     </p>
     <hr width="25%" align="left" />
-    <h3><a name="method$STEngine+engineForLanguageWithName:">engineForLanguageWithName:&nbsp;</a></h3>
-    + (<a rel="gsdoc" href="#class$STEngine">STEngine</a>*) <b>engineForLanguageWithName:</b> (NSString*)name;<br />
-    <p>
-      
-            Instance creation
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-canInterpret:">canInterpret:&nbsp;</a></h3>
-    - (BOOL) <b>canInterpret:</b> (NSString*)sourceCode;<br />
-    <p>
-      
-            <em>Description forthcoming.</em>
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-executeCode:inEnvironment:">executeCode:&nbsp;inEnvironment:&nbsp;</a></h3>
-    - (id) <b>executeCode:</b> (NSString*)code<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
-Subclasses <strong>should</strong> override this method.<br />
-    <p>
-      
-            Execude source <var>code</var> <var>code</var> in
-            an environment <var>env</var>. This is the method, that
-            has to be implemented by those who are writing a
-            language engine.
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-executeMethod:forReceiver:withArguments:inEnvironment:">executeMethod:&nbsp;forReceiver:&nbsp;withArguments:&nbsp;inEnvironment:&nbsp;</a></h3>
-    - (id) <b>executeMethod:</b> (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod<b> forReceiver:</b> (id)anObject<b> withArguments:</b> (NSArray*)args<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
-    <p>
-      
-            <em>Description forthcoming.</em>
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-interpretMethod:forReceiver:withArguments:inContext:">interpretMethod:&nbsp;forReceiver:&nbsp;withArguments:&nbsp;inContext:&nbsp;</a></h3>
-    - (id) <b>interpretMethod:</b> (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod<b> forReceiver:</b> (id)anObject<b> withArguments:</b> (NSArray*)args<b> inContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)context;<br />
+    <h3><a name="method$STEngine-executeMethod:forReceiver:withArguments:inContext:">executeMethod:&nbsp;forReceiver:&nbsp;withArguments:&nbsp;inContext:&nbsp;</a></h3>
+    - (id) <b>executeMethod:</b> (id<<a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">STMethod</a>>)aMethod<b> forReceiver:</b> (id)anObject<b> withArguments:</b> (NSArray*)args<b> inContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)env;<br />
     <p>
       
             <em>Description forthcoming.</em>
@@ -121,30 +64,18 @@ Subclasses <strong>should</strong> override this method.<br />
     <hr width="25%" align="left" />
     <h3><a name="method$STEngine-interpretScript:inContext:">interpretScript:&nbsp;inContext:&nbsp;</a></h3>
     - (id) <b>interpretScript:</b> (NSString*)script<b> inContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)context;<br />
+Subclasses <strong>should</strong> override this method.<br />
     <p>
       
-            <em>Description forthcoming.</em>
+            Interpret source code <var>code</var> in a
+            <var>context</var> <var>context</var>. This is the
+            method, that has to be implemented by those who are
+            writing a language engine.
           
     </p>
     <hr width="25%" align="left" />
     <h3><a name="method$STEngine-methodFromSource:forReceiver:inContext:">methodFromSource:&nbsp;forReceiver:&nbsp;inContext:&nbsp;</a></h3>
-    - (<a rel="gsdoc" href="STMethod.html#class$STMethod">STMethod</a>*) <b>methodFromSource:</b> (NSString*)sourceString<b> forReceiver:</b> (id)receiver<b> inContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)context;<br />
-    <p>
-      
-            <em>Description forthcoming.</em>
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-methodFromSource:forReceiver:inEnvironment:">methodFromSource:&nbsp;forReceiver:&nbsp;inEnvironment:&nbsp;</a></h3>
-    - (<a rel="gsdoc" href="STMethod.html#class$STMethod">STMethod</a>*) <b>methodFromSource:</b> (NSString*)sourceString<b> forReceiver:</b> (id)receiver<b> inEnvironment:</b> (<a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a>*)env;<br />
-    <p>
-      
-            <em>Description forthcoming.</em>
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-setValue:forOption:">setValue:&nbsp;forOption:&nbsp;</a></h3>
-    - (void) <b>setValue:</b> (id)anObject<b> forOption:</b> (NSString*)anOption;<br />
+    - (STMethod*) <b>methodFromSource:</b> (NSString*)sourceString<b> forReceiver:</b> (id)receiver<b> inContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)env;<br />
     <p>
       
             <em>Description forthcoming.</em>
@@ -153,14 +84,6 @@ Subclasses <strong>should</strong> override this method.<br />
     <hr width="25%" align="left" />
     <h3><a name="method$STEngine-understandsCode:">understandsCode:&nbsp;</a></h3>
     - (BOOL) <b>understandsCode:</b> (NSString*)code;<br />
-    <p>
-      
-            <em>Description forthcoming.</em>
-          
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STEngine-valueForOption:">valueForOption:&nbsp;</a></h3>
-    - (id) <b>valueForOption:</b> (NSString*)anOption;<br />
     <p>
       
             <em>Description forthcoming.</em>
