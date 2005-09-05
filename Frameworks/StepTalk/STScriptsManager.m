@@ -27,7 +27,7 @@
 #import "STScriptsManager.h"
 
 #import "STExterns.h"
-#import "STLanguage.h"
+#import "STLanguageManager.h"
 #import "STFileScript.h"
 
 #import <Foundation/NSArray.h>
@@ -260,14 +260,15 @@ process name.*/
 
 - (NSArray *)_scriptsAtPath:(NSString *)path
 {
-    NSMutableArray *scripts = [NSMutableArray array];
-    NSFileManager *manager = [NSFileManager defaultManager];
+    STLanguageManager *langManager = [STLanguageManager defaultManager];
+    NSMutableArray    *scripts = [NSMutableArray array];
+    NSFileManager     *manager = [NSFileManager defaultManager];
     NSEnumerator  *enumerator;
     NSString      *file;
     NSString      *ext;
     NSSet         *types;
     
-    types = [NSSet setWithArray:[STLanguage allKnownFileTypes]];
+    types = [NSSet setWithArray:[langManager knownFileTypes]];
 
     enumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
 

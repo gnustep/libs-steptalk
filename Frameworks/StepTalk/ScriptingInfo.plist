@@ -4,13 +4,14 @@
     Classes = (
         STActor,
         STEnvironment,
-        STLanguage,
+        STLanguageManager,
         STScript,
         STScriptsManager,
         STBundleInfo,
         STEngine,
         STScriptObject,
         STConversation,
+        STRemoteConversation,
         STContext
     );
 }

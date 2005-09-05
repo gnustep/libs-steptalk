@@ -3,6 +3,7 @@
 #import "STScriptObject.h"
 
 #import "NSInvocation+additions.h"
+#import "STEnvironment.h"
 #import "STEngine.h"
 #import "STExterns.h"
 #import "STObjCRuntime.h"
@@ -133,7 +134,7 @@ some other, more clever mechanism. */
         return;
     }
 
-    engine = [STEngine engineForLanguageWithName:[method languageName]];   
+    engine = [STEngine engineForLanguage:[method languageName]];   
 
     /* Get arguments as array */
     count = [[invocation methodSignature] numberOfArguments];
@@ -156,7 +157,7 @@ some other, more clever mechanism. */
     retval = [engine executeMethod:method
                        forReceiver:self
                      withArguments:args
-                     inEnvironment:environment];
+                         inContext:environment];
 
     [invocation setReturnValue:&retval];
 }

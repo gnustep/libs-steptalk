@@ -30,7 +30,7 @@
 #import "STEnvironment.h"
 #import "STExterns.h"
 #import "STFunctions.h"
-#import "STLanguage.h"
+#import "STLanguageManager.h"
 #import "STMethod.h"
 #import "STUndefinedObject.h"
 
@@ -63,21 +63,13 @@ void _STInitMallocZone(void)
 }
 
 /**
-    Return a scripting engine for the language used in files of type 
-    <var>fileType</var>
+    Return a scripting engine for language with specified name. The engine
+    is get from default language manager.
 */
-+ (STEngine *) engineForFileType:(NSString *)fileType
++ (STEngine *) engineForLanguage:(NSString *)name
 {
-    STLanguage *language = [STLanguage languageForFileType:fileType];
-
-    return [language engine];
-}
-
-/**
-    Return a scripting engine for language with specified name.
-*/
-+ (STEngine *) engineForLanguageWithName:(NSString *)name
-{
+    STLanguageManager *manager = [STLanguageManager defaultManager];
+    
     if(!name)
     {
         [NSException raise:@"STConversationException"
@@ -85,51 +77,24 @@ void _STInitMallocZone(void)
         return nil;
     }
     
-    return [[STLanguage languageWithName:name] engine];
+    return [manager createEngineForLanguage:name];
 }
 
-- (void)dealloc
++ (STEngine *) engineForLanguageWithName:(NSString *)name
 {
-    RELEASE(defaultEnvironment);
-    
-    [super dealloc];
+    NSLog(@"%@ %@ is depreciated, use %@ instead",
+            [self className], NSStringFromSelector(_cmd), @"engineForLanguage:");
+
+    return [self engineForLanguage:name];
 }
 
-/** Return the default scripting environment for the engine. */
-- (STEnvironment *)defaultEnvironment
-{
-    NSLog(@"WARNING: -[STEngine defaultEnvironment] is deprecated. "
-          @" Use STConversation object instead.");
-
-    return defaultEnvironment;
-}
-
-/** Set the default scripting environment for the engine. */
-- (void) setDefaultEnvironment:(STEnvironment *)anEnvironment
-{
-    NSLog(@"WARNING: -[STEngine setDefaultEnvironment:] is deprecated. "
-          @" Use STConversation object instead.");
-
-    ASSIGN(defaultEnvironment,anEnvironment);
-}
-
-/** Execude source code <var>code</var> in default scripting environment.  */
-- (id)  executeCode:(NSString *)code
-{
-    NSLog(@"WARNING: -[STEngine executeCode:] is deprecated. "
-          @" Use STConversation object instead.");
-
-   return [self    executeCode:code 
-                 inEnvironment:defaultEnvironment];
-}
-
-/** Execude source code <var>code</var> in an environment <var>env</var>. 
+/** Interpret source code <var>code</var> in a context <var>context</var>. 
     This is the method, that has to be implemented by those who are writing 
     a language engine. 
     <override-subclass /> 
 */
-- (id)  executeCode:(NSString *)code 
-      inEnvironment:(STEnvironment *)env
+- (id)interpretScript:(NSString *)script
+            inContext:(STContext *)context
 {
     [self subclassResponsibility:_cmd];
 
@@ -145,7 +110,7 @@ void _STInitMallocZone(void)
 
 - (STMethod *)methodFromSource:(NSString *)sourceString
                    forReceiver:(id)receiver
-                 inEnvironment:(STEnvironment *)env
+        inContext:(STContext *)env;
 {
     [self subclassResponsibility:_cmd];
     return nil;
@@ -153,22 +118,9 @@ void _STInitMallocZone(void)
 - (id)  executeMethod:(id <STMethod>)aMethod
           forReceiver:(id)anObject
         withArguments:(NSArray *)args
-        inEnvironment:(STEnvironment *)env;
+        inContext:(STContext *)env;
 {
     [self subclassResponsibility:_cmd];
     return nil;
 }
-/** Set engine specific option. Refer to particuliar language engine 
-    documentation for more information. */
-- (void)setValue:(id)anObject forOption:(NSString *)anOption
-{
-    /* do nothing */
-}
-/** Returs a value for engine specific option */
-- (id)valueForOption:(NSString *)anOption
-{
-    /* do nothing */
-    return nil;
-}
-
 @end

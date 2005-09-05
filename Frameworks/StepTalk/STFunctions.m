@@ -28,6 +28,7 @@
 #import "STFunctions.h"
 
 #import "STExterns.h"
+#import "STContext.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>

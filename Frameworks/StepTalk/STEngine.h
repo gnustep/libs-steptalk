@@ -29,6 +29,7 @@
 
 @protocol STMethod;
 
+@class STContext;
 @class STEnvironment;
 @class STLanguageEngine;
 @class STMethod;
@@ -36,27 +37,23 @@
 /** STEngine is abstract class for language engines used to intepret scripts.*/
 @interface STEngine:NSObject
 {
-    STEnvironment *defaultEnvironment;
 }
 
 /** Instance creation */
-+ (STEngine *) engineForLanguageWithName:(NSString *)name;
-+ (STEngine *) engineForFileType:(NSString *)fileType;
++ (STEngine *) engineForLanguage:(NSString *)name;
+// - (BOOL)canInterpret:(NSString *)sourceCode;
 
-- (id)  executeCode:(NSString *)code 
-      inEnvironment:(STEnvironment *)env;
-
-- (BOOL)understandsCode:(NSString *)code;
-
-- (void)setValue:(id)anObject forOption:(NSString *)anOption;
-- (id)valueForOption:(NSString *)anOption;
-
+- (id)interpretScript:(NSString *)script
+            inContext:(STContext *)context;
+            
 /* Methods */
 - (STMethod *)methodFromSource:(NSString *)sourceString
                    forReceiver:(id)receiver
-                 inEnvironment:(STEnvironment *)env;
+                     inContext:(STContext *)context;
 - (id)  executeMethod:(id <STMethod>)aMethod
           forReceiver:(id)anObject
         withArguments:(NSArray *)args
-        inEnvironment:(STEnvironment *)env;
+            inContext:(STContext *)context;
+
+- (BOOL)understandsCode:(NSString *)code;
 @end

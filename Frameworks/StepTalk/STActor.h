@@ -32,9 +32,6 @@
 - (void)setEnvironment:(STEnvironment *)env;
 - (STEnvironment *)environment;
 
-- (void)setObject:(id)anObject forVariable:(NSString *)aName;
-- (id)objectForVariable:(NSString *)aName;
-
 - (void)addMethod:(id <STMethod>)aMethod;
 - (id <STMethod>)methodWithName:(NSString *)aName;
 - (void)removeMethod:(id <STMethod>)aMethod;

@@ -26,21 +26,30 @@
 
 #import <Foundation/NSObject.h>
 
-@class STLanguage;
 @class STEngine;
 @class STContext;
 
-@interface STConversation:NSObject
+@protocol STConversation
+/** Set language for the receiver. */
+- (void)setLanguage:(NSString *)newLanguage;
+- (NSString *)language;
+- (bycopy NSArray *)knownLanguages;
+
+/** Interpret given string as a script in the receiver environment. */
+- (void)interpretScript:(bycopy NSString *)aString;
+// - (void)interpretScript:(bycopy NSString *)aString inLanguage:(NSString *)lang;
+
+- (id)result;
+- (bycopy id)resultByCopy;
+@end
+
+@interface STConversation:NSObject<STConversation>
 {
+    STEngine      *engine;
+    NSString      *languageName;
+    STContext     *context;
+    id             returnValue;
 }
-/*
-+ conversationWithApplication:(NSString *)appName
-                     language:(NSString *)langName;
-*/                     
-/*
-+ conversationWithContext:(STContext *)aContext
-                 language:(NSString *)aLanguage;
-*/                   
 - initWithContext:(STContext *)aContext 
          language:(NSString *)aLanguage;
 
@@ -49,10 +58,6 @@
 
 - (STContext *)context;
 
-- (BOOL)isResumable;
-- (BOOL)resume;
-
+/* Depreciated */
 - (id)runScriptFromString:(NSString *)aString;
-
-- (NSArray *)knownLanguages;
 @end

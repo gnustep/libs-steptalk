@@ -28,8 +28,6 @@
 
 #import <Foundation/NSString.h>
 
-#import "STLanguage.h"
-
 @implementation STScript
 + scriptWithSource:(NSString *)aString language:(NSString *)lang
 {

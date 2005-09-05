@@ -15,6 +15,7 @@
 
 #import "NSInvocation+additions.h"
 #import "STEngine.h"
+#import "STEnvironment.h"
 #import "STExterns.h"
 #import "STObjCRuntime.h"
 
@@ -23,6 +24,7 @@
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSInvocation.h>
+#import <Foundation/NSKeyValueCoding.h>
 #import <Foundation/NSString.h>
 
 @implementation STActor
@@ -173,7 +175,7 @@ some other, more clever mechanism. */
         return;
     }
 
-    engine = [STEngine engineForLanguageWithName:[method languageName]];   
+    engine = [STEngine engineForLanguage:[method languageName]];   
 
     /* Get arguments as array */
     count = [[invocation methodSignature] numberOfArguments];
@@ -196,7 +198,7 @@ some other, more clever mechanism. */
     retval = [engine executeMethod:method
                        forReceiver:self
                      withArguments:args
-                     inEnvironment:environment];
+                         inContext:environment];
 
     [invocation setReturnValue:&retval];
 }
@@ -216,6 +218,4 @@ some other, more clever mechanism. */
     [decoder decodeValueOfObjCType: @encode(id) at: &ivars];
     return self;
 }
-
-
 @end

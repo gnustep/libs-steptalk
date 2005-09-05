@@ -33,13 +33,14 @@ StepTalk_OBJC_FILES = \
     STClassInfo.m \
     STContext.m \
     STConversation.m \
+    STRemoteConversation.m \
     STEngine.m \
     STEnvironment.m \
     STEnvironmentDescription.m \
     STExterns.m \
     STFunctions.m \
     STFileScript.m \
-    STLanguage.m \
+    STLanguageManager.m \
     STObjCRuntime.m \
     STObjectReference.m  \
     STScript.m \
@@ -55,7 +56,7 @@ StepTalk_OBJC_FILES = \
     StepTalkScriptingInfo.m
 
 # FIXME: NOT FINISHED:
-#    STDistantConversation.m \
+#    STRemoteConversation.m \
 #    STDistantEnvironment.m \
 
 STEPTALK_HEADER_FILES = \
@@ -63,13 +64,14 @@ STEPTALK_HEADER_FILES = \
     STBundleInfo.h \
     STContext.h \
     STConversation.h \
+    STRemoteConversation.h \
     STEngine.h \
     STEnvironment.h \
     STEnvironmentDescription.h \
     STExterns.h \
     STFunctions.h \
     STFileScript.h \
-    STLanguage.h \
+    STLanguageManager.h \
     STObjCRuntime.h \
     STObjectReference.h  \
     STMethod.h \

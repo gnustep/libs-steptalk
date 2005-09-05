@@ -26,7 +26,7 @@
 
 #import "STFileScript.h"
 
-#import "STLanguage.h"
+#import "STLanguageManager.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDictionary.h>
@@ -44,7 +44,7 @@
 - (id)localizedObjectForKey:(NSString *)key
 {
     NSEnumerator   *enumerator;
-    NSDictionary   *dict;;
+    NSDictionary   *dict;
     NSString       *language;
     NSArray        *languages;
     id              obj = nil;
@@ -64,7 +64,7 @@
         }
     }
 
-    return [[self objectForKey:@"Default"] objectForKey:key];
+    return [(NSDictionary *)[self objectForKey:@"Default"] objectForKey:key];
 }
 @end
 
@@ -84,6 +84,7 @@
 
 - initWithFile:(NSString *)aFile
 {
+    STLanguageManager *langManager = [STLanguageManager defaultManager];
     NSFileManager  *manager = [NSFileManager defaultManager];
     NSDictionary   *info = nil;
     NSString       *infoFile;
@@ -118,7 +119,7 @@
 
     if(!lang)
     {
-        lang = [STLanguage languageNameForFileType:[fileName pathExtension]];
+        lang = [langManager languageForFileType:[fileName pathExtension]];
     }
     if(!lang)
     {

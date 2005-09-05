@@ -1,12 +1,11 @@
 /**
-    STLanguage.h
-    StepTalk language bundle
+    STRemoteConversation
  
     Copyright (c) 2002 Free Software Foundation
  
     Written by: Stefan Urbanek <urbanek@host.sk>
-    Date: 2001 Oct 24
- 
+    Date: 2003 Sep 21
+   
     This file is part of the StepTalk project.
  
     This library is free software; you can redistribute it and/or
@@ -25,22 +24,30 @@
  
  */
 
-#import <Foundation/NSBundle.h>
+#import "STConversation.h"
 
-@class STEngine;
+#import <Foundation/NSDistantObject.h>
 
-@interface STLanguage:NSBundle 
-+ (NSArray *)allLanguageNames;
-+ (NSString *)defaultLanguageName;
-+ (NSArray *)allKnownFileTypes;
+@class NSConnection;
 
-+ languageWithName:(NSString *)languageName;
-+ languageWithPath:(NSString *)path;
-
-+ (NSString *)languageNameForFileType:(NSString *)fileType;
-+ (STLanguage *)languageForFileType:(NSString *)fileType;
-
-- (NSString *)languageName;
-
-- (STEngine *)engine;
+@protocol STEnvironmentProcess
+- (STConversation *)createConversation;
 @end
+
+
+@interface STRemoteConversation:STConversation
+{
+    NSConnection         *connection;
+    NSString             *environmentName;
+    NSString             *hostName;
+
+    NSDistantObject <STConversation>       *proxy;
+    NSDistantObject <STEnvironmentProcess> *environmentProcess;
+}
+- initWithEnvironmentName:(NSString *)envName
+                     host:(NSString *)host
+                 language:(NSString *)langName;
+- (void)open;
+- (void)close;
+@end
+

@@ -67,13 +67,6 @@ STEnvironment *sharedEnvironment = nil;
     return sharedEnvironment;
 }
 
-+ (STEnvironment *)defaultScriptingEnvironment
-{
-    NSLog(@"WARNING: +[STEnvironment defaultScriptingEnvironment] is deprecated, "
-          @" use environmentWithDefaultDescription instead.");
-
-    return[self environmentWithDefaultDescription];
-}
 /**
    Creates and initialises new scripting environment using default description.
  */
@@ -81,14 +74,6 @@ STEnvironment *sharedEnvironment = nil;
 + (STEnvironment *)environmentWithDefaultDescription
 {
     return AUTORELEASE([[self alloc] initWithDefaultDescription]);
-}
-
-+ environmentWithDescriptionName:(NSString *)descName
-{
-    NSLog(@"WARNING: +[STEnvironment environmentWithDescriptionName:] is deprecated, "
-          @" use environmentWithDescription: instead.");
-          
-    return AUTORELEASE([[self alloc] initWithDescription:[STEnvironmentDescription descriptionWithName:descName]]);
 }
 
 /**
@@ -117,23 +102,6 @@ STEnvironment *sharedEnvironment = nil;
     return [self initWithDescription:desc];
 }
 
-- initDefault
-{
-    NSLog(@"WARNING: +[STEnvironment initDefault:] is deprecated, "
-          @" use initWithDefaultDescription: instead.");
-
-    return [self initWithDefaultDescription];
-}
-
-- initWithDescriptionName:(NSString *)descName
-{
-    NSLog(@"WARNING: -[STEnvironment initWithDescriptionName:] is deprecated. "
-          @" use initWithDescription: instead");
-
-    return [self initWithDescription:
-                    [STEnvironmentDescription descriptionWithName:descName]];
-}
-
 /**
    Initialises scripting environment using scripting description
    <var>aDescription</var>.
@@ -148,9 +116,11 @@ STEnvironment *sharedEnvironment = nil;
     infoCache = [[NSMutableDictionary alloc] init];
 
     description = RETAIN(aDescription);
+    RETAIN(description);
     classes = [description classes];
 
     /* Load modules */
+
     enumerator = [[description modules] objectEnumerator];    
     
     while( (name = [enumerator nextObject]) )
@@ -174,19 +144,7 @@ STEnvironment *sharedEnvironment = nil;
         [self registerObjectFinderNamed:name];
     }
 
-    RETAIN(description);
-
-    [self afterInit];
     return self;
-}
-
-/**
-   Override in subclasses.
- */
-
--(void)afterInit
-{
-    /* Do nothing */
 }
 
 - (void)dealloc
@@ -309,7 +267,7 @@ STEnvironment *sharedEnvironment = nil;
             obj = [finder objectWithName:objName];
             if(obj)
             {
-                [self setName:objName forObject:obj];
+                [self setObject:obj forName:objName];
                 break;
             }
         }
