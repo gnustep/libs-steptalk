@@ -1,4 +1,9 @@
 {
     /* Array of file types of your language scripts */
-    STFileTypes = ( "mylang" );
+    StepTalkLanguages = {
+        MyLanguage = {
+                FileTypes = ("mylang");
+                EngineClass = "MyLanguageEngine";
+            }
+    }
 }

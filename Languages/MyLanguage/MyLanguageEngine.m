@@ -11,14 +11,14 @@
 #import "MyLanguageEngine.h"
 
 @implementation MyLanguageEngine
-- (id) executeCode:(NSString *)sourceCode 
-       inEnvironment:(STEnvironment *)env
+- (id) interpretScript:(NSString *)aScript
+             inContext:(STContext *)context
 {
-    id                     retval = nil;
+    id retval = nil;
 
     /* execute the code sourceCode using environment env */
     /* use [env objectDictionary] to get environment objects 
-       (see STEnvironment.h to see what you can do) */
+       (see STContext documentation or header file to see what you can do) */
     
     /*    retval = return value from the interpreter; */
     
