@@ -35,7 +35,7 @@ ADDITIONAL_BUNDLE_LIBS = -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
 
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Finders
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Finders
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make

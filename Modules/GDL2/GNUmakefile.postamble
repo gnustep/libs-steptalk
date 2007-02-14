@@ -39,7 +39,7 @@
 # Things to do after installing
 after-install::
 	@(echo Copying scripting environments...; \
-	  cp GDL2.stenv $(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Environments; \
+	  cp GDL2.stenv $(GNUSTEP_LIBRARY)/StepTalk/Environments; \
 	)
 
 # Things to do before uninstalling

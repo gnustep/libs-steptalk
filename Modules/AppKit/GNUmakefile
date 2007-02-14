@@ -39,7 +39,7 @@ AppKit_RESOURCE_FILES = ScriptingInfo.plist
         
 AppKit_BUNDLE_LIBS += $(GUI_LIBS)
 
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Modules
 
 ADDITIONAL_OBJCFLAGS = -Wall -Wno-import
 

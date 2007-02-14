@@ -24,7 +24,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 BUNDLE_NAME        = Guile
 BUNDLE_EXTENSION  := .stlanguage
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Languages
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Languages
     
 Guile_OBJC_FILES = \
         GuileEngine.m 

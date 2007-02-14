@@ -34,7 +34,7 @@ Foundation_PRINCIPAL_CLASS = STFoundationModule
         
 Foundation_RESOURCE_FILES = ScriptingInfo.plist
 
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Modules
 ADDITIONAL_BUNDLE_LIBS = -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)

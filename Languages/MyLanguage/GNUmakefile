@@ -25,7 +25,7 @@ MyLanguage_OBJC_FILES = \
 ###########################################################################
 
 BUNDLE_EXTENSION  := .stlanguage
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Languages
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Languages
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make

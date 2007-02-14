@@ -32,7 +32,7 @@ ReadlineTranscript_PRINCIPAL_CLASS = ReadlineTranscriptModule
         
 ReadlineTranscript_RESOURCE_FILES = ScriptingInfo.plist
 
-BUNDLE_INSTALL_DIR:=$(GNUSTEP_INSTALLATION_DIR)/Library/StepTalk/Modules
+BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Modules
 
 ReadlineTranscript_BUNDLE_LIBS = -lStepTalk -lreadline
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/

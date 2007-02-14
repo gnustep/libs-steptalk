@@ -1,3 +1,8 @@
+2007 Feb 14 Nicola Pero
+
+   * All GNUmakefiles in the project: Use GNUSTEP_LIBRARY
+   instead of GNUSTEP_INSTALLATION_DIR/Library.
+
 2005 Sep 5 Stefan Urbanek
 
     * Version 0.10.0
