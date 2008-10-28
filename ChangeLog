@@ -1,3 +1,8 @@
+2008 Okt 28 Samuel Harvey
+
+   * Modules/GDL2/GNUmakefile: Use ADDITIONAL_NATIVE_LIBS instead of
+   GDL2_BUNDLE_LIBS to link GDL2 packages.
+	
 2007 Feb 14 Nicola Pero
 
    * All GNUmakefiles in the project: Use GNUSTEP_LIBRARY

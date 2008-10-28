@@ -35,7 +35,7 @@ GDL2_PRINCIPAL_CLASS = STGDL2Module
         
 GDL2_RESOURCE_FILES = ScriptingInfo.plist
 
-GDL2_BUNDLE_LIBS += -lgnustep-db2 -lgnustep-db2control -lgnustep-db2modeler
+ADDITIONAL_NATIVE_LIBS += EOAccess EOControl EOModeler
 
 ADDITIONAL_BUNDLE_LIBS = -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
