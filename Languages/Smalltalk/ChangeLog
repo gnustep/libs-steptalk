@@ -1,5 +1,10 @@
 2011-01-20  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * SmalltalkInfo.plist: Add missing semicolons at end of plist
+    dictionaries.
+
+2011-01-20  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STSourceReader.m (-readNextToken): Fix bug where an incorrect token
     range was set for a string token that ends at the end of the input
     string.

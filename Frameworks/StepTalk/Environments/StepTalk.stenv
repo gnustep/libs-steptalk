@@ -41,5 +41,5 @@
             Super = nil;
             Restriction = AllowAll;
         };
-    }
+    };
 }

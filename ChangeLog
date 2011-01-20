@@ -1,5 +1,10 @@
 2011-01-20  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/Environments/StepTalk.stenv: Add missing
+	semicolon at end of plist dictionary.
+
+2011-01-20  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STUndefinedObject.m (-forwardInvocation:):
 	Clear result buffer to prevent crashes under GNUstep when the
 	invoked method's result type is an object type.
