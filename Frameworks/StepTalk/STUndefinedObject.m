@@ -30,6 +30,8 @@
 #import "STObjCRuntime.h"
 
 #import <Foundation/NSString.h>
+#import <Foundation/NSInvocation.h>
+#import <Foundation/NSMethodSignature.h>
 
 STUndefinedObject *STNil = nil;
 
@@ -71,6 +73,17 @@ STUndefinedObject *STNil = nil;
 - (void) forwardInvocation: (NSInvocation*)anInvocation
 {
     /* this object is deaf */
+    /* Nevertheless, it must clear the invocation's result, which may contain
+       random contents under GNUstep. That could lead to a crash if the
+       expected result is an object. */
+    NSMethodSignature *signature = [anInvocation methodSignature];
+    NSUInteger n = [signature methodReturnLength];
+    if (n > 0)
+    {
+	char buffer[n];
+	memset(buffer, '\0', n);
+	[anInvocation setReturnValue: buffer];
+    }
 }
 
 - (BOOL) isEqual: (id)anObject
