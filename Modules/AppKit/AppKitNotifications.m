@@ -63,8 +63,8 @@ NSDictionary *STGetAppKitNotifications(void)
                             numberWithFloat(numberClass, numberWithInt_sel, obj), \
                             name)
 
-    ADD_id_OBJECT(NSColorListChangedNotification,@"NSColorListChangedNotification");
-    ADD_id_OBJECT(NSColorPanelColorChangedNotification,@"NSColorPanelColorChangedNotification");
+    ADD_id_OBJECT(NSColorListDidChangeNotification,@"NSColorListDidChangeNotification");
+    ADD_id_OBJECT(NSColorPanelColorDidChangeNotification,@"NSColorPanelColorDidChangeNotification");
     ADD_id_OBJECT(NSControlTextDidBeginEditingNotification,@"NSControlTextDidBeginEditingNotification");
     ADD_id_OBJECT(NSControlTextDidEndEditingNotification,@"NSControlTextDidEndEditingNotification");
     ADD_id_OBJECT(NSControlTextDidChangeNotification,@"NSControlTextDidChangeNotification");

@@ -57,7 +57,7 @@ AppKitEvents.m : AppKitEvents.list
 AppKitExceptions.m : AppKitExceptions.list
 AppKitNotifications.m : AppKitNotifications.list
 
-%.m : %.list
+%.m : %.list header.m footer.m
 	    @( echo Creating $@ ...; \
 	        cat header.m  | sed "s/@@NAME@@/`basename $< .list`/g" > $@;  \
 	        cat $< | awk -f create_constants.awk >> $@;\
