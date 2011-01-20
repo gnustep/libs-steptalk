@@ -632,6 +632,8 @@ static NSString *_STNormalizeStringToken(NSString *token)
                     {
                         if(AT_END)
                         {
+                            tokenRange = NSMakeRange(start,
+                                                     srcOffset - start - 1);
                             return STStringTokenType;
                         }
 
