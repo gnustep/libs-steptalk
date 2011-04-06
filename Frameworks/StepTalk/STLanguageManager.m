@@ -50,7 +50,7 @@ static STLanguageManager *defaultManager = nil;
     RELEASE(languageInfos);
     RELEASE(languageBundles);
     RELEASE(fileTypes);
-    [self dealloc];
+    [super dealloc];
 }
 - (void) _registerKnownLanguages
 {

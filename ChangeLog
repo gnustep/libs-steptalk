@@ -1,5 +1,10 @@
 2011-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STLanguageManager.m (-dealloc): Fix
+	typo. (Was calling -dealloc on self instead of super).
+
+2011-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STObjCRuntime.m (STAllObjectiveCClasses,
 	STCreateTypedSelector, STConstructMethodSignatureForSelector,
 	selectors_from_list, STAllObjectiveCSelectors): Update to
