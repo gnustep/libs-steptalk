@@ -57,21 +57,25 @@ static const char *selector_types[] =
 
 NSMutableDictionary *STAllObjectiveCClasses(void)
 {
+    int                  i, numClasses;
     NSString            *name;
     NSMutableDictionary *dict;
-    void                *state = 0;
-    Class                class;
+    Class               *classes;
 
     dict = [NSMutableDictionary dictionary];
 
-    while( (class = objc_next_class(&state)) )
+    numClasses = objc_getClassList(NULL, 0);
+    classes = (Class *)NSZoneMalloc(STMallocZone, numClasses * sizeof(Class));
+    numClasses = objc_getClassList(classes, numClasses);
+//    NSLog(@"%i Objective-C classes found", numClasses);
+
+    for(i = 0; i < numClasses; i++)
     {
-        name = [NSString stringWithCString:class_get_class_name(class)];
+        name = [NSString stringWithCString:class_getName(classes[i])];
         
-        [dict setObject:class forKey:name];
+        [dict setObject:classes[i] forKey:name];
     }
-    
-//    NSLog(@"%i Objective-C classes found",[dict count]);
+    NSZoneFree(STMallocZone, classes);
 
     return dict;
 }
@@ -162,7 +166,7 @@ SEL STSelectorFromString(NSString *aString)
 
 SEL STCreateTypedSelector(SEL sel)
 {
-    const char *name = sel_get_name(sel);
+    const char *name = sel_getName(sel);
     const char *ptr;
     int         argc = 0;
 
@@ -204,7 +208,7 @@ SEL STCreateTypedSelector(SEL sel)
 
 NSMethodSignature *STConstructMethodSignatureForSelector(SEL sel)
 {
-    const char *name = sel_get_name(sel);
+    const char *name = sel_getName(sel);
     const char *ptr;
     const char *types = (const char *)0;
     int         argc = 0;
@@ -258,20 +262,14 @@ NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 }
 
 
-static NSArray *selectors_from_list(struct objc_method_list *methods)
+static NSArray *selectors_from_list(Method *methods, unsigned int numMethods)
 {
     NSMutableArray *array = [NSMutableArray array];
-    int             count = methods->method_count;
-    int             i;
+    unsigned int    i;
     
-    for(i=0;i<count;i++)
+    for (i = 0; i < numMethods; i++)
     {
-        [array addObject:NSStringFromSelector(methods->method_list[i].method_name)];
-    }
-
-    if(methods->method_next)
-    {
-        [array addObjectsFromArray:selectors_from_list(methods->method_next)];
+        [array addObject:NSStringFromSelector(method_getName(methods[i]))];
     }
     
     return array;
@@ -280,29 +278,39 @@ static NSArray *selectors_from_list(struct objc_method_list *methods)
 
 NSArray *STAllObjectiveCSelectors(void)
 {
+    int             i, numClasses;
+    unsigned int    numMethods;
     NSMutableArray *array;
-    NSArray        *methods;
-    Class           class;
-    void           *state = 0;
+    NSArray        *selectors;
+    Method         *methods;
+    Class          *classes;
     
     array = [[NSMutableArray alloc] init];
 
-    while( (class = objc_next_class(&state)) )
-    {
-        if(class->methods)
-        {
-            methods = selectors_from_list(class->methods);
-            [array addObjectsFromArray:methods];
-        }
-        class = class->class_pointer;
+    numClasses = objc_getClassList(NULL, 0);
+    classes = (Class *)NSZoneMalloc(STMallocZone, numClasses * sizeof(Class));
+    numClasses = objc_getClassList(classes, numClasses);
 
-        if(class->methods)
+    for(i = 0; i < numClasses; i++)
+    {
+	methods = class_copyMethodList(classes[i], &numMethods);
+        if(methods)
         {
-            methods = selectors_from_list(class->methods);
-            [array addObjectsFromArray:methods];
+            selectors = selectors_from_list(methods, numMethods);
+            [array addObjectsFromArray:selectors];
         }
+	free(methods);
+
+        methods = class_copyMethodList(object_getClass(classes[i]), &numMethods);
+        if(methods)
+        {
+            selectors = selectors_from_list(methods, numMethods);
+            [array addObjectsFromArray:selectors];
+        }
+	free(methods);
     }
-    
+    NSZoneFree(STMallocZone, classes);
+
     /* get rid of duplicates */
     array = (NSMutableArray *)[[NSSet setWithArray:(NSArray *)array] allObjects];
     array = (NSMutableArray *)[array sortedArrayUsingSelector:@selector(compare:)];

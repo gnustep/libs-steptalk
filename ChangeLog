@@ -1,3 +1,10 @@
+2011-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STObjCRuntime.m (STAllObjectiveCClasses,
+	STCreateTypedSelector, STConstructMethodSignatureForSelector,
+	selectors_from_list, STAllObjectiveCSelectors): Update to
+	Objective-C 2 API.
+
 2011-01-20  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/Environments/StepTalk.stenv: Add missing
