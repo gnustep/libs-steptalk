@@ -36,6 +36,7 @@
 #import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
+#import <GNUstepBase/GSObjCRuntime.h>
 
 #define SELECTOR_TYPES_COUNT 10
 
@@ -145,7 +146,7 @@ SEL STSelectorFromString(NSString *aString)
                        @"with %i arguments, types:'%s'",
                         name,argc,selector_types[argc]);
                     
-            sel = sel_register_typed_name(name, selector_types[argc]);
+            sel = GSSelectorFromNameAndTypes(name, selector_types[argc]);
         }
 
         if(!sel)
@@ -192,7 +193,7 @@ SEL STCreateTypedSelector(SEL sel)
                    @"with %i arguments, types:'%s'",
                     name,argc,selector_types[argc]);
 
-        newSel = sel_register_typed_name(name, selector_types[argc]);
+        newSel = GSSelectorFromNameAndTypes(name, selector_types[argc]);
     }
 
     if(!newSel)
@@ -251,12 +252,12 @@ NSMethodSignature *STMethodSignatureForSelector(SEL sel)
     
     NSLog(@"STMethodSignatureForSelector is deprecated.");
 
-    types = sel_get_type(sel);
+    types = GSTypesFromSelector(sel);
     
     if(!types)
     {
         sel = STCreateTypedSelector(sel);
-        types = sel_get_type(sel);
+        types = GSTypesFromSelector(sel);
     }
     return [NSMethodSignature signatureWithObjCTypes:types];
 }
