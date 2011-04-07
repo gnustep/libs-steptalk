@@ -29,28 +29,29 @@
 #import <objc/objc-api.h>
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSString.h>
 
 static NSArray *methods_for_class(Class class)
 {
     NSMutableArray          *array = [NSMutableArray array];
-    struct objc_method_list *methods;
+    Method                  *methods;
     SEL                      sel;
-    int                      i;
+    unsigned int             i, numMethods;
 
     if(!class)
         return nil;
-    
-    methods = class->methods;
 
-    while(methods)
+    
+    methods = class_copyMethodList(class, &numMethods);
+
+    if(methods)
     {
-        for(i = 0; i < methods->method_count; i++)
+        for(i = 0; i < numMethods; i++)
         {
-            sel = methods->method_list[i].method_name;
+            sel = method_getName(methods[i]);
             [array addObject:NSStringFromSelector(sel)];
         }
-        
-        methods = methods->method_next;
+	free(methods);
     }
     
     return [NSArray arrayWithArray:array];
@@ -59,25 +60,26 @@ static NSArray *methods_for_class(Class class)
 static NSArray *ivars_for_class(Class class)
 {
     NSMutableArray        *array;
-    struct objc_ivar_list* ivars; 
+    Ivar*                  ivars; 
     const char            *cname;
-    int                    i;
+    unsigned int           i, numIvars;
     
     if(!class)
         return nil;
     
     array = [NSMutableArray array];
     
-    ivars = class->ivars;
+    ivars = class_copyIvarList(class, &numIvars);
 
     if(ivars)
     {
-        for(i=0;i<ivars->ivar_count;i++)
+        for(i = 0; i < numIvars ; i++)
         {
-            cname = ivars->ivar_list[i].ivar_name;
+            cname = ivar_getName(ivars[i]);
             [array addObject:[NSString stringWithCString:cname]];
         }
     }
+    free(ivars);
     
     return [NSArray arrayWithArray:array];
 }
@@ -96,7 +98,7 @@ static NSArray *ivars_for_class(Class class)
 
 + (NSArray *)methodNames
 {
-    return methods_for_class(class_get_meta_class(self));
+    return methods_for_class(object_getClass(self));
 }
 
 + (NSArray *)instanceVariableNames

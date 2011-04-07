@@ -34,7 +34,9 @@
 #import <StepTalk/STSelector.h>
 
 #import <Foundation/NSArray.h>
+#import <Foundation/NSDictionary.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSValue.h>
 
 static ObjectiveCRuntime *sharedRuntime=nil;
 
@@ -50,16 +52,21 @@ static ObjectiveCRuntime *sharedRuntime=nil;
 
 - (NSArray *)allClasses
 {
+    int             i, numClasses;
     NSMutableArray *array;
-    Class           class;
-    void           *state = NULL;
+    Class          *classes;
 
     array = [NSMutableArray array];
 
-    while( (class = objc_next_class(&state)) )
+    numClasses = objc_getClassList(NULL, 0);
+    classes = (Class *)NSZoneMalloc(NULL, numClasses * sizeof(Class));
+    numClasses = objc_getClassList(classes, numClasses);
+
+    for(i = 0; i < numClasses; i++)
     {
-        [array addObject:class];
+        [array addObject:classes[i]];
     }
+    NSZoneFree(NULL, classes);
     
     return [NSArray arrayWithArray:array];
 }
