@@ -1,5 +1,9 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Documentation/ApplicationScripting.txt: Fix errors.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STEngine.h (-methodFromSource:...):
 	* Frameworks/StepTalk/STEngine.m (-methodFromSource:...):
 	STMethod is a protocol not a class.

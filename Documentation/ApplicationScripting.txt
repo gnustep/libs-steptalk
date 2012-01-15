@@ -18,11 +18,11 @@ Creating a scriptable application
 2   Make classes available in ScriptingInfo.plist:
 
     {
-        STClasses = 
-        {
+        Classes = 
+        (
             MessageComposition,
             InternetAddress
-        };
+        );
     }
     
     Add this line to your makefile:
@@ -48,12 +48,11 @@ Creating a scriptable application
     ...
         if([NSApp isScriptingSupported])
         {
-            [menu addItemWithTitle: @"Scripting"
-	                    action: NULL
-                     keyEquivalent: @""];
-
-            [menu setSubmenu: [NSApp scriptingMenu]
-                     forItem: [menu itemWithTitle:@"Scripting"]];
+            NSMenuItem *scriptingItem =
+                [menu addItemWithTitle: @"Scripting"
+	                        action: NULL
+                         keyEquivalent: @""];
+            [scriptingItem setSubmenu: [NSApp scriptingMenu]];
         }
     ...
 
@@ -112,7 +111,7 @@ The file is dictionary property list. Kes are:
         French = { 
             Name = "Some name in french";
             Description = "Some description in french";
-        }
+        };
     }
 
 Example
@@ -129,7 +128,7 @@ Example
         {
             Description = "This is a script for testing if scripting works";
             Name = "Test";
-        }
+        };
     }
 
 3. Put both files into */Library/StepTalk/Scripts/your_application_name

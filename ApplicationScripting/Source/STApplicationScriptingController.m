@@ -111,10 +111,28 @@
 {
     if(!scriptingMenu)
     {
-        if(![self loadMyNibNamed:@"ScriptingMenu"])
+        // FIXME ScriptingMenu replaces the application's main menu when it is
+        // loaded, since GNUstep stubbornly considers the first top level menu
+        // in a gorm file to be the application's main menu.
+        NSMenu *mainMenu = RETAIN([NSApp mainMenu]);
+        NS_DURING
         {
-            return nil;
+            if(![self loadMyNibNamed:@"ScriptingMenu"])
+            {
+                [NSApp setMainMenu:mainMenu];
+                RELEASE(mainMenu);
+                return nil;
+            }
         }
+        NS_HANDLER
+        {
+            [NSApp setMainMenu:mainMenu];
+            RELEASE(mainMenu);
+            [localException raise];
+        }
+        NS_ENDHANDLER
+        [NSApp setMainMenu:mainMenu];
+        RELEASE(mainMenu);
     }
     return scriptingMenu;
 }

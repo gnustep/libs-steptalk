@@ -1,3 +1,11 @@
+2012-01-15  Wolfgang Lux  <wlux@uni-muenster.de>
+
+    * Source/STApplicationScriptingController.m (-scriptingMenu): Protect
+    against GNUstep stubbornly replacing the application's main menu.
+
+    * Source/STScriptsPanel.m (-selectScript:): Handle case where the
+    script's description is nil.
+
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * Source/STTranscript.h (-window):

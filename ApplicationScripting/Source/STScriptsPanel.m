@@ -124,8 +124,11 @@ STScriptsPanel *sharedScriptsPanel = nil;
 - (void) selectScript: (id)sender
 {
     STFileScript *script = [self selectedScript];
+    NSString *description = [script scriptDescription];
 
-    [descriptionText setString:[script scriptDescription]];
+    if (!description)
+	description = @"";
+    [descriptionText setString:description];
 }
 
 - (void)command:(id)sender
