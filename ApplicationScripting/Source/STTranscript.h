@@ -38,4 +38,5 @@
 - show:(id)anObject;
 - showLine:(id)anObject;
 - showError:(NSString *)errorText;
+- (NSWindow *)window;
 @end

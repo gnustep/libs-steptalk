@@ -27,7 +27,7 @@
 #import <Foundation/NSObject.h>
 
 @class STScriptsPanel;
-@class STScript;
+@class STFileScript;
 @class STEnvironment;
 @class NSMenu;
 @class NSDictionary;
@@ -45,7 +45,7 @@
 - (void)orderFrontScriptsPanel:(id)sender;
 - (void)orderFrontTranscriptWindow:(id)sender;
 
-- (id)executeScript:(STScript *)script;
+- (id)executeScript:(STFileScript *)script;
 - (id)executeScriptString:(NSString *)source
             inEnvironment:(STEnvironment *)env;
 @end

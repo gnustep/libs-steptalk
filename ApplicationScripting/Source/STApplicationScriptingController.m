@@ -37,7 +37,7 @@
 #import <StepTalk/STEngine.h>
 #import <StepTalk/STEnvironment.h>
 #import <StepTalk/STLanguageManager.h>
-#import <StepTalk/STScript.h>
+#import <StepTalk/STFileScript.h>
 
 #import "STScriptsPanel.h"
 #import "STTranscript.h"
@@ -119,103 +119,6 @@
     return scriptingMenu;
 }
 
-/** Execute script <var>script</var> in actual scripting environment. If an 
-    exception occured, it will be logged into the Transcript window. */
-- (id)executeScript:(STScript *)script
-{
-    STEnvironment  *env = [self actualScriptingEnvironment];
-    STEngine       *engine;
-    NSString       *error;
-    id             retval;
-    
-    NSDebugLog(@"Execute a script '%@'", [script localizedName]);
-
-    engine = [STEngine engineForLanguageWithName:[script language]];
-
-    if(!engine)
-    {
-        NSLog(@"Unable to get scripting engine for language '%@'",
-              [script language]);
-
-        return nil;
-    }
-
-    if(!env)
-    {
-        NSLog(@"No scripting environment");
-        return nil;
-    }
-    
-    NSDebugLog(@"Updating references");
-    [self updateObjectReferences];
-
-#ifndef DEBUG_EXCEPTIONS
-    NS_DURING
-#endif
-        retval = [engine executeCode:[script source] inEnvironment:env];
-
-#ifndef DEBUG_EXCEPTIONS
-    NS_HANDLER
-
-        error = [NSString stringWithFormat:
-                            @"Error: "
-                            @"Execution of script '%@' failed. %@. (%@)",
-                            [script localizedName],
-                            [localException reason],
-                            [localException name]];
-
-        [[STTranscript sharedTranscript] showError:error];
-
-        retval = nil;
-    NS_ENDHANDLER
-#endif
-    
-    return retval;
-}
-
-/** Execute script string <var>source</var> in environment <var>env</var>. */
-- (id)executeScriptString:(NSString *)source
-            inEnvironment:(STEnvironment *)env
-{
-    STEngine       *engine;
-    NSString       *error;
-    id             retval = nil;
-    
-    engine = [STEngine engineForLanguageWithName:
-                            [[STLanguageManager defaultManager] defaultLanguageName]];
-    if(!engine)
-    {
-        NSLog(@"Unable to get scripting engine.");
-        return nil;
-    }
-
-    if(!env)
-    {
-        NSLog(@"No scripting environment");
-        return nil;
-    }
-
-    NSLog(@"Updating references");
-    [self updateObjectReferences];
-
-    NS_DURING
-        retval = [engine executeCode:source inEnvironment:env];
-    NS_HANDLER
-        error = [NSString stringWithFormat:
-                            @"Error: "
-                            @"Execution of script failed. %@. (%@)",
-                            [localException reason],
-                            [localException name]];
-
-        [[STTranscript sharedTranscript] showError:error];
-
-        NSLog(@"Script exception: %@", error);
-
-        retval = nil;
-    NS_ENDHANDLER
-
-    return retval;
-}
 /* FIXME: rewrite this */
 - (void)updateObjectReferences
 {
@@ -250,5 +153,103 @@
             }
         NS_ENDHANDLER
     }
+}
+
+/** Execute script <var>script</var> in actual scripting environment. If an 
+    exception occured, it will be logged into the Transcript window. */
+- (id)executeScript:(STFileScript *)script
+{
+    STEnvironment  *env = [self actualScriptingEnvironment];
+    STEngine       *engine;
+    NSString       *error;
+    id             retval;
+    
+    NSDebugLog(@"Execute a script '%@'", [script localizedName]);
+
+    engine = [STEngine engineForLanguage:[script language]];
+
+    if(!engine)
+    {
+        NSLog(@"Unable to get scripting engine for language '%@'",
+              [script language]);
+
+        return nil;
+    }
+
+    if(!env)
+    {
+        NSLog(@"No scripting environment");
+        return nil;
+    }
+    
+    NSDebugLog(@"Updating references");
+    [self updateObjectReferences];
+
+#ifndef DEBUG_EXCEPTIONS
+    NS_DURING
+#endif
+        retval = [engine interpretScript:[script source] inContext:env];
+
+#ifndef DEBUG_EXCEPTIONS
+    NS_HANDLER
+
+        error = [NSString stringWithFormat:
+                            @"Error: "
+                            @"Execution of script '%@' failed. %@. (%@)",
+                            [script localizedName],
+                            [localException reason],
+                            [localException name]];
+
+        [[STTranscript sharedTranscript] showError:error];
+
+        retval = nil;
+    NS_ENDHANDLER
+#endif
+    
+    return retval;
+}
+
+/** Execute script string <var>source</var> in environment <var>env</var>. */
+- (id)executeScriptString:(NSString *)source
+            inEnvironment:(STEnvironment *)env
+{
+    STEngine       *engine;
+    NSString       *error;
+    id             retval = nil;
+    
+    engine = [STEngine engineForLanguage:
+                            [[STLanguageManager defaultManager] defaultLanguage]];
+    if(!engine)
+    {
+        NSLog(@"Unable to get scripting engine.");
+        return nil;
+    }
+
+    if(!env)
+    {
+        NSLog(@"No scripting environment");
+        return nil;
+    }
+
+    NSLog(@"Updating references");
+    [self updateObjectReferences];
+
+    NS_DURING
+        retval = [engine interpretScript:source inContext:env];
+    NS_HANDLER
+        error = [NSString stringWithFormat:
+                            @"Error: "
+                            @"Execution of script failed. %@. (%@)",
+                            [localException reason],
+                            [localException name]];
+
+        [[STTranscript sharedTranscript] showError:error];
+
+        NSLog(@"Script exception: %@", error);
+
+        retval = nil;
+    NS_ENDHANDLER
+
+    return retval;
 }
 @end

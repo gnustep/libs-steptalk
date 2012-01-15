@@ -31,6 +31,7 @@
 #import "STEnvironment+additions.h"
 
 #import <StepTalk/STBundleInfo.h>
+#import <StepTalk/STEnvironmentDescription.h>
 
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSDebug.h>
@@ -95,6 +96,7 @@ static STApplicationScriptingController *scriptingController = nil;
 /** Create shared scripting environment. */
 - (void)_createDefaultScriptingEnvironment
 {
+    STEnvironmentDescription *desc;
     STEnvironment *env = nil;
     STBundleInfo  *info;
     //NSString      *path;
@@ -127,18 +129,19 @@ static STApplicationScriptingController *scriptingController = nil;
 
     if(str && ![str isEqualToString:@""])
     {
-        env = [STEnvironment environmentWithDescriptionName:str];
+        desc = [STEnvironmentDescription descriptionWithName:str];
+        env = [STEnvironment environmentWithDescription:desc];
     }
     if(!env)
     {
         NSDebugLog(@"Using default scripting environment");
-        env = [STEnvironment defaultScriptingEnvironment];
+        env = [STEnvironment environmentWithDefaultDescription];
     }
 
     [env loadModule:@"AppKit"];
     [env includeBundle:[NSBundle mainBundle]];
     [env setObject:self forName:@"Application"];
-    [env setObject:self forName:[self applcationNameForScripting]];
+    [env setObject:self forName:[self applicationNameForScripting]];
     [env setObject:[STTranscript sharedTranscript] forName:@"Transcript"];
 
     scriptingEnvironment = RETAIN(env);
@@ -193,7 +196,7 @@ static STApplicationScriptingController *scriptingController = nil;
 }
 
 /** Name of application object */
-- (NSString *)applcationNameForScripting
+- (NSString *)applicationNameForScripting
 {
     return [[NSProcessInfo processInfo] processName];
 }

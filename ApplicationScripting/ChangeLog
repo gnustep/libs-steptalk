@@ -1,3 +1,26 @@
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * Source/STTranscript.h (-window):
+    * Source/NSApplication+additions.h (-applicationNameForScripting):
+    Declare public methods.
+    * Source/NSApplication+additions.m (-applicationNameForScripting):
+    Fix typo in method name.
+
+    * Source/NSApplication+additions.m (-_createDefaultScriptingEnvironment):
+    Fix to no longer use methods which were removed when adding STConversation.
+
+    * Source/STApplicationScriptingController.m (-executeScript:,
+    -executeScriptString:inEnvironment:): Update for changes when
+    STLanguage was removed and STContext was introduced.
+
+    * Source/STApplicationScriptingController.h (-executeScript:):
+    * Source/STApplicationScriptingController.m (-executeScript:): The
+    method expects an STFileScript.
+
+    * Source/STScriptsPanel.h (-selectedScript):
+    * Source/STScriptsPanel.m (-run, -selectScript, -browse, -selectedScript):
+    Method seletecedScript returns a STFileScript.
+
 2003 May 2  Stefan Urbanek <urbanek@host.sk>
 
     * Added 'Objects' searching in application.

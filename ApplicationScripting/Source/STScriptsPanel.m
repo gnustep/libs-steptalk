@@ -26,7 +26,7 @@
 
 #import "STScriptsPanel.h"
 
-#import <StepTalk/STScript.h>
+#import <StepTalk/STFileScript.h>
 #import <StepTalk/STScriptsManager.h>
 
 #import <AppKit/NSApplication.h>
@@ -35,6 +35,7 @@
 #import <AppKit/NSMatrix.h>
 #import <AppKit/NSPopUpButton.h>
 #import <AppKit/NSWorkspace.h>
+#import <AppKit/NSGraphics.h>
 
 #import "NSObject+NibLoading.h"
 #import "STApplicationScriptingController.h"
@@ -112,7 +113,7 @@ STScriptsPanel *sharedScriptsPanel = nil;
 }
 - (void) run: (id)sender
 {
-    STScript *script = [self selectedScript];
+    STFileScript *script = [self selectedScript];
 
     if(script)
     {
@@ -122,7 +123,7 @@ STScriptsPanel *sharedScriptsPanel = nil;
 
 - (void) selectScript: (id)sender
 {
-    STScript *script = [self selectedScript];
+    STFileScript *script = [self selectedScript];
 
     [descriptionText setString:[script scriptDescription]];
 }
@@ -138,9 +139,9 @@ STScriptsPanel *sharedScriptsPanel = nil;
 }
 - (void)browse:(id)sender
 {
-    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-    STScript    *script = [self selectedScript];
-    NSString    *path = [[script fileName] stringByDeletingLastPathComponent];
+    NSWorkspace  *ws = [NSWorkspace sharedWorkspace];
+    STFileScript *script = [self selectedScript];
+    NSString     *path = [[script fileName] stringByDeletingLastPathComponent];
 
     if(script)
     {
@@ -160,7 +161,7 @@ STScriptsPanel *sharedScriptsPanel = nil;
     [self selectScript:nil];
 }
 
-- (STScript *)selectedScript
+- (STFileScript *)selectedScript
 {
     if([scriptList selectedCell])
     {

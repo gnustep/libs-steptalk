@@ -39,4 +39,6 @@
 
 - (NSMenu *)scriptingMenu;
 - (void)setScriptingMenu:(NSMenu *)menu;
+
+- (NSString *)applicationNameForScripting;
 @end
