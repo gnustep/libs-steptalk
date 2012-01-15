@@ -1,3 +1,10 @@
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STShell.h:
+    * STShell.m:
+    * STShell+output.m: Miscellaneous changes to shut down compiler
+    warnings.
+
 2005 Aug 30
 
     * use STLanguageManager instead of removed STLanguage

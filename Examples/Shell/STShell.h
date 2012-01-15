@@ -50,22 +50,13 @@
     BOOL              completionEnabled;
 
 }
-- initWithEnvironment:(STEnvironment *)env;
+- initWithConversation:(STConversation *)conv;
 
 - (void)setLanguage:(NSString *)langName;
-- (void)setEnvironment:(STEnvironment *)newEnv;
-- (STEnvironment *)environment;
 
 - (void)run;
 
-- show:(id)anObject;
-- showLine:(id)anObject;
-
 - (id)executeLine:(NSString *)line;
-
-- showResult:(id)obj;
-- showException:(NSException *)exception;
-- (void)showError:(NSString *)errString;
 @end
 
 @interface STShell(STShellOutput)
@@ -73,7 +64,8 @@
 - show:(id)anObject;
 - showLine:(id)anObject;
 - showResult:(id)obj;
-- (char *)displayCStringForObject:(id)object;
+- (void)showError:(NSString *)errString;
+- (const char *)displayCStringForObject:(id)object;
 - showException:(NSException *)exception;
 - (id)listObjects;
 

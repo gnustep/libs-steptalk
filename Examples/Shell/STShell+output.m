@@ -31,6 +31,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSDictionary.h>
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSException.h>
 #import <Foundation/NSSet.h>
@@ -114,7 +115,7 @@
 
     return self;
 }
-- (char *)displayCStringForObject:(id)object
+- (const char *)displayCStringForObject:(id)object
 {
     NSString *str = [object description];
         

@@ -40,6 +40,7 @@
 #import <Foundation/NSValue.h>
 
 #include <readline/readline.h>
+#include <readline/history.h>
 
 static Class NSString_class;
 static Class NSNumber_class;
@@ -54,7 +55,7 @@ static STShell	*sharedShell = nil;
 - (void)initReadline;
 @end
 
-int complete_handler(void)
+int complete_handler(int count, int key)
 {
     return [sharedShell completion];
 }
@@ -141,21 +142,10 @@ int complete_handler(void)
     [conversation setLanguage:langName];
 }
 
-- (void)setEnvironment:(STEnvironment *)newEnv
-{
-    [conversation setEnvironment:newEnv];
-}
-
-- (STEnvironment *)environment
-{
-    return [conversation context];
-}
-
 - (void)run
 {
-    STEnvironment *env;
-    NSString      *line;
-    id             result;
+    NSString *line;
+    id        result;
             
     [self showLine:@"Welcome to the StepTalk shell."];
     
@@ -256,7 +246,7 @@ int complete_handler(void)
 
 - (int)completion
 {
-    STEnvironment *env;
+    STContext     *context;
     NSEnumerator  *enumerator;
     NSMutableSet  *set;
     NSString      *match;
@@ -305,8 +295,8 @@ int complete_handler(void)
         }
     }
 
-    env = [conversation context];
-    enumerator = [[env knownObjectNames] objectEnumerator];
+    context = [conversation context];
+    enumerator = [[context knownObjectNames] objectEnumerator];
     while( (str = [enumerator nextObject]) )
     {
         if( [str hasPrefix:match] )
@@ -373,8 +363,8 @@ int complete_handler(void)
 
 - (id)executeScriptNamed:(NSString *)scriptName
 {
-    STScript *script = [scriptsManager scriptWithName:scriptName];
-    id        result = nil;
+    STFileScript *script = [scriptsManager scriptWithName:scriptName];
+    id            result = nil;
     
     if(!script)
     {
