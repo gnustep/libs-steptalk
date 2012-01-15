@@ -77,7 +77,7 @@ extern int STCparse(void *context);
 - (void)compile;
 - (void)initializeContext;
 - (void)destroyCompilationContext;
-- (unsigned)indexOfTemporaryVariable:(NSString *)varName;
+- (NSUInteger)indexOfTemporaryVariable:(NSString *)varName;
 
 - (void) initializeCompilationContext;
 
@@ -434,7 +434,7 @@ extern int STCparse(void *context);
  * ---------------------------------------------------------------------------
  */
 
-- (unsigned)indexOfTemporaryVariable:(NSString *)varName
+- (NSUInteger)indexOfTemporaryVariable:(NSString *)varName
 {
     return [tempVars indexOfObject:varName];
 }
@@ -473,9 +473,9 @@ extern int STCparse(void *context);
 {
     return [receiverVars containsObject:varName];
 }
-- (unsigned)indexOfNamedReference:(NSString *)varName
+- (NSUInteger)indexOfNamedReference:(NSString *)varName
 {
-    unsigned index;
+    NSUInteger index;
     
     /* is it receiver or extern variable? */
     index = [namedReferences indexOfObject:varName];
@@ -689,7 +689,7 @@ extern int STCparse(void *context);
 - (void)compilePrimary:(STCPrimary *)primary
 {
     id object = [primary object];
-    int index;
+    NSUInteger index;
 
     NSDebugLLog(@"STCompiler-misc",@"  compile primary");
 
@@ -794,8 +794,8 @@ extern int STCparse(void *context);
     NSArray       *cascade;
     NSString      *varName;
     NSArray       *array;
-    unsigned       count;
-    unsigned       index,i;
+    NSUInteger     count;
+    NSUInteger     index,i;
     id             obj;
     
     NSDebugLLog(@"STCompiler-misc",@"  compile expression");
