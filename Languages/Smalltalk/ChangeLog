@@ -1,5 +1,12 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiler.m (-exceptionInfo): Return exceptionInfo dictionary.
+
+    * STCompiler.m (-compileMethodFromSource:forReceiver:, -compileString:,
+    -indexOfNamedReference:): Remove unneeded variables reported by gcc 4.6.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STBytecodes.h (-data, -length): Declare public methods.
     * STMethodContext.h: Remove declaration of unused methods, which were
     not implemented.

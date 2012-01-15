@@ -186,7 +186,6 @@ extern int STCparse(void *context);
     NSString         *hackedSource;
     NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
                                    @"reason: %@.";
-    int               parsRetval = 0;
 
 
     NSDebugLLog(@"STCompiler", @"Compile method for receiver %@", [receiverObject className]);
@@ -211,7 +210,7 @@ extern int STCparse(void *context);
     {
         // extern int STCdebug;
         // STCdebug = 1;
-        parsRetval = STCparse(&context);
+        STCparse(&context);
     }
     NS_HANDLER
     {
@@ -254,7 +253,6 @@ extern int STCparse(void *context);
     STCompiledScript *result;
     NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
                                    @"reason: %@.";
-    int               parsRetval = 0;
 
 
     NSDebugLLog(@"STCompiler", @"Compile string", aString);
@@ -277,7 +275,7 @@ extern int STCparse(void *context);
     {
         // extern int STCdebug;
         // STCdebug = 1;
-        parsRetval = STCparse(&context);
+        STCparse(&context);
     }
     NS_HANDLER
     {
@@ -478,7 +476,6 @@ extern int STCparse(void *context);
 - (unsigned)indexOfNamedReference:(NSString *)varName
 {
     unsigned index;
-    id       obj;
     
     /* is it receiver or extern variable? */
     index = [namedReferences indexOfObject:varName];
@@ -492,7 +489,7 @@ extern int STCparse(void *context);
     {
         NS_DURING
             /* test whether variable is an ivar s*/
-            obj = [receiver valueForKey:varName];
+            [receiver valueForKey:varName];
             NSDebugLLog(@"STCompiler", @"New name: receiver variable %@", varName);
             [receiverVars addObject:varName];
         NS_HANDLER
@@ -973,7 +970,7 @@ extern int STCparse(void *context);
                             [NSValue valueWithRange:[reader tokenRange]],
                                 @"TokenRange",
                             nil,nil];
-    return nil;
+    return dict;
 }
 /* ---------------------------------------------------------------------------
  * Emit bytecodes
