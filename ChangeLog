@@ -1,5 +1,13 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STObjCRuntime.m (STSelectorTypes,
+	STSelectorFromString, STCreateTypedSelector,
+	STConstructMethodSignatureForSelector): Add special case to
+	register selectors of (Smalltalk) binary operators with one
+	argument instead of zero.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STObjCRuntime.m (STSelectorFromString):
 	Always register typed selectors, since forwarding to untyped
 	selectors stopped working a while back in GNUstep.

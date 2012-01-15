@@ -116,41 +116,67 @@ SEL STSelectorFromValue(NSValue *val)
     return sel;
 }
 
+static const char *STSelectorTypes(const char *name)
+{
+    const char *ptr;
+    const char *types = 0;
+    unsigned    argc = 0;
+
+    for (ptr = name; *ptr; ptr++)
+	if (*ptr == ':')
+	    argc ++;
+
+    /* Special case for binary operators, which have one argument. The set
+     * of recognized operator names is the same as in Smalltalk.
+     * In case you don't have the Smalltalk standard for reference, the
+     * bitmap below contains the following characters: '!', '%', '&', '*',
+     * '+', ',', '/', '<', '=', '>', '?', '@', '\\', '~', '|', '-'
+     */
+    if (!argc)
+    {
+	for (ptr = name; *ptr; ptr++)
+	{
+	    static const char binaryCharset[256] = {
+		0, 0, 0, 0, 0x46, 0x3d, 0, 0x0f,
+		0x80, 0, 0, 0x08, 0, 0, 0, 0x0a
+	    };
+	    unsigned ofs = (unsigned)*ptr >> 3;
+	    unsigned mask = *ptr & 7;
+	    if (!(binaryCharset[ofs] & mask))
+		break;
+	}
+	if (!*ptr)
+	    argc = 1;
+    }
+
+    if (argc < SELECTOR_TYPES_COUNT)
+    {
+        NSDebugLLog(@"STSending",
+                    @"registering selector '%s' "
+                    @"with %i arguments, types:'%s'",
+                    name,argc,selector_types[argc]);
+        types = selector_types[argc];
+    }
+
+    return types;
+}
+
 SEL STSelectorFromString(NSString *aString)
 {
     const char *name = [aString cString];
-    const char *ptr;
-    int         argc = 0;
+    const char *types = STSelectorTypes(name);
+    SEL		sel;
 
-    SEL sel;
+    if (types)
+	sel = GSSelectorFromNameAndTypes(name, types);
+    else
+	sel = 0;
 
-    ptr = name;
-
-    while(*ptr)
-    {
-	if(*ptr == ':')
-	{
-	    argc ++;
-	}
-	ptr++;
-    }
-
-    if( argc < SELECTOR_TYPES_COUNT )
-    {
-	NSDebugLLog(@"STSending",
-		    @"registering selector '%s' "
-		    @"with %i arguments, types:'%s'",
-		    name,argc,selector_types[argc]);
-
-	sel = GSSelectorFromNameAndTypes(name, selector_types[argc]);
-    }
-
-    if(!sel)
+    if (!sel)
     {
 	[NSException raise:STInternalInconsistencyException
 		    format:@"Unable to register selector '%@'",
                            aString];
-	return 0;
     }
 
     return sel;
@@ -159,40 +185,21 @@ SEL STSelectorFromString(NSString *aString)
 SEL STCreateTypedSelector(SEL sel)
 {
     const char *name = sel_getName(sel);
-    const char *ptr;
-    int         argc = 0;
-
+    const char *types = STSelectorTypes(name);
     SEL         newSel;
 
     NSLog(@"STCreateTypedSelector is deprecated.");
 
-    ptr = name;
-
-    while(*ptr)
-    {
-        if(*ptr == ':')
-        {
-            argc ++;
-        }
-        ptr++;
-    }
-
-    if( argc < SELECTOR_TYPES_COUNT )
-    {
-        NSDebugLLog(@"STSending",
-                   @"registering selector '%s' "
-                   @"with %i arguments, types:'%s'",
-                    name,argc,selector_types[argc]);
-
-        newSel = GSSelectorFromNameAndTypes(name, selector_types[argc]);
-    }
+    if (types)
+        newSel = GSSelectorFromNameAndTypes(name, types);
+    else
+	newSel = 0;
 
     if(!newSel)
     {
         [NSException raise:STInternalInconsistencyException
                      format:@"Unable to register typed selector '%s'",
                             name];
-        return 0;
     }
 
     return newSel;
@@ -201,37 +208,13 @@ SEL STCreateTypedSelector(SEL sel)
 NSMethodSignature *STConstructMethodSignatureForSelector(SEL sel)
 {
     const char *name = sel_getName(sel);
-    const char *ptr;
-    const char *types = (const char *)0;
-    int         argc = 0;
+    const char *types = STSelectorTypes(name);
 
-    ptr = name;
-
-    while(*ptr)
-    {
-        if(*ptr == ':')
-        {
-            argc ++;
-        }
-        ptr++;
-    }
-
-    if( argc < SELECTOR_TYPES_COUNT )
-    {
-        NSDebugLLog(@"STSending",
-                   @"registering selector '%s' "
-                   @"with %i arguments, types:'%s'",
-                    name,argc,selector_types[argc]);
-
-        types = selector_types[argc];
-    }
-
-    if(!types)
+    if (!types)
     {
         [NSException raise:STInternalInconsistencyException
                      format:@"Unable to construct types for selector '%s'",
                             name];
-        return 0;
     }
 
     return [NSMethodSignature signatureWithObjCTypes:types];
@@ -245,7 +228,7 @@ NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 
     types = GSTypesFromSelector(sel);
     
-    if(!types)
+    if (!types)
     {
         sel = STCreateTypedSelector(sel);
         types = GSTypesFromSelector(sel);
