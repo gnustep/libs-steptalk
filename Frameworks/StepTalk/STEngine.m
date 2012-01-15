@@ -108,9 +108,9 @@ void _STInitMallocZone(void)
     return NO;
 }
 
-- (STMethod *)methodFromSource:(NSString *)sourceString
-                   forReceiver:(id)receiver
-        inContext:(STContext *)env;
+- (id <STMethod>)methodFromSource:(NSString *)sourceString
+                      forReceiver:(id)receiver
+                        inContext:(STContext *)env
 {
     [self subclassResponsibility:_cmd];
     return nil;
@@ -118,7 +118,7 @@ void _STInitMallocZone(void)
 - (id)  executeMethod:(id <STMethod>)aMethod
           forReceiver:(id)anObject
         withArguments:(NSArray *)args
-        inContext:(STContext *)env;
+            inContext:(STContext *)env
 {
     [self subclassResponsibility:_cmd];
     return nil;

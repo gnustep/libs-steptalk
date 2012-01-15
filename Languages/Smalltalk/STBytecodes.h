@@ -87,6 +87,8 @@ extern NSString *STDissasembleBytecode(STBytecode bytecode);
     NSData *bytes;
 }
 - (STBytecode)fetchNextBytecodeAtPointer:(unsigned *)pointer;
+- (NSData *) data;
+- (unsigned) length;
 @end
 
 

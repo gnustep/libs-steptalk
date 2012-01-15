@@ -29,9 +29,11 @@
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSDictionary.h>
 #import <Foundation/NSMethodSignature.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSAutoreleasePool.h>
+#import <Foundation/NSKeyValueCoding.h>
 
 #import <StepTalk/NSInvocation+additions.h>
 #import <StepTalk/STEnvironment.h>

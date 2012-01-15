@@ -180,7 +180,7 @@ extern int STCparse(void *context);
 }
 
 - (STCompiledMethod *)compileMethodFromSource:(NSString *)aString
-                                  forReceiver:(id)receiverObject
+                                  forReceiver:(STScriptObject *)receiverObject
 {
     STCompiledMethod *result;
     NSString         *hackedSource;

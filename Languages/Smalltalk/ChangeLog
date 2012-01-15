@@ -1,5 +1,23 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STBytecodes.h (-data, -length): Declare public methods.
+    * STMethodContext.h: Remove declaration of unused methods, which were
+    not implemented.
+
+    * STCompiler.h (STCompiler, -compiledMethodFromSource:forReceiver:):
+    * STCompiler.m (-compiledMethodFromSource:forReceiver:): STCompiler
+    expects its receiver attribute to be a STScriptObject not just an
+    object that satisfies the weaker STScriptObject protocol.
+
+    * STSmalltalkScriptObject.m: Import NSDictionary and NSKeyValueCoding,
+    whose methods are used in the implementation.
+
+    * STCompiledMethod.h: Import definition of STMethod protocol instead
+    of just declaring it. Gcc 4.6 complains if a protocol whose definition
+    is not visible is used in an interface declaration.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STBytecodeInterpreter.m: Remove unnecessary include of Objective-C
     runtime header.
 

@@ -47,9 +47,9 @@
             inContext:(STContext *)context;
             
 /* Methods */
-- (STMethod *)methodFromSource:(NSString *)sourceString
-                   forReceiver:(id)receiver
-                     inContext:(STContext *)context;
+- (id <STMethod>)methodFromSource:(NSString *)sourceString
+                      forReceiver:(id)receiver
+                        inContext:(STContext *)context;
 - (id)  executeMethod:(id <STMethod>)aMethod
           forReceiver:(id)anObject
         withArguments:(NSArray *)args

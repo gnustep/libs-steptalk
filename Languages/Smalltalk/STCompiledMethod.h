@@ -21,8 +21,7 @@
  */
 
 #import "STCompiledCode.h"
-
-@protocol STMethod;
+#import <StepTalk/STMethod.h>
 
 @class STMessage;
 

@@ -31,6 +31,7 @@
 @class STCompiledCode;
 @class STCompiledMethod;
 @class STEnvironment;
+@class STScriptObject;
 @class STSourceReader;
 
 @class STCExpression;
@@ -82,7 +83,7 @@ typedef struct _STParserContext
     NSMutableArray   *namedReferences;
     NSMutableArray   *literals;
     
-    id                receiver;
+    STScriptObject   *receiver;
 
     BOOL              isSingleMethod;
     
@@ -109,7 +110,7 @@ typedef struct _STParserContext
 
 - (STCompiledScript *)compileString:(NSString *)aString;
 - (STCompiledMethod *)compileMethodFromSource:(NSString *)aString
-                                  forReceiver:(id <STScriptObject>)receiver;
+                                  forReceiver:(STScriptObject *)receiver;
 
 /*
 - (NSMutableArray *)compileString:(NSString *)string;
