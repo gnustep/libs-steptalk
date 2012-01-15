@@ -1,4 +1,9 @@
-2012-01-15  Wolfgang Lux  <wlux@uni-muenster.de>
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * Source/STScriptsPanel.m (-selectScript:): Validate Run button of the
+    scripts panel.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * Source/STApplicationScriptingController.m (-scriptingMenu): Protect
     against GNUstep stubbornly replacing the application's main menu.

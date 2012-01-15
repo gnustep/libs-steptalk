@@ -129,6 +129,7 @@ STScriptsPanel *sharedScriptsPanel = nil;
     if (!description)
 	description = @"";
     [descriptionText setString:description];
+    [runButton setEnabled:script ? YES : NO];
 }
 
 - (void)command:(id)sender
