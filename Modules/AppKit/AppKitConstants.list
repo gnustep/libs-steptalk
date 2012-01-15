@@ -18,8 +18,6 @@ id NSBaselineOffsetAttributeName
 id NSKernAttributeName
 id NSLinkAttributeName
 
-id NSDataLinkFileNameExtension
-
 id NSAFMAscender
 id NSAFMCapHeight
 id NSAFMCharacterSet
@@ -80,7 +78,6 @@ id NSTabularTextPboardType
 id NSRTFPboardType
 id NSRTFDPboardType
 id NSTIFFPboardType
-id NSDataLinkPboardType
 id NSGeneralPboardType
 id NSDragPboard
 id NSFindPboard
@@ -303,17 +300,6 @@ int NSColorPanelAllModesMask
 # GSCursorTypes
 int GSArrowCursor
 int GSIBeamCursor
-
-# NSDataLinkDisposition
-int NSLinkInDestination
-int NSLinkInSource
-int NSLinkBroken 
-
-# NSDataLinkUpdateMode
-int NSUpdateContinuously
-int NSUpdateWhenSourceSaved
-int NSUpdateManually
-int NSUpdateNever
 
 int NSChangeDone
 int NSChangeUndone

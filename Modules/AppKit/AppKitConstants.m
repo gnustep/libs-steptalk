@@ -76,7 +76,6 @@ NSDictionary *STGetAppKitConstants(void)
     ADD_id_OBJECT(NSBaselineOffsetAttributeName,@"NSBaselineOffsetAttributeName");
     ADD_id_OBJECT(NSKernAttributeName,@"NSKernAttributeName");
     ADD_id_OBJECT(NSLinkAttributeName,@"NSLinkAttributeName");
-    ADD_id_OBJECT(NSDataLinkFileNameExtension,@"NSDataLinkFileNameExtension");
     ADD_id_OBJECT(NSAFMAscender,@"NSAFMAscender");
     ADD_id_OBJECT(NSAFMCapHeight,@"NSAFMCapHeight");
     ADD_id_OBJECT(NSAFMCharacterSet,@"NSAFMCharacterSet");
@@ -132,7 +131,6 @@ NSDictionary *STGetAppKitConstants(void)
     ADD_id_OBJECT(NSRTFPboardType,@"NSRTFPboardType");
     ADD_id_OBJECT(NSRTFDPboardType,@"NSRTFDPboardType");
     ADD_id_OBJECT(NSTIFFPboardType,@"NSTIFFPboardType");
-    ADD_id_OBJECT(NSDataLinkPboardType,@"NSDataLinkPboardType");
     ADD_id_OBJECT(NSGeneralPboardType,@"NSGeneralPboardType");
     ADD_id_OBJECT(NSDragPboard,@"NSDragPboard");
     ADD_id_OBJECT(NSFindPboard,@"NSFindPboard");
@@ -314,13 +312,6 @@ NSDictionary *STGetAppKitConstants(void)
     ADD_int_OBJECT(NSColorPanelAllModesMask,@"NSColorPanelAllModesMask");
     ADD_int_OBJECT(GSArrowCursor,@"GSArrowCursor");
     ADD_int_OBJECT(GSIBeamCursor,@"GSIBeamCursor");
-    ADD_int_OBJECT(NSLinkInDestination,@"NSLinkInDestination");
-    ADD_int_OBJECT(NSLinkInSource,@"NSLinkInSource");
-    ADD_int_OBJECT(NSLinkBroken,@"NSLinkBroken");
-    ADD_int_OBJECT(NSUpdateContinuously,@"NSUpdateContinuously");
-    ADD_int_OBJECT(NSUpdateWhenSourceSaved,@"NSUpdateWhenSourceSaved");
-    ADD_int_OBJECT(NSUpdateManually,@"NSUpdateManually");
-    ADD_int_OBJECT(NSUpdateNever,@"NSUpdateNever");
     ADD_int_OBJECT(NSChangeDone,@"NSChangeDone");
     ADD_int_OBJECT(NSChangeUndone,@"NSChangeUndone");
     ADD_int_OBJECT(NSChangeCleared,@"NSChangeCleared");

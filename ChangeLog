@@ -1,5 +1,11 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Modules/AppKit/AppKitConstants.list: Remove obsolete NSDataLink
+	constants.
+	* Modules/AppKit/AppKitConstants.m: Regenerated.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Documentation/ApplicationScripting.txt: Fix errors.
 
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
