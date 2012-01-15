@@ -62,6 +62,9 @@
 
 - (int)intValueAtIndex:(unsigned)index;
 - (float)floatValueAtIndex:(unsigned)index;
+
+- extent:(NSSize)size;
+- corner:(NSPoint)corner;
 @end
 
 /*

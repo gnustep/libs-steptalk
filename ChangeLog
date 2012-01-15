@@ -1,5 +1,14 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STStructure.h:
+	* Frameworks/StepTalk/STStructure.m (+structureWithOrigin:size:,
+	extent:, corner:): New methods to construct rectangles from points
+	and sizes.
+
+	* TODO: Update.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Modules/AppKit/AppKitConstants.list: Remove obsolete NSDataLink
 	constants.
 	* Modules/AppKit/AppKitConstants.m: Regenerated.

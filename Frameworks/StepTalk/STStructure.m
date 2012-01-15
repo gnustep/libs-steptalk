@@ -69,6 +69,15 @@
     return AUTORELEASE(str);
 }
 
++ structureWithOrigin:(NSPoint)point size:(NSSize)size
+{
+    NSRect rect;
+    STStructure *str;
+    rect = NSMakeRect(point.x, point.y, size.width, size.height);
+    str = [[self alloc] initWithValue:&rect type:@encode(NSRect)];
+    return AUTORELEASE(str);
+}
+
 - initWithValue:(void *)value type:(const char*)type
 {
     const char *nameBeg, *nextType;
@@ -264,6 +273,38 @@
 - (void)setY:(float)y
 {
     [fields replaceObjectAtIndex:1 withObject: [NSNumber numberWithFloat:y]];
+}
+
+- extent:(NSSize)size
+{
+    NSRect rect;
+    rect = NSMakeRect([self x], [self y], size.width, size.height);
+    return [[self class] structureWithRect:rect];
+}
+
+- corner:(NSPoint)corner
+{
+    NSRect rect;
+    rect = NSMakeRect([self x], [self y], 0, 0);
+    if (corner.x >= rect.origin.x)
+    {
+	rect.size.width = corner.x - rect.origin.x;
+    }
+    else
+    {
+	rect.size.width = rect.origin.x - corner.x;
+	rect.origin.x = corner.x;
+    }
+    if (corner.y >= rect.origin.y)
+    {
+	rect.size.height = corner.y - rect.origin.y;
+    }
+    else
+    {
+	rect.size.height = rect.origin.y - corner.y;
+	rect.origin.y = corner.y;
+    }
+    return [[self class] structureWithRect:rect];
 }
 
 /* NSSize */

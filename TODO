@@ -7,7 +7,6 @@ TODO list
 
 HIGH PRIORITY 
 
-- implement NSRect object
 - Rewrite Smalltalk compiler (grammar)
 
         Remove STBytecodeInterpreter and use only STCompiler. How?
