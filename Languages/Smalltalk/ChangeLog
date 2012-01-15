@@ -1,5 +1,11 @@
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiledScript.m (+initialize, -executeInEnvironment:): Rename
+    finalize selector to shutDown to avoid conflict with the NSObject
+    -finalize method.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STCompiler.m (-indexOfTemporaryVariable, -indexOfNamedReference,
     -compilePrimary:, -compileExpression:): Minimal set of changes to
     accomodate to large NSNotFound value on 64-bit machines.

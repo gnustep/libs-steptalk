@@ -46,7 +46,7 @@ static SEL finalizeSelector;
 {
     mainSelector = STSelectorFromString(@"main");
     initializeSelector = STSelectorFromString(@"startUp");
-    finalizeSelector = STSelectorFromString(@"finalize");
+    finalizeSelector = STSelectorFromString(@"shutDown");
 }
 
 - initWithVariableNames:(NSArray *)array;
@@ -140,7 +140,7 @@ static SEL finalizeSelector;
 
         if( [object respondsToSelector:finalizeSelector] )
         {
-            NSDebugLog(@"Sending 'finalize' to script object");
+            NSDebugLog(@"Sending 'shutDown' to script object");
             [object performSelector:finalizeSelector];
         }
     }
