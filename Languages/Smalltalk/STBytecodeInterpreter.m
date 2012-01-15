@@ -50,8 +50,6 @@
 #import <Foundation/NSInvocation.h>
 #import <Foundation/NSValue.h>
 
-#import  <objc/encoding.h>
-
 @interface STBytecodeInterpreter(STPrivateMethods)
 - (short)fetchBytecode;
 - (BOOL)dispatchBytecode:(STBytecode)bytecode;

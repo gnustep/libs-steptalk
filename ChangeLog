@@ -1,3 +1,12 @@
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com
+
+	* Frameworks/StepTalk/NSInvocation+additions.m:
+	* Frameworks/StepTalk/STStructure.m:
+	* Modules/ObjectiveC/NSObject+additions.m:
+	* Modules/ObjectiveC/ObjectiveCRuntime.m:
+	Clean up imports removing includes of Objective-C runtime headers.
+	Also replace a few more deprecated Objective-C runtime calls.
+
 2011-04-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Modules/ObjectiveC/ObjectiveCRuntime.m (-allClasses):

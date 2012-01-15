@@ -29,12 +29,11 @@
 #import "STExterns.h"
 #import <Foundation/NSArray.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 #import <Foundation/NSDebug.h>
 #import "NSInvocation+additions.h"
-
-#import <objc/objc-api.h>
 
 @implementation STStructure
 + structureWithValue:(void *)value type:(const char*)type
@@ -72,10 +71,10 @@
 
 - initWithValue:(void *)value type:(const char*)type
 {
-    const char *nameBeg;
-    int offset = 0;
-    int align;
-    int rem;
+    const char *nameBeg, *nextType;
+    NSUInteger  offset = 0;
+    NSUInteger  size, align;
+    NSUInteger  rem;
     
 
     self = [super init];
@@ -95,22 +94,18 @@
     
     while(*type != _C_STRUCT_E)
     {
-        [fields addObject:STObjectFromValueOfType(((char *)value)+offset,type)];
+        nextType = NSGetSizeAndAlignment(type, &size, &align);
 
-        offset += objc_sizeof_type(type);                                 
-        type = objc_skip_typespec(type);
-
-        if(*type == _C_STRUCT_E)
-        {
-            break;
-        }
-            
-        align = objc_alignof_type(type);
         rem = offset % align;
         if(rem != 0)
         {
             offset += align - rem;
         }
+
+        [fields addObject:STObjectFromValueOfType(((char *)value)+offset,type)];
+
+        offset += size;                                 
+	type = nextType;
     }
 
     return self;
@@ -126,33 +121,31 @@
 - (void)getValue:(void *)value
 {
     const char *type = [structType cString];
-    int offset=0;
-    int align;
-    int rem;
-    int i = 0;
+    const char *nextType;
+    NSUInteger  offset = 0;
+    NSUInteger  size, align;
+    NSUInteger  rem;
+    NSUInteger  i = 0;
     
     type++;
     while (*type != _C_STRUCT_E && *type++ != '=');
 
     while(*type != _C_STRUCT_E)
     {
-        STGetValueOfTypeFromObject((void *)((char*)value+offset),
-                                   type,
-                                   [fields objectAtIndex:i++]);
+        nextType = NSGetSizeAndAlignment(type, &size, &align);
 
-        offset += objc_sizeof_type(type);                                 
-        type = objc_skip_typespec(type);
-
-        if(*type == _C_STRUCT_E)
-        {
-            break;
-        }
-        align = objc_alignof_type(type);
         rem = offset % align;
         if(rem != 0)
         {
             offset += align - rem;
         }
+
+        STGetValueOfTypeFromObject((char*)value+offset,
+                                   type,
+                                   [fields objectAtIndex:i++]);
+
+        offset += size;                                 
+	type = nextType;
     }
 }
 

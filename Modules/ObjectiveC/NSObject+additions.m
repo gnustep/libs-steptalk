@@ -26,8 +26,6 @@
 
 #import "NSObject+additions.h"
 
-#import <objc/objc-api.h>
-
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 

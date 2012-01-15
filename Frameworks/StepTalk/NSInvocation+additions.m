@@ -31,16 +31,17 @@
 
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
-#import <Foundation/NSValue.h>
+#import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSValue.h>
+
+#import <GNUstepBase/GSObjCRuntime.h>
 
 #import "STExterns.h"
 #import "STObjCRuntime.h"
 #import "STScripting.h"
 #import "STSelector.h"
 #import "STStructure.h"
-
-#import <objc/objc-api.h>
 
 #if 0
 static Class NSNumber_class = nil;
@@ -216,7 +217,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
         // NSLog(@"REGISTERING SELECTOR");
         const char *name = [selectorName cString];
         
-        sel = sel_register_name(name);
+        sel = sel_registerName(name);
 
         if(!sel)
         {
@@ -235,7 +236,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     if(requiresRegistration)
     {
         // NSLog(@"REGISTERING SELECTOR TYPES");
-        sel = sel_register_typed_name([selectorName cString], [signature methodReturnType]);
+        sel = GSSelectorFromNameAndTypes([selectorName cString], [signature methodReturnType]);
         // NSLog(@"REGISTERED %@", NSStringFromSelector(sel));
         
     }
@@ -285,10 +286,12 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 - (void)setArgumentAsObject:(id)anObject atIndex:(int)anIndex
 {
     const char *type;
+    NSUInteger size;
     void *value;
     
     type = [[self methodSignature] getArgumentTypeAtIndex:anIndex];
-    value = NSZoneMalloc(STMallocZone,objc_sizeof_type(type));
+    NSGetSizeAndAlignment(type, &size, NULL);
+    value = NSZoneMalloc(STMallocZone, size);
 
     STGetValueOfTypeFromObject(value, type, anObject);
 
@@ -300,12 +303,13 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 - (id)getArgumentAsObjectAtIndex:(int)anIndex
 {
     const char *type;
+    NSUInteger size;
     void *value;
     id    object;
     
     type = [[self methodSignature] getArgumentTypeAtIndex:anIndex];
-
-    value = NSZoneMalloc(STMallocZone,objc_sizeof_type(type));
+    NSGetSizeAndAlignment(type, &size, NULL);
+    value = NSZoneMalloc(STMallocZone, size);
     [self getArgument:value atIndex:anIndex];
 
     object = STObjectFromValueOfType(value,type);

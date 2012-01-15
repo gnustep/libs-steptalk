@@ -28,8 +28,6 @@
 
 #import "NSObject+additions.h"
 
-#import <objc/objc-api.h>
-
 #import <StepTalk/STObjCRuntime.h>
 #import <StepTalk/STSelector.h>
 

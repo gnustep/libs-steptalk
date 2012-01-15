@@ -1,3 +1,8 @@
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBytecodeInterpreter.m: Remove unnecessary include of Objective-C
+    runtime header.
+
 2011-01-20  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * SmalltalkInfo.plist: Add missing semicolons at end of plist
