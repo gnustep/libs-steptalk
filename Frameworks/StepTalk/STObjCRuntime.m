@@ -124,42 +124,33 @@ SEL STSelectorFromString(NSString *aString)
 
     SEL sel;
 
-    sel = NSSelectorFromString(aString);
+    ptr = name;
+
+    while(*ptr)
+    {
+	if(*ptr == ':')
+	{
+	    argc ++;
+	}
+	ptr++;
+    }
+
+    if( argc < SELECTOR_TYPES_COUNT )
+    {
+	NSDebugLLog(@"STSending",
+		    @"registering selector '%s' "
+		    @"with %i arguments, types:'%s'",
+		    name,argc,selector_types[argc]);
+
+	sel = GSSelectorFromNameAndTypes(name, selector_types[argc]);
+    }
+
     if(!sel)
     {
-
-        ptr = name;
-
-        while(*ptr)
-        {
-            if(*ptr == ':')
-            {
-                argc ++;
-            }
-            ptr++;
-        }
-
-        if( argc < SELECTOR_TYPES_COUNT )
-        {
-            NSDebugLLog(@"STSending",
-                       @"registering selector '%s' "
-                       @"with %i arguments, types:'%s'",
-                        name,argc,selector_types[argc]);
-                    
-            sel = GSSelectorFromNameAndTypes(name, selector_types[argc]);
-        }
-
-        if(!sel)
-        {
-            [NSException raise:STInternalInconsistencyException
-                         format:@"Unable to register selector '%@'",
-                                aString];
-            return 0;
-        }
-    }
-    else
-    {
-        /* FIXME: temporary hack */
+	[NSException raise:STInternalInconsistencyException
+		    format:@"Unable to register selector '%@'",
+                           aString];
+	return 0;
     }
 
     return sel;

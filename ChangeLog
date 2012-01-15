@@ -1,4 +1,10 @@
-2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STObjCRuntime.m (STSelectorFromString):
+	Always register typed selectors, since forwarding to untyped
+	selectors stopped working a while back in GNUstep.
+
+2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/NSInvocation+additions.m:
 	* Frameworks/StepTalk/STStructure.m:
