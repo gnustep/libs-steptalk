@@ -163,6 +163,7 @@
     if([methodName isEqualToString:@"exit"])
     {
         [interpreter halt];
+        [pool release];
         return;
     }
 

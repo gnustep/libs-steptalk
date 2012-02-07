@@ -104,7 +104,6 @@ static SEL finalizeSelector;
     if(methodCount == 0)
     {
         NSLog(@"Empty script executed");
-        return nil;
     }
     else if(methodCount == 1)
     {
@@ -118,7 +117,6 @@ static SEL finalizeSelector;
     else if(![object respondsToSelector:mainSelector])
     {
         NSLog(@"No 'main' method found");
-        return nil;
     }
     else
     {

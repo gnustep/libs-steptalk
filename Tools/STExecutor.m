@@ -199,6 +199,7 @@ const char *STExecutorCommonOptions =
 
         /* Try to find it in standard script locations */
         sm  = [[STScriptsManager alloc] initWithDomainName:@"Shell"];
+        AUTORELEASE(sm);
         
         script = [sm scriptWithName:file];
         source = [script source];

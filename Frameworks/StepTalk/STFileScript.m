@@ -161,7 +161,7 @@
         source = [[NSString alloc] initWithContentsOfFile:fileName];
     }
     */
-    return [[NSString alloc] initWithContentsOfFile:fileName];
+    return [NSString stringWithContentsOfFile:fileName];
 }
 
 /** Returns a script name by which the script is identified */

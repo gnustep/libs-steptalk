@@ -168,7 +168,9 @@ int main(int argc, const char **argv)
     {
         NSLog(@"Unable to register environment '%@'.", envIdentifier);
     }
-    
+
+    RELEASE(connection);
+    RELEASE(envprocess);
     RELEASE(pool);
 
     return 0;

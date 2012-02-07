@@ -82,7 +82,7 @@ static NSMutableDictionary *bundleInfoDict;
         [names addObject:name];        
     }
 
-    return AUTORELEASE([NSArray arrayWithArray:names]);
+    return [NSArray arrayWithArray:names];
 }
 
 + stepTalkBundleWithName:(NSString *)moduleName

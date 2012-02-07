@@ -112,8 +112,6 @@
         return;
     }
           
-    RETAIN(env);
-
     [env setObject:target forName:objectName];
 
     conversation = [[STConversation alloc] initWithContext:env
@@ -182,6 +180,7 @@ int main(int argc, const char **argv)
     NSLog(@"Warning: This tool is obsolete.");
     [executor runWithArguments:args];
 
+    [executor release];
     [pool release];
 
     return 0;

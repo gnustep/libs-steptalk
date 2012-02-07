@@ -157,7 +157,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
 - (void)updateFromDictionary:(NSDictionary *)def
 {
-    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+    NSAutoreleasePool *pool;
     NSString *str;
     BOOL      saveFlag = restriction;
     
@@ -167,6 +167,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
         return;
     };
     
+    pool = [NSAutoreleasePool new];
     str = [def objectForKey:@"DefaultRestriction"];
     
     if(str)
@@ -186,7 +187,6 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
             [NSException raise:STGenericException
                         format:@"Invalid default restriction rule '%@'.",
                                 str];
-            return;                               
         }
     }
 
@@ -317,6 +317,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
         behInfo = [[STBehaviourInfo alloc] initWithName:name];
         [behaviours setObject:behInfo forKey:name];
+        [behInfo release];
 
         [self updateBehaviour:behInfo description:[dict objectForKey:name]];
     }
@@ -389,6 +390,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     {
         class = [[STClassInfo alloc] initWithName:className];
         [classes setObject:class forKey:className];
+        [class release];
         newClass = YES;
     }
 

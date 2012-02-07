@@ -260,7 +260,7 @@ NSArray *STAllObjectiveCSelectors(void)
     Method         *methods;
     Class          *classes;
     
-    array = [[NSMutableArray alloc] init];
+    array = [NSMutableArray array];
 
     numClasses = objc_getClassList(NULL, 0);
     classes = (Class *)NSZoneMalloc(STMallocZone, numClasses * sizeof(Class));
@@ -287,7 +287,7 @@ NSArray *STAllObjectiveCSelectors(void)
     NSZoneFree(STMallocZone, classes);
 
     /* get rid of duplicates */
-    array = (NSMutableArray *)[[NSSet setWithArray:(NSArray *)array] allObjects];
+    array = (NSMutableArray *)[[NSSet setWithArray:array] allObjects];
     array = (NSMutableArray *)[array sortedArrayUsingSelector:@selector(compare:)];
 
     return array;

@@ -508,6 +508,7 @@ STEnvironment *sharedEnvironment = nil;
     }
 
     [self registerObjectFinder:finder name:name];
+    [finder release];
 }
 
 /** Remove object finder with name <var>name</var> */

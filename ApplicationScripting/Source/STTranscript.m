@@ -134,6 +134,8 @@ static NSDictionary  *normalTextAttributes;
                                               attributes:errorTextAttributes];
     [textView insertText:astring];
 
+    RELEASE(astring);
+
     astring = [[NSAttributedString alloc] initWithString:@"\n"
                                               attributes:normalTextAttributes];
     [textView insertText:astring];

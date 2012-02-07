@@ -1,3 +1,19 @@
+2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STEnvironment.m (-registerObjectFinderNamed:):
+	* Frameworks/StepTalk/STEnvironmentDescription.m
+	(-updateFromDictionary:, -updateBehavioursFromDictionary:,
+	-updateClassWithName:description:):
+	* Frameworks/StepTalk/STFileScript.m (-source):
+	* Frameworks/StepTalk/STObjCRuntime.m (STAllObjectiveCSelectors):
+	* Tools/STExecutor.m (-executeScript:withArguments:):
+	* Tools/stalk.m (-createConversation, main):
+	* Tools/stenvironment.m (main): Fix potential space leaks detected
+	by clang.
+
+	* Frameworks/StepTalk/STBundleInfo.m (+stepTalkBundleNames): Fix
+	double release detected by clang.
+
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/STStructure.h:
