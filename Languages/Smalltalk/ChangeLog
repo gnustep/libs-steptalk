@@ -1,5 +1,10 @@
 2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STSourceReader.m (-lineNumberForIndex:): Fix unintended fall through
+    in a switch statement detected by clang.
+
+2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STCompiledScript.m (-executedInEnvironment:):
     * STSmalltalkScriptObject.m (-forwardInvocation:):
     Fix potential space leak detected by clang.

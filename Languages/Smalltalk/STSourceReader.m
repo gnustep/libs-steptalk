@@ -46,7 +46,7 @@ static NSCharacterSet *validCharacterCharacterSet;
         {
         case 0x000a: if(cr) 
                       { cr = 0; break; }
-        case 0x000d: cr = 1;
+        case 0x000d: cr = 1; break;
         case 0x2028: 
         case 0x2029: cr = 0;
                      line++;
@@ -153,7 +153,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
 {
     [super init];
 
-    ASSIGN(source,aString);
+    source = RETAIN(aString);
     srcRange = range;
     srcOffset = range.location;
     tokenRange = NSMakeRange(0,0);
