@@ -1,5 +1,10 @@
 2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STBundleInfo.m (-_bundleDidLoad:): Add
+	missing argument in NSLog call detected by clang.
+
+2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STEnvironment.m (-registerObjectFinderNamed:):
 	* Frameworks/StepTalk/STEnvironmentDescription.m
 	(-updateFromDictionary:, -updateBehavioursFromDictionary:,

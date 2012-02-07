@@ -319,7 +319,7 @@ static NSMutableDictionary *bundleInfoDict;
     allClasses = [[notif userInfo] objectForKey:@"NSLoadedClasses"];
     RETAIN(allClasses);
     
-    NSLog(@"All classes are %@");
+    NSLog(@"All classes are %@", allClasses);
 }
 
 - (NSArray *)publicClassNames
