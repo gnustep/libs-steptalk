@@ -1,0 +1,23 @@
+# WebServices Constants
+#
+
+id GWSErrorKey
+id GWSFaultKey
+id GWSMethodKey
+id GWSOrderKey
+id GWSParametersKey
+id GWSRequestDataKey
+id GWSResponseDataKey
+
+id GWSSOAPBodyEncodingStyleKey
+id GWSSOAPBodyEncodingStyleDocument
+id GWSSOAPBodyEncodingStyleRPC
+id GWSSOAPBodyEncodingStyleWrapped
+id GWSSOAPUseKey
+id GWSSOAPUseEncoded
+id GWSSOAPUseLiteral
+id GWSSOAPMessageHeadersKey
+id GWSSOAPNamespaceURIKey
+id GWSSOAPNamespaceNameKey
+id GWSSOAPArrayKey
+id GWSSOAPTypeKey

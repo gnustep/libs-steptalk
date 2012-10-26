@@ -1,6 +1,23 @@
 2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Modules/GNUmakefile:
+	* Modules/WebServices/Functions.h:
+	* Modules/WebServices/Functions.m:
+	* Modules/WebServices/GNUmakefile:
+	* Modules/WebServices/STWebServicesModule.h:
+	* Modules/WebServices/STWebServicesModule.m:
+	* Modules/WebServices/ScriptingInfo.plist:
+	* Modules/WebServices/WebServicesConstants.list:
+	* Modules/WebServices/WebServicesConstants.m:
+	* Modules/WebServices/create_constants.awk:
+	* Modules/WebServices/footer.m:
+	* Modules/WebServices/header.m:
+	Add WebServices bundle. Must be requested explicitly by adding
+	webservices=yes to the make command line.
+
+2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Modules/GNUmakefile:
 	* Modules/SQLClient/Functions.h:
 	* Modules/SQLClient/Functions.m:
 	* Modules/SQLClient/GNUmakefile:

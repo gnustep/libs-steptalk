@@ -1,0 +1,22 @@
+{
+    ScriptingInfoClass = STWebServicesModule;
+    
+    Classes = 
+    (
+	GWSBinding,
+	GWSCoder,
+	GWSXMLRPCCoder,
+	GWSJSONCoder,
+	GWSSOAPCoder,
+	GWSDocument,
+	GWSElement,
+	GWSExtensibility,
+	GWSSOAPExtensibility,
+	GWSMessage,
+	GWSPort,
+	GWSPortType,
+	GWSService,
+	GWSType,
+	WSSUsernameToken
+    );
+}
