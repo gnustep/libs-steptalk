@@ -1,3 +1,13 @@
+2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Modules/AppKit/GNUmakefile:
+	* Modules/Foundation/GNUmakefile:
+	* Modules/GDL2/GNUmakefile:
+	* Modules/ObjectiveC/GNUmakefile:
+	* Modules/SimpleTranscript/GNUmakefile:
+	Fix Makefile variables (bundle.make uses BUNDLE_LIBS, not
+	ADDITIONAL_BUNDLE_LIBS).
+
 2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/STBundleInfo.m (-_bundleDidLoad:): Add

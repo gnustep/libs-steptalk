@@ -37,7 +37,7 @@ GDL2_RESOURCE_FILES = ScriptingInfo.plist
 
 ADDITIONAL_NATIVE_LIBS += EOAccess EOControl EOModeler
 
-ADDITIONAL_BUNDLE_LIBS = -lStepTalk
+BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
 

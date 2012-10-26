@@ -36,7 +36,7 @@ ObjectiveC_PRINCIPAL_CLASS = ObjectiveCModule
         
 ObjectiveC_RESOURCE_FILES = ScriptingInfo.plist
 
-ADDITIONAL_BUNDLE_LIBS = -lStepTalk
+BUNDLE_LIBS += -lStepTalk
 ADDITIONAL_INCLUDE_DIRS += -I../../Frameworks/
 ADDITIONAL_LIB_DIRS += -L../../Frameworks/StepTalk/StepTalk.framework/Versions/Current/$(GNUSTEP_TARGET_LDIR)
 
