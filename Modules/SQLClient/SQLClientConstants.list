@@ -1,0 +1,12 @@
+# SQLClient Exceptions
+
+id SQLException
+id SQLConnectionException
+id SQLEmptyException
+id SQLUniqueException
+
+
+# SQLClient Notifications
+
+id SQLClientDidConnectNotification
+id SQLClientDidDisconnectNotification

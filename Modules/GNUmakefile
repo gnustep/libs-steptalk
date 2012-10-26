@@ -25,9 +25,13 @@
 include $(GNUSTEP_MAKEFILES)/common.make
 
 APPKIT=AppKit
+SQLCLIENT=
 
 ifeq ($(appkit),no)
     APPKIT= 
+endif
+ifeq ($(sqlclient),yes)
+    SQLCLIENT=SQLClient
 endif
 
 SUBPROJECTS = \
@@ -35,7 +39,8 @@ SUBPROJECTS = \
     Foundation \
     ObjectiveC \
     GDL2 \
-    $(APPKIT)
+    $(APPKIT) \
+    $(SQLCLIENT)
 
 -include GNUMakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make

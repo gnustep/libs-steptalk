@@ -1,5 +1,23 @@
 2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Modules/GNUmakefile:
+	* Modules/SQLClient/Functions.h:
+	* Modules/SQLClient/Functions.m:
+	* Modules/SQLClient/GNUmakefile:
+	* Modules/SQLClient/SQLClient+additions.m:
+	* Modules/SQLClient/SQLClientConstants.list:
+	* Modules/SQLClient/SQLClientConstants.m:
+	* Modules/SQLClient/STSQLClientModule.h:
+	* Modules/SQLClient/STSQLClientModule.m:
+	* Modules/SQLClient/ScriptingInfo.plist:
+	* Modules/SQLClient/create_constants.awk:
+	* Modules/SQLClient/footer.m:
+	* Modules/SQLClient/header.m:
+	Add SQLClient bundle. Must be requested explicitly by adding
+	sqlclient=yes to the make command line.
+
+2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Modules/AppKit/GNUmakefile:
 	* Modules/Foundation/GNUmakefile:
 	* Modules/GDL2/GNUmakefile:

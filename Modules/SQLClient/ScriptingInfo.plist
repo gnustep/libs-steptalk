@@ -1,0 +1,10 @@
+{
+    ScriptingInfoClass = STSQLClientModule;
+    
+    Classes = 
+    (
+	SQLClient,
+	SQLRecord,
+	SQLTransaction
+    );
+}
