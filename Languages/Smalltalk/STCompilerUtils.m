@@ -246,9 +246,6 @@
 @end
 
 @implementation STCPrimaryExpression:STCExpression
-{
-    id          object;
-}
 - (void)dealloc
 {
     RELEASE(object);

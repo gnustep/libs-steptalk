@@ -1,3 +1,8 @@
+2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompilerUtils.m (STCPrimaryExpression): Remove repeated
+    attribute declaration from the implementation.
+
 2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STSourceReader.m (-lineNumberForIndex:): Fix unintended fall through
