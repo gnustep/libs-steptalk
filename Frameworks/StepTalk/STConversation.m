@@ -51,7 +51,8 @@
 
 - (id)runScriptFromString:(NSString *)aString
 {
-    NSLog(@"Warning: runScriptFromString: in STConversation is deprecated, use -interpretScript: and -returnVale");
+    NSLog(@"Warning: runScriptFromString: in STConversation is deprecated,"
+	  @" use -interpretScript: and -returnValue.");
     [self interpretScript:aString];
     return [self result];
 }
@@ -71,8 +72,8 @@
 {
     STConversation *c;
  
-    NSLog(@"WARNING: +[STConversaion conversationWithEnvironment:language:] is deprecated, "
-          @" use conversationWithContext:language: instead.");
+    NSLog(@"WARNING: +[STConversation conversationWithEnvironment:language:]"
+          @" is deprecated, use conversationWithContext:language: instead.");
  
     c = [[self alloc] initWithContext:env language:langName];
     return AUTORELEASE(c);
@@ -81,8 +82,8 @@
 - initWithEnvironment:(STEnvironment *)env 
              language:(NSString *)langName
 {
-    NSLog(@"WARNING: -[STConversaion initWithEnvironment:language:] is deprecated, "
-          @" use initWithContext:language: instead.");
+    NSLog(@"WARNING: -[STConversation initWithEnvironment:language:]"
+          @" is deprecated, use initWithContext:language: instead.");
 
     return [self initWithContext:env language:langName];
 }
@@ -140,7 +141,7 @@
 }
 - (STEnvironment *)environment
 {
-    NSLog(@"WARNING: -[STConversaion environment] is deprecated, "
+    NSLog(@"WARNING: -[STConversation environment] is deprecated,"
           @" use -context instead.");
 
     return (STEnvironment *)context;
