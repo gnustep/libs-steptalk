@@ -72,7 +72,7 @@ main
     env setFullScriptingEnabled: YES.
     
     "*** Create conversation ***"
-    conv := STConversation conversationWithEnvironment: env language: 'Smalltalk'.    
+    conv := STConversation conversationWithContext: env language: 'Smalltalk'.
     conv setLanguage: 'Smalltalk'.
 
     "*** Execute all tests here ***"
@@ -123,7 +123,7 @@ executeTest: path
     Transcript show: (numTestFilesOK + numTestFilesFailed + 1).
     Transcript showLine: ': ', path, ' start ***'.
     code := NSString stringWithContentsOfFile: path.
-    res := conv runScriptFromString: code.
+    res := conv interpretScript: code; result.
     Transcript showLine: '*** Test Case ', path, ' finish ***'.
     (numTestsFailed = 0)
         ifTrue: 
@@ -166,13 +166,13 @@ showSummary
 
 !
 
-should:val
+should: val
     val ifFalse: [self testfail] ifTrue: [self testok].
     ^self
 
 !
 
-should:val desc*esc
+should: val desc: desc
     val ifFalse: [self testfail: desc] ifTrue: [self testok: desc].
     ^self
     
