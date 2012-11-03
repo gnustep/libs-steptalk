@@ -26,6 +26,7 @@
 
 #import <Foundation/NSObject.h>
 
+@class NSArray;
 @class STEngine;
 @class STContext;
 
@@ -50,6 +51,8 @@
     STContext     *context;
     id             returnValue;
 }
++ conversationWithContext:(STContext *)aContext 
+		 language:(NSString *)aLanguage;
 - initWithContext:(STContext *)aContext 
          language:(NSString *)aLanguage;
 

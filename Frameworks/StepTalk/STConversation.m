@@ -44,6 +44,13 @@
     return AUTORELEASE([[self alloc] initWithContext:env language:nil]);
 }
 
++ conversationWithContext:(STContext *)aContext
+		 language:(NSString *)aLanguage
+{
+    return AUTORELEASE([[self alloc] initWithContext:aContext
+					    language:aLanguage]);
+}
+
 - (bycopy id)resultByCopy
 {
     return [self result];
@@ -52,7 +59,7 @@
 - (id)runScriptFromString:(NSString *)aString
 {
     NSLog(@"Warning: runScriptFromString: in STConversation is deprecated,"
-	  @" use -interpretScript: and -returnValue.");
+	  @" use -interpretScript: and -result instead.");
     [self interpretScript:aString];
     return [self result];
 }
@@ -68,7 +75,7 @@
 /** Creates a new conversation with environment created using default 
     description and language with name <var>langName</var>. */
 + conversationWithEnvironment:(STEnvironment *)env 
-                   language:(NSString *)langName
+                     language:(NSString *)langName
 {
     STConversation *c;
  
