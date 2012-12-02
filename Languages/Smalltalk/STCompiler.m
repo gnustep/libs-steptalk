@@ -232,11 +232,14 @@ extern int STCparse(void *context);
                                 [localException reason]];
                          
         }
+        RELEASE(reader);
+        reader = nil;
         [localException raise];
     }
     NS_ENDHANDLER
 
     RELEASE(reader);
+    reader = nil;
 
     result = AUTORELEASE(resultMethod);
     resultMethod = nil;
@@ -279,9 +282,6 @@ extern int STCparse(void *context);
     }
     NS_HANDLER
     {
-        RELEASE(reader);
-        reader = nil;
-
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
             NSString *tokenString;
@@ -290,6 +290,9 @@ extern int STCparse(void *context);
             tokenString = [reader tokenString];
             line = [reader currentLine];
             
+            RELEASE(reader);
+            reader = nil;
+
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
                                 line,
@@ -297,11 +300,15 @@ extern int STCparse(void *context);
                                 [localException reason]];
                          
         }
+        RELEASE(reader);
+        reader = nil;
+
         [localException raise];
     }
     NS_ENDHANDLER
 
     RELEASE(reader);
+    reader = nil;
 
     [pool release];
 
@@ -332,7 +339,7 @@ extern int STCparse(void *context);
 
     code = [self compileStatements:[method statements]];
    
-    compiledMethod = [STCompiledMethod methodWithCode:AUTORELEASE(code)
+    compiledMethod = [STCompiledMethod methodWithCode:code
                                        messagePattern:messagePattern];
                                        
     if(!isSingleMethod)
@@ -412,16 +419,16 @@ extern int STCparse(void *context);
     }
 #endif
     
-    compiledCode = [STCompiledCode alloc];
-    [compiledCode initWithBytecodesData:byteCodes
-                               literals:literals
-                       temporariesCount:tempsSize
-                              stackSize:stackSize
-                        namedReferences:namedReferences];
+    compiledCode =
+        [[STCompiledCode alloc] initWithBytecodesData:byteCodes
+                                             literals:literals
+                                     temporariesCount:tempsSize
+                                            stackSize:stackSize
+                                      namedReferences:namedReferences];
 
     [self destroyCompilationContext];
     
-    return compiledCode;
+    return AUTORELEASE(compiledCode);
 }
 
 - (STSourceReader *)sourceReader
@@ -586,8 +593,7 @@ extern int STCparse(void *context);
     if(blockFlag)
     {
         
-        blockInfo = [STBlockLiteral alloc];
-        [blockInfo initWithArgumentCount:argCount];
+        blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
 
         index = [self addLiteral:blockInfo];
         [self emitPushLiteral:index];

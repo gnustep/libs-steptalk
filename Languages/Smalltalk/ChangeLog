@@ -1,3 +1,14 @@
+2012-12-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompiler.m (compileString:): Fix syntax error reporting to
+    properly show the error context.
+
+    * STCompiler.m (compileMethodFromSource:forReceiver:): Fix space leak
+    when an exception other than a syntax error is raised.
+
+    * STCompiler.m (compileStatements:): Autorelease compiled code here ...
+    * STCompiler.m (compileMethod:): ... instead of here.
+
 2012-10-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STCompilerUtils.m (STCPrimaryExpression): Remove repeated
