@@ -21,6 +21,10 @@
             AllowMethods =
             (
                 "value",
+		"value:",
+		"value:value:",
+		"value:value:value:",
+		"valueWithArguments:",
                 "valueWith:",
                 "valueWith:with:",
                 "valueWith:with:with:",

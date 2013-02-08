@@ -41,7 +41,7 @@
     enumerator = [self objectEnumerator];
     while( (object = [enumerator nextObject]) )
     {
-        retval = [block valueWith:object];
+        retval = [block value:object];
     }
 
     return retval;
@@ -58,7 +58,7 @@
     enumerator = [self objectEnumerator];
     while( (object = [enumerator nextObject]) )
     {
-        value = [block valueWith:object];
+        value = [block value:object];
         if([(NSNumber *)value isTrue])
         {
             [array addObject:object];
@@ -80,7 +80,7 @@
     enumerator = [self objectEnumerator];
     while( (object = [enumerator nextObject]) )
     {
-        value = [block valueWith:object];
+        value = [block value:object];
         if([(NSNumber *)value isFalse])
         {
             [array addObject:object];
@@ -102,7 +102,7 @@
     enumerator = [self objectEnumerator];
     while( (object = [enumerator nextObject]) )
     {
-        value = [block valueWith:object];
+        value = [block value:object];
         [array addObject:value];
     }
 
@@ -118,7 +118,7 @@
     enumerator = [self objectEnumerator];
     while( (object = [enumerator nextObject]) )
     {
-        retval = [block valueWith:object];
+        retval = [block value:object];
         if([(NSNumber *)retval isTrue])
         {
             return object;

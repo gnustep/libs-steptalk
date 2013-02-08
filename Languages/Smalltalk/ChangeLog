@@ -1,3 +1,15 @@
+2013-02-08  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBlock.h (value:,value:value:,value:value:value:,valueWithArguments:):
+    * STBlock.m (value:,value:value:,value:value:value:,valueWithArguments:):
+    Define standard Smalltalk methods for invoking blocks with arguments.
+
+    * STBlock.m	(valueWith:,valueWith:with:,valueWith:with:with:,
+    valueWith:with:with:with:,valueWithArgs:,handler:):
+    * NSArray+additions.m (do:,select:,reject:,collect:,detect:):
+    * NSNumber+additions.m (to:do:,to:step:do:):
+    Use the new standard methods instead of the old non-standard ones.
+
 2012-12-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STCompiler.m (compileString:): Fix syntax error reporting to

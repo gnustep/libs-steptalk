@@ -51,6 +51,12 @@
 - (unsigned)argumentCount;
 
 - value;
+- value:arg;
+- value:arg1 value:arg2;
+- value:arg1 value:arg2 value:arg3;
+- valueWithArguments:(NSArray *)arguments;
+/* The following methods are present for backward compatibility with
+ * earlier StepTalk versions. */
 - valueWith:arg;
 - valueWith:arg1 with:arg2;
 - valueWith:arg1 with:arg2 with:arg3;

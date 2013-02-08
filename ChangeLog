@@ -1,3 +1,8 @@
+2013-02-08  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/Environments/StepTalk.stenv:
+	Define standard Smalltalk methods for invoking blocks with arguments.
+
 2012-11-03  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Examples/Developer/StepUnit.st: Fix typo in method name and stop

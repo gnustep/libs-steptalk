@@ -65,7 +65,7 @@
 
     for(i=[self intValue];i<=number;i++)
     {
-        retval = [block valueWith:[NSNumber numberWithInt:i]];
+        retval = [block value:[NSNumber numberWithInt:i]];
     }
     return retval;
 }
@@ -79,7 +79,7 @@
     {
         for(i=[self intValue];i<=number;i+=step)
         {
-            retval = [block valueWith:[NSNumber numberWithInt:i]];
+            retval = [block value:[NSNumber numberWithInt:i]];
         }
     }
     else
@@ -87,7 +87,7 @@
         // step =< 0
         for(i=[self intValue];i>=number;i+=step)
         {
-            retval = [block valueWith:[NSNumber numberWithInt:i]];
+            retval = [block value:[NSNumber numberWithInt:i]];
         }
     }
 

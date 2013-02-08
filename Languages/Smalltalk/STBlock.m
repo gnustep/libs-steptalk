@@ -73,51 +73,61 @@ Class STBlockContextClass = nil;
     return [self valueWithArgs:(id*)0 count:0];
 }
 
+- value:arg
+{
+    return [self valueWithArguments:[NSArray arrayWithObject:arg]];
+}
+
+- value:arg1 value:arg2
+{
+    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2]];
+}
+
+- value:arg1 value:arg2 value:arg3
+{
+    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2,arg3]];
+}
+
 - valueWith:arg
 {
     id  args[1] = {arg};
-    id  retval;
-
-    retval = [self valueWithArgs:args count:1];
-    return retval;
+    return [self valueWithArgs:args count:1];
 }
 
 - valueWith:arg1 with:arg2
 {
     id  args[2] = {arg1,arg2};
-    id  retval;
-
-    retval = [self valueWithArgs:args count:2];
-    return retval;
+    return [self valueWithArgs:args count:2];
 }
 
 - valueWith:arg1 with:arg2 with:arg3
 {
     id  args[3] = {arg1,arg2,arg3};
-    id  retval;
-
-    retval = [self valueWithArgs:args count:3];
-    return retval;
+    return [self valueWithArgs:args count:3];
 }
 
 - valueWith:arg1 with:arg2 with:arg3 with:arg4
 {
     id  args[4] = {arg1,arg2,arg3,arg4};
-    id  retval;
-
-    retval = [self valueWithArgs:args count:4];
-    return retval;
+    return [self valueWithArgs:args count:4];
 }
 
-- valueWithArgs:(id *)args count:(unsigned)count;
+- valueWithArgs:(id *)args count:(unsigned)count
+{
+    NSArray *arguments = [NSArray arrayWithObjects:args count:count];
+    return [self valueWithArguments:arguments];
+}
+
+- valueWithArguments:(NSArray *)arguments
 {
     STExecutionContext *parentContext;
     STBlockContext     *context;
     STStack            *stack;
-    unsigned int        i;
+    NSUInteger          i, count;
     id                  retval;
 
-    if(argCount != count)
+    count = [arguments count];
+    if (argCount != count)
     {
         [NSException raise:STScriptingException
                     format:@"Invalid block argument count %i, " 
@@ -125,12 +135,12 @@ Class STBlockContextClass = nil;
         return nil;
     }
 
-    if(!usingCachedContext)
+    if (!usingCachedContext)
     {
         /* In case of recursive block nesting */
         usingCachedContext = YES;
 
-        if(!cachedContext)
+        if (!cachedContext)
         {
             cachedContext = [[STBlockContextClass alloc] 
                                     initWithInterpreter:interpreter
@@ -156,9 +166,9 @@ Class STBlockContextClass = nil;
     /* push block arguments to the stack */
     
     stack = [context stack];
-    for(i = 0; i<count; i++)
+    for (i = 0; i<count; i++)
     {
-        [stack push:args[i]];
+        [stack push:[arguments objectAtIndex:i]];
     }
 
     [context setHomeContext:homeContext];
@@ -189,7 +199,7 @@ Class STBlockContextClass = nil;
     NS_DURING
         retval = [self value];
     NS_HANDLER
-        retval = [handlerBlock valueWith:localException];
+        retval = [handlerBlock value:localException];
         /* restore the execution context */
         [interpreter setContext:context];
     NS_ENDHANDLER
