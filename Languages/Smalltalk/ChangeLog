@@ -1,3 +1,8 @@
+2013-03-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STSourceReader.m (_STNormalizeStringToken): Unescape two successive
+    single quote characters inside literal string tokens.
+
 2013-02-08  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlock.h (value:,value:value:,value:value:value:,valueWithArguments:):

@@ -79,29 +79,32 @@ static NSString *_STNormalizeStringToken(NSString *token)
     unichar          c;
     unsigned int     len = [token length];
 
-    for(i = 0;i < len; i++)
+    for (i = 0; i < len; i++)
     {
         c = [token characterAtIndex:i];
-        if(c == '\\')
+        if (c == '\\')
         {
             i++;
             c = [token characterAtIndex:i];
-            switch(c)
+            switch (c)
             {
-            case 'a': [string appendCharacter:'\a']; break;
-            case 'b': [string appendCharacter:'\b']; break;
-            case 'e': [string appendCharacter:'\e']; break;
-            case 'n': [string appendCharacter:'\n']; break;
-            case 'r': [string appendCharacter:'\r']; break;
-            case 't': [string appendCharacter:'\t']; break;
-            case 'v': [string appendCharacter:'\v']; break;
-            default:[string appendCharacter:c]; break;
+            case 'a': c = '\a'; break;
+            case 'b': c = '\b'; break;
+            case 'e': c = '\e'; break;
+            case 'n': c = '\n'; break;
+            case 'r': c = '\r'; break;
+            case 't': c = '\t'; break;
+            case 'v': c = '\v'; break;
+            default:; break;
             }
         }
-        else
+        else if (c == '\'')
         {
-            [string appendCharacter:c];
+            i++;
+            NSCAssert(i < len && [token characterAtIndex:i] == '\'',
+                      @"Unescaped quote character in string token");
         }
+        [string appendCharacter:c];
     }
 
     return string;
