@@ -31,6 +31,7 @@
 
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSOpenPanel.h>
+#import <AppKit/NSDocumentController.h>
 
 #import "ScriptPaper.h"
 #import "ScriptPaperController.h"
@@ -41,7 +42,7 @@
 @implementation AppController
 - init
 {
-    [super init];
+    self = [super init];
   
   
     return self;

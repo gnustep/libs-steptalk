@@ -34,5 +34,7 @@
 {
     NSTextView    *sourceView;
 }
+- (IBAction)doSelection:(id)sender;
+- (IBAction)doAndShowSelection:(id)sender;
 @end
 

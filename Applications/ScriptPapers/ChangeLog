@@ -1,8 +1,28 @@
+2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * AppController.m (-init):
+    * ScriptPaper.m (-init):
+    Check the result of the super class initializer and assign it to
+    self.
+
+    * ScriptPaper.m (-dealloc): Release environment attribute to fix space
+    leak.
+
+    * ScriptPaper.h (-doSelection:, -doAndShowSelection:): Move method
+    declarations from here ...
+    * ScriptPaperController.h (-doSelection:, -doAndShowSelection:):
+    ... to here.
+
+    * ScriptPaper.m (-init, -executeScriptString:): Update to use current
+    framework classes and methods.
+    * ScriptPaperController.m (-doAndShowSelection:): Remove unused
+    variable.
+
 2003 May 11 Stefan Urbanek <urbanek@host.sk>
 
     * Added -Wno-import
     * Added TODO
-    
+
 2003 May 4 Stefan Urbanek <urbanek@host.sk>
 
     * Added application icon
@@ -10,4 +30,4 @@
 2003 May 4 Stefan Urbanek <urbanek@host.sk>
 
     * ChangeLog started
-    
+

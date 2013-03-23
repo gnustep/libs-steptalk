@@ -66,14 +66,13 @@
     NSString  *selectedString = [sourceView selectedString];
     NSRange    range;
     id         string;
-    int        length;
     id         retval = nil;
     
     NSLog(@"Do and Show!");
 
     retval = [[self document] executeScriptString:selectedString];
 
-    if(!retval)
+    if (!retval)
     {
         retval = @"(nil)";
     }
@@ -83,7 +82,7 @@
     [sourceView setSelectedRange:range];
 
       
-    if([retval isKindOfClass:[NSString class]]
+    if ([retval isKindOfClass:[NSString class]]
         || [retval isKindOfClass:[NSAttributedString class]])
     {
         string = retval;

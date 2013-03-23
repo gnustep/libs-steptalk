@@ -30,21 +30,22 @@
 
 #import <StepTalk/STEnvironment.h>
 #import <StepTalk/STEngine.h>
-#import <StepTalk/STLanguage.h>
+#import <StepTalk/STLanguageManager.h>
 
 #import "ScriptPaperController.h"
 
 @implementation ScriptPaper
 - init
 {
-    [super init];
-    
-    environment = [[STEnvironment alloc] initDefault];
-    
+    if ((self = [super init]) != nil)
+    {
+	environment = [[STEnvironment alloc] initWithDefaultDescription];
+    }
     return self;
 }
 - (void)dealloc
 {
+    RELEASE(environment);
     [super dealloc];
 }
 
@@ -63,8 +64,8 @@
     NSString       *error;
     id             retval = nil;
     
-    engine = [STEngine engineForLanguageWithName:
-                            [STLanguage defaultLanguageName]];
+    engine = [STEngine engineForLanguage:
+                [[STLanguageManager defaultManager] defaultLanguage]];
     if(!engine)
     {
         NSLog(@"Unable to get scripting engine.");
@@ -78,7 +79,7 @@
     }
 
     NS_DURING
-        retval = [engine executeCode:source inEnvironment:environment];
+        retval = [engine interpretScript:source inContext:environment];
     NS_HANDLER
         error = [NSString stringWithFormat:
                             @"Error: "

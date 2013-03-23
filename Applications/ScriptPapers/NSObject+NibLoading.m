@@ -23,6 +23,7 @@
 
 #import "NSObject+NibLoading.h"
 
+#import <Foundation/NSDictionary.h>
 #import <AppKit/NSPanel.h>
 
 @implementation NSObject(NibLoading)

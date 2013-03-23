@@ -30,6 +30,5 @@
 {
     STEnvironment *environment;
 }
-- (IBAction)doSelection:(id)sender;
-- (IBAction)doAndShowSelection:(id)sender;
+- (id)executeScriptString:(NSString *)source;
 @end
