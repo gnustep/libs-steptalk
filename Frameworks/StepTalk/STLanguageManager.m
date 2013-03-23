@@ -31,16 +31,16 @@ static STLanguageManager *defaultManager = nil;
 }
 - init
 {
-    self = [super init];
-    
-    languages = [[NSMutableArray alloc] init];
-    engineClasses = [[NSMutableDictionary alloc] init];
-    languageInfos = [[NSMutableDictionary alloc] init];
-    languageBundles = [[NSMutableDictionary alloc] init];
-    fileTypes = [[NSMutableDictionary alloc] init];
-    
-    [self _registerKnownLanguages];
+    if ((self = [super init]) != nil)
+    {
+	languages = [[NSMutableArray alloc] init];
+	engineClasses = [[NSMutableDictionary alloc] init];
+	languageInfos = [[NSMutableDictionary alloc] init];
+	languageBundles = [[NSMutableDictionary alloc] init];
+	fileTypes = [[NSMutableDictionary alloc] init];
 
+	[self _registerKnownLanguages];
+    }
     return self;
 }
 - (void)dealloc

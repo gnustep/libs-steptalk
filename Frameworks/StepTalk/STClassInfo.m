@@ -39,10 +39,10 @@
 - initWithName:(NSString *)aString
 
 {
-    [super initWithName:aString];
-    
-    selectorCache = [[NSMutableDictionary alloc] init];
-    
+    if ((self = [super initWithName:aString]) != nil)
+    {
+        selectorCache = [[NSMutableDictionary alloc] init];
+    }
     return self;
 }
 

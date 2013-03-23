@@ -98,21 +98,22 @@
 - initWithContext:(STContext *)aContext
          language:(NSString *)aLanguage
 {
-    STLanguageManager  *manager = [STLanguageManager defaultManager];
-    self = [super init];
-
-    NSDebugLLog(@"STConversation",@"Creating conversation %@", self);
-
-    if(!aLanguage || [aLanguage isEqual:@""])
+    if ((self = [super init]) != nil)
     {
-        languageName = RETAIN([manager defaultLanguage]);
-    }    
-    else
-    {
-        languageName = RETAIN(aLanguage);
-    }
+        STLanguageManager  *manager = [STLanguageManager defaultManager];
+        NSDebugLLog(@"STConversation",@"Creating conversation %@", self);
+
+        if(!aLanguage || [aLanguage isEqual:@""])
+        {
+            languageName = RETAIN([manager defaultLanguage]);
+        }
+        else
+        {
+            languageName = RETAIN(aLanguage);
+        }
     
-    context = RETAIN(aContext);
+        context = RETAIN(aContext);
+    }
     return self;
 }
 

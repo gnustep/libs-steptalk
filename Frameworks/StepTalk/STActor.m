@@ -39,16 +39,19 @@
 }
 - init
 {
-    self = [super init];    
-    methodDictionary = [[NSMutableDictionary alloc] init];
-    ivars = [[NSMutableDictionary alloc] init];
+    if ((self = [super init]) != nil)
+    {
+        methodDictionary = [[NSMutableDictionary alloc] init];
+        ivars = [[NSMutableDictionary alloc] init];
+    }
     return self;
 }
 - initWithEnvironment:(STEnvironment *)env;
 {
-    self = [self init];
-    [self setEnvironment:env];
-
+    if ((self = [self init]) != nil)
+    {
+        [self setEnvironment:env];
+    }
     return self;
 }
 - (void)dealloc
@@ -212,10 +215,11 @@ some other, more clever mechanism. */
 
 - initWithCoder:(NSCoder *)decoder
 {
-    self = [super init]; //[super initWithCoder: decoder];
-    
-    [decoder decodeValueOfObjCType: @encode(id) at: &methodDictionary];
-    [decoder decodeValueOfObjCType: @encode(id) at: &ivars];
+    if ((self = [super init] /*[super initWithCoder: decoder]*/) != nil)
+    {    
+        [decoder decodeValueOfObjCType: @encode(id) at: &methodDictionary];
+        [decoder decodeValueOfObjCType: @encode(id) at: &ivars];
+    }
     return self;
 }
 @end

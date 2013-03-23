@@ -111,39 +111,39 @@ STEnvironment *sharedEnvironment = nil;
     NSEnumerator *enumerator;
     NSString     *name;
     
-    self = [super init];
-    
-    infoCache = [[NSMutableDictionary alloc] init];
-
-    description = RETAIN(aDescription);
-    RETAIN(description);
-    classes = [description classes];
-
-    /* Load modules */
-
-    enumerator = [[description modules] objectEnumerator];    
-    
-    while( (name = [enumerator nextObject]) )
+    if ((self = [super init]) != nil)
     {
-        [self loadModule:name];
-    }
+        infoCache = [[NSMutableDictionary alloc] init];
 
-    /* Load frameworks */
-    enumerator = [[description frameworks] objectEnumerator];
+        description = RETAIN(aDescription);
+        RETAIN(description);
+        classes = [description classes];
+
+        /* Load modules */
+
+        enumerator = [[description modules] objectEnumerator];    
+
+        while ((name = [enumerator nextObject]) != nil)
+        {
+            [self loadModule:name];
+        }
+
+        /* Load frameworks */
+        enumerator = [[description frameworks] objectEnumerator];
     
-    while( (name = [enumerator nextObject]) )
-    {
-        [self includeFramework:name];
-    }
+        while ((name = [enumerator nextObject]) != nil)
+        {
+            [self includeFramework:name];
+        }
 
-    /* Register finders */
-    enumerator = [[description objectFinders] objectEnumerator];    
-    
-    while( (name = [enumerator nextObject]) )
-    {
-        [self registerObjectFinderNamed:name];
-    }
+        /* Register finders */
+        enumerator = [[description objectFinders] objectEnumerator];    
 
+        while ((name = [enumerator nextObject]) != nil)
+        {
+            [self registerObjectFinderNamed:name];
+        }
+    }
     return self;
 }
 

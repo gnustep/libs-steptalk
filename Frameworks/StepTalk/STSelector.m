@@ -33,17 +33,19 @@
 @implementation STSelector
 - initWithName:(NSString *)aString
 {
-    [super init];
-    
-    selectorName = RETAIN(aString);
-    
+    if ((self = [super init]) != nil)
+    {
+        selectorName = RETAIN(aString);
+    }
     return self;
 }
 
 - initWithSelector:(SEL)aSel
 {
-    [super init];
-    sel = aSel;
+    if ((self = [super init]) != nil)
+    {
+        sel = aSel;
+    }
     return self;
 }
 - (void)dealloc
@@ -85,10 +87,10 @@
 
 - initWithCoder:(NSCoder *)decoder
 {
-    self = [super init]; // super initWithCoder: decoder];
-    
-    [decoder decodeValueOfObjCType: @encode(id) at: &selectorName];
-
+    if ((self = [super init] /*[super initWithCoder: decoder]*/) != nil)
+    {
+        [decoder decodeValueOfObjCType: @encode(id) at: &selectorName];
+    }
     return self;
 }
 @end

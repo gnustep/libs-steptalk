@@ -14,21 +14,21 @@
                      host:(NSString *)host
                  language:(NSString *)langName
 {
-    self = [super init];
-
-    if(!envName)
+    if ((self = [super init]) != nil)
     {
-        [NSException raise:@"STConversationException"
-                     format:@"Unspecified environment name for a distant conversation"];
-        [self dealloc];
-        return nil;
-    }
+        if (!envName)
+        {
+            [NSException raise:@"STConversationException"
+                        format:@"Unspecified environment name for a distant conversation"];
+            [self release];
+            return nil;
+        }
 
-    environmentName = RETAIN(envName);
-    hostName = RETAIN(host);
-    
-    [self open];
-    
+        environmentName = RETAIN(envName);
+        hostName = RETAIN(host);
+
+        [self open];
+    }
     return self;
 }
 - (void)open

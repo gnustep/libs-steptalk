@@ -51,10 +51,10 @@
 @implementation STContext
 -init
 {
-    self = [super init];
-    
-    objectDictionary = [[NSMutableDictionary alloc] init];
-    
+    if ((self = [super init]) != nil)
+    {
+        objectDictionary = [[NSMutableDictionary alloc] init];
+    }
     return self;
 }
 

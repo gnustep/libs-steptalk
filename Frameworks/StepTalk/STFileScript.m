@@ -84,50 +84,50 @@
 
 - initWithFile:(NSString *)aFile
 {
-    STLanguageManager *langManager = [STLanguageManager defaultManager];
-    NSFileManager  *manager = [NSFileManager defaultManager];
-    NSDictionary   *info = nil;
-    NSString       *infoFile;
-    NSString       *lang;
-    BOOL            isDir;
-
-    // infoFile = [aFile stringByDeletingPathExtension];
-    infoFile = [aFile stringByAppendingPathExtension: @"stinfo"];
-
-    if([manager fileExistsAtPath:infoFile isDirectory:&isDir] && !isDir )
+    if ((self = [super init]) != nil)
     {
-        info = [NSDictionary dictionaryWithContentsOfFile:infoFile];
-    }
+        STLanguageManager *langManager = [STLanguageManager defaultManager];
+        NSFileManager  *manager = [NSFileManager defaultManager];
+        NSDictionary   *info = nil;
+        NSString       *infoFile;
+        NSString       *lang;
+        BOOL            isDir;
 
-    self = [super init];
-    
-    fileName = RETAIN(aFile);
-    
-    localizedName = [info localizedObjectForKey:@"Name"];
+        // infoFile = [aFile stringByDeletingPathExtension];
+        infoFile = [aFile stringByAppendingPathExtension: @"stinfo"];
 
-    if(!localizedName)
-    {
-        localizedName = [[fileName lastPathComponent] 
-                                        stringByDeletingPathExtension];
-    }
-    
-    RETAIN(localizedName);
+        if ([manager fileExistsAtPath:infoFile isDirectory:&isDir] && !isDir)
+        {
+            info = [NSDictionary dictionaryWithContentsOfFile:infoFile];
+        }
 
-    menuKey = RETAIN([info localizedObjectForKey:@"MenuKey"]);
-    description = RETAIN([info localizedObjectForKey:@"Description"]);
-    lang = [info localizedObjectForKey:@"Language"];
+        fileName = RETAIN(aFile);
 
-    if(!lang)
-    {
-        lang = [langManager languageForFileType:[fileName pathExtension]];
+        localizedName = [info localizedObjectForKey:@"Name"];
+
+        if (!localizedName)
+        {
+            localizedName = [[fileName lastPathComponent] 
+                                stringByDeletingPathExtension];
+        }
+
+        RETAIN(localizedName);
+
+        menuKey = RETAIN([info localizedObjectForKey:@"MenuKey"]);
+        description = RETAIN([info localizedObjectForKey:@"Description"]);
+        lang = [info localizedObjectForKey:@"Language"];
+
+        if (!lang)
+        {
+            lang = [langManager languageForFileType:[fileName pathExtension]];
+        }
+        if(!lang)
+        {
+            lang = @"Unknown";
+        }
+
+        [self setLanguage:lang];
     }
-    if(!lang)
-    {
-        lang = @"Unknown";
-    }
-    
-    [self setLanguage:lang];
-    
     return self;
 }
 

@@ -37,10 +37,11 @@
 - initWithIdentifier:(NSString *)ident
               target:(id)anObject;
 {
-    self = [super init];
-    identifier = [ident copy];
-    target = RETAIN(anObject);
-    
+    if ((self = [super init]) != nil)
+    {
+	identifier = [ident copy];
+	target = RETAIN(anObject);
+    }
     return self;
 }                
 - (void)dealloc

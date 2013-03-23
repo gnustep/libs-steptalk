@@ -1,3 +1,29 @@
+2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STActor.m (-init, -initWithEnvironment:,
+		-initWithCoder:):
+	* Frameworks/StepTalk/STBehaviourInfo.m (-initWithName:):
+	* Frameworks/StepTalk/STClassInfo.m (-initWithName:):
+	* Frameworks/StepTalk/STContext.m (-init):
+	* Frameworks/StepTalk/STConversation.m (-initWithContext:language:):
+	* Frameworks/StepTalk/STDistantConversation.m
+		(-initWithEnvironment:language:):
+	* Frameworks/StepTalk/STDistantEnvironment.m (-initWithName:host:):
+	* Frameworks/StepTalk/STEnvironment.m (-initWithDescription:):
+	* Frameworks/StepTalk/STFileScript.m (-initWithFile:):
+	* Frameworks/StepTalk/STLanguageManager.m (-init):
+	* Frameworks/StepTalk/STObjectReference.m (-initWithIdentifier:target:):
+	* Frameworks/StepTalk/STRemoteConversation.m
+		(-initWithEnvironmentName:host:language:):
+	* Frameworks/StepTalk/STScript.m (-initWithSource:language:):
+	* Frameworks/StepTalk/STScriptObject.m (-init, -initWithCoder:):
+	* Frameworks/StepTalk/STScriptsManager.m (-initWithDomainName:):
+	* Frameworks/StepTalk/STSelector.m (-initWithName:,
+		-initWithSelector:, -initWithCoder:):
+	* Frameworks/StepTalk/STStructure.m (-initWithValue:type:):
+	Check the result of the super class initializer and assign it to
+	self.
+
 2013-02-08  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/Environments/StepTalk.stenv:

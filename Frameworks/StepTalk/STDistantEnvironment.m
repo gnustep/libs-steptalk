@@ -11,13 +11,13 @@
 + environmentWithName:(NSString *)name host:(NSString *)host;
 - initWithName:(NSString *)name host:(NSString *)host
 {
-    self = [super init];
+    if ((self = [super init]) != nil)
+    {
+        distantName = RETAIN(name);
+        distantHost = RETAIN(host);
 
-    distantName = RETAIN(name);
-    distantHost = RETAIN(host);
-    
-    [self connect];
-    
+        [self connect];
+    }
     return self;
 }
 

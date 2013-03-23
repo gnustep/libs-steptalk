@@ -12,29 +12,29 @@
 - initWithEnvironment:(STEnvironment *)env 
              language:(NSString *)langName
 {
-    self = [super init];
-
-    if(!env)
+    if ((self = [super init]) != nil)
     {
-        [NSException raise:@"STConversationException"
-                     format:@"Unspecified environment for a distant conversation"];
-        [self dealloc];
-        return nil;
+        if (!env)
+        {
+            [NSException raise:@"STConversationException"
+                        format:@"Unspecified environment for a distant conversation"];
+            [self release];
+            return nil;
+        }
+
+        if (!langName || [langName isEqual:@""])
+        {
+            languageName = RETAIN([STLanguage defaultLanguageName]);
+        }
+        else
+        {
+            languageName = RETAIN(langName);
+        }
+
+        environment = RETAIN(env);
+        [self createProxy];
     }
 
-    if(!langName || [langName isEqual:@""])
-    {
-        languageName = RETAIN([STLanguage defaultLanguageName]);
-    }    
-    else
-    {
-        languageName = RETAIN(langName);
-    }
-    
-    environment = RETAIN(env);
-    [self createProxy];
-              
-    
     return self;
 }
 

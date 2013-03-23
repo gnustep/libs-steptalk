@@ -37,13 +37,14 @@
 @implementation STBehaviourInfo
 - initWithName:(NSString *)aString
 {
-    self = [super init];
-    selectorMap = [[NSMutableDictionary alloc] init];
-    allowMethods = [[NSMutableSet alloc] init];
-    denyMethods = [[NSMutableSet alloc] init];
+    if ((self = [super init]) != nil)
+    {
+        selectorMap = [[NSMutableDictionary alloc] init];
+        allowMethods = [[NSMutableSet alloc] init];
+        denyMethods = [[NSMutableSet alloc] init];
     
-    name = RETAIN(aString);
-    
+        name = RETAIN(aString);
+    }
     return self;
 }
 

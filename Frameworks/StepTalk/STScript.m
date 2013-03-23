@@ -35,9 +35,11 @@
 }
 - initWithSource:(NSString *)aString language:(NSString *)lang
 {
-    self = [super init];
-    language = RETAIN(lang);
-    source = RETAIN(aString);
+    if ((self = [super init]) != nil)
+    {
+	language = RETAIN(lang);
+	source = RETAIN(aString);
+    }
     return self;
 }
 - (NSString *)source

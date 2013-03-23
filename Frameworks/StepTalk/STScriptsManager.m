@@ -81,15 +81,15 @@ process name.*/
 */
 - initWithDomainName:(NSString *)name
 {
-    self = [super init];
-    
-    if(!name)
+    if ((self = [super init]) != nil)
     {
-        name = [STScriptsManager defaultScriptsDomainName];
-    }
-    
-    scriptsDomainName = RETAIN(name);
+	if (!name)
+	{
+	    name = [STScriptsManager defaultScriptsDomainName];
+	}
 
+	scriptsDomainName = RETAIN(name);
+    }
     return self;
 }
 

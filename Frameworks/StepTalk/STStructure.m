@@ -85,38 +85,38 @@
     NSUInteger  size, align;
     NSUInteger  rem;
     
-
-    self = [super init];
-
-    NSDebugLLog(@"STStructure",
-               @"creating structure of type '%s' value ptr %p",type,value);
-    
-    structType = [[NSString alloc] initWithCString:type];
-    
-    fields = [[NSMutableArray alloc] init];
-
-    type++;
-
-    nameBeg = type;
-    while (*type != _C_STRUCT_E && *type++ != '=');
-    name = [[NSString alloc] initWithCString:nameBeg length:type-nameBeg];
-    
-    while(*type != _C_STRUCT_E)
+    if ((self = [super init]) != nil)
     {
-        nextType = NSGetSizeAndAlignment(type, &size, &align);
+        NSDebugLLog(@"STStructure",
+                    @"creating structure of type '%s' value ptr %p",type,value);
 
-        rem = offset % align;
-        if(rem != 0)
+        structType = [[NSString alloc] initWithCString:type];
+
+        fields = [[NSMutableArray alloc] init];
+
+        type++;
+
+        nameBeg = type;
+        while (*type != _C_STRUCT_E && *type++ != '=');
+        name = [[NSString alloc] initWithCString:nameBeg length:type-nameBeg];
+
+        while (*type != _C_STRUCT_E)
         {
-            offset += align - rem;
+            nextType = NSGetSizeAndAlignment(type, &size, &align);
+
+            rem = offset % align;
+            if (rem != 0)
+            {
+                offset += align - rem;
+            }
+
+            [fields addObject:STObjectFromValueOfType(((char *)value)+offset,
+                                                      type)];
+
+            offset += size;
+            type = nextType;
         }
-
-        [fields addObject:STObjectFromValueOfType(((char *)value)+offset,type)];
-
-        offset += size;                                 
-	type = nextType;
     }
-
     return self;
 }
 - (void)dealloc
