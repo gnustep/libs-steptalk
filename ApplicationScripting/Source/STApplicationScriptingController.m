@@ -47,13 +47,13 @@
 @implementation STApplicationScriptingController
 - init
 {
-    STBundleInfo *info;
-    
-    [super init];
+    if ((self = [super init]) != nil)
+    {
+        STBundleInfo *info;
 
-    info = [STBundleInfo infoForBundle:[NSBundle mainBundle]];
-    objectRefereceDict = RETAIN([info objectReferenceDictionary]);
-    
+        info = [STBundleInfo infoForBundle:[NSBundle mainBundle]];
+        objectRefereceDict = RETAIN([info objectReferenceDictionary]);
+    }
     return self;
 }
 - (void)dealloc

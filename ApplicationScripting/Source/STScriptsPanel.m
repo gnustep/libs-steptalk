@@ -55,47 +55,58 @@ STScriptsPanel *sharedScriptsPanel = nil;
 
 - init
 {
-    NSView       *view;
-
-    if(![self loadMyNibNamed:@"ScriptsPanel"])
+    if ((self = [super initWithContentRect:NSZeroRect
+				 styleMask:NSTitledWindowMask 
+                                          | NSClosableWindowMask 
+                                          | NSResizableWindowMask
+				   backing:NSBackingStoreRetained
+				     defer:NO]) != nil)
     {
-        [self dealloc];
-        return nil;
+        NSView       *view;
+        NSRect        frame;
+
+        if (![self loadMyNibNamed:@"ScriptsPanel"])
+        {
+            [self release];
+            return nil;
+        }
+
+        frame = [[(NSPanel *)_panel contentView] frame];
+        frame = [NSWindow frameRectForContentRect: frame
+                                        styleMask: [self styleMask]];
+	[self setFrame: frame display: NO];
+        [self setTitle:[_panel title]];
+        [self setFrame:[_panel frame] display:YES];
+        [self setHidesOnDeactivate:YES];
+
+        view = RETAIN([_panel contentView]);
+        [_panel setContentView:nil];
+        [self setContentView:view];
+
+        RELEASE(view);
+        RELEASE(_panel);
+
+        [self setFrameUsingName:@"STScriptsPanel"];
+        [self setFrameAutosaveName:@"STScriptsPanel"];
+
+        [scriptList setTarget:self];
+        [scriptList setAction:@selector(selectScript:)];
+        [scriptList setDoubleAction:@selector(run:)];
+        [scriptList setMaxVisibleColumns:1];
+
+        scriptsManager = RETAIN([STScriptsManager defaultManager]);
+
+        [self update:nil];
     }
-    
-    self = [super initWithContentRect:[[(NSPanel *)_panel contentView] frame]
-                           styleMask:NSTitledWindowMask 
-                                     | NSClosableWindowMask 
-                                     | NSResizableWindowMask
-                             backing:NSBackingStoreRetained
-                               defer:NO];
-
-    [self setTitle:[_panel title]];
-    [self setFrame:[_panel frame] display:YES];
-    [self setHidesOnDeactivate:YES];
-
-    view = RETAIN([_panel contentView]);
-    [_panel setContentView:nil];
-    [self setContentView:view];
-
-    RELEASE(view);
-    RELEASE(_panel);
-
-    [self setFrameUsingName:@"STScriptsPanel"];
-    [self setFrameAutosaveName:@"STScriptsPanel"];
-
-    [scriptList setTarget:self];
-    [scriptList setAction:@selector(selectScript:)];
-    [scriptList setDoubleAction:@selector(run:)];
-    [scriptList setMaxVisibleColumns:1];
-    
-    scriptsManager = [STScriptsManager defaultManager];
-
-    [self update:nil];    
-
     return self;
 }
-- (void) setDelegate:(id)anObject
+- (void)dealloc
+{
+    RELEASE(scripts);
+    RELEASE(scriptsManager);
+    [super dealloc];
+}
+- (void)setDelegate:(id)anObject
 {
     ASSIGN(delegate, anObject);
 }

@@ -1,3 +1,13 @@
+2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * Source/STApplicationScriptingController.m (-init):
+    * Source/STScriptsPanel.m (-init):
+    * Source/STTranscript.m (-init):
+    Check the result of the super class initializer and assign it to
+    self.
+
+    * Source/STScriptsPanel.m (-dealloc): Fix a space leak.
+
 2012-02-07  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * Source/STTranscript.m (-showError:): Fix space leak detected by clang.

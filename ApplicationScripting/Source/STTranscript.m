@@ -75,19 +75,21 @@ static NSDictionary  *normalTextAttributes;
 
 - init
 {
-    if(![self loadMyNibNamed:@"TranscriptWindow"])
+    if ((self = [super init]) != nil)
     {
-        [self dealloc];
-        return nil;
+        if (![self loadMyNibNamed:@"TranscriptWindow"])
+        {
+            [self release];
+            return nil;
+        }
+
+        [window setTitle:@"Scripting Transcript"];
+        [window setFrameUsingName:@"STTranscriptWindow"];
+        [window setFrameAutosaveName:@"STTranscriptWindow"];
+
+        /* FIXME: Fix Gorm autoresizing */
+        // [textView setAutoresizingMask: NSViewHeightSizable | NSViewWidthSizable];
     }
-
-    [window setTitle:@"Scripting Transcript"];
-    [window setFrameUsingName:@"STTranscriptWindow"];
-    [window setFrameAutosaveName:@"STTranscriptWindow"];
-
-    /* FIXME: Fix Gorm autoresizing */
-    // [textView setAutoresizingMask: NSViewHeightSizable | NSViewWidthSizable];
-    
     return self;
 }
 
