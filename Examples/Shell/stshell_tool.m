@@ -215,7 +215,8 @@
     shell = [[STShell alloc] initWithConversation:conversation];
     [shell run];
     
-    NSDebugLog(@"Exiting StepTalk shell");    
+    NSDebugLog(@"Exiting StepTalk shell");
+    RELEASE(shell);
 }
 
 - (void)printHelp
@@ -246,7 +247,7 @@ int main(int argc, const char **argv)
 
     tool = [[STShellTool alloc] init];
     [tool run];
-    
+    RELEASE(tool);
     RELEASE(pool);
 
     return 0;

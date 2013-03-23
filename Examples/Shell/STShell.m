@@ -75,29 +75,29 @@ int complete_handler(int count, int key)
 
 - initWithConversation:(STConversation *)conv
 {
-    self = [super init];
-    
-    [self initReadline];
+    if ((self = [super init]) != nil)
+    {
+        [self initReadline];
 
-    objectStack = [[NSMutableArray alloc] init];
-    
-    [[NSNotificationCenter defaultCenter]
+        objectStack = [[NSMutableArray alloc] init];
+
+        [[NSNotificationCenter defaultCenter]
                               addObserver:self
                                  selector:@selector(bundleLoaded:)
                                      name:NSBundleDidLoadNotification
                                    object:nil];
-   
-    scriptsManager = RETAIN([STScriptsManager defaultManager]);
-    prompt = @"StepTalk > ";
-    
-    conversation = RETAIN(conv);
-    
-    /* FIXME: make this more clever for completion handler */
-    if(!sharedShell)
-    {
-        sharedShell = self;
-    }
 
+        scriptsManager = RETAIN([STScriptsManager defaultManager]);
+        prompt = @"StepTalk > ";
+
+        conversation = RETAIN(conv);
+
+        /* FIXME: make this more clever for completion handler */
+        if(!sharedShell)
+        {
+            sharedShell = self;
+        }
+    }
     return self;
 }
 

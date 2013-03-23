@@ -1,3 +1,11 @@
+2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STShell.m (-initWithConversation:):
+    Check the result of the super class initializer and assign it to
+    self.
+
+    * stshell_tool.m (-run, main): Fix minor space leaks.
+
 2012-01-15  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STShell.h:
