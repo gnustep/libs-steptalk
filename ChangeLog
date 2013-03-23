@@ -1,3 +1,9 @@
+2013-03-23  Wolfgang Lux  <wlux@uni-muenster.de>
+
+	* Tools/STEnvironmentProcess.m (initWithDescriptionName:):
+	Check the result of the super class initializer and assign it to
+	self.
+
 2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/STActor.m (-init, -initWithEnvironment:,
