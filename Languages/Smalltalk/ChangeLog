@@ -1,5 +1,11 @@
 2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiler.m (compileStatements:blockFlag:): Fix compiler bug: The
+    value of a Smalltalk statement sequence is the value of its last
+    statement and not that of the first.
+
+2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STBlock.m (-initWithInterpreter:...):
     * STBlockContext.m (initWithInterpreter:initialIP:stackSize:):
     * STBytecodeInterpreter.m (-initWithEnvironment:):

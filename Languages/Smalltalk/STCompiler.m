@@ -557,6 +557,7 @@ extern int STCparse(void *context);
 
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag
 {
+    BOOL            first;
     NSEnumerator   *enumerator;
     STBlockLiteral *blockInfo = nil;
     STCExpression  *expr;
@@ -578,10 +579,10 @@ extern int STCparse(void *context);
 
     NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
 
-    if(array)
+    if (array)
     {
         argCount = [array count];
-        for(index=0;index<argCount;index++)
+        for (index=0; index<argCount; index++)
         {
             [self addTempVariable:[array objectAtIndex:index]];
         }
@@ -590,7 +591,7 @@ extern int STCparse(void *context);
         tempsSize = MAX(tempsSize,tempsCount);
     }
 
-    if(blockFlag)
+    if (blockFlag)
     {
         
         blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
@@ -609,7 +610,7 @@ extern int STCparse(void *context);
 
         [self emitLongJump:0];
         
-        for(index = argCount; index > 0; index--)
+        for (index = argCount; index > 0; index--)
         {
             [self emitPopAndStoreTemporary:tempsSave + index - 1];
         }
@@ -617,18 +618,12 @@ extern int STCparse(void *context);
     
     array = [statements expressions];
     
-    if(array)
+    first = YES;
+    if (array)
     {
-        BOOL first = YES;
-
         enumerator = [array objectEnumerator];
-        while((expr = [enumerator nextObject]))
+        while ((expr = [enumerator nextObject]) != nil)
         {
-            [self compileExpression:expr];
-
-            /* Mateu Batle: ignore returned value on the stack ? */
-            /* FIXME: please check this !!! */
-
             if (!first)
             {
                 [self emitPopStack];
@@ -637,16 +632,25 @@ extern int STCparse(void *context);
             {
                 first = NO;
             }
+            [self compileExpression:expr];
         }
     }
 
     expr = [statements returnExpression];
-    if(expr)
+    if (expr)
     {
+        if (!first)
+        {
+            [self emitPopStack];
+        }
+        else 
+        {
+            first = NO;
+        }
         [self compileExpression:expr];
     }
 
-    if(blockFlag)
+    if (blockFlag)
     {
         [blockInfo setStackSize:stackSize];
         AUTORELEASE(blockInfo);
@@ -662,7 +666,7 @@ extern int STCparse(void *context);
     }
 
     /* fixup jump (if block) */
-    if(blockFlag)
+    if (blockFlag)
     {
         [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
     }
@@ -674,21 +678,21 @@ extern int STCparse(void *context);
 //    tempsCount = tempsSave;
     tempsCount = [tempVars count];
 
-    if(blockFlag)
+    if (blockFlag)
     {
-      int i;      
-      /* Need to keep the block parameters allocated until we exit
-         the method context, but we also need to harvest the names*/
-      for (i = tempsSave; i < tempsCount; ++i)
-        [tempVars  replaceObjectAtIndex: i withObject:@""];
+        int i;      
+        /* Need to keep the block parameters allocated until we exit
+           the method context, but we also need to harvest the names*/
+        for (i = tempsSave; i < tempsCount; ++i)
+            [tempVars  replaceObjectAtIndex: i withObject:@""];
      
     }
     else
     {
-      /* cleanup unneeded temp variables */
-      [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
-                                                 tempsCount-tempsSave)];
-      tempsCount = tempsSave;  
+        /* cleanup unneeded temp variables */
+        [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
+                                                   tempsCount-tempsSave)];
+        tempsCount = tempsSave;
     }
 }
 
