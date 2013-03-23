@@ -1,3 +1,42 @@
+2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBlock.m (-initWithInterpreter:...):
+    * STBlockContext.m (initWithInterpreter:initialIP:stackSize:):
+    * STBytecodeInterpreter.m (-initWithEnvironment:):
+    * STBytecodes.m (-initWithData:, -initWithCoder:):
+    * STCompiledMethod.m (-initWihtSelector:argumentCount:bytecodeData:...)
+    	-initWithCoder:):
+    * STCompiledScript.m (-initWithVariableNames:):
+    * STCompiler.m (-initWithEnvironment:, -init):
+    * STCompilerUtils.m(STCMethod) (-initWithPattern:statements:):
+    * STCompilerUtils.m(STCMessage) (-init):
+    * STCompilerUtils.m(STCMessageExpression) (-initWithTarget:message:):
+    * STCompilerUtils.m(STCPrimaryExpression) (-initWithObject:):
+    * STCompilerUtils.m(STCPrimary) (-initWithType:object:):
+    * STExecutionContext.m (-initWithStackSize:):
+    * STLiterals.m(STObjectReferenceLiteral) (initWithObjectName:poolName:):
+    * STLiterals.m(STBlockLiteral) (-initWithArgumentCount:):
+    * STMessage.m (-initWithSelector:arguments:):
+    * STMethodContext.m (-initWithMethod:environment:):
+    * STSmalltalkScriptObject.m (-initWithEnvironment:compiledScript:):
+    * STSourceReader.m (initWithString:range:):
+    * STStack.m (-initWithSize:):
+    Check the result of the super class initializer and assign it to
+    self.
+
+    * STBlock.m (-initWithInterpreter:..., -dealloc): Retain and release
+    the homeContext and interpreter attributes.
+
+    * STBytecodeInterpreter.m (-delloc): Release environment attribute to
+    fix space leak.
+
+    * STBytecodeInterpreter.m (createBlockWithArgumentCount:stackSize:):
+    * STCompiledMethod.m (+methodWithCode:messagePattern:):
+    * STCompilerUtils.m (+primaryWithVariable:, +primaryWithLiteral:,
+    	+primaryWithBlock:, +primaryWithExpression:):
+    Use idiomatic Objective-C code, which never assigns the result of an
+    +alloc method to a local variable.
+
 2013-03-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STSourceReader.m (_STNormalizeStringToken): Unescape two successive

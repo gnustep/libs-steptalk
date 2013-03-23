@@ -44,26 +44,26 @@
 - initWithEnvironment:(STEnvironment *)env
        compiledScript:(STCompiledScript *)compiledScript
 {
-    NSEnumerator *enumerator;
-    NSString     *varName;
-
-    [super init];
-
-    NSDebugLLog(@"STEngine",
-                @"creating script object %p with ivars %@",compiledScript,
-                [compiledScript variableNames]);
-                
-    environment = RETAIN(env);
-    script = RETAIN(compiledScript);
-    variables = [[NSMutableDictionary alloc] init];
-
-    enumerator = [[compiledScript variableNames] objectEnumerator];
-
-    while( (varName = [enumerator nextObject]) )
+    if ((self = [super init]) != nil)
     {
-        [variables setObject:STNil forKey:varName];
+        NSEnumerator *enumerator;
+        NSString     *varName;
+
+        NSDebugLLog(@"STEngine",
+                    @"creating script object %p with ivars %@",compiledScript,
+                    [compiledScript variableNames]);
+
+        environment = RETAIN(env);
+        script = RETAIN(compiledScript);
+        variables = [[NSMutableDictionary alloc] init];
+
+        enumerator = [[compiledScript variableNames] objectEnumerator];
+
+        while ((varName = [enumerator nextObject]) != nil)
+        {
+            [variables setObject:STNil forKey:varName];
+        }
     }
-    
     return self;
 }
 - (void)dealloc

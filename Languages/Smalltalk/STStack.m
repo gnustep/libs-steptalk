@@ -23,11 +23,13 @@
 
 - initWithSize:(unsigned)newSize
 {
-    size = newSize;
-    pointer = 0;
-    stack = NSZoneMalloc( NSDefaultMallocZone(), size * sizeof(id) );
-
-    return [super init];
+    if ((self = [super init]) != nil)
+    {
+        size = newSize;
+        pointer = 0;
+        stack = NSZoneMalloc( NSDefaultMallocZone(), size * sizeof(id) );
+    }
+    return self;
 }
 
 - (void)invalidPointer:(unsigned)ptr

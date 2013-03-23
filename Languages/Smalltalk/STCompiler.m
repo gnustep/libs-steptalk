@@ -125,27 +125,27 @@ extern int STCparse(void *context);
 }
 - initWithEnvironment:(STEnvironment *)env
 {
-    self = [self init];
-    [self setEnvironment:env];
+    if ((self = [self init]) != nil)
+        [self setEnvironment:env];
 
     return self;
 }
 
 - init
 {
-    [super init];
-    
-    arrayLiteralClass     = [NSMutableArray class];
-    stringLiteralClass    = [NSMutableString class];
-    /* bytesLiteralClass  = [NSMutableData class]; */
-    intNumberLiteralClass  = [NSNumber class];
-    realNumberLiteralClass = [NSNumber class];
-    symbolLiteralClass    = [STSelector class];        
-    characterLiteralClass = [NSString class];
-    
-    receiverVars = [[NSMutableArray alloc] init];
-    namedReferences = [[NSMutableArray alloc] init];
+    if ((self = [super init]) != nil)
+    {
+        arrayLiteralClass     = [NSMutableArray class];
+        stringLiteralClass    = [NSMutableString class];
+        /* bytesLiteralClass  = [NSMutableData class]; */
+        intNumberLiteralClass  = [NSNumber class];
+        realNumberLiteralClass = [NSNumber class];
+        symbolLiteralClass    = [STSelector class];        
+        characterLiteralClass = [NSString class];
 
+        receiverVars = [[NSMutableArray alloc] init];
+        namedReferences = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 - (void)dealloc

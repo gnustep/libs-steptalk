@@ -41,15 +41,14 @@
 {
     STCompiledMethod *method;
     
-    method = [STCompiledMethod alloc];
-    
-    [method    initWithSelector:[pattern selector]
-                  argumentCount:[[pattern arguments] count]
-                  bytecodesData:[[code bytecodes] data]
-                       literals:[code literals]
-               temporariesCount:[code temporariesCount]
-                      stackSize:[code stackSize]
-                namedReferences:[code namedReferences]];
+    method =
+        [[STCompiledMethod alloc] initWithSelector:[pattern selector]
+                                     argumentCount:[[pattern arguments] count]
+                                     bytecodesData:[[code bytecodes] data]
+                                          literals:[code literals]
+                                  temporariesCount:[code temporariesCount]
+                                         stackSize:[code stackSize]
+                                   namedReferences:[code namedReferences]];
                
 
     return AUTORELEASE(method);
@@ -63,15 +62,15 @@
            stackSize:(unsigned)size
      namedReferences:(NSMutableArray *)refs;
 {
-    self = [super initWithBytecodesData:data
-                               literals:anArray
-                       temporariesCount:tCount
-                              stackSize:size
-                        namedReferences:refs];
-
-    selector = RETAIN(sel);
-    argCount = aCount;
-    
+    if ((self = [super initWithBytecodesData:data
+                                    literals:anArray
+                            temporariesCount:tCount
+                                   stackSize:size
+                             namedReferences:refs]) != nil)
+    {
+        selector = RETAIN(sel);
+        argCount = aCount;
+    }
     return self;
 }
 - (void)dealloc
@@ -132,11 +131,11 @@
 
 - initWithCoder:(NSCoder *)decoder
 {
-    self = [super initWithCoder: decoder];
-    
-    [decoder decodeValueOfObjCType: @encode(id) at: &selector];
-    [decoder decodeValueOfObjCType: @encode(short) at: &argCount];
-
+    if ((self = [super initWithCoder: decoder]) != nil)
+    {
+        [decoder decodeValueOfObjCType: @encode(id) at: &selector];
+        [decoder decodeValueOfObjCType: @encode(short) at: &argCount];
+    }
     return self;
 }
 - (NSString *)source

@@ -154,14 +154,14 @@ static NSString *_STNormalizeStringToken(NSString *token)
 
 - initWithString:(NSString *)aString range:(NSRange)range
 {
-    [super init];
-
-    source = RETAIN(aString);
-    srcRange = range;
-    srcOffset = range.location;
-    tokenRange = NSMakeRange(0,0);
-    tokenType = STInvalidTokenType;
-    
+    if ((self = [super init]) != nil)
+    {
+        source = RETAIN(aString);
+        srcRange = range;
+        srcOffset = range.location;
+        tokenRange = NSMakeRange(0,0);
+        tokenType = STInvalidTokenType;
+    }
     return self;
 }
 

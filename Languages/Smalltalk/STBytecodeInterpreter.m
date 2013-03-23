@@ -93,9 +93,14 @@ static Class NSInvocation_class = nil;
 
 - initWithEnvironment:(STEnvironment *)env
 {
-    self = [super init];
-    environment = RETAIN(env);
+    if ((self = [super init]) != nil)
+        environment = RETAIN(env);
     return self;
+}
+- (void)delloc
+{
+    RELEASE(environment);
+    [super dealloc];
 }
 - (void)setEnvironment:(STEnvironment *)env
 {
@@ -300,13 +305,12 @@ static Class NSInvocation_class = nil;
                  stackSize,
                  ptr);
 
-    block = [STBlock alloc];
-    
-    [block initWithInterpreter:self
-                   homeContext:[activeContext homeContext]
-                     initialIP:ptr
-                 argumentCount:argCount
-                     stackSize:stackSize];
+    block =
+        [[STBlock alloc] initWithInterpreter:self
+                                 homeContext:[activeContext homeContext]
+                                   initialIP:ptr
+                               argumentCount:argCount
+                                   stackSize:stackSize];
   
     [stack push:AUTORELEASE(block)];
 }

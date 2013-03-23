@@ -51,20 +51,22 @@
 - initWithMethod:(STCompiledMethod *)newMethod 
      environment:(STEnvironment *)env
 {
-    unsigned int tempCount;
-    unsigned int i;
-
-    method = RETAIN(newMethod);
-
-    tempCount = [method temporariesCount];
-    temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
-
-    for(i=0;i<tempCount;i++)
+    if ((self = [super initWithStackSize:[method stackSize]]) != nil)
     {
-        [temporaries insertObject:STNil atIndex:i];
+        unsigned int tempCount;
+        unsigned int i;
+
+        method = RETAIN(newMethod);
+
+        tempCount = [method temporariesCount];
+        temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
+
+        for (i=0; i<tempCount; i++)
+        {
+            [temporaries insertObject:STNil atIndex:i];
+        }
     }
-    
-    return [super initWithStackSize:[method stackSize]];
+    return self;
 }
 
 - (void)dealloc

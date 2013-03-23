@@ -51,10 +51,10 @@ static SEL finalizeSelector;
 
 - initWithVariableNames:(NSArray *)array;
 {
-    [super init];
-    
-    variableNames = RETAIN(array);
-
+    if ((self = [super init]) != nil)
+    {
+        variableNames = RETAIN(array);
+    }
     return self;
 }
 - (void)dealloc

@@ -38,13 +38,14 @@
               stackSize:(unsigned)size
         namedReferences:(NSMutableArray *)refs
 {
-    [super init];
-
-    bytecodes = [[STBytecodes alloc] initWithData:data];
-    literals = [[NSArray alloc] initWithArray:anArray];
-    tempCount = count;
-    stackSize = size;
-    namedRefs = [[NSArray alloc] initWithArray:refs];
+    if ((self = [super init]) != nil)
+    {
+	bytecodes = [[STBytecodes alloc] initWithData:data];
+	literals = [[NSArray alloc] initWithArray:anArray];
+	tempCount = count;
+	stackSize = size;
+	namedRefs = [[NSArray alloc] initWithArray:refs];
+    }
     return self;
 }
 - (void)dealloc
@@ -94,14 +95,14 @@
 
 - initWithCoder:(NSCoder *)decoder
 {
-    self = [super init]; // [super initWithCoder: decoder];
-    
-    [decoder decodeValueOfObjCType: @encode(id) at: &bytecodes];
-    [decoder decodeValueOfObjCType: @encode(id) at: &literals];
-    [decoder decodeValueOfObjCType: @encode(id) at: &namedRefs];
-    [decoder decodeValueOfObjCType: @encode(short) at: &tempCount];
-    [decoder decodeValueOfObjCType: @encode(short) at: &stackSize];
-
+    if ((self = [super init] /*[super initWithCoder: decoder]*/) != nil)
+    {
+        [decoder decodeValueOfObjCType: @encode(id) at: &bytecodes];
+        [decoder decodeValueOfObjCType: @encode(id) at: &literals];
+        [decoder decodeValueOfObjCType: @encode(id) at: &namedRefs];
+        [decoder decodeValueOfObjCType: @encode(short) at: &tempCount];
+        [decoder decodeValueOfObjCType: @encode(short) at: &stackSize];
+    }
     return self;
 }
 

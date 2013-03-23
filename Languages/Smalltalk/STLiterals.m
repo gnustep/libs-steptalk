@@ -32,9 +32,12 @@
 @implementation STObjectReferenceLiteral
 - initWithObjectName:(NSString *)anObject poolName:(NSString *)aPool
 {
-    objectName = RETAIN(anObject);
-    poolName = RETAIN(aPool);
-    return [super init];
+    if ((self = [super init]) != nil)
+    {
+        objectName = RETAIN(anObject);
+        poolName = RETAIN(aPool);
+    }
+    return self;
 }
 #if 0
 - copyWithZone:(NSZone *)zone
@@ -68,8 +71,9 @@
 @implementation STBlockLiteral
 - initWithArgumentCount:(unsigned)count
 {
-    argCount = count;
-    return [super init];
+    if ((self = [super init]) != nil)
+	argCount = count;
+    return self;
 }
 - (void)setStackSize:(unsigned)size
 {

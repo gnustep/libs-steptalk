@@ -44,10 +44,11 @@
 - initWithSelector:(NSString *)aString
          arguments:(NSArray *)anArray
 {
-    [super init];
-    selector = RETAIN(aString);
-    args = RETAIN(anArray);
-    
+    if ((self = [super init]) != nil)
+    {
+	selector = RETAIN(aString);
+	args = RETAIN(anArray);
+    }
     return self;
 }
 

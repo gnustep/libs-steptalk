@@ -48,15 +48,23 @@ Class STBlockContextClass = nil;
         argumentCount:(int)count
             stackSize:(int)size
 {
-    homeContext = context;
-    argCount  = count; 
-    stackSize = size;
-    initialIP = ptr;
-    interpreter = anInterpreter;
-    
-    return [super init];
+    if ((self = [super init]) != nil)
+    {
+	homeContext = RETAIN(context);
+	argCount  = count; 
+	stackSize = size;
+	initialIP = ptr;
+	interpreter = RETAIN(anInterpreter);
+    }
+    return self;
 }
 
+- (void)dealloc
+{
+    RELEASE(homeContext);
+    RELEASE(interpreter);
+    [super dealloc];
+}
 - (unsigned)argumentCount
 {
     return argCount;

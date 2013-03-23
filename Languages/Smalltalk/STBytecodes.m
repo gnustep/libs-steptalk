@@ -170,9 +170,12 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 		    length: (unsigned)length
 		  fromZone: (NSZone*)zone
 {
-    bytes = [[NSData alloc] initWithBytesNoCopy:someBytes 
-                                         length:length 
-                                       fromZone:zone];
+    if ((self = [super init]) != nil)
+    {
+        bytes = [[NSData alloc] initWithBytesNoCopy:someBytes 
+                                             length:length 
+                                           fromZone:zone];
+    }
     return self;
 }
 */
@@ -181,10 +184,10 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 
 - (id) initWithData: (NSData *)data
 {
-    self = [super init];
-
-    bytes = RETAIN(data);
-    
+    if ((self = [super init]) != nil)
+    {
+        bytes = RETAIN(data);
+    }
     return self;
 }
 
@@ -294,10 +297,10 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 
 - initWithCoder:(NSCoder *)decoder
 {
-    self = [super init]; // super initWithCoder: decoder];
-    
-    [decoder decodeValueOfObjCType: @encode(id) at: &bytes];
-
+    if ((self = [super init] /*[super initWithCoder: decoder]*/) != nil)
+    {
+        [decoder decodeValueOfObjCType: @encode(id) at: &bytes];
+    }
     return self;
 }
 

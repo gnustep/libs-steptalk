@@ -42,9 +42,11 @@
 }
 - initWithPattern:(STCMessage *)patt statements:(STCStatements *)stats
 {
-    [super init];
-    messagePattern = RETAIN(patt);
-    statements = RETAIN(stats);
+    if ((self = [super init]) != nil)
+    {
+        messagePattern = RETAIN(patt);
+        statements = RETAIN(stats);
+    }
     return self;
 }
 - (void)dealloc
@@ -120,11 +122,11 @@
 }
 - init
 {
-    [super init];
-    
-    selector = [[NSMutableString alloc] init];
-    args = [[NSMutableArray alloc] init];
-
+    if ((self = [super init]) != nil)
+    {
+        selector = [[NSMutableString alloc] init];
+        args = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 - (void)dealloc
@@ -218,11 +220,11 @@
 @implementation STCMessageExpression:STCExpression
 - initWithTarget:(id)anObject message:(STCMessage *)aMessage;
 {
-    [super init];
-    
-    target = RETAIN(anObject);
-    message = RETAIN(aMessage);
-    
+    if ((self = [super init]) != nil)
+    {
+        target = RETAIN(anObject);
+        message = RETAIN(aMessage);
+    }
     return self;
 }
 - (void)dealloc
@@ -253,8 +255,8 @@
 }
 - initWithObject:(id)anObject
 {
-    [super init];
-    object = RETAIN(anObject);
+    if ((self = [super init]) != nil)
+        object = RETAIN(anObject);
     return self;
 }
 
@@ -276,36 +278,39 @@
 + primaryWithVariable:(id) anObject
 {
     STCPrimary *primary;
-    primary = [STCPrimary alloc];
-    [primary initWithType:STCVariablePrimaryType object:anObject];
+    primary = [[STCPrimary alloc] initWithType:STCVariablePrimaryType
+                                        object:anObject];
     return AUTORELEASE(primary);
 }
 + primaryWithLiteral:(id) anObject
 {
     STCPrimary *primary;
-    primary = [STCPrimary alloc];
-    [primary initWithType:STCLiteralPrimaryType object:anObject];
+    primary = [[STCPrimary alloc] initWithType:STCLiteralPrimaryType
+                                        object:anObject];
     return AUTORELEASE(primary);
 }
 + primaryWithBlock:(id) anObject
 {
     STCPrimary *primary;
-    primary = [STCPrimary alloc];
-    [primary initWithType:STCBlockPrimaryType object:anObject];
+    primary = [[STCPrimary alloc] initWithType:STCBlockPrimaryType
+                                        object:anObject];
     return AUTORELEASE(primary);
 }
 + primaryWithExpression:(id) anObject
 {
     STCPrimary *primary;
-    primary = [STCPrimary alloc];
-    [primary initWithType:STCExpressionPrimaryType object:anObject];
+    primary = [[STCPrimary alloc] initWithType:STCExpressionPrimaryType
+                                        object:anObject];
     return AUTORELEASE(primary);
 }
 - initWithType:(int)newType object:obj
 {
-    type = newType;
-    object = RETAIN(obj);
-    return [super init];
+    if ((self = [super init]) != nil)
+    {
+	type = newType;
+	object = RETAIN(obj);
+    }
+    return self;
 }
 - (void)dealloc
 {
