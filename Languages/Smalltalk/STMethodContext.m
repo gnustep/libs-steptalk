@@ -51,7 +51,7 @@
 - initWithMethod:(STCompiledMethod *)newMethod 
      environment:(STEnvironment *)env
 {
-    if ((self = [super initWithStackSize:[method stackSize]]) != nil)
+    if ((self = [super initWithStackSize:[newMethod stackSize]]) != nil)
     {
         unsigned int tempCount;
         unsigned int i;
