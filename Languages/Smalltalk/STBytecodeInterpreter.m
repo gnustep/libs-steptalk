@@ -116,30 +116,30 @@ static Class NSInvocation_class = nil;
     STMethodContext    *newContext;
     id                  retval;
     
-    if(!environment)
+    if (!environment)
     {
-        [NSException  raise:STInterpreterGenericException
-                     format:@"No execution environment set"];
+        [NSException raise:STInterpreterGenericException
+                    format:@"No execution environment set"];
         return nil;
     }
     
     NSDebugLLog(@"STBytecodeInterpreter",@"Executing method %@ with %i args", 
                 [method selector],[args count]);
 
-    if(!method)
+    if (!method)
     {
         return nil;
     }
     
-    if([args count] != [method argumentCount])
+    if ([args count] != [method argumentCount])
     {
-        [NSException  raise:STInterpreterGenericException
-                     format:@"Invalid argument count %i (should be %i)"
-                            @" for method %@ ",
-                            [args count],[method argumentCount], 
-                            [method selector]];
+        [NSException raise:STInterpreterGenericException
+                    format:@"Invalid argument count %i (should be %i)"
+                           @" for method %@ ",
+                           [args count],[method argumentCount], 
+                           [method selector]];
     }
-    
+
     newContext = [[STMethodContext alloc] initWithMethod:method
                                              environment:environment];
 
@@ -149,14 +149,33 @@ static Class NSInvocation_class = nil;
     oldContext = activeContext;
     [self setContext:newContext];
 
-    retval = [self interpret];
+    NS_DURING
+	retval = [self interpret];
+    NS_HANDLER
+	if ([[localException name] isEqualToString:STInterpreterReturnException])
+	{
+	    NSDictionary *userInfo = [localException userInfo];
+	    if ([userInfo objectForKey: @"Context"] == newContext)
+	    {
+		retval = [userInfo objectForKey:@"Value"];
+	    }
+	    else
+	    {
+		[localException raise];
+	    }
+	}
+	else
+	{
+	    [localException raise];
+	}
+    NS_ENDHANDLER
 
     [self setContext:oldContext];
 
     RELEASE(newContext);
     // RETAIN(retval);
     // [pool release];
-    // AUTORELEASE(retval)
+    // AUTORELEASE(retval);
 
     return retval;
 }
@@ -247,7 +266,7 @@ static Class NSInvocation_class = nil;
     }
     else
     {
-        NSDebugLLog(@"STBytecode interpreter",@"Stop requested");
+        NSDebugLLog(@"STBytecodeInterpreter",@"Stop requested");
         
         retval = nil;
     }
@@ -261,7 +280,7 @@ static Class NSInvocation_class = nil;
 
 - (void)halt
 {
-    NSDebugLLog(@"STBytecode interpreter",@"Halt!");
+    NSDebugLLog(@"STBytecodeInterpreter",@"Halt!");
     stopRequested = YES;
 }
 
@@ -275,6 +294,35 @@ static Class NSInvocation_class = nil;
 
     NSDebugLLog(@"STExecutionContext",
                 @"%@ return value '%@' from method",
+                activeContext,value);
+
+    if (activeContext != [activeContext homeContext])
+    {
+	NSDictionary *userInfo;
+
+	/* Don't try to optimize this code by invalidating the context before
+	   the conditional. The method -invalidate resets the home context of
+	   a block and hence the test above would always fail. */
+	/* FIXME Invalidate all contexts between the active context and the
+	   home context as well.  Note that the semantics presented in the
+	   Blue Book doesn't get this right either. */
+        userInfo =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+                value, @"Value", [activeContext homeContext], @"Context", nil];
+        [activeContext invalidate];
+        [[NSException exceptionWithName:STInterpreterReturnException
+                                 reason:@"Block cannot return"
+                               userInfo:userInfo] raise];
+    }
+    [activeContext invalidate];
+    [stack push:value];
+}
+ 
+- (void)returnBlockValue:(id)value
+{
+
+    NSDebugLLog(@"STExecutionContext",
+                @"%@ return value '%@' from block",
                 activeContext,value);
 
     [activeContext invalidate];
@@ -538,9 +586,13 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STReturnBytecode:
-    case STReturnBlockBytecode:
                 STDebugBytecode(bytecode);
                 [self returnValue:[stack pop]];
+                return NO;
+
+    case STReturnBlockBytecode:
+                STDebugBytecode(bytecode);
+                [self returnBlockValue:[stack pop]];
                 return NO;
 
     case STBlockCopyBytecode: 

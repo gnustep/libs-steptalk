@@ -14,3 +14,4 @@ NSString *STCompilerGenericException = @"STCompilerGenericException";
 NSString *STCompilerInconsistencyException =@"STCompilerInconsistencyException";
 
 NSString *STInterpreterGenericException = @"STInterpreterGenericException";
+NSString *STInterpreterReturnException = @"STInterpreterReturnException";

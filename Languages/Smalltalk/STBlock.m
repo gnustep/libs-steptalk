@@ -23,6 +23,7 @@
  */
 
 
+#import "Externs.h"
 #import "STBlock.h"
 #import "STLiterals.h"
 #import "STBlockContext.h"
@@ -207,6 +208,9 @@ Class STBlockContextClass = nil;
     NS_DURING
         retval = [self value];
     NS_HANDLER
+	/* don't handle the internal STInterpreterReturnException exception */
+	if ([[localException name] isEqualToString:STInterpreterReturnException])
+	    [localException raise];
         retval = [handlerBlock value:localException];
         /* restore the execution context */
         [interpreter setContext:context];

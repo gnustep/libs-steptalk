@@ -14,3 +14,4 @@ extern NSString *STCompilerGenericException;
 extern NSString *STCompilerInconsistencyException;
 
 extern NSString *STInterpreterGenericException;
+extern NSString *STInterpreterReturnException;

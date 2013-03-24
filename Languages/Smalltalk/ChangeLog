@@ -1,6 +1,22 @@
+2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * Externs.h (STInterpreterReturnException):
+    * Externs.m (STInterpreterReturnException):
+    * STCompiler.m (-compileStatements:blockFlag:):
+    * STBytecodeInterpreter.m (-interpretMethod:forReceiver:arguments:
+    	-returnValue:, -returnBlockValue:, -dispatchBytecode:):
+    An explicit return statement in a block returns from the method
+    context containing the block's definition. This is achieved by
+    throwing a STInterpreterReturnException.
+
+    * STBlock.m (-handler:): Don't let user code handle
+    STInterpreterReturnException.
+
+    * STBytecodeInterpreter.m (-interpret): Fix incorrect logging levels.
+
 2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-    * STCompiler.m (compileStatements:blockFlag:): Fix compiler bug: The
+    * STCompiler.m (-compileStatements:blockFlag:): Fix compiler bug: The
     value of a Smalltalk statement sequence is the value of its last
     statement and not that of the first.
 

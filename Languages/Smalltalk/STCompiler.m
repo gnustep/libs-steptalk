@@ -643,10 +643,6 @@ extern int STCparse(void *context);
         {
             [self emitPopStack];
         }
-        else 
-        {
-            first = NO;
-        }
         [self compileExpression:expr];
     }
 
@@ -658,7 +654,14 @@ extern int STCparse(void *context);
         stackSize = stackSizeSave;
         stackPos = stackPosSave;
 
-        [self emitReturnFromBlock];
+        if (expr)
+        {
+            [self emitReturn];
+        }
+        else
+        {
+            [self emitReturnFromBlock];
+        }
     }
     else
     {
