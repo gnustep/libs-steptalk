@@ -89,16 +89,6 @@
                 format:@"Should not set home context of method context"];
 }
 
-- (void)invalidate
-{
-    RELEASE(method);
-    method = nil;
-}
-- (BOOL)isValid
-{
-    return (method != nil);
-}
-
 - (STCompiledMethod*)method
 {
     return method;

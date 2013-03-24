@@ -1,5 +1,21 @@
 2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STExecutionContext.h: Change type of instruction pointer attribute
+    to NSUInteger.
+    * STExecutionContext.m (-invalidate, -isValid): Invalidate an
+    execution context by setting its instruction pointer to NSNotFound.
+
+    * STMethodContext.m (-invalidate, -isValid):
+    * STBlockContext.m (-invalidate, -isValid): Delete method
+    implementations so that the method and home context attributes of a
+    method context and block context, respectively, are not destroyed when
+    the method or block returns.
+
+    Together these changes make it possible to use blocks even after the
+    method containing their definition has returned.
+
+2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * Externs.h (STInterpreterReturnException):
     * Externs.m (STInterpreterReturnException):
     * STCompiler.m (-compileStatements:blockFlag:):

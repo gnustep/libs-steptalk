@@ -66,14 +66,6 @@
 {
     return homeContext;
 }
-- (void)invalidate
-{
-    [self setHomeContext:nil];
-}
-- (BOOL)isValid
-{
-    return [homeContext isValid];
-}
 
 - (unsigned)initialIP
 {

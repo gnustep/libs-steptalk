@@ -33,7 +33,7 @@
     
     STStack            *stack;
     
-    unsigned            instructionPointer;
+    NSUInteger          instructionPointer;
 }
 - initWithStackSize:(unsigned)stackSize;
 

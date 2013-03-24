@@ -53,12 +53,11 @@ static unsigned nextId = 1;
 }
 - (void)invalidate
 {
-    [self subclassResponsibility:_cmd];
+    instructionPointer = NSNotFound;
 }
 - (BOOL)isValid
 {
-    [self subclassResponsibility:_cmd];
-    return NO;
+    return (instructionPointer != NSNotFound);
 }
 - (unsigned)instructionPointer
 {
