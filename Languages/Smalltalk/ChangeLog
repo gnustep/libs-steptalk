@@ -1,5 +1,11 @@
 2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiler.m (-compileMethod:): Follow Smalltalk convention to
+    return the receiver from a method without an explicit return
+    statement.
+
+2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STExecutionContext.h: Change type of instruction pointer attribute
     to NSUInteger.
     * STExecutionContext.m (-invalidate, -isValid): Invalidate an

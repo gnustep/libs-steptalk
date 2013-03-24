@@ -327,10 +327,19 @@ extern int STCparse(void *context);
     /* FIXME: unite STCMessage and STMessage */
     messagePattern = (STMessage *)[method messagePattern];
     
-    if(!messagePattern)
+    if (!messagePattern)
     {
         messagePattern = [STMessage messageWithSelector:@"_unnamed_method"
                                               arguments:nil];
+    }
+    else if (![[method statements] returnExpression])
+    {
+        /* A Smalltalk method (but not plain code) without a return expression
+           returns the receiver itself. */
+        STCPrimary *selfPrimary = [STCPrimary primaryWithVariable:@"self"];
+        STCExpression *returnExpression =
+            [STCExpression primaryExpressionWithObject:selfPrimary];
+        [[method statements] setReturnExpression:returnExpression];
     }
     
     NSDebugLLog(@"STCompiler", @"Compile method %@", [messagePattern selector]);
@@ -342,16 +351,16 @@ extern int STCparse(void *context);
     compiledMethod = [STCompiledMethod methodWithCode:code
                                        messagePattern:messagePattern];
                                        
-    if(!isSingleMethod)
+    if (!isSingleMethod)
     {
 
-        if(resultMethod)
+        if (resultMethod)
         {
             [NSException  raise:@"STCompilerException"
                          format:@"Method is present when compiling a script"];
             return;
         }
-        if(!resultScript)
+        if (!resultScript)
         {
             NSDebugLLog(@"STCompiler",
                         @"Creating script with %i variables",[receiverVars count]);
@@ -363,13 +372,13 @@ extern int STCparse(void *context);
     }
     else
     {
-        if(resultMethod)
+        if (resultMethod)
         {
             [NSException  raise:@"STCompilerException"
                          format:@"More than one method compiled for single method request"];
             return;
         }
-        if(resultScript)
+        if (resultScript)
         {
             [NSException  raise:@"STCompilerException"
                          format:@"Compiled script is present when compiling single method"];
