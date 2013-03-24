@@ -654,6 +654,17 @@ extern int STCparse(void *context);
         }
         [self compileExpression:expr];
     }
+    else if (first)
+    {
+	if (blockFlag)
+	{
+	    [self emitPushNil];
+	}
+	else
+	{
+	    [self emitPushSelf];
+	}
+    }
 
     if (blockFlag)
     {

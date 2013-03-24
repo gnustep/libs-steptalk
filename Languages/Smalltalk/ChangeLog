@@ -4,6 +4,9 @@
     return the receiver from a method without an explicit return
     statement.
 
+    * STCompiler.m (-compileStatements:blockFlag:): Return nil from an
+    empty block and the receiver from an empty method.
+
 2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STExecutionContext.h: Change type of instruction pointer attribute
