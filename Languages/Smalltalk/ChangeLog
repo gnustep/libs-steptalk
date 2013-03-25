@@ -1,3 +1,8 @@
+2013-03-25  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBytecodeInterpreter.m (returnValue:): Fix bug where the
+    STInterpreterReturnException was not handled when a block returns nil.
+
 2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STCompiler.m (-compileMethod:): Follow Smalltalk convention to

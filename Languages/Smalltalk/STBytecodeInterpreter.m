@@ -296,25 +296,23 @@ static Class NSInvocation_class = nil;
                 @"%@ return value '%@' from method",
                 activeContext,value);
 
+    [activeContext invalidate];
     if (activeContext != [activeContext homeContext])
     {
 	NSDictionary *userInfo;
 
-	/* Don't try to optimize this code by invalidating the context before
-	   the conditional. The method -invalidate resets the home context of
-	   a block and hence the test above would always fail. */
 	/* FIXME Invalidate all contexts between the active context and the
 	   home context as well.  Note that the semantics presented in the
 	   Blue Book doesn't get this right either. */
         userInfo =
             [NSDictionary dictionaryWithObjectsAndKeys:
-                value, @"Value", [activeContext homeContext], @"Context", nil];
-        [activeContext invalidate];
+                /* Attention: Order is important here. The returned value
+                   may be nil, so the context value must come first. */
+                [activeContext homeContext], @"Context", value, @"Value", nil];
         [[NSException exceptionWithName:STInterpreterReturnException
                                  reason:@"Block cannot return"
                                userInfo:userInfo] raise];
     }
-    [activeContext invalidate];
     [stack push:value];
 }
  
