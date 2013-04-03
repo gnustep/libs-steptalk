@@ -133,6 +133,7 @@
         NS_ENDHANDLER
         [NSApp setMainMenu:mainMenu];
         RELEASE(mainMenu);
+	[scriptingMenu close];
     }
     return scriptingMenu;
 }
