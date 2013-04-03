@@ -35,7 +35,6 @@ static NSCharacterSet *validCharacterCharacterSet;
 - (int)lineNumberForIndex:(int)index
 {
     int i, len;
-    int cr = 0;
     int line = 1;
     len = [self length];
     index = (index < len) ? index : len;
@@ -44,13 +43,13 @@ static NSCharacterSet *validCharacterCharacterSet;
     {
         switch([self characterAtIndex:i])
         {
-        case 0x000a: if(cr) 
-                      { cr = 0; break; }
-        case 0x000d: cr = 1; break;
+        case 0x000d:
+	    if (i+1<index && [self characterAtIndex:i+1]==0x000a) i++;
+        case 0x000a: 
         case 0x2028: 
-        case 0x2029: cr = 0;
-                     line++;
-                     break;
+        case 0x2029:
+	    line++;
+	    break;
         }
     }
     return line;

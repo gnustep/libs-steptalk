@@ -1,6 +1,12 @@
+2013-04-03  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STSourceReader.m (-lineNumberForIndex:): Revert broken fix and
+    replace it by code that now works correctly for all kinds of line
+    endings.
+
 2013-03-25  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-    * STBytecodeInterpreter.m (returnValue:): Fix bug where the
+    * STBytecodeInterpreter.m (-returnValue:): Fix bug where the
     STInterpreterReturnException was not handled when a block returns nil.
 
 2013-03-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
