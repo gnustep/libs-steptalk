@@ -31,6 +31,8 @@
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSEnumerator.h>
 
+#import <StepTalk/STExterns.h>
+
 @implementation NSArray (STCollecting)
 - do:(STBlock *)block
 {
@@ -103,6 +105,8 @@
     while( (object = [enumerator nextObject]) )
     {
         value = [block value:object];
+	if (value == nil)
+	    value = STNil;
         [array addObject:value];
     }
 
