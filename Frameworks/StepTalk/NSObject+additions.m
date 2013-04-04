@@ -23,5 +23,9 @@
 {
     return YES;
 }
+- (id)yourself
+{
+    return self;
+}
 @end
 

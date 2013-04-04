@@ -28,4 +28,5 @@
 - (BOOL)isSame:(id)anObject;
 - (BOOL)isNil;
 - (BOOL)notNil;
+- (id)yourself;
 @end
