@@ -1,3 +1,8 @@
+2013-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STActor.m (-setValue:forKey:): Fix bug where
+	instance variables of an actor got lost when set to nil.
+
 2013-04-04  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/NSObject+additions.h (-yourself):

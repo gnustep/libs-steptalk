@@ -63,8 +63,13 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
+    if (value == nil)
+    {
+        value = STNil;
+    }
+
     /* FIXME: this is not optimal */
-    if([ivars valueForKey:key] != nil)
+    if ([ivars valueForKey:key] != nil)
     {
         [ivars setValue:value forKey:key];
     }
@@ -79,7 +84,7 @@
     
     value = [ivars valueForKey:key];
     
-    if(value == nil)
+    if (value == nil)
     {
         value = [super valueForKey:key];
     }
@@ -135,7 +140,7 @@ some other, more clever mechanism. */
 }
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-    if( [super respondsToSelector:(SEL)aSelector] )
+    if ([super respondsToSelector:(SEL)aSelector])
     {
         return YES;
     }
@@ -149,7 +154,7 @@ some other, more clever mechanism. */
     
     signature = [super methodSignatureForSelector:sel];
 
-    if(!signature)
+    if (!signature)
     {
         signature = STConstructMethodSignatureForSelector(sel);
     }
@@ -170,7 +175,7 @@ some other, more clever mechanism. */
 
     method = [methodDictionary objectForKey:methodName];
     
-    if(!method)
+    if (!method)
     {
         [NSException raise:@"STActorException"
                      format:@"No script object method with name '%@'",
@@ -184,7 +189,7 @@ some other, more clever mechanism. */
     count = [[invocation methodSignature] numberOfArguments];
     args = [NSMutableArray array];
     
-    for(index = 2; index < count; index++)
+    for (index = 2; index < count; index++)
     {
         arg = [invocation getArgumentAsObjectAtIndex:index];
 
