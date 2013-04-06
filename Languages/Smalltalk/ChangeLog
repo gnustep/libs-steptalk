@@ -1,3 +1,9 @@
+2013-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STSourceReader.m (-readNextToken): Fix bug where the last character
+    of an identifier was dropped when the assignment operator ':=' follows
+    it immediately.
+
 2013-04-03  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * NSArray+additions.m (-collect:): Properly handle nil results from

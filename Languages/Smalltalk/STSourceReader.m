@@ -287,7 +287,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 /* We have found := */
                 srcOffset --;
 
-                tokenRange = NSMakeRange(start,srcOffset - start - 1);
+                tokenRange = NSMakeRange(start,srcOffset - start);
                 return STIdentifierTokenType;
             }
             else
