@@ -1,5 +1,20 @@
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STActor.m (-instanceVariables): Fix typo in
+	method name.
+	* Frameworks/StepTalk/STActor.m (-addInstanceVariable:):
+	* Frameworks/StepTalk/STActor.m (-removeInstanceVariable:):
+	New methods to add and remove instance variables.
+
+	* Frameworks/StepTalk/STActor.h (-instanceVariableNames):
+	* Frameworks/StepTalk/STActor.h (-setInstanceVariables:):
+	* Frameworks/StepTalk/STActor.h (-instanceVariables):
+	* Frameworks/StepTalk/STActor.h (-addInstanceVariable:):
+	* Frameworks/StepTalk/STActor.h (-removeInstanceVariable:):
+	Add methods to the public API.
+
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Tools/STExecutor.h:
 	* Examples/Shell/STShell+output.m:
 	* Examples/Shell/stshell_tool.m:

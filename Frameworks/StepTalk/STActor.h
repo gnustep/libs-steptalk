@@ -32,6 +32,12 @@
 - (void)setEnvironment:(STEnvironment *)env;
 - (STEnvironment *)environment;
 
+- (NSArray *)instanceVariableNames;
+- (void)setInstanceVariables:(NSDictionary *)dictionary;
+- (NSDictionary *)instanceVariables;
+- (void)addInstanceVariable:(NSString *)aName;
+- (void)removeInstanceVariable:(NSString *)aName;
+
 - (void)addMethod:(id <STMethod>)aMethod;
 - (id <STMethod>)methodWithName:(NSString *)aName;
 - (void)removeMethod:(id <STMethod>)aMethod;

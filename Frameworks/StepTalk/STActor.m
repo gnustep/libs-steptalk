@@ -100,10 +100,25 @@
     [ivars removeAllObjects];
     [ivars addEntriesFromDictionary:dictionary];
 }
-- (NSDictionary *)instanceVarables
+- (NSDictionary *)instanceVariables
 {
     return [NSDictionary dictionaryWithDictionary:ivars];
 }
+- (void)addInstanceVariable:(NSString *)aName
+{
+    if ([ivars valueForKey:aName] == nil)
+    {
+	[ivars setValue: STNil forKey: aName];
+    }
+}
+- (void)removeInstanceVariable:(NSString *)aName
+{
+    if ([ivars valueForKey:aName] != nil)
+    {
+	[ivars setValue: nil forKey: aName];
+    }
+}
+
 - (void)addMethod:(id <STMethod>)aMethod
 {
     [methodDictionary setObject:aMethod forKey:[aMethod methodName]];
