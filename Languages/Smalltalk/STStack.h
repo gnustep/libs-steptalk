@@ -26,18 +26,18 @@
 
 @interface STStack:NSObject
 {
-    unsigned  size;
-    unsigned  pointer;
-    id       *stack;
+    NSUInteger  size;
+    NSUInteger  pointer;
+    id         *stack;
 }
-+ stackWithSize:(unsigned)newSize;
-- initWithSize:(unsigned)newSize;
++ stackWithSize:(NSUInteger)newSize;
+- initWithSize:(NSUInteger)newSize;
 
 - (void)push:anObject;
 - (id)  pop;
-- (void)popCount:(unsigned)count;
+- (void)popCount:(NSUInteger)count;
 - (id)  valueAtTop;
-- (id)  valueFromTop:(unsigned)offset;
+- (id)  valueFromTop:(NSUInteger)offset;
 
 - (void)duplicateTop;
 

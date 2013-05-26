@@ -31,12 +31,12 @@
     STBytecodeInterpreter *interpreter; 
     STMethodContext       *homeContext; /* owner of this block context */
 
-    unsigned               initialIP;
+    NSUInteger             initialIP;
 }
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-  initialIP:(unsigned)pointer
-  stackSize:(unsigned)size;
+  initialIP:(NSUInteger)pointer
+  stackSize:(NSUInteger)size;
 - (void)setHomeContext:(STMethodContext *)context;
-- (unsigned)initialIP;
+- (NSUInteger)initialIP;
 - (void)resetInstructionPointer;
 @end

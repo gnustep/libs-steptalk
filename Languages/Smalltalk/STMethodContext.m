@@ -53,8 +53,8 @@
 {
     if ((self = [super initWithStackSize:[newMethod stackSize]]) != nil)
     {
-        unsigned int tempCount;
-        unsigned int i;
+        NSUInteger tempCount;
+        NSUInteger i;
 
         method = RETAIN(newMethod);
 
@@ -102,12 +102,12 @@
     return receiver;
 }
 
-- (id)temporaryAtIndex:(unsigned)index
+- (id)temporaryAtIndex:(NSUInteger)index
 {
     return [temporaries objectAtIndex:index];
 }
 
-- (void)setTemporary:anObject atIndex:(unsigned)index
+- (void)setTemporary:anObject atIndex:(NSUInteger)index
 {
     if(!anObject)
     {
@@ -116,7 +116,7 @@
     [temporaries replaceObjectAtIndex:index withObject:anObject];
 }
 
-- (NSString *)referenceNameAtIndex:(unsigned)index
+- (NSString *)referenceNameAtIndex:(NSUInteger)index
 {
     return [[method namedReferences] objectAtIndex:index];
 }
@@ -125,15 +125,15 @@
 {
     return [method bytecodes];
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(NSUInteger)index
 {
     return [method literalObjectAtIndex:index];
 }
 
 - (void)setArgumentsFromArray:(NSArray *)args
 {
-    int i;
-    int count;
+    NSUInteger i;
+    NSUInteger count;
     
     count = [args count];
 

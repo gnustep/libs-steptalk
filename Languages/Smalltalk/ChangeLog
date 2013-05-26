@@ -1,3 +1,35 @@
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * NSNumber+additions.h:
+    * NSNumber+additions.m:
+    * STBlock.h:
+    * STBlock.m:
+    * STBlockContext.h:
+    * STBlockContext.m:
+    * STBytecodeInterpreter.h:
+    * STBytecodeInterpreter.m:
+    * STBytecodes.h:
+    * STBytecodes.m:
+    * STCompiledCode.h:
+    * STCompiledCode.m:
+    * STCompiledMethod.h:
+    * STCompiledMethod.m:
+    * STCompiledScript.m:
+    * STCompiler.h:
+    * STCompiler.m:
+    * STExecutionContext.h:
+    * STExecutionContext.m:
+    * STLiterals.h:
+    * STLiterals.m:
+    * STMethodContext.h:
+    * STMethodContext.m:
+    * STSmalltalkScriptObject.m:
+    * STSourceReader.h:
+    * STSourceReader.m:
+    * STStack.h:
+    * STStack.m:
+    int->NSInteger transition
+
 2013-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STSourceReader.m (-readNextToken): Fix bug where the last character

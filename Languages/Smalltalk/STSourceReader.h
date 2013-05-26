@@ -33,7 +33,7 @@
 {
     NSString    *source;              // Source
     NSRange      srcRange;            // range of source in string
-    unsigned int srcOffset;           // Scan offset
+    NSUInteger   srcOffset;           // Scan offset
     NSRange      tokenRange;          // Tokenn range
     STTokenType  tokenType;           // Token type
 }
@@ -43,6 +43,6 @@
 - (STTokenType)tokenType;
 - (NSString *)tokenString;
 - (NSRange)tokenRange;
-- (int)currentLine;
+- (NSInteger)currentLine;
 
 @end

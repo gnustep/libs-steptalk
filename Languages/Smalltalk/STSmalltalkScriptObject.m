@@ -146,8 +146,8 @@
     NSString          *methodName = NSStringFromSelector([invocation selector]);
     NSMutableArray    *args;
     id                arg;
-    int               index;
-    int               count;
+    NSUInteger        index;
+    NSUInteger        count;
     id                retval = nil;
 
     if(!interpreter)
@@ -172,8 +172,8 @@
     count = [[invocation methodSignature] numberOfArguments];
 
     NSDebugLLog(@"STSending",
-                @"script object perform: %@ with %i args",
-                methodName,count-2);
+                @"script object perform: %@ with %lu args",
+                methodName,(unsigned long)(count-2));
 
     args = [[NSMutableArray alloc] init];
     

@@ -92,8 +92,8 @@ static SEL finalizeSelector;
 - (id)executeInEnvironment:(STEnvironment *)env
 {
     STSmalltalkScriptObject *object;
-    int             methodCount;
-    id              retval = nil;
+    NSUInteger               methodCount;
+    id                       retval = nil;
     
 
     object = [[STSmalltalkScriptObject alloc] initWithEnvironment:env

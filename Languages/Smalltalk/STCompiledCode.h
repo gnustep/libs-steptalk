@@ -37,14 +37,14 @@
 }
 - initWithBytecodesData:(NSData *)data
                literals:(NSArray *)anArray
-       temporariesCount:(unsigned)count
-              stackSize:(unsigned)size
+       temporariesCount:(NSUInteger)count
+              stackSize:(NSUInteger)size
         namedReferences:(NSMutableArray *)refs;
 
 - (STBytecodes *)bytecodes;
-- (unsigned)temporariesCount;
-- (unsigned)stackSize;
-- (id)literalObjectAtIndex:(unsigned)index;
+- (NSUInteger)temporariesCount;
+- (NSUInteger)stackSize;
+- (id)literalObjectAtIndex:(NSUInteger)index;
 - (NSMutableArray *)namedReferences;
 - (NSArray *)literals;
 @end

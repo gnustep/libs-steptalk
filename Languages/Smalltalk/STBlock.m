@@ -45,9 +45,9 @@ Class STBlockContextClass = nil;
 }
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
           homeContext:(STMethodContext *)context
-            initialIP:(unsigned)ptr
-        argumentCount:(int)count
-            stackSize:(int)size
+            initialIP:(NSUInteger)ptr
+        argumentCount:(NSUInteger)count
+            stackSize:(NSUInteger)size
 {
     if ((self = [super init]) != nil)
     {
@@ -66,7 +66,7 @@ Class STBlockContextClass = nil;
     RELEASE(interpreter);
     [super dealloc];
 }
-- (unsigned)argumentCount
+- (NSUInteger)argumentCount
 {
     return argCount;
 }
@@ -76,7 +76,8 @@ Class STBlockContextClass = nil;
     if(argCount != 0)
     {
         [NSException  raise:STScriptingException
-                     format:@"Block needs %i arguments", argCount];
+                     format:@"Block needs %lu arguments",
+                            (unsigned long)argCount];
         return nil;
     }
     return [self valueWithArgs:(id*)0 count:0];
@@ -121,7 +122,7 @@ Class STBlockContextClass = nil;
     return [self valueWithArgs:args count:4];
 }
 
-- valueWithArgs:(id *)args count:(unsigned)count
+- valueWithArgs:(id *)args count:(NSUInteger)count
 {
     NSArray *arguments = [NSArray arrayWithObjects:args count:count];
     return [self valueWithArguments:arguments];
@@ -139,8 +140,9 @@ Class STBlockContextClass = nil;
     if (argCount != count)
     {
         [NSException raise:STScriptingException
-                    format:@"Invalid block argument count %i, " 
-                           @"wants to be %i", count, argCount];
+                    format:@"Invalid block argument count %lu, "
+                           @"wants to be %lu", (unsigned long)count,
+                           (unsigned long)argCount];
         return nil;
     }
 

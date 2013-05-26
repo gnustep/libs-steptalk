@@ -39,7 +39,7 @@ static void initNamesArray(void)
 {
     NSString *invalid = @"invalid bytecode";
     NSMutableArray *array;
-    int i;
+    NSInteger i;
 
     array = [NSMutableArray arrayWithCapacity:256];
 
@@ -123,10 +123,12 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
     {
     case STLongJumpBytecode:
                 {
-                    //int offset = STLongJumpOffset(bytecode.arg1,bytecode.arg2);
-                    int offset = bytecode.arg1;
-                    return [NSString  stringWithFormat:@"%@ %i (0x%06x)",
-                                      str, offset, bytecode.pointer+offset];
+                    //NSInteger offset =
+                    //    STLongJumpOffset(bytecode.arg1,bytecode.arg2);
+                    NSInteger offset = bytecode.arg1;
+                    return [NSString  stringWithFormat:@"%@ %li (0x%06lx)",
+                                      str, (long)offset,
+                                      (unsigned long)(bytecode.pointer+offset)];
                 }
     case STSendSelectorBytecode:
     case STSuperSendSelectorBytecode:
@@ -167,7 +169,7 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 }
 /*
 - (id) initWithBytesNoCopy: (void*)someBytes
-		    length: (unsigned)length
+		    length: (NSUInteger)length
 		  fromZone: (NSZone*)zone
 {
     if ((self = [super init]) != nil)
@@ -205,7 +207,7 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
 {
     return [bytes bytes];
 }
-- (unsigned) length
+- (NSUInteger) length
 {
     return [bytes length];
 }
@@ -215,11 +217,11 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
     return [bytes description];
 }
 
-- (STBytecode)fetchNextBytecodeAtPointer:(unsigned *)pointer
+- (STBytecode)fetchNextBytecodeAtPointer:(NSUInteger *)pointer
 {
     STBytecode  bytecode;
     const unsigned char *bytesPtr = (const unsigned char *)[bytes bytes];
-    unsigned    length = [self length];
+    NSUInteger  length = [self length];
     
     if(*pointer < length)
     {
@@ -277,15 +279,15 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
                     return bytecode;
         default:
                     [NSException raise:STInternalInconsistencyException
-                                format:@"Invalid bytecode 0x%02x at 0x%06x",
-                                       bytecode.code,*pointer-1];
+                                format:@"Invalid bytecode 0x%02x at 0x%06lx",
+                                       bytecode.code,(unsigned long)(*pointer-1)];
 
         }
     }
 
     [NSException raise:STInternalInconsistencyException
-                format:@"Instruction pointer 0x%06x out of bounds (0x%06x)",
-                       *pointer,length];
+                format:@"Instruction pointer 0x%06lx out of bounds (0x%06lx)",
+                       (unsigned long)*pointer,(unsigned long)length];
     return bytecode;
 }
 - (void)encodeWithCoder:(NSCoder *)coder

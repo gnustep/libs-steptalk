@@ -29,13 +29,13 @@
 
 @interface STExecutionContext:NSObject
 {
-    unsigned            contextId;       /* for debugging */
+    NSUInteger          contextId;       /* for debugging */
     
     STStack            *stack;
     
     NSUInteger          instructionPointer;
 }
-- initWithStackSize:(unsigned)stackSize;
+- initWithStackSize:(NSUInteger)stackSize;
 
 - (void)invalidate;
 - (BOOL)isValid;
@@ -45,17 +45,17 @@
 
 - (BOOL)isBlockContext;
 
-- (unsigned)instructionPointer;
-- (void)setInstructionPointer:(unsigned)value;
+- (NSUInteger)instructionPointer;
+- (void)setInstructionPointer:(NSUInteger)value;
 
 - (STBytecodes *)bytecodes;
 
 - (STStack *)stack;
 
-- (id)temporaryAtIndex:(unsigned)index;
-- (void)setTemporary:anObject atIndex:(unsigned)index;
-- (NSString *)referenceNameAtIndex:(unsigned)index;
-- (id)literalObjectAtIndex:(unsigned)index;
+- (id)temporaryAtIndex:(NSUInteger)index;
+- (void)setTemporary:anObject atIndex:(NSUInteger)index;
+- (NSString *)referenceNameAtIndex:(NSUInteger)index;
+- (id)literalObjectAtIndex:(NSUInteger)index;
 
 - (id)receiver;
 @end

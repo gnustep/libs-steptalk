@@ -75,7 +75,7 @@ typedef struct
     unsigned short code;
     unsigned short arg1;
     unsigned short arg2;
-    unsigned pointer;
+    NSUInteger pointer;
 } STBytecode;
 
 extern NSArray *STBytecodeNames;
@@ -86,9 +86,9 @@ extern NSString *STDissasembleBytecode(STBytecode bytecode);
 {
     NSData *bytes;
 }
-- (STBytecode)fetchNextBytecodeAtPointer:(unsigned *)pointer;
+- (STBytecode)fetchNextBytecodeAtPointer:(NSUInteger *)pointer;
 - (NSData *) data;
-- (unsigned) length;
+- (NSUInteger) length;
 @end
 
 

@@ -87,11 +87,11 @@ typedef struct _STParserContext
 
     BOOL              isSingleMethod;
     
-    unsigned          stackSize;    /* Required stack size */
-    unsigned          stackPos;     /* Current stack pointer */
-    unsigned          tempsSize;    /* Required temp space */
-    unsigned          tempsCount;   /* Actual temp space */
-    unsigned          bcpos;        /* Bytecode position */
+    NSUInteger        stackSize;    /* Required stack size */
+    NSUInteger        stackPos;     /* Current stack pointer */
+    NSUInteger        tempsSize;    /* Required temp space */
+    NSUInteger        tempsCount;   /* Actual temp space */
+    NSUInteger        bcpos;        /* Bytecode position */
 
     Class           stringLiteralClass; /* default: NSMutableString */
     Class           arrayLiteralClass;  /* default: NSMutableArray */

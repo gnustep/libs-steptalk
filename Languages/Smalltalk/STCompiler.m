@@ -83,8 +83,8 @@ extern int STCparse(void *context);
 
 - (NSDictionary *)exceptionInfo;
 
-- (unsigned)addSelectorLiteral:(NSString*)selector;
-- (unsigned)addLiteral:literal;
+- (NSUInteger)addSelectorLiteral:(NSString*)selector;
+- (NSUInteger)addLiteral:literal;
 
 - (void)compileMethod:(STCMethod *)method;
 - (STCompiledCode *) compileStatements:(STCStatements *)statements;
@@ -92,18 +92,18 @@ extern int STCparse(void *context);
 - (void)compilePrimary:(STCPrimary *)primary;
 - (void)compileExpression:(STCExpression *)expr;
 
-- (void)emitPushReceiverVariable:(unsigned)index;
+- (void)emitPushReceiverVariable:(NSUInteger)index;
 - (void)emitPushSelf;
-- (void)emitPopAndStoreReceiverVariable:(unsigned)index;
+- (void)emitPopAndStoreReceiverVariable:(NSUInteger)index;
 - (void)emitReturn;
 - (void)emitReturnFromBlock;
-- (void)emitPushTemporary:(unsigned)index;
-- (void)emitPushLiteral:(unsigned)index;
-- (void)emitPushVariable:(unsigned)index;
-- (void)emitPopAndStoreTemporary:(unsigned)index;
-- (void)emitPopAndStoreVariable:(unsigned)index ;
+- (void)emitPushTemporary:(NSUInteger)index;
+- (void)emitPushLiteral:(NSUInteger)index;
+- (void)emitPushVariable:(NSUInteger)index;
+- (void)emitPopAndStoreTemporary:(NSUInteger)index;
+- (void)emitPopAndStoreVariable:(NSUInteger)index ;
 - (void)emitPopStack;
-- (void)emitSendSelector:(unsigned)index argCount:(unsigned)argCount;
+- (void)emitSendSelector:(NSUInteger)index argCount:(NSUInteger)argCount;
 - (void)emitBlockCopy;
 - (void)emitDuplicateStackTop;
 - (void)emitJump:(short)offset;
@@ -112,8 +112,8 @@ extern int STCparse(void *context);
 - (void)emitPushTrue;
 - (void)emitPushFalse;
 
-- (void)fixupLongJumpAt:(unsigned)index with:(short)offset;
-- (unsigned)currentBytecode;
+- (void)fixupLongJumpAt:(NSUInteger)index with:(short)offset;
+- (NSUInteger)currentBytecode;
 @end
 
 #define MAX(a,b) (((a)>(b))?(a):(b))
@@ -184,7 +184,7 @@ extern int STCparse(void *context);
 {
     STCompiledMethod *result;
     NSString         *hackedSource;
-    NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
+    NSString         *exceptionFmt = @"Syntax error at line %li near '%@', "
                                    @"reason: %@.";
 
 
@@ -217,7 +217,7 @@ extern int STCparse(void *context);
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
             NSString *tokenString;
-            int       line;
+            NSInteger line;
             
             tokenString = [reader tokenString];
             line = [reader currentLine];
@@ -227,7 +227,7 @@ extern int STCparse(void *context);
             
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
-                                line,
+                                (long)line,
                                 tokenString,
                                 [localException reason]];
                          
@@ -254,7 +254,7 @@ extern int STCparse(void *context);
 {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     STCompiledScript *result;
-    NSString         *exceptionFmt = @"Syntax error at line %i near '%@', "
+    NSString         *exceptionFmt = @"Syntax error at line %li near '%@', "
                                    @"reason: %@.";
 
 
@@ -285,7 +285,7 @@ extern int STCparse(void *context);
         if ([[localException name] isEqualToString: STCompilerSyntaxException])
         {
             NSString *tokenString;
-            int       line;
+            NSInteger line;
             
             tokenString = [reader tokenString];
             line = [reader currentLine];
@@ -295,7 +295,7 @@ extern int STCparse(void *context);
 
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
-                                line,
+                                (long)line,
                                 tokenString,
                                 [localException reason]];
                          
@@ -363,7 +363,8 @@ extern int STCparse(void *context);
         if (!resultScript)
         {
             NSDebugLLog(@"STCompiler",
-                        @"Creating script with %i variables",[receiverVars count]);
+                        @"Creating script with %lu variables",
+                        (unsigned long)[receiverVars count]);
 
             resultScript = [[STCompiledScript alloc] initWithVariableNames:
                                                                 receiverVars];
@@ -392,8 +393,8 @@ extern int STCparse(void *context);
 {
     STCompiledCode    *compiledCode;
 #ifdef DEBUG
-    int              count;
-    int              i;
+    NSUInteger         count;
+    NSUInteger         i;
 #endif
     
     /* FIXME: create another class */
@@ -405,26 +406,28 @@ extern int STCparse(void *context);
 
     [self compileStatements:statements blockFlag:NO];
 
-    NSDebugLLog(@"STCompiler", @"  temporaries %i stack %i",
-                 tempsSize,stackSize);
+    NSDebugLLog(@"STCompiler", @"  temporaries %lu stack %lu",
+                 (unsigned long)tempsSize,(unsigned long)stackSize);
 
 #ifdef DEBUG
     count = [literals count];
 
-    NSDebugLLog(@"STCompiler", @"  literals count %i", count);
+    NSDebugLLog(@"STCompiler", @"  literals count %lu", (unsigned long)count);
 
     for(i=0;i<count;i++)
     {
         NSDebugLLog(@"STCompiler",
-                    @"    %2i %@", i, [literals objectAtIndex:i]);
+                    @"    %2lu %@",
+                    (unsigned long)i, [literals objectAtIndex:i]);
     }
 
     count = [namedReferences count];
-    NSDebugLLog(@"STCompiler",@"  named references count %i",count);
+    NSDebugLLog(@"STCompiler",@"  named references count %lu",count);
     for(i=0;i<count;i++)
     {
         NSDebugLLog(@"STCompiler",
-                    @"    %i %@",i,[namedReferences objectAtIndex:i]);
+                    @"    %lu %@",
+                    (unsigned long)i,[namedReferences objectAtIndex:i]);
     }
 #endif
     
@@ -475,12 +478,12 @@ extern int STCparse(void *context);
     }
 }
 
-- (unsigned)addSelectorLiteral:(NSString*)selector
+- (NSUInteger)addSelectorLiteral:(NSString*)selector
 {
     return [self addLiteral:selector];
 }
 
-- (unsigned)addLiteral:literal
+- (NSUInteger)addLiteral:literal
 {
     [literals addObject:literal];
     return [literals count] - 1;
@@ -571,16 +574,16 @@ extern int STCparse(void *context);
     STBlockLiteral *blockInfo = nil;
     STCExpression  *expr;
     NSArray        *array;
-    unsigned        tempsSave;           /* stored count of temporaries */
-    unsigned        stackPosSave  = 0;   /* stored previous stack value */  
-    unsigned        stackSizeSave = 0;
-    unsigned        jumpIP = 0; /* location of jump bytecode for later fixup */
-    unsigned        index;
-    unsigned        argCount=0;  /* argument count for block context */
+    NSUInteger      tempsSave;           /* stored count of temporaries */
+    NSUInteger      stackPosSave  = 0;   /* stored previous stack value */  
+    NSUInteger      stackSizeSave = 0;
+    NSUInteger      jumpIP = 0; /* location of jump bytecode for later fixup */
+    NSUInteger      index;
+    NSUInteger      argCount=0;  /* argument count for block context */
         
     NSDebugLLog(@"STCompiler-misc",
-                @"  compile statements; blockFlag=%i; tempCount=%i",
-                 blockFlag,tempsCount);
+                @"  compile statements; blockFlag=%i; tempCount=%lu",
+                 blockFlag,(unsigned long)tempsCount);
 
     tempsSave = tempsCount; /* store value, so we can cleanup array later */
     
@@ -703,7 +706,7 @@ extern int STCparse(void *context);
 
     if (blockFlag)
     {
-        int i;      
+        NSUInteger i;      
         /* Need to keep the block parameters allocated until we exit
            the method context, but we also need to harvest the names*/
         for (i = tempsSave; i < tempsCount; ++i)
@@ -802,7 +805,7 @@ extern int STCparse(void *context);
     NSEnumerator *enumerator;
     NSArray      *args;
     id            obj;
-    int           index;
+    NSUInteger    index;
     
     args = [message arguments];
     if(args && ([args count]>0))
@@ -1011,14 +1014,14 @@ extern int STCparse(void *context);
  */
 #define STDebugEmit(bc) \
                 NSDebugLLog(@"STCompiler-emit", \
-                            @"#%04x %@", \
-                            (bc).pointer, \
+                            @"#%04lx %@", \
+                            (unsigned long)(bc).pointer, \
                             STDissasembleBytecode(bc))
 
 #define STDebugEmitWith(bc,object) \
                 NSDebugLLog(@"STCompiler-emit", \
-                            @"#%04x %@ (%@)", \
-                            (bc).pointer, \
+                            @"#%04lx %@ (%@)", \
+                            (unsigned long)(bc).pointer, \
                             STDissasembleBytecode(bc), \
                             (object))
 
@@ -1052,26 +1055,26 @@ extern int STCparse(void *context);
             do {\
                 stackPos++; \
                 stackSize = MAX(stackPos,stackSize);\
-                /* NSDebugLLog(@"STCompiler",@"stack pointer %i/%i",stackPos,stackSize); */\
+                /* NSDebugLLog(@"STCompiler",@"stack pointer %lu/%lu",(unsigned long)stackPos,(unsigned long)stackSize); */\
             } while(0)
 #define STACK_PUSH_COUNT(count) \
             do {\
                 stackPos+=count; \
                 stackSize = MAX(stackPos,stackSize);\
-                /* NSDebugLLog(@"STCompiler",@"stack pointer %i/%i",stackPos,stackSize);*/ \
+                /* NSDebugLLog(@"STCompiler",@"stack pointer %lu/%lu",(unsigned long)stackPos,(unsigned long)stackSize);*/ \
             } while(0)
 
 #define STACK_POP \
             stackPos--; \
-            /* NSDebugLLog(@"STCompiler",@"stack pointer %i/%i",stackPos,stackSize) */;
+            /* NSDebugLLog(@"STCompiler",@"stack pointer %lu/%lu",(unsigned long)stackPos,(unsigned long)stackSize) */;
 #define STACK_POP_COUNT(count) \
             stackPos-=count; \
-            /* NSDebugLLog(@"STCompiler",@"stack pointer %i/%i",stackPos,stackSize) */;
+            /* NSDebugLLog(@"STCompiler",@"stack pointer %lu/%lu",(unsigned long)stackPos,(unsigned long)stackSize) */;
             
 - (void)emitPushSelf
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push self", bcpos);
+                @"#%04lx push self", (unsigned long)bcpos);
                 
     EMIT_SINGLE(STPushReceiverBytecode);
     STACK_PUSH;
@@ -1079,7 +1082,7 @@ extern int STCparse(void *context);
 - (void)emitPushNil
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push nil", bcpos);
+                @"#%04lx push nil", (unsigned long)bcpos);
                 
     EMIT_SINGLE(STPushNilBytecode);
     STACK_PUSH;
@@ -1087,7 +1090,7 @@ extern int STCparse(void *context);
 - (void)emitPushTrue
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push true", bcpos);
+                @"#%04lx push true", (unsigned long)bcpos);
                 
     EMIT_SINGLE(STPushTrueBytecode);
     STACK_PUSH;
@@ -1095,85 +1098,93 @@ extern int STCparse(void *context);
 - (void)emitPushFalse
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push false", bcpos);
+                @"#%04lx push false", (unsigned long)bcpos);
                 
     EMIT_SINGLE(STPushFalseBytecode);
     STACK_PUSH;
 }
-- (void)emitPushReceiverVariable:(unsigned)index
+- (void)emitPushReceiverVariable:(NSUInteger)index
 {
                 
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push receiver variable %i (%@)",
-                bcpos,index,[namedReferences objectAtIndex:index]);
+                @"#%04lx push receiver variable %lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [namedReferences objectAtIndex:index]);
 
     EMIT_DOUBLE(STPushRecVarBytecode,index);
     STACK_PUSH;
 }
 
-- (void)emitPushTemporary:(unsigned)index
+- (void)emitPushTemporary:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push temporary %i (%@)",
-                bcpos,index,[tempVars objectAtIndex:index]);
+                @"#%04lx push temporary %lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [tempVars objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPushTemporaryBytecode,index);
     STACK_PUSH;
     
 }
 
-- (void)emitPushLiteral:(unsigned)index
+- (void)emitPushLiteral:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push literal %i (%@)",
-                bcpos,index,[literals objectAtIndex:index]);
+                @"#%04lx push literal %lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [literals objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPushLiteralBytecode,index);
     STACK_PUSH;
     stackSize++;
 }
-- (void)emitPushVariable:(unsigned)index
+- (void)emitPushVariable:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x push external variable %i (%@)",
-                bcpos,index,[namedReferences objectAtIndex:index]);
+                @"#%04lx push external variable %lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [namedReferences objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPushExternBytecode,index);
     STACK_PUSH;
 }
-- (void)emitPopAndStoreTemporary:(unsigned)index
+- (void)emitPopAndStoreTemporary:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x pop and store temp %i (%@)",
-                bcpos,index,[tempVars objectAtIndex:index]);
+                @"#%04lx pop and store temp lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [tempVars objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPopAndStoreTempBytecode,index);
     STACK_POP;
 }
-- (void)emitPopAndStoreVariable:(unsigned)index
+- (void)emitPopAndStoreVariable:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x pop and store ext variable %i (%@)",
-                bcpos,index,[namedReferences objectAtIndex:index]);
+                @"#%04lx pop and store ext variable lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [namedReferences objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPopAndStoreExternBytecode,index);
     STACK_POP;
 }
-- (void)emitPopAndStoreReceiverVariable:(unsigned)index
+- (void)emitPopAndStoreReceiverVariable:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x pop and store rec variable %i (%@)",
-                bcpos,index,[namedReferences objectAtIndex:index]);
+                @"#%04lx pop and store rec variable lu (%@)",
+                (unsigned long)bcpos,(unsigned long)index,
+                [namedReferences objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPopAndStoreRecVarBytecode,index);
     STACK_POP;
 }
 
-- (void)emitSendSelector:(unsigned)index argCount:(unsigned)argCount
+- (void)emitSendSelector:(NSUInteger)index argCount:(NSUInteger)argCount
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x send selector %i (%@) with %i args",
-                bcpos,index,[literals objectAtIndex:index],argCount);
+                @"#%04lx send selector lu (%@) with lu args",
+                (unsigned long)bcpos,(unsigned long)index,
+                [literals objectAtIndex:index],(unsigned long)argCount);
             
     EMIT_TRIPPLE(STSendSelectorBytecode,index,argCount);
     STACK_PUSH_COUNT(argCount);
@@ -1182,7 +1193,7 @@ extern int STCparse(void *context);
 - (void)emitDuplicateStackTop
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x dup",bcpos);
+                @"#%04lx dup",(unsigned long)bcpos);
                 
     EMIT_SINGLE(STDupBytecode);
     STACK_PUSH;
@@ -1190,7 +1201,7 @@ extern int STCparse(void *context);
 - (void)emitPopStack
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x pop stack",bcpos);
+                @"#%04lx pop stack",(unsigned long)bcpos);
                 
     EMIT_SINGLE(STPopStackBytecode);
     STACK_POP;
@@ -1198,28 +1209,29 @@ extern int STCparse(void *context);
 - (void)emitReturn
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x return",bcpos);
+                @"#%04lx return",(unsigned long)bcpos);
                 
     EMIT_SINGLE(STReturnBytecode);
 }
 - (void)emitReturnFromBlock
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x return from block",bcpos);
+                @"#%04lx return from block",(unsigned long)bcpos);
                 
     EMIT_SINGLE(STReturnBlockBytecode);
 }
 - (void)emitBlockCopy
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x create block",bcpos);
+                @"#%04lx create block",(unsigned long)bcpos);
                 
     EMIT_SINGLE(STBlockCopyBytecode);
 }
 - (void)emitLongJump:(short)offset
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04x long jump %i (0x%04x)",bcpos,offset,bcpos+offset);
+                @"#%04lx long jump %i (0x%04lx)",
+                (unsigned long)bcpos,offset,(unsigned long)(bcpos+offset));
                 
 /*
     EMIT_TRIPPLE(STLongJumpBytecode,STLongJumpFirstByte(offset),
@@ -1227,17 +1239,18 @@ extern int STCparse(void *context);
 */
     EMIT_DOUBLE(STLongJumpBytecode, offset);
 }
-- (void)fixupLongJumpAt:(unsigned)index with:(short)offset
+- (void)fixupLongJumpAt:(NSUInteger)index with:(short)offset
 {
     //unsigned char bytes[4] = {0,STLongJumpFirstByte(offset),0,STLongJumpSecondByte(offset)};
     unsigned char bytes[2] = { (offset >> 8) & 0xff, offset & 0xff };
 
     NSDebugLLog(@"STCompiler-emit",
-                @"# fixup long jump at 0x%04x to 0x%04x",index, index + offset);
+                @"# fixup long jump at 0x%04lx to 0x%04lx",
+                (unsigned long)index, (unsigned long)(index + offset));
 
     [byteCodes replaceBytesInRange:NSMakeRange(index+1,2) withBytes:bytes];
 }
-- (unsigned)currentBytecode
+- (NSUInteger)currentBytecode
 {
     return [byteCodes length];
 }

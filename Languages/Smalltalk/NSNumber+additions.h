@@ -35,6 +35,6 @@
 - (BOOL)isTrue;
 - (BOOL)isFalse;
 
-- to:(int)number do:(STBlock *)block;
-- to:(int)number step:(int)step do:(STBlock *)block;
+- to:(NSInteger)number do:(STBlock *)block;
+- to:(NSInteger)number step:(NSInteger)step do:(STBlock *)block;
 @end

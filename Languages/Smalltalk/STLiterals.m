@@ -69,21 +69,21 @@
 @end
 
 @implementation STBlockLiteral
-- initWithArgumentCount:(unsigned)count
+- initWithArgumentCount:(NSUInteger)count
 {
     if ((self = [super init]) != nil)
 	argCount = count;
     return self;
 }
-- (void)setStackSize:(unsigned)size
+- (void)setStackSize:(NSUInteger)size
 {
     stackSize = size;
 }
-- (unsigned)argumentCount
+- (NSUInteger)argumentCount
 {
     return argCount;
 }
-- (unsigned)stackSize
+- (NSUInteger)stackSize
 {
     return stackSize;
 }

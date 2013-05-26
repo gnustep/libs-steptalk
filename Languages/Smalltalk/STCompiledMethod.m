@@ -35,6 +35,7 @@
 #import <Foundation/NSCoder.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSException.h>
 
 @implementation STCompiledMethod
 + methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern
@@ -55,11 +56,11 @@
 }
 
 -   initWithSelector:(NSString *)sel
-       argumentCount:(unsigned)aCount
+       argumentCount:(NSUInteger)aCount
        bytecodesData:(NSData *)data
             literals:(NSArray *)anArray
-    temporariesCount:(unsigned)tCount
-           stackSize:(unsigned)size
+    temporariesCount:(NSUInteger)tCount
+           stackSize:(NSUInteger)size
      namedReferences:(NSMutableArray *)refs;
 {
     if ((self = [super initWithBytecodesData:data
@@ -68,6 +69,7 @@
                                    stackSize:size
                              namedReferences:refs]) != nil)
     {
+        NSAssert(aCount < SHRT_MAX, @"too many arguments (>= max(short))");
         selector = RETAIN(sel);
         argCount = aCount;
     }
@@ -83,7 +85,7 @@
     return selector;
 }
 
-- (unsigned)argumentCount
+- (NSUInteger)argumentCount
 {
     return argCount;
 }
@@ -92,17 +94,17 @@
 {
     NSMutableString *desc = [NSMutableString string];
 
-    [desc appendFormat:@"%s:\n"
+    [desc appendFormat:@"%@:\n"
                        @"Selector = %@\n"
-                       @"Literals Count = %i\n"
+                       @"Literals Count = %lu\n"
                        @"Literals = %@\n"
                        @"External References = %@\n"
-                       @"Temporaries Count = %i\n"
-                       @"Stack Size = %i\n"
+                       @"Temporaries Count = %u\n"
+                       @"Stack Size = %u\n"
                        @"Byte Codes = %@\n",
                        [self className],
                        selector,
-                       [literals count],
+                       (unsigned long)[literals count],
                        [literals description],
                        [namedRefs description],
                        tempCount,

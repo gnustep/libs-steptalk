@@ -16,12 +16,12 @@
 #import <Foundation/NSDebug.h>
 
 @implementation STStack
-+ stackWithSize:(unsigned)newSize
++ stackWithSize:(NSUInteger)newSize
 {
     return AUTORELEASE([[self alloc] initWithSize:newSize]);
 }
 
-- initWithSize:(unsigned)newSize
+- initWithSize:(NSUInteger)newSize
 {
     if ((self = [super init]) != nil)
     {
@@ -32,14 +32,14 @@
     return self;
 }
 
-- (void)invalidPointer:(unsigned)ptr
+- (void)invalidPointer:(NSUInteger)ptr
 {
     [NSException raise:STInternalInconsistencyException
-                format:@"%@: invalid pointer %i (sp=%i size=%i)",
+                format:@"%@: invalid pointer %lu (sp=%lu size=%lu)",
                         self,
-                        ptr,
-                        pointer,
-                        size];
+                        (unsigned long)ptr,
+                        (unsigned long)pointer,
+                        (unsigned long)size];
 }
 - (void)dealloc
 {
@@ -59,14 +59,14 @@
             }\
             while(0) 
 /*
-- (void)setPointer:(unsigned)newPointer
+- (void)setPointer:(NSUInteger)newPointer
 {
     CHECK_POINTER(newPointer);
     pointer=newPointer;
 }
 */
 
-- (int)pointer
+- (NSUInteger)pointer
 {
     return pointer;
 }
@@ -75,7 +75,8 @@
 {
     CHECK_POINTER(pointer);
 
-    NSDebugLLog(@"STStack",@"stack:%p %02i push '%@'",self,pointer,value);
+    NSDebugLLog(@"STStack",@"stack:%p %02lu push '%@'",
+                self,(unsigned long)pointer,value);
     
     stack[pointer++] = value;
 }
@@ -91,15 +92,15 @@
 
     return CONVERT_NIL(stack[pointer-1]);
 }
-- (id)valueFromTop:(unsigned)index
+- (id)valueFromTop:(NSUInteger)index
 {
     id value;
 
     CHECK_POINTER(pointer-index-1);
 
     value = stack[pointer - index - 1];
-    NSDebugLLog(@"STStack",@"stack:%p %02i from top %i '%@'",
-                  self,pointer,index,value);
+    NSDebugLLog(@"STStack",@"stack:%p %02li from top %li '%@'",
+                  self,(unsigned long)pointer,(unsigned long)index,value);
 
     return CONVERT_NIL(value);
 }
@@ -108,18 +109,20 @@
 {
     CHECK_POINTER(pointer-1);
 
-    NSDebugLLog(@"STStack",@"stack:%p %02i pop '%@'",self,pointer,stack[pointer-1]);
+    NSDebugLLog(@"STStack",@"stack:%p %02li pop '%@'",
+                self,(unsigned long)pointer,stack[pointer-1]);
 
     pointer --;
     return CONVERT_NIL(stack[pointer]);
 }
 
-- (void)popCount:(unsigned)count
+- (void)popCount:(NSUInteger)count
 {
     CHECK_POINTER(pointer-count);
 
-    NSDebugLLog(@"STStack",@"stack:%p %02i pop count %i (%i)",self,
-                 pointer,count,pointer-count);
+    NSDebugLLog(@"STStack",@"stack:%p %02lu pop count %lu (%li)",self,
+                 (unsigned long)pointer,(unsigned long)count,
+                 (long)(pointer-count));
     pointer -= count;
 }
 - (void)empty

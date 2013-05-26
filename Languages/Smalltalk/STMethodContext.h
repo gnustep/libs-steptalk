@@ -47,8 +47,8 @@
 
 - (void)setArgumentsFromArray:(NSArray *)args;
 
-- (id)temporaryAtIndex:(unsigned)index;
-- (void)setTemporary:anObject atIndex:(unsigned)index;
+- (id)temporaryAtIndex:(NSUInteger)index;
+- (void)setTemporary:anObject atIndex:(NSUInteger)index;
 
 - (STBytecodes *)bytecodes;
 @end

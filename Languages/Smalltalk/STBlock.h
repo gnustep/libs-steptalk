@@ -34,9 +34,9 @@
     STBytecodeInterpreter *interpreter;
     STMethodContext       *homeContext;
     
-    unsigned               initialIP;
-    unsigned               argCount;
-    unsigned               stackSize;
+    NSUInteger             initialIP;
+    NSUInteger             argCount;
+    NSUInteger             stackSize;
 
     STBlockContext        *cachedContext;
     BOOL                   usingCachedContext; 
@@ -44,11 +44,11 @@
 
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
           homeContext:(STMethodContext *)context
-            initialIP:(unsigned)ptr
-        argumentCount:(int)count
-            stackSize:(int)size;
+            initialIP:(NSUInteger)ptr
+        argumentCount:(NSUInteger)count
+            stackSize:(NSUInteger)size;
                  
-- (unsigned)argumentCount;
+- (NSUInteger)argumentCount;
 
 - value;
 - value:arg;
@@ -60,7 +60,7 @@
 - valueWith:arg;
 - valueWith:arg1 with:arg2;
 - valueWith:arg1 with:arg2 with:arg3;
-- valueWithArgs:(id *)args count:(unsigned)count;
+- valueWithArgs:(id *)args count:(NSUInteger)count;
 
 - whileTrue:(STBlock *)doBlock;
 - whileFalse:(STBlock *)doBlock;

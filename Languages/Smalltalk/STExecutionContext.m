@@ -16,14 +16,14 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSString.h>
 
-static unsigned nextId = 1;
+static NSUInteger nextId = 1;
 
 @interface STExecutionContext(STPrivateMethods)
-- (unsigned)contextId;
+- (NSUInteger)contextId;
 @end
 
 @implementation STExecutionContext
-- initWithStackSize:(unsigned)stackSize
+- initWithStackSize:(NSUInteger)stackSize
 {
     if ((self = [super init]) != nil)
     {
@@ -37,7 +37,7 @@ static unsigned nextId = 1;
     RELEASE(stack);
     [super dealloc];
 }
-- (unsigned)contextId
+- (NSUInteger)contextId
 {
     return contextId;
 }
@@ -45,10 +45,10 @@ static unsigned nextId = 1;
 {
     NSMutableString *str;
     str = [NSMutableString stringWithFormat:
-                              @"%@ %i (home %i)",
+                              @"%@ %lu (home %lu)",
                               [self className],
-                              contextId,
-                              [[self homeContext] contextId]];
+                              (unsigned long)contextId,
+                              (unsigned long)[[self homeContext] contextId]];
     return str;
 }
 - (void)invalidate
@@ -59,11 +59,11 @@ static unsigned nextId = 1;
 {
     return (instructionPointer != NSNotFound);
 }
-- (unsigned)instructionPointer
+- (NSUInteger)instructionPointer
 {
     return instructionPointer;
 }
-- (void)setInstructionPointer:(unsigned)value
+- (void)setInstructionPointer:(NSUInteger)value
 {
     instructionPointer = value;
 }
@@ -86,16 +86,16 @@ static unsigned nextId = 1;
     [self subclassResponsibility:_cmd];
     return NO;
 }
-- (id)temporaryAtIndex:(unsigned)index
+- (id)temporaryAtIndex:(NSUInteger)index
 {
     [self subclassResponsibility:_cmd];
     return nil;
 }
-- (void)setTemporary:anObject atIndex:(unsigned)index
+- (void)setTemporary:anObject atIndex:(NSUInteger)index
 {
     [self subclassResponsibility:_cmd];
 }
-- (NSString *)referenceNameAtIndex:(unsigned)index
+- (NSString *)referenceNameAtIndex:(NSUInteger)index
 {
     [self subclassResponsibility:_cmd];
     return nil;
@@ -105,7 +105,7 @@ static unsigned nextId = 1;
     [self subclassResponsibility:_cmd];
     return nil;
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(NSUInteger)index
 {
     [self subclassResponsibility:_cmd];
     return nil;

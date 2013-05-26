@@ -58,10 +58,10 @@
 
 /* FIXME: make it work with floats */
 
-- to:(int)number do:(STBlock *)block
+- to:(NSInteger)number do:(STBlock *)block
 {
-    id   retval = nil;
-    int  i;
+    id         retval = nil;
+    NSInteger  i;
 
     for(i=[self intValue];i<=number;i++)
     {
@@ -70,10 +70,10 @@
     return retval;
 }
 
-- to:(int)number step:(int)step do:(STBlock *)block
+- to:(NSInteger)number step:(NSInteger)step do:(STBlock *)block
 {
-    id   retval = nil;
-    int  i;
+    id         retval = nil;
+    NSInteger  i;
 
     if (step > 0)
     {

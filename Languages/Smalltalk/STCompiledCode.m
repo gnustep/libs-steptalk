@@ -30,16 +30,19 @@
 #import <Foundation/NSData.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSCoder.h>
+#import <Foundation/NSException.h>
 
 @implementation STCompiledCode
 - initWithBytecodesData:(NSData *)data
                literals:(NSArray *)anArray
-       temporariesCount:(unsigned)count
-              stackSize:(unsigned)size
+       temporariesCount:(NSUInteger)count
+              stackSize:(NSUInteger)size
         namedReferences:(NSMutableArray *)refs
 {
     if ((self = [super init]) != nil)
     {
+	NSAssert(count < SHRT_MAX, @"too many temporaries (>= max(short))");
+	NSAssert(size < SHRT_MAX, @"stack too large (>= max(short))");
 	bytecodes = [[STBytecodes alloc] initWithData:data];
 	literals = [[NSArray alloc] initWithArray:anArray];
 	tempCount = count;
@@ -60,11 +63,11 @@
     return bytecodes;
 }
 
-- (unsigned)temporariesCount
+- (NSUInteger)temporariesCount
 {
     return tempCount;
 }
-- (unsigned)stackSize
+- (NSUInteger)stackSize
 {
     return stackSize;
 }
@@ -72,7 +75,7 @@
 {
     return literals;
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(NSUInteger)index
 {
     return [literals objectAtIndex:index];
 }

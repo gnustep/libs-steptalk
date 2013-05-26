@@ -55,10 +55,10 @@
 - (BOOL)dispatchBytecode:(STBytecode)bytecode;
 - (void)invalidBytecode:(STBytecode)bytecode;
 
-- (void)setInstructionPointer:(unsigned)newIP;
-- (unsigned)instructionPointer;
+- (void)setInstructionPointer:(NSUInteger)newIP;
+- (NSUInteger)instructionPointer;
 
-- (void)sendSelectorAtIndex:(unsigned)index withArgs:(unsigned)argCount;
+- (void)sendSelectorAtIndex:(NSUInteger)index withArgCount:(NSUInteger)argCount;
 
 - (id)interpret;
 - (void)returnValue:(id)value;
@@ -123,8 +123,8 @@ static Class NSInvocation_class = nil;
         return nil;
     }
     
-    NSDebugLLog(@"STBytecodeInterpreter",@"Executing method %@ with %i args", 
-                [method selector],[args count]);
+    NSDebugLLog(@"STBytecodeInterpreter",@"Executing method %@ with %lu args", 
+                [method selector],(unsigned long)[args count]);
 
     if (!method)
     {
@@ -134,9 +134,10 @@ static Class NSInvocation_class = nil;
     if ([args count] != [method argumentCount])
     {
         [NSException raise:STInterpreterGenericException
-                    format:@"Invalid argument count %i (should be %i)"
+                    format:@"Invalid argument count %lu (should be %lu)"
                            @" for method %@ ",
-                           [args count],[method argumentCount], 
+                           (unsigned long)[args count],
+                           (unsigned long)[method argumentCount], 
                            [method selector]];
     }
 
@@ -238,8 +239,10 @@ static Class NSInvocation_class = nil;
     
     entry++;
 
-    NSDebugLLog(@"STBytecodeInterpreter", @"Interpreter entry %i", entry);
-    NSDebugLLog(@"STBytecodeInterpreter", @"IP %x %x", instructionPointer, [bytecodes length]);
+    NSDebugLLog(@"STBytecodeInterpreter", @"Interpreter entry %li", (long)entry);
+    NSDebugLLog(@"STBytecodeInterpreter", @"IP %lx %lx",
+                (unsigned long)instructionPointer,
+                (unsigned long)[bytecodes length]);
 
     if(!bytecodes)
     {
@@ -272,7 +275,8 @@ static Class NSInvocation_class = nil;
     }
 
     NSDebugLLog(@"STBytecodeInterpreter",
-                @"Returning '%@' from interpreter (entry %i)",retval,entry);
+                @"Returning '%@' from interpreter (entry %li)",
+                retval,(long)entry);
 
     entry --;
     return retval;
@@ -327,7 +331,7 @@ static Class NSInvocation_class = nil;
     [stack push:value];
 }
 
-- (unsigned)instructionPointer
+- (NSUInteger)instructionPointer
 {
     return instructionPointer;
 }
@@ -337,19 +341,20 @@ static Class NSInvocation_class = nil;
  * Block manipulation
  * ---------------------------------------------------------------------------
  */
-- (void)createBlockWithArgumentCount:(int)argCount stackSize:(int)stackSize
+- (void)createBlockWithArgumentCount:(NSUInteger)argCount
+			   stackSize:(NSUInteger)stackSize
 {
-    unsigned ptr;
-    STBlock        *block;
+    NSUInteger ptr;
+    STBlock   *block;
     
     ptr = instructionPointer + STLongJumpBytecodeSize;
 
     NSDebugLLog(@"STExecutionContext",
-                @"%@ Create block: argc:%i stack:%i ip:0x%04x",
+                @"%@ Create block: argc:%lu stack:%lu ip:0x%04lx",
                  activeContext, 
-                 argCount,
-                 stackSize,
-                 ptr);
+                 (unsigned long)argCount,
+                 (unsigned long)stackSize,
+                 (unsigned long)ptr);
 
     block =
         [[STBlock alloc] initWithInterpreter:self
@@ -366,17 +371,19 @@ static Class NSInvocation_class = nil;
  * ---------------------------------------------------------------------------
  */
 
-- (void)sendSelectorAtIndex:(unsigned)selIndex withArgCount:(unsigned)argCount
+- (void)sendSelectorAtIndex:(NSUInteger)selIndex
+	       withArgCount:(NSUInteger)argCount
 {
     NSString          *selector;
     NSInvocation      *invocation;
     id                 target;
-    int                index;
+    NSInteger          index;
     id                 object;
 
     NSDebugLLog(@"STSending",
-                @"send selector '%@' with %i args'",
-                [activeContext literalObjectAtIndex:selIndex],argCount);
+                @"send selector '%@' with %lu args'",
+                [activeContext literalObjectAtIndex:selIndex],
+                (unsigned long)argCount);
                 
     target = [stack valueFromTop:argCount];
     
@@ -423,7 +430,7 @@ static Class NSInvocation_class = nil;
         }
         
         NSDebugLLog(@"STSending",
-                    @"    argument %2i: '%@'",index - 2, object);
+                    @"    argument %2li: '%@'",(long)(index - 2), object);
 
         [invocation setArgumentAsObject:object atIndex:index];
     }
@@ -453,14 +460,14 @@ static Class NSInvocation_class = nil;
  */
 #define STDebugBytecode(bc) \
                 NSDebugLLog(@"STBytecodeInterpreter", \
-                            @"#%04x %@", \
-                            (bc).pointer, \
+                            @"#%04lx %@", \
+                            (unsigned long)(bc).pointer, \
                             STDissasembleBytecode(bc))
 
 #define STDebugBytecodeWith(bc,object) \
                 NSDebugLLog(@"STBytecodeInterpreter", \
-                            @"#%04x %@ (%@)", \
-                            (bc).pointer, \
+                            @"#%04lx %@ (%@)", \
+                            (unsigned long)(bc).pointer, \
                             STDissasembleBytecode(bc), \
                             (object))
 
@@ -480,10 +487,11 @@ static Class NSInvocation_class = nil;
     case STLongJumpBytecode:
                 {
 /*
-                    int offset = STLongJumpOffset(bytecode.arg1,bytecode.arg2)
-                                    - STLongJumpBytecodeSize;
+                    NSInteger offset =
+		        STLongJumpOffset(bytecode.arg1,bytecode.arg2)
+                        - STLongJumpBytecodeSize;
 */
-		    int offset = bytecode.arg1 - STLongJumpBytecodeSize;
+		    NSInteger offset = bytecode.arg1 - STLongJumpBytecodeSize;
                     STDebugBytecode(bytecode);
                     instructionPointer+=offset;
                     break;
@@ -613,8 +621,8 @@ static Class NSInvocation_class = nil;
 - (void)invalidBytecode:(STBytecode)bytecode
 {
     [NSException raise:STInternalInconsistencyException
-                 format:@"invalid bytecode (0x%02x) at 0x%06x",
-                         bytecode.code,bytecode.pointer];
+                 format:@"invalid bytecode (0x%02x) at 0x%06lx",
+                         bytecode.code,(unsigned long)bytecode.pointer];
 }
 @end
 

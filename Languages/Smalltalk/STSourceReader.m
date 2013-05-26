@@ -28,14 +28,14 @@ static NSCharacterSet *validCharacterCharacterSet;
 // #define AT_END ([self atEnd])
 
 @interface NSString (LineCounting)
-- (int)lineNumberForIndex:(int)index;
+- (NSInteger)lineNumberForIndex:(NSInteger)index;
 @end
 
 @implementation NSString (LineCounting)
-- (int)lineNumberForIndex:(int)index
+- (NSInteger)lineNumberForIndex:(NSInteger)index
 {
-    int i, len;
-    int line = 1;
+    NSInteger i, len;
+    NSInteger line = 1;
     len = [self length];
     index = (index < len) ? index : len;
 
@@ -74,9 +74,9 @@ static NSCharacterSet *validCharacterCharacterSet;
 static NSString *_STNormalizeStringToken(NSString *token)
 {
     NSMutableString *string = [NSMutableString string];
-    unsigned int     i;
+    NSUInteger       i;
     unichar          c;
-    unsigned int     len = [token length];
+    NSUInteger       len = [token length];
 
     for (i = 0; i < len; i++)
     {
@@ -192,7 +192,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
     return (srcOffset >= NSMaxRange(srcRange));
 }
 
-- (int) currentLine
+- (NSInteger) currentLine
 {
     return [source lineNumberForIndex:srcOffset];
 }
@@ -213,7 +213,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
         /* treat comments as whitespace */
         if(uc == '"')
         {
-            unsigned int start = srcOffset;
+            NSUInteger start = srcOffset;
             do
             {
                 srcOffset++;
@@ -239,7 +239,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
 - (STTokenType)readNextToken
 {
     unichar c;
-    int start;
+    NSInteger start;
     if([self eatWhiteSpace])
     {
         return STErrorTokenType;

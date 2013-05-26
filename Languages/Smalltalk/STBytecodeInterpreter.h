@@ -41,10 +41,10 @@
     STExecutionContext *activeContext;       /* current execution context */
     STStack            *stack;               /* from context */
     STBytecodes        *bytecodes;           /* from context */
-    unsigned            instructionPointer;  /* IP  */
+    NSUInteger          instructionPointer;  /* IP  */
     id                  receiver;
 
-    int                 entry;
+    NSInteger           entry;
 
     BOOL                stopRequested;
 }

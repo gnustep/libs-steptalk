@@ -30,18 +30,18 @@
     NSString *selector;
     short     argCount;
 
-//  unsigned primitive; 
+//  NSUInteger primitive; 
 }
 + methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern;
 
 -   initWithSelector:(NSString *)sel
-       argumentCount:(unsigned)aCount
+       argumentCount:(NSUInteger)aCount
        bytecodesData:(NSData *)data
             literals:(NSArray *)anArray
-    temporariesCount:(unsigned)tCount
-           stackSize:(unsigned)size
+    temporariesCount:(NSUInteger)tCount
+           stackSize:(NSUInteger)size
      namedReferences:(NSMutableArray *)refs;
 
 - (NSString *)selector;
-- (unsigned)argumentCount;
+- (NSUInteger)argumentCount;
 @end

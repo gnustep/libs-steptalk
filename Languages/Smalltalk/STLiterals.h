@@ -39,11 +39,11 @@
 
 @interface STBlockLiteral:STLiteral
 {
-    unsigned  argCount;
-    unsigned  stackSize;
+    NSUInteger  argCount;
+    NSUInteger  stackSize;
 }
-- initWithArgumentCount:(unsigned)count;
-- (void)setStackSize:(unsigned)size;
-- (unsigned)argumentCount;
-- (unsigned)stackSize;
+- initWithArgumentCount:(NSUInteger)count;
+- (void)setStackSize:(NSUInteger)size;
+- (NSUInteger)argumentCount;
+- (NSUInteger)stackSize;
 @end

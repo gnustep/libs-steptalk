@@ -36,8 +36,8 @@
 
 @implementation STBlockContext
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-  initialIP:(unsigned)pointer
-  stackSize:(unsigned)size
+  initialIP:(NSUInteger)pointer
+  stackSize:(NSUInteger)size
 {
     if ((self = [super initWithStackSize:size]) != nil)
     {
@@ -67,21 +67,21 @@
     return homeContext;
 }
 
-- (unsigned)initialIP
+- (NSUInteger)initialIP
 {
     return initialIP;
 }
 
-- temporaryAtIndex:(unsigned)index;
+- temporaryAtIndex:(NSUInteger)index;
 {
     return [homeContext temporaryAtIndex:index];
 }
-- (void)setTemporary:anObject atIndex:(unsigned)index;
+- (void)setTemporary:anObject atIndex:(NSUInteger)index;
 {
     [homeContext setTemporary:anObject atIndex:index];
 }
 
-- (NSString *)referenceNameAtIndex:(unsigned)index
+- (NSString *)referenceNameAtIndex:(NSUInteger)index
 {
     return [homeContext referenceNameAtIndex:index];
 }
@@ -89,7 +89,7 @@
 {
     return [homeContext bytecodes];
 }
-- (id)literalObjectAtIndex:(unsigned)index
+- (id)literalObjectAtIndex:(NSUInteger)index
 {
     return [homeContext literalObjectAtIndex:index];
 }
