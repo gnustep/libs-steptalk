@@ -53,7 +53,7 @@ enum
     NSString      *langName;
     
     NSArray       *arguments;
-    unsigned int   currentArg;
+    NSUInteger     currentArg;
     
     BOOL           contFlag;
     int            listObjects;

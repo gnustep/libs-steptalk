@@ -40,7 +40,7 @@
 {
     STConversation *conversation;
     NSArray        *arguments;
-    unsigned int    currentArg;
+    NSUInteger      currentArg;
 
     NSString       *environmentName;
     NSString       *hostName;

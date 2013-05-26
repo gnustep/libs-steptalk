@@ -62,25 +62,25 @@
 - showResult:(id)obj
 {
     const char *className = [NSStringFromClass([obj class]) cString];
-    int         objIndex = [objectStack count] - 1;
-    int         i;
+    NSInteger   objIndex = [objectStack count] - 1;
+    NSUInteger  i;
     
     if(obj)
     {
         if([obj isKindOfClass:[NSArray class]])
         {
-            printf("(%i) %s\n", objIndex, className);
+            printf("(%li) %s\n", (long)objIndex, className);
             
             for(i = 0;i<[obj count]; i++)
             {
-                printf("%i  %s\n", i, 
+                printf("%lu  %s\n", (unsigned long)i, 
                        [self displayCStringForObject:[obj objectAtIndex:i]]); 
             }
             
         }
         else if([obj isKindOfClass:[NSSet class]])
         {
-            printf("(%i) %s\n", objIndex, className);
+            printf("(%li) %s\n", (long)objIndex, className);
             
             obj = [[obj allObjects] sortedArrayUsingSelector:@selector(compare:)];
             for(i = 0;i<[obj count]; i++)
@@ -95,7 +95,7 @@
             NSString *key;
             NSArray  *keys;
             
-            printf("(%i) %s\n", objIndex, className);
+            printf("(%li) %s\n", (long)objIndex, className);
             
             keys = [[obj allKeys] sortedArrayUsingSelector:@selector(compare:)];
 
@@ -109,7 +109,7 @@
         }
         else
         {
-            printf("(%i) %s\n", objIndex, [self displayCStringForObject:obj]);
+            printf("(%li) %s\n", (long)objIndex, [self displayCStringForObject:obj]);
         }
     }
 
@@ -140,9 +140,9 @@
 
 - (id)listObjects
 {
-    NSString *str;
-    int       i;
-    id        object;
+    NSString  *str;
+    NSUInteger i;
+    id         object;
     
     printf("Objects\n");
     for(i = 0; i < [objectStack count]; i++)
@@ -157,7 +157,7 @@
             str = [str stringByAppendingString:@"..."];
         }
         
-        printf("%4i: '%s' (%s)\n", i,
+        printf("%4lu: '%s' (%s)\n", (unsigned long)i,
                 [str cString],
                 [[[object class] description] cString]);
     }

@@ -1,5 +1,12 @@
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Tools/STExecutor.h:
+	* Examples/Shell/STShell+output.m:
+	* Examples/Shell/stshell_tool.m:
+	int->NSInteger transition
+
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Modules/AppKit/AppKitConstants.list:
 	* Modules/AppKit/AppKitConstants.m:
 	* Modules/AppKit/AppKitEvents.list:
