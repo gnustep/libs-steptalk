@@ -1,5 +1,24 @@
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Modules/AppKit/AppKitConstants.list:
+	* Modules/AppKit/AppKitConstants.m:
+	* Modules/AppKit/AppKitEvents.list:
+	* Modules/AppKit/AppKitEvents.m:
+	* Modules/AppKit/AppKitExceptions.m:
+	* Modules/AppKit/AppKitNotifications.m:
+	* Modules/AppKit/header.m:
+	* Modules/Foundation/FoundationConstants.list:
+	* Modules/Foundation/FoundationConstants.m:
+	* Modules/Foundation/header.m:
+	* Modules/GDL2/header.m:
+	* Modules/SQLClient/SQLClientConstants.m:
+	* Modules/SQLClient/header.m:
+	* Modules/WebServices/WebServicesConstants.m:
+	* Modules/WebServices/header.m:
+	int->NSInteger transition
+
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/NSInvocation+additions.h:
 	* Frameworks/StepTalk/NSInvocation+additions.m:
 	* Frameworks/StepTalk/NSNumber+additions.h:

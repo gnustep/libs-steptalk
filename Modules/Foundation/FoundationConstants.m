@@ -29,24 +29,24 @@ NSDictionary *STGetFoundationConstants(void)
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     Class numberClass = [NSNumber class];
-    IMP numberWithInt;
+    IMP numberWithInteger;
     IMP numberWithFloat;
     IMP setObject_forKey;
 
-    SEL numberWithInt_sel = @selector(numberWithInt:);
+    SEL numberWithInteger_sel = @selector(numberWithInteger:);
     SEL numberWithFloat_sel = @selector(numberWithFloat:);
     SEL setObject_forKey_sel = @selector(setObject:forKey:);
 
-    numberWithInt = [NSNumber methodForSelector:numberWithInt_sel];
+    numberWithInteger = [NSNumber methodForSelector:numberWithInteger_sel];
     numberWithFloat = [NSNumber methodForSelector:numberWithFloat_sel];
     setObject_forKey = [dict methodForSelector:setObject_forKey_sel];
 
 #define ADD_id_OBJECT(obj, name) \
             setObject_forKey(dict, setObject_forKey_sel, obj, name)
 
-#define ADD_int_OBJECT(obj, name) \
+#define ADD_NSInteger_OBJECT(obj, name) \
             setObject_forKey(dict, setObject_forKey_sel, \
-                            numberWithInt(numberClass, numberWithInt_sel, obj), \
+                            numberWithInteger(numberClass, numberWithInteger_sel, obj), \
                             name)
 
 #define ADD_float_OBJECT(obj, name) \
@@ -73,27 +73,27 @@ NSDictionary *STGetFoundationConstants(void)
             setObject_forKey(dict, setObject_forKey_sel, \
                             [NSValue valueWithRect:obj], \
                             name)
-    ADD_int_OBJECT(NO,@"NO");
-    ADD_int_OBJECT(YES,@"YES");
+    ADD_NSInteger_OBJECT(NO,@"NO");
+    ADD_NSInteger_OBJECT(YES,@"YES");
     ADD_NSPoint_OBJECT(NSZeroPoint,@"NSZeroPoint");
     ADD_NSSize_OBJECT(NSZeroSize,@"NSZeroSize");
     ADD_NSRect_OBJECT(NSZeroRect,@"NSZeroRect");
-    ADD_int_OBJECT(NSOrderedAscending,@"NSOrderedAscending");
-    ADD_int_OBJECT(NSOrderedSame,@"NSOrderedSame");
-    ADD_int_OBJECT(NSOrderedDescending,@"NSOrderedDescending");
-    ADD_int_OBJECT(NSNotFound,@"NSNotFound");
-    ADD_int_OBJECT(NSMinXEdge,@"NSMinXEdge");
-    ADD_int_OBJECT(NSMinYEdge,@"NSMinYEdge");
-    ADD_int_OBJECT(NSMaxXEdge,@"NSMaxXEdge");
-    ADD_int_OBJECT(NSMaxYEdge,@"NSMaxYEdge");
-    ADD_int_OBJECT(NS_UnknownByteOrder,@"NS_UnknownByteOrder");
-    ADD_int_OBJECT(NS_LittleEndian,@"NS_LittleEndian");
-    ADD_int_OBJECT(NS_BigEndian,@"NS_BigEndian");
-    ADD_int_OBJECT(NSOpenStepUnicodeReservedBase,@"NSOpenStepUnicodeReservedBase");
-    ADD_int_OBJECT(NSCaseInsensitiveSearch,@"NSCaseInsensitiveSearch");
-    ADD_int_OBJECT(NSLiteralSearch,@"NSLiteralSearch");
-    ADD_int_OBJECT(NSBackwardsSearch,@"NSBackwardsSearch");
-    ADD_int_OBJECT(NSAnchoredSearch,@"NSAnchoredSearch");
+    ADD_NSInteger_OBJECT(NSOrderedAscending,@"NSOrderedAscending");
+    ADD_NSInteger_OBJECT(NSOrderedSame,@"NSOrderedSame");
+    ADD_NSInteger_OBJECT(NSOrderedDescending,@"NSOrderedDescending");
+    ADD_NSInteger_OBJECT(NSNotFound,@"NSNotFound");
+    ADD_NSInteger_OBJECT(NSMinXEdge,@"NSMinXEdge");
+    ADD_NSInteger_OBJECT(NSMinYEdge,@"NSMinYEdge");
+    ADD_NSInteger_OBJECT(NSMaxXEdge,@"NSMaxXEdge");
+    ADD_NSInteger_OBJECT(NSMaxYEdge,@"NSMaxYEdge");
+    ADD_NSInteger_OBJECT(NS_UnknownByteOrder,@"NS_UnknownByteOrder");
+    ADD_NSInteger_OBJECT(NS_LittleEndian,@"NS_LittleEndian");
+    ADD_NSInteger_OBJECT(NS_BigEndian,@"NS_BigEndian");
+    ADD_NSInteger_OBJECT(NSOpenStepUnicodeReservedBase,@"NSOpenStepUnicodeReservedBase");
+    ADD_NSInteger_OBJECT(NSCaseInsensitiveSearch,@"NSCaseInsensitiveSearch");
+    ADD_NSInteger_OBJECT(NSLiteralSearch,@"NSLiteralSearch");
+    ADD_NSInteger_OBJECT(NSBackwardsSearch,@"NSBackwardsSearch");
+    ADD_NSInteger_OBJECT(NSAnchoredSearch,@"NSAnchoredSearch");
     ADD_id_OBJECT(NSAMPMDesignation,@"NSAMPMDesignation");
     ADD_id_OBJECT(NSCurrencyString,@"NSCurrencyString");
     ADD_id_OBJECT(NSCurrencySymbol,@"NSCurrencySymbol");
@@ -139,22 +139,22 @@ NSDictionary *STGetFoundationConstants(void)
     ADD_id_OBJECT(NSFileSystemFreeSize,@"NSFileSystemFreeSize");
     ADD_id_OBJECT(NSFileSystemNodes,@"NSFileSystemNodes");
     ADD_id_OBJECT(NSFileSystemFreeNodes,@"NSFileSystemFreeNodes");
-    ADD_int_OBJECT(NSASCIIStringEncoding,@"NSASCIIStringEncoding");
-    ADD_int_OBJECT(NSISO2022JPStringEncoding,@"NSISO2022JPStringEncoding");
-    ADD_int_OBJECT(NSISOLatin1StringEncoding,@"NSISOLatin1StringEncoding");
-    ADD_int_OBJECT(NSISOLatin2StringEncoding,@"NSISOLatin2StringEncoding");
-    ADD_int_OBJECT(NSJapaneseEUCStringEncoding,@"NSJapaneseEUCStringEncoding");
-    ADD_int_OBJECT(NSNEXTSTEPStringEncoding,@"NSNEXTSTEPStringEncoding");
-    ADD_int_OBJECT(NSNonLossyASCIIStringEncoding,@"NSNonLossyASCIIStringEncoding");
-    ADD_int_OBJECT(NSShiftJISStringEncoding,@"NSShiftJISStringEncoding");
-    ADD_int_OBJECT(NSSymbolStringEncoding,@"NSSymbolStringEncoding");
-    ADD_int_OBJECT(NSUTF8StringEncoding,@"NSUTF8StringEncoding");
-    ADD_int_OBJECT(NSUnicodeStringEncoding,@"NSUnicodeStringEncoding");
-    ADD_int_OBJECT(NSWindowsCP1250StringEncoding,@"NSWindowsCP1250StringEncoding");
-    ADD_int_OBJECT(NSWindowsCP1251StringEncoding,@"NSWindowsCP1251StringEncoding");
-    ADD_int_OBJECT(NSWindowsCP1252StringEncoding,@"NSWindowsCP1252StringEncoding");
-    ADD_int_OBJECT(NSWindowsCP1253StringEncoding,@"NSWindowsCP1253StringEncoding");
-    ADD_int_OBJECT(NSWindowsCP1254StringEncoding,@"NSWindowsCP1254StringEncoding");
+    ADD_NSInteger_OBJECT(NSASCIIStringEncoding,@"NSASCIIStringEncoding");
+    ADD_NSInteger_OBJECT(NSISO2022JPStringEncoding,@"NSISO2022JPStringEncoding");
+    ADD_NSInteger_OBJECT(NSISOLatin1StringEncoding,@"NSISOLatin1StringEncoding");
+    ADD_NSInteger_OBJECT(NSISOLatin2StringEncoding,@"NSISOLatin2StringEncoding");
+    ADD_NSInteger_OBJECT(NSJapaneseEUCStringEncoding,@"NSJapaneseEUCStringEncoding");
+    ADD_NSInteger_OBJECT(NSNEXTSTEPStringEncoding,@"NSNEXTSTEPStringEncoding");
+    ADD_NSInteger_OBJECT(NSNonLossyASCIIStringEncoding,@"NSNonLossyASCIIStringEncoding");
+    ADD_NSInteger_OBJECT(NSShiftJISStringEncoding,@"NSShiftJISStringEncoding");
+    ADD_NSInteger_OBJECT(NSSymbolStringEncoding,@"NSSymbolStringEncoding");
+    ADD_NSInteger_OBJECT(NSUTF8StringEncoding,@"NSUTF8StringEncoding");
+    ADD_NSInteger_OBJECT(NSUnicodeStringEncoding,@"NSUnicodeStringEncoding");
+    ADD_NSInteger_OBJECT(NSWindowsCP1250StringEncoding,@"NSWindowsCP1250StringEncoding");
+    ADD_NSInteger_OBJECT(NSWindowsCP1251StringEncoding,@"NSWindowsCP1251StringEncoding");
+    ADD_NSInteger_OBJECT(NSWindowsCP1252StringEncoding,@"NSWindowsCP1252StringEncoding");
+    ADD_NSInteger_OBJECT(NSWindowsCP1253StringEncoding,@"NSWindowsCP1253StringEncoding");
+    ADD_NSInteger_OBJECT(NSWindowsCP1254StringEncoding,@"NSWindowsCP1254StringEncoding");
     ADD_id_OBJECT(NSInconsistentArchiveException,@"NSInconsistentArchiveException");
     ADD_id_OBJECT(NSCharacterConversionException,@"NSCharacterConversionException");
     ADD_id_OBJECT(NSGenericException,@"NSGenericException");
@@ -171,23 +171,23 @@ NSDictionary *STGetFoundationConstants(void)
     ADD_id_OBJECT(NSGlobalDomain,@"NSGlobalDomain");
     ADD_id_OBJECT(NSArgumentDomain,@"NSArgumentDomain");
     ADD_id_OBJECT(NSRegistrationDomain,@"NSRegistrationDomain");
-    ADD_int_OBJECT(NSApplicationDirectory,@"NSApplicationDirectory");
-    ADD_int_OBJECT(NSDemoApplicationDirectory,@"NSDemoApplicationDirectory");
-    ADD_int_OBJECT(NSDeveloperApplicationDirectory,@"NSDeveloperApplicationDirectory");
-    ADD_int_OBJECT(NSAdminApplicationDirectory,@"NSAdminApplicationDirectory");
-    ADD_int_OBJECT(NSLibraryDirectory,@"NSLibraryDirectory");
-    ADD_int_OBJECT(NSDeveloperDirectory,@"NSDeveloperDirectory");
-    ADD_int_OBJECT(NSUserDirectory,@"NSUserDirectory");
-    ADD_int_OBJECT(NSDocumentationDirectory,@"NSDocumentationDirectory");
-    ADD_int_OBJECT(NSAllApplicationsDirectory,@"NSAllApplicationsDirectory");
-    ADD_int_OBJECT(NSAllLibrariesDirectory,@"NSAllLibrariesDirectory");
-    ADD_int_OBJECT(GSLibrariesDirectory,@"GSLibrariesDirectory");
-    ADD_int_OBJECT(GSToolsDirectory,@"GSToolsDirectory");
-    ADD_int_OBJECT(NSUserDomainMask,@"NSUserDomainMask");
-    ADD_int_OBJECT(NSLocalDomainMask,@"NSLocalDomainMask");
-    ADD_int_OBJECT(NSNetworkDomainMask,@"NSNetworkDomainMask");
-    ADD_int_OBJECT(NSSystemDomainMask,@"NSSystemDomainMask");
-    ADD_int_OBJECT(NSAllDomainsMask,@"NSAllDomainsMask");
+    ADD_NSInteger_OBJECT(NSApplicationDirectory,@"NSApplicationDirectory");
+    ADD_NSInteger_OBJECT(NSDemoApplicationDirectory,@"NSDemoApplicationDirectory");
+    ADD_NSInteger_OBJECT(NSDeveloperApplicationDirectory,@"NSDeveloperApplicationDirectory");
+    ADD_NSInteger_OBJECT(NSAdminApplicationDirectory,@"NSAdminApplicationDirectory");
+    ADD_NSInteger_OBJECT(NSLibraryDirectory,@"NSLibraryDirectory");
+    ADD_NSInteger_OBJECT(NSDeveloperDirectory,@"NSDeveloperDirectory");
+    ADD_NSInteger_OBJECT(NSUserDirectory,@"NSUserDirectory");
+    ADD_NSInteger_OBJECT(NSDocumentationDirectory,@"NSDocumentationDirectory");
+    ADD_NSInteger_OBJECT(NSAllApplicationsDirectory,@"NSAllApplicationsDirectory");
+    ADD_NSInteger_OBJECT(NSAllLibrariesDirectory,@"NSAllLibrariesDirectory");
+    ADD_NSInteger_OBJECT(GSLibrariesDirectory,@"GSLibrariesDirectory");
+    ADD_NSInteger_OBJECT(GSToolsDirectory,@"GSToolsDirectory");
+    ADD_NSInteger_OBJECT(NSUserDomainMask,@"NSUserDomainMask");
+    ADD_NSInteger_OBJECT(NSLocalDomainMask,@"NSLocalDomainMask");
+    ADD_NSInteger_OBJECT(NSNetworkDomainMask,@"NSNetworkDomainMask");
+    ADD_NSInteger_OBJECT(NSSystemDomainMask,@"NSSystemDomainMask");
+    ADD_NSInteger_OBJECT(NSAllDomainsMask,@"NSAllDomainsMask");
 
     return dict;
 }
