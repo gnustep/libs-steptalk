@@ -34,8 +34,8 @@ id   STObjectFromValueOfType(void *value, const char *type);
 + invocationWithTarget:(id)target selectorName:(NSString *)selectorName;
 + invocationWithTarget:(id)target selector:(SEL)selector;
 
-- (void)setArgumentAsObject:(id)anObject atIndex:(int)anIndex;
-- (id)getArgumentAsObjectAtIndex:(int)anIndex;
+- (void)setArgumentAsObject:(id)anObject atIndex:(NSInteger)anIndex;
+- (id)getArgumentAsObjectAtIndex:(NSInteger)anIndex;
 - (id)returnValueAsObject;
 @end
 

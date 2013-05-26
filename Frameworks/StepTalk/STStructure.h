@@ -57,11 +57,12 @@
 - (NSRect)rectValue;
 - (NSSize)sizeValue;
 
-- valueAtIndex:(unsigned)index;
-- (void)setValue:anObject atIndex:(unsigned)index;
+- valueAtIndex:(NSUInteger)index;
+- (void)setValue:anObject atIndex:(NSUInteger)index;
 
-- (int)intValueAtIndex:(unsigned)index;
-- (float)floatValueAtIndex:(unsigned)index;
+- (int)intValueAtIndex:(NSUInteger)index;
+- (NSInteger)integerValueAtIndex:(NSUInteger)index;
+- (float)floatValueAtIndex:(NSUInteger)index;
 
 - extent:(NSSize)size;
 - corner:(NSPoint)corner;
@@ -69,9 +70,9 @@
 
 /*
 @interface STRange:STStructure
-- rangeWithLocation:(int)loc length:(int)length;
-- (int)location;
-- (int)length;
+- rangeWithLocation:(NSUInteger)loc length:(NSUInteger)length;
+- (NSUInteger)location;
+- (NSUInteger)length;
 @end
 
 @interface STPoint:STStructure

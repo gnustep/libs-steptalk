@@ -148,7 +148,7 @@ static STLanguageManager *defaultManager = nil;
     NSDictionary *langDict;
     NSEnumerator *enumerator;
     NSString     *language;
-    int           foundLanguages = 0;
+    NSUInteger    foundLanguages = 0;
 
     /*
     StepTalkLanguages = { Smalltalk = { EngineClass = SmalltalkEngine}  };

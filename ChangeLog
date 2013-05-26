@@ -1,3 +1,19 @@
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/NSInvocation+additions.h:
+	* Frameworks/StepTalk/NSInvocation+additions.m:
+	* Frameworks/StepTalk/NSNumber+additions.h:
+	* Frameworks/StepTalk/NSNumber+additions.m:
+	* Frameworks/StepTalk/STActor.m:
+	* Frameworks/StepTalk/STEnvironmentDescription.h:
+	* Frameworks/StepTalk/STEnvironmentDescription.m:
+	* Frameworks/StepTalk/STLanguageManager.m:
+	* Frameworks/StepTalk/STObjCRuntime.m:
+	* Frameworks/StepTalk/STScriptObject.m:
+	* Frameworks/StepTalk/STStructure.h:
+	* Frameworks/StepTalk/STStructure.m:
+	int->NSInteger transition
+
 2013-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/STActor.m (-setValue:forKey:): Fix bug where

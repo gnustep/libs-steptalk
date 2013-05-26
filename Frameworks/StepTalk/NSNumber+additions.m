@@ -77,7 +77,7 @@
     return [NSNumber numberWithDouble:(fmod([self doubleValue],
                                          [number doubleValue]))];
 }
-- (unsigned int)isLessThan:(NSNumber *)number
+- (BOOL)isLessThan:(NSNumber *)number
 {
     return ([self doubleValue] < [number doubleValue]);
 }
@@ -99,28 +99,29 @@
 
 
 @implementation NSNumber (STLogicOperations)
-- (unsigned int)or:(NSNumber *)number
+- (NSUInteger)or:(NSNumber *)number
 {
-    return ([self intValue] | [number intValue]);
+    return ([self integerValue] | [number integerValue]);
 }
 
-- (unsigned int)and:(NSNumber *)number
+- (NSUInteger)and:(NSNumber *)number
 {
-    return ([self intValue] & [number intValue]);
+    return ([self integerValue] & [number integerValue]);
 }
 
-- (unsigned int)not
+- (NSUInteger)not
 {
     /* FIXME */
-    return ![self intValue];
+    return ![self integerValue];
 }
 
 @end
 
 @implementation NSNumber (STStructure)
-- rangeWith:(int)length
+- rangeWith:(NSUInteger)length
 {
-    return [STStructure structureWithRange:NSMakeRange([self intValue], length)];
+    NSRange r = NSMakeRange([self unsignedIntegerValue], length);
+    return [STStructure structureWithRange:r];
 }
 - pointWith:(float)y
 {

@@ -283,7 +283,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     return invocation;
 }
 
-- (void)setArgumentAsObject:(id)anObject atIndex:(int)anIndex
+- (void)setArgumentAsObject:(id)anObject atIndex:(NSInteger)anIndex
 {
     const char *type;
     NSUInteger size;
@@ -300,7 +300,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 }
 
 
-- (id)getArgumentAsObjectAtIndex:(int)anIndex
+- (id)getArgumentAsObjectAtIndex:(NSInteger)anIndex
 {
     const char *type;
     NSUInteger size;
@@ -321,7 +321,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 - (id)returnValueAsObject
 {
     const char *type;
-    int   returnLength;
+    NSUInteger  returnLength;
     void *value;
     id    returnObject = nil;
     
@@ -331,7 +331,8 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     returnLength = [signature methodReturnLength];
 
     NSDebugLLog(@"STSending",
-               @"  return type '%s', buffer length %i",type,returnLength);
+		@"  return type '%s', buffer length %lu",
+		type,(unsigned long)returnLength);
 
     if(returnLength!=0)
     {

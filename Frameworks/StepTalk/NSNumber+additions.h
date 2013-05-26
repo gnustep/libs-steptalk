@@ -32,7 +32,7 @@
 - subtract:(NSNumber *)number;
 - multiply:(NSNumber *)number;
 - divide:(NSNumber *)number;
-- (unsigned int)isLessThan:(NSNumber *)number;
+- (BOOL)isLessThan:(NSNumber *)number;
 - (BOOL)isGreatherThan:(NSNumber *)number;
 - (BOOL)isLessOrEqualThan:(NSNumber *)number;
 - (BOOL)isGreatherOrEqualThan:(NSNumber *)number;
@@ -40,13 +40,13 @@
 
 
 @interface NSNumber (STLogicOperations)
-- (unsigned int)or:(NSNumber *)number;
-- (unsigned int)and:(NSNumber *)number;
-- (unsigned int)not;
+- (NSUInteger)or:(NSNumber *)number;
+- (NSUInteger)and:(NSNumber *)number;
+- (NSUInteger)not;
 @end
 
 @interface NSNumber (STStructure)
-- rangeWith:(int)length;
+- rangeWith:(NSUInteger)length;
 - pointWith:(float)y;
 - sizeWith:(float)h;
 @end

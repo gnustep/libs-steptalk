@@ -58,7 +58,7 @@ static const char *selector_types[] =
 
 NSMutableDictionary *STAllObjectiveCClasses(void)
 {
-    int                  i, numClasses;
+    NSInteger            i, numClasses;
     NSString            *name;
     NSMutableDictionary *dict;
     Class               *classes;
@@ -68,7 +68,7 @@ NSMutableDictionary *STAllObjectiveCClasses(void)
     numClasses = objc_getClassList(NULL, 0);
     classes = (Class *)NSZoneMalloc(STMallocZone, numClasses * sizeof(Class));
     numClasses = objc_getClassList(classes, numClasses);
-//    NSLog(@"%i Objective-C classes found", numClasses);
+//    NSLog(@"%li Objective-C classes found", (unsigned long)numClasses);
 
     for(i = 0; i < numClasses; i++)
     {
@@ -120,7 +120,7 @@ static const char *STSelectorTypes(const char *name)
 {
     const char *ptr;
     const char *types = 0;
-    unsigned    argc = 0;
+    NSUInteger  argc = 0;
 
     for (ptr = name; *ptr; ptr++)
 	if (*ptr == ':')
@@ -140,8 +140,8 @@ static const char *STSelectorTypes(const char *name)
 		0, 0, 0, 0, 0x46, 0x3d, 0, 0x0f,
 		0x80, 0, 0, 0x08, 0, 0, 0, 0x0a
 	    };
-	    unsigned ofs = (unsigned)*ptr >> 3;
-	    unsigned mask = *ptr & 7;
+	    NSUInteger ofs = (NSUInteger)*ptr >> 3;
+	    NSUInteger mask = *ptr & 7;
 	    if (!(binaryCharset[ofs] & mask))
 		break;
 	}
@@ -153,8 +153,8 @@ static const char *STSelectorTypes(const char *name)
     {
         NSDebugLLog(@"STSending",
                     @"registering selector '%s' "
-                    @"with %i arguments, types:'%s'",
-                    name,argc,selector_types[argc]);
+                    @"with %lu arguments, types:'%s'",
+                    name,(unsigned long)argc,selector_types[argc]);
         types = selector_types[argc];
     }
 
@@ -237,10 +237,10 @@ NSMethodSignature *STMethodSignatureForSelector(SEL sel)
 }
 
 
-static NSArray *selectors_from_list(Method *methods, unsigned int numMethods)
+static NSArray *selectors_from_list(Method *methods, NSUInteger numMethods)
 {
     NSMutableArray *array = [NSMutableArray array];
-    unsigned int    i;
+    NSUInteger      i;
     
     for (i = 0; i < numMethods; i++)
     {
@@ -253,7 +253,7 @@ static NSArray *selectors_from_list(Method *methods, unsigned int numMethods)
 
 NSArray *STAllObjectiveCSelectors(void)
 {
-    int             i, numClasses;
+    NSInteger       i, numClasses;
     unsigned int    numMethods;
     NSMutableArray *array;
     NSArray        *selectors;

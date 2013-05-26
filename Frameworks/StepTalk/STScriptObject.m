@@ -120,8 +120,8 @@ some other, more clever mechanism. */
     NSString       *methodName = NSStringFromSelector([invocation selector]);
     NSMutableArray *args;
     id              arg;
-    int             index;
-    int             count;
+    NSUInteger      index;
+    NSUInteger      count;
     id              retval = nil;
 
     method = [methodDictionary objectForKey:methodName];

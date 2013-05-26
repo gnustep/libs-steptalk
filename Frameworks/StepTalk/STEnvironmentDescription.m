@@ -159,7 +159,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 {
     NSAutoreleasePool *pool;
     NSString *str;
-    BOOL      saveFlag = restriction;
+    NSInteger saveFlag = restriction;
     
     if(!def)
     {
@@ -417,8 +417,8 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
 
     flag = [def objectForKey:@"Restriction"];
 
-    NSDebugLLog(@"STEnvironment", @"Class %@ restriction %@ (default %i)", 
-               className, flag, restriction);
+    NSDebugLLog(@"STEnvironment", @"Class %@ restriction %@ (default %li)", 
+               className, flag, (long)restriction);
     
     if(flag)
     {

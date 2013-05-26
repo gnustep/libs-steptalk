@@ -47,7 +47,7 @@ enum
     NSMutableArray      *frameworks;
     NSMutableArray      *finders;
 
-    int                  restriction;
+    NSInteger            restriction;
 }
 + (NSString *)defaultDescriptionName;
 

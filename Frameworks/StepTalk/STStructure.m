@@ -166,7 +166,7 @@
 {
     return name;
 }
-- (const char *)typeOfFieldAtIndex:(unsigned)index
+- (const char *)typeOfFieldAtIndex:(NSUInteger)index
 {
     const char *type = [structType cString];
     
@@ -186,7 +186,7 @@
 - (NSRange)rangeValue
 {
     /* FIXME: do some checking */
-    return NSMakeRange([self intValueAtIndex:0],[self intValueAtIndex:1]);
+    return NSMakeRange([self integerValueAtIndex:0],[self integerValueAtIndex:1]);
 }
 
 - (NSPoint)pointValue
@@ -213,44 +213,50 @@
     return rect;
 }
 
-- valueAtIndex:(unsigned)index
+- valueAtIndex:(NSUInteger)index
 {
     return [fields objectAtIndex:index];
 }
-- (void)setValue:anObject atIndex:(unsigned)index
+- (void)setValue:anObject atIndex:(NSUInteger)index
 {
     [fields replaceObjectAtIndex:index withObject:anObject];
 }
 
-- (int)intValueAtIndex:(unsigned)index
+- (int)intValueAtIndex:(NSUInteger)index
 {
-    return (int)[[fields objectAtIndex:index] intValue];
+    return [[fields objectAtIndex:index] intValue];
 }
-- (float)floatValueAtIndex:(unsigned)index
+- (NSInteger)integerValueAtIndex:(NSUInteger)index
+{
+    return [[fields objectAtIndex:index] integerValue];
+}
+- (float)floatValueAtIndex:(NSUInteger)index
 {
     return (float)[[fields objectAtIndex:index] floatValue];
 }
 
 /* NSRange */
 
-- (int)location
+- (NSUInteger)location
 {
-    return [[fields objectAtIndex:0] intValue];
+    return [[fields objectAtIndex:0] integerValue];
 }
 
-- (int)length
+- (NSUInteger)length
 {
-    return [[fields objectAtIndex:1] intValue];
+    return [[fields objectAtIndex:1] integerValue];
 }
 
-- (void)setLocation:(int)location
+- (void)setLocation:(NSUInteger)location
 {
-    [fields replaceObjectAtIndex:0 withObject: [NSNumber numberWithInt:location]];
+    NSNumber *n = [NSNumber numberWithUnsignedInteger:location];
+    [fields replaceObjectAtIndex:0 withObject:n];
 }
 
-- (void)setLength:(int)length
+- (void)setLength:(NSUInteger)length
 {
-    [fields replaceObjectAtIndex:1 withObject: [NSNumber numberWithInt:length]];
+    NSNumber *n = [NSNumber numberWithUnsignedInteger:length];
+    [fields replaceObjectAtIndex:1 withObject: n];
 }
 
 /* NSPoint */
