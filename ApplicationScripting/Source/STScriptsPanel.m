@@ -188,15 +188,15 @@ STScriptsPanel *sharedScriptsPanel = nil;
     }
 }
 
-- (int)       browser: (NSBrowser *) sender
- numberOfRowsInColumn: (int) column
+- (NSInteger) browser: (NSBrowser *) sender
+ numberOfRowsInColumn: (NSInteger) column
 {
     return [scripts count];
 }
 - (void) browser: (NSBrowser *) sender
  willDisplayCell: (NSBrowserCell *) cell
-           atRow: (int) row
-          column: (int) column
+           atRow: (NSInteger) row
+          column: (NSInteger) column
 {
     NSString *name;
     if(sender != scriptList)

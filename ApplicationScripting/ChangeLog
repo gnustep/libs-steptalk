@@ -1,6 +1,11 @@
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>>
+
+    * Source/STScriptsPanel.m:
+    int->NSInteger transition
+
 2013-04-03  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-    * Source/STApplicationScriptingController.m (scriptingMenu): Hide the
+    * Source/STApplicationScriptingController.m (-scriptingMenu): Hide the
     scripting menu after it has been loaded from its bundle.
 
 2013-03-23  Wolfgang Lux  <wolfgang.lux@gmail.com>
