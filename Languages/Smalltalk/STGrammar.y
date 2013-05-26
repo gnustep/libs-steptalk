@@ -162,8 +162,14 @@ keyword_list: keyword variable_name
                             }
 ;
 
-temporaries: TK_BAR variable_list TK_BAR
-                            { $$ = $2; }
+temporaries: TK_BAR TK_BAR
+                            {
+                                $$ = [NSMutableArray array];
+                            }
+    | TK_BAR variable_list TK_BAR
+                            {
+                                $$ = $2;
+                            }
 ;
 
 variable_list: variable_name

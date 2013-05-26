@@ -1,5 +1,10 @@
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STGrammar.y (temporaries): Allow empty list.
+    * STGrammar.m: Regenerated.
+
+2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * NSNumber+additions.h:
     * NSNumber+additions.m:
     * STBlock.h:
