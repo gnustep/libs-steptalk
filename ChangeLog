@@ -1,3 +1,13 @@
+2013-05-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/NSInvocation+additions.m
+	(STGetValueOfTypeFromObject): Fix marshaling for arguments with
+	type (char*).
+
+	* Frameworks/StepTalk/NSInvocation+additions.m
+	(STObjectFromValueOfType, STGetValueOfTypeFromObject): Skip const
+	qualifiers in types.
+
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/STActor.m (-instanceVariables): Fix typo in

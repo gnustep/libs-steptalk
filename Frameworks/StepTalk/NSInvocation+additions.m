@@ -31,7 +31,7 @@
 
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
-#import <Foundation/NSObjCRuntime.h>
+#import <Foundation/NSMethodSignature.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
@@ -52,7 +52,7 @@ static Class NSValue_class = nil;
 #define CASE_NUMBER_TYPE(otype,type,msgtype)\
             case otype: object = [NSNumber numberWith##msgtype:*((type *)value)];\
                         NSDebugLLog(@"STStructure",\
-                                   @"    is number value '%@'", object);\
+                                    @"    is number value '%@'", object);\
                         break
 
 /** This method is a factory method, that means that you have to release the
@@ -62,18 +62,18 @@ id STObjectFromValueOfType(void *value, const char *type)
     id object;
 
     NSDebugLLog(@"STStructure",
-               @"object from value %p of of type '%c'",value,*type);
+                @"object from value %p of of type '%c'", value, *type);
 
-    switch(*type)
+    switch (*type)
     {
     case _C_ID:
     case _C_CLASS:
             object = *((id *)value);
             NSDebugLLog(@"STStructure",
-                       @"    is object value %p", object);
+                        @"    is object value %p", object);
             break;
     CASE_NUMBER_TYPE(_C_CHR,char,Char);
-    CASE_NUMBER_TYPE(_C_UCHR,unsigned char, UnsignedChar);
+    CASE_NUMBER_TYPE(_C_UCHR,unsigned char,UnsignedChar);
     CASE_NUMBER_TYPE(_C_SHT,short,Short);
     CASE_NUMBER_TYPE(_C_USHT,unsigned short,UnsignedShort);
     CASE_NUMBER_TYPE(_C_INT,int,Int);
@@ -100,13 +100,15 @@ id STObjectFromValueOfType(void *value, const char *type)
                 object = nil;
                 break;
     case _C_STRUCT_B:
-                object = [[STStructure alloc] initWithValue:value
-                                                       type:type];
+                object = [[STStructure alloc] initWithValue:value type:type];
                 AUTORELEASE(object);
                 break;
     case _C_SEL: 
                 object = [[STSelector alloc] initWithSelector:*((SEL *)value)];
                 AUTORELEASE(object);
+                break;
+    case _C_CONST:
+                object = STObjectFromValueOfType(value, ++type);
                 break;
     case _C_BFLD:
     case _C_UNDEF:
@@ -118,31 +120,31 @@ id STObjectFromValueOfType(void *value, const char *type)
     default:
         [NSException raise:STInvalidArgumentException
                     format:@"unhandled ObjC type '%s'",
-                            type];
+                           type];
 
     }       
     return object;
 }
 
 #define CASE_TYPE(otype,type,msgtype)\
-            case otype:(*((type *)value)) = [anObject msgtype##Value];\
-                        NSDebugLLog(@"STStructure",\
+            case otype:*((type *)value) = [anObject msgtype##Value];\
+                       NSDebugLLog(@"STStructure",\
                                    @"    is number value '%@'", anObject);\
                        break
 
 void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 {
     NSDebugLLog(@"STStructure",
-               @"value at %p from object '%@' of type '%c'",
-                value,anObject,*type);
+                @"value at %p from object '%@' of type '%c'",
+                value, anObject, *type);
 
-    switch(*type)
+    switch (*type)
     {
     case _C_ID:
     case _C_CLASS:
             NSDebugLLog(@"STStructure",
                         @"    is object value");
-            (*(id *)value) = anObject;
+            *((id *)value) = anObject;
             break;
     CASE_TYPE(_C_CHR,char,char);
     CASE_TYPE(_C_UCHR,unsigned char,unsignedChar);
@@ -158,21 +160,25 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     CASE_TYPE(_C_DBL,double,double);
     CASE_TYPE(_C_PTR,void *,pointer);
     case _C_CHARPTR: /* FIXME: check if this is good (copy/no copy)*/
-            (*((const char **)value)) = [[anObject stringValue] cString];
+            *((const char **)value) = [anObject cString];
             NSDebugLLog(@"STStructure",
-                       @"    is cstring '%@'", [anObject stringValue]);
+                        @"    is cstring '%@'", anObject);
             break;
     case _C_STRUCT_B:
-            /* FIXME: chech for struct compatibility */
+            /* FIXME: check for struct compatibility */
             NSDebugLLog(@"STStructure",
-                       @"    is structure");
+                        @"    is structure");
             [(STStructure*)anObject getValue:value];
             break;
 
     case _C_SEL:
-            (*((SEL *)value)) = [anObject selectorValue];
+            *((SEL *)value) = [anObject selectorValue];
             break;
-            
+
+    case _C_CONST:
+            STGetValueOfTypeFromObject(value, ++type, anObject);
+            break;
+
     case _C_BFLD:
     case _C_VOID:
     case _C_UNDEF:
@@ -185,7 +191,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     default:
         [NSException raise:STInvalidArgumentException
                     format:@"unhandled ObjC type '%s'",
-                            type];
+                           type];
     }        
 }
 
@@ -208,18 +214,18 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     NSInvocation      *invocation;
     SEL                sel;
     BOOL               requiresRegistration = NO;
-    
+
     // NSLog(@"GETTING SELECTOR %@", selectorName);
     sel = NSSelectorFromString(selectorName);
-    
-    if(!sel)
+
+    if (!sel)
     {
         // NSLog(@"REGISTERING SELECTOR");
         const char *name = [selectorName cString];
-        
+
         sel = sel_registerName(name);
 
-        if(!sel)
+        if (!sel)
         {
             [NSException raise:STInternalInconsistencyException
                          format:@"Unable to register selector '%@'",
@@ -228,28 +234,28 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
         }
         requiresRegistration = YES;
     }
-    
+
     signature = [target methodSignatureForSelector:sel];
 
     /* FIXME: this is workaround for gnustep DO bug (hight priority) */
 
-    if(requiresRegistration)
+    if (requiresRegistration)
     {
         // NSLog(@"REGISTERING SELECTOR TYPES");
-        sel = GSSelectorFromNameAndTypes([selectorName cString], [signature methodReturnType]);
+        sel = GSSelectorFromNameAndTypes([selectorName cString],
+                                         [signature methodReturnType]);
         // NSLog(@"REGISTERED %@", NSStringFromSelector(sel));
-        
     }
 
-    if(!signature)
+    if (!signature)
     {
         [NSException raise:STInternalInconsistencyException
                      format:@"No method signature for selector '%@' for "
                             @"receiver of type %@",
-                            selectorName,[target className]];
+                            selectorName, [target className]];
         return nil;
     }
-  
+
     invocation = [NSInvocation invocationWithMethodSignature:signature];
 
     [invocation setSelector:sel];
@@ -262,19 +268,18 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 {
     NSMethodSignature *signature;
     NSInvocation      *invocation;
-    
+
     signature = [target methodSignatureForSelector:selector];
 
-
-    if(!signature)
+    if (!signature)
     {
         [NSException raise:STInternalInconsistencyException
                      format:@"No method signature for selector '%@' for "
                             @"receiver of type %@",
-                            NSStringFromSelector(selector),[target className]];
+                            NSStringFromSelector(selector), [target className]];
         return nil;
     }
-  
+
     invocation = [NSInvocation invocationWithMethodSignature:signature];
 
     [invocation setSelector:selector];
@@ -288,7 +293,7 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     const char *type;
     NSUInteger size;
     void *value;
-    
+
     type = [[self methodSignature] getArgumentTypeAtIndex:anIndex];
     NSGetSizeAndAlignment(type, &size, NULL);
     value = NSZoneMalloc(STMallocZone, size);
@@ -296,35 +301,35 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     STGetValueOfTypeFromObject(value, type, anObject);
 
     [self setArgument:(void *)value atIndex:anIndex];
-    NSZoneFree(STMallocZone,value);
+    NSZoneFree(STMallocZone, value);
 }
-
 
 - (id)getArgumentAsObjectAtIndex:(NSInteger)anIndex
 {
     const char *type;
-    NSUInteger size;
+    NSUInteger  size;
     void *value;
     id    object;
-    
+
     type = [[self methodSignature] getArgumentTypeAtIndex:anIndex];
     NSGetSizeAndAlignment(type, &size, NULL);
     value = NSZoneMalloc(STMallocZone, size);
     [self getArgument:value atIndex:anIndex];
 
-    object = STObjectFromValueOfType(value,type);
-    
-    NSZoneFree(STMallocZone,value);
-    
+    object = STObjectFromValueOfType(value, type);
+
+    NSZoneFree(STMallocZone, value);
+
     return object;
 }
+
 - (id)returnValueAsObject
 {
     const char *type;
     NSUInteger  returnLength;
     void *value;
     id    returnObject = nil;
-    
+
     NSMethodSignature *signature = [self methodSignature];
 
     type = [signature methodReturnType];
@@ -332,14 +337,14 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 
     NSDebugLLog(@"STSending",
 		@"  return type '%s', buffer length %lu",
-		type,(unsigned long)returnLength);
+		type, (unsigned long)returnLength);
 
-    if(returnLength!=0)
+    if (returnLength != 0)
     {
-        value = NSZoneMalloc(STMallocZone,returnLength);
+        value = NSZoneMalloc(STMallocZone, returnLength);
         [self getReturnValue:value];
-                           
-        if( *type == _C_VOID )
+
+        if (*type == _C_VOID)
         {
             returnObject = [self target];
         }
@@ -348,9 +353,9 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
             returnObject = STObjectFromValueOfType(value, type);
         }
 
-        NSZoneFree(STMallocZone,value);
+        NSZoneFree(STMallocZone, value);
         NSDebugLLog(@"STSending",
-                    @"  returned object %@",returnObject);
+                    @"  returned object %@", returnObject);
     }
     else
     {
