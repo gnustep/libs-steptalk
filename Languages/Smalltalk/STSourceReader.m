@@ -552,15 +552,15 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 
                 if ([identStartCharacterSet characterIsMember:c])
                 {
-                    srcOffset++;
                     do
                     {
+                        srcOffset++;
                         if (AT_END)
                             break;
-                        c = GET_CHAR;
+                        c = PEEK_CHAR;
                     }
                     while ([identCharacterSet characterIsMember:c] || c == ':');
-                    srcOffset--;
+
                     tokenRange = NSMakeRange(start + 1, srcOffset - start - 1);
                     return STSymbolTokenType;
                 }
