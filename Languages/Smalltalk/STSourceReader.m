@@ -468,16 +468,6 @@ static NSString *_STNormalizeStringToken(NSString *token)
         
         srcOffset--;
         tokenRange = NSMakeRange(start, srcOffset - start);
-
-        if ([identStartCharacterSet characterIsMember:c] &&
-            c != 'e' && c != 'E')
-        {
-            tokenRange = NSMakeRange(start, srcOffset - start + 1);
-            [NSException raise:STCompilerSyntaxException
-                        format:@"Letter '%c' in number", c];
-            return STErrorTokenType;
-        }
-        
         return isReal ? STRealNumberTokenType : STIntNumberTokenType;
     }
     else if ([symbolicSelectorCharacterSet characterIsMember:c])
