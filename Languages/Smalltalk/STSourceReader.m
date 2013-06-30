@@ -428,7 +428,16 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 c = GET_CHAR;
             }
             
-            while ([numericCharacterSet characterIsMember:c])
+            if (![numericCharacterSet characterIsMember:c])
+            {
+                srcOffset--;
+                tokenRange = NSMakeRange(start, srcOffset - start + 1);
+                [NSException raise:STCompilerSyntaxException
+                            format:@"Invalid character '%c' in exponent", c];
+                return STErrorTokenType;
+            }
+
+            do
             {
                 if (AT_END)
                 {
@@ -438,6 +447,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
 
                 c = GET_CHAR;
             }
+            while ([numericCharacterSet characterIsMember:c]);
 
             if ([identStartCharacterSet characterIsMember:c])
             {
