@@ -472,6 +472,12 @@ static NSString *_STNormalizeStringToken(NSString *token)
     }
     else if ([symbolicSelectorCharacterSet characterIsMember:c])
     {
+        if (AT_END)
+        {
+            tokenRange = NSMakeRange(start, 1);
+            return STBinarySelectorTokenType;
+        }
+
         c = PEEK_CHAR;
         if ([symbolicSelectorCharacterSet characterIsMember:c])
         {
@@ -487,7 +493,6 @@ static NSString *_STNormalizeStringToken(NSString *token)
         switch (c)
         {
         case '$':
-                c = GET_CHAR;
                 if (AT_END)
                 {
                     tokenRange = NSMakeRange(start, 1);
@@ -496,15 +501,19 @@ static NSString *_STNormalizeStringToken(NSString *token)
                     return STErrorTokenType;
                 }
                 
+                c = GET_CHAR;
                 if ([validCharacterCharacterSet characterIsMember:c])
                 {
-                    c = PEEK_CHAR;
-                    if ([identCharacterSet characterIsMember:c])
+                    if (!AT_END)
                     {
-                        tokenRange = NSMakeRange(start, 3);
-                        [NSException raise:STCompilerSyntaxException
-                                    format:@"Too many characters"];
-                        return STErrorTokenType;
+                        c = PEEK_CHAR;
+                        if ([identCharacterSet characterIsMember:c])
+                        {
+                            tokenRange = NSMakeRange(start, 3);
+                            [NSException raise:STCompilerSyntaxException
+                                        format:@"Too many characters"];
+                            return STErrorTokenType;
+                        }
                     }
                     
                     tokenRange = NSMakeRange(srcOffset++, 1);
@@ -517,6 +526,12 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 return STErrorTokenType;
 
         case '#':
+                if (AT_END)
+                {
+                    tokenRange = NSMakeRange(start, 1);
+                    return STSharpTokenType;
+                }
+
                 c = PEEK_CHAR;
                 if (c == '(')
                 {
@@ -527,21 +542,28 @@ static NSString *_STNormalizeStringToken(NSString *token)
                 
                 if ([identStartCharacterSet characterIsMember:c])
                 {
-                    start = srcOffset++;
-                    while ([identCharacterSet characterIsMember:c] || c == ':')
+                    srcOffset++;
+                    do
                     {
-                        c = GET_CHAR;
                         if (AT_END)
                             break;
+                        c = GET_CHAR;
                     }
+                    while ([identCharacterSet characterIsMember:c] || c == ':');
                     srcOffset--;
-                    tokenRange = NSMakeRange(start, srcOffset - start);
+                    tokenRange = NSMakeRange(start + 1, srcOffset - start - 1);
                     return STSymbolTokenType;
                 }
 
                 tokenRange = NSMakeRange(start, 1);
                 return STSharpTokenType;
         case ':':
+                if (AT_END)
+                {
+                    tokenRange = NSMakeRange(start, 1);
+                    return STColonTokenType;
+                }
+
                 c = PEEK_CHAR;
                 if (c == '=')
                 {
@@ -549,6 +571,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
                     tokenRange = NSMakeRange(start, 2);
                     return STAssignTokenType;
                 }
+
                 tokenRange = NSMakeRange(start, 1);
                 return STColonTokenType;
 

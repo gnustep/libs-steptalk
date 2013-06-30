@@ -3,6 +3,9 @@
     * STSourceReader.m (-lineNumberForIndex:, -readNextToken): Tidy
     source.
 
+    * STSourceReader.m (-readNextToken): Prevent out of range accesses for
+    the input string.
+
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STGrammar.y (temporaries): Allow empty list.
