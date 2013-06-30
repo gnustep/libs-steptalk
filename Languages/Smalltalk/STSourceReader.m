@@ -526,7 +526,7 @@ static NSString *_STNormalizeStringToken(NSString *token)
                         }
                     }
                     
-                    tokenRange = NSMakeRange(srcOffset++, 1);
+                    tokenRange = NSMakeRange(start + 1, 1);
                     return STCharacterTokenType;
                 }
 

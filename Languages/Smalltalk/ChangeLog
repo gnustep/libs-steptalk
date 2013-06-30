@@ -6,6 +6,7 @@
     * STSourceReader.m (-readNextToken): Bug fixes:
     - Prevent out of range accesses for the input string.
     - Exponent of a real number must contain at least one digit.
+    - Incorrect token range for character literals.
 
 2013-05-26  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
