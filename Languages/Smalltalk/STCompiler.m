@@ -485,8 +485,11 @@ extern int STCparse(void *context);
 
 - (NSUInteger)addLiteral:literal
 {
-    [literals addObject:literal];
-    return [literals count] - 1;
+  if ([literals indexOfObject: literal] == NSNotFound)
+    {
+      [literals addObject:literal];
+      return [literals count] - 1;
+    }
 }
 - (BOOL)isReceiverVariable:(NSString *)varName
 {
