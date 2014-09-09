@@ -1,5 +1,10 @@
 2014-09-09  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiler.m (setReceiverVariables:):
+    Do not assign a non-mutable array to a mutable array attribute.
+
+2014-09-09  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STCompiledCode.h (STCompiledCode, -namedReferences,
     -initWithBytecodesData:literals:temporariesCount:stackSize:namedReferences:):
     * STCompiledCode.m (-namedReferences,

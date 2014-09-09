@@ -460,7 +460,7 @@ extern int STCparse(void *context);
 
 - (void)setReceiverVariables:(NSArray *)array
 {
-    ASSIGN(receiverVars,array);
+    [receiverVars setArray:array];
     [namedReferences addObjectsFromArray:array];
 }
 
