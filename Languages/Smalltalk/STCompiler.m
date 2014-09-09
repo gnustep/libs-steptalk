@@ -258,7 +258,7 @@ extern int STCparse(void *context);
                                    @"reason: %@.";
 
 
-    NSDebugLLog(@"STCompiler", @"Compile string", aString);
+    NSDebugLLog(@"STCompiler", @"Compile string");
 
     isSingleMethod = NO;
 
@@ -1151,7 +1151,7 @@ extern int STCparse(void *context);
 - (void)emitPopAndStoreTemporary:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04lx pop and store temp lu (%@)",
+                @"#%04lx pop and store temp %lu (%@)",
                 (unsigned long)bcpos,(unsigned long)index,
                 [tempVars objectAtIndex:index]);
                 
@@ -1161,7 +1161,7 @@ extern int STCparse(void *context);
 - (void)emitPopAndStoreVariable:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04lx pop and store ext variable lu (%@)",
+                @"#%04lx pop and store ext variable %lu (%@)",
                 (unsigned long)bcpos,(unsigned long)index,
                 [namedReferences objectAtIndex:index]);
                 
@@ -1171,7 +1171,7 @@ extern int STCparse(void *context);
 - (void)emitPopAndStoreReceiverVariable:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04lx pop and store rec variable lu (%@)",
+                @"#%04lx pop and store rec variable %lu (%@)",
                 (unsigned long)bcpos,(unsigned long)index,
                 [namedReferences objectAtIndex:index]);
                 
@@ -1182,7 +1182,7 @@ extern int STCparse(void *context);
 - (void)emitSendSelector:(NSUInteger)index argCount:(NSUInteger)argCount
 {
     NSDebugLLog(@"STCompiler-emit",
-                @"#%04lx send selector lu (%@) with lu args",
+                @"#%04lx send selector %lu (%@) with %lu args",
                 (unsigned long)bcpos,(unsigned long)index,
                 [literals objectAtIndex:index],(unsigned long)argCount);
             

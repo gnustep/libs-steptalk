@@ -442,7 +442,7 @@ static Class NSInvocation_class = nil;
 
     NSDebugLLog(@"STSending",@"  invoking... (%@ %s)",invocation, [[invocation methodSignature] methodReturnType]);
     [invocation invoke];
-    NSDebugLLog(@"STSending",@"  done invoking.",invocation);
+    NSDebugLLog(@"STSending",@"  done invoking.");
 
     /* FIXME */
     if(!stopRequested)
