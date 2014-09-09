@@ -24,14 +24,13 @@
 
 @class NSData;
 @class NSArray;
-@class NSMutableArray;
 @class STBytecodes;
 
 @interface STCompiledCode:NSObject<NSCoding>
 {
     STBytecodes        *bytecodes;
     NSArray            *literals;
-    NSMutableArray     *namedRefs;
+    NSArray            *namedRefs;
     short               tempCount;
     short               stackSize;
 }
@@ -39,12 +38,12 @@
                literals:(NSArray *)anArray
        temporariesCount:(NSUInteger)count
               stackSize:(NSUInteger)size
-        namedReferences:(NSMutableArray *)refs;
+        namedReferences:(NSArray *)refs;
 
 - (STBytecodes *)bytecodes;
 - (NSUInteger)temporariesCount;
 - (NSUInteger)stackSize;
 - (id)literalObjectAtIndex:(NSUInteger)index;
-- (NSMutableArray *)namedReferences;
+- (NSArray *)namedReferences;
 - (NSArray *)literals;
 @end

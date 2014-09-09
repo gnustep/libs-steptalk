@@ -1,5 +1,13 @@
 2014-09-09  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiledCode.h (STCompiledCode, -namedReferences,
+    -initWithBytecodesData:literals:temporariesCount:stackSize:namedReferences:):
+    * STCompiledCode.m (-namedReferences,
+    -initWithBytecodesData:literals:temporariesCount:stackSize:namedReferences:):
+    Change namedRefs attribute into a non-mutable array.
+
+2014-09-09  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STBytecodeInterpreter.m (-sendSelectorAtIndex:withArgCount:):
     * STCompiler.m (-compileString:, -emitPopAndStoreTemporary:,
 	-emitPopAndStoreVariable:, -emitPopAndStoreReceiverVariable:,

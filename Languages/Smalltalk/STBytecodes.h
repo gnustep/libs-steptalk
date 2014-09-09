@@ -86,6 +86,7 @@ extern NSString *STDissasembleBytecode(STBytecode bytecode);
 {
     NSData *bytes;
 }
+- (id) initWithData: (NSData *)data;
 - (STBytecode)fetchNextBytecodeAtPointer:(NSUInteger *)pointer;
 - (NSData *) data;
 - (NSUInteger) length;

@@ -37,7 +37,7 @@
                literals:(NSArray *)anArray
        temporariesCount:(NSUInteger)count
               stackSize:(NSUInteger)size
-        namedReferences:(NSMutableArray *)refs
+        namedReferences:(NSArray *)refs
 {
     if ((self = [super init]) != nil)
     {
@@ -80,7 +80,7 @@
     return [literals objectAtIndex:index];
 }
 
-- (NSMutableArray *)namedReferences
+- (NSArray *)namedReferences
 {
     return namedRefs;
 }

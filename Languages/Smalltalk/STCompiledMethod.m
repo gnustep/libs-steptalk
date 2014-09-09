@@ -61,7 +61,7 @@
             literals:(NSArray *)anArray
     temporariesCount:(NSUInteger)tCount
            stackSize:(NSUInteger)size
-     namedReferences:(NSMutableArray *)refs;
+     namedReferences:(NSArray *)refs;
 {
     if ((self = [super initWithBytecodesData:data
                                     literals:anArray
