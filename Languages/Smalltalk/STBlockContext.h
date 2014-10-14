@@ -23,18 +23,15 @@
 
 #import "STExecutionContext.h"
 
-@class STBytecodeInterpreter;
 @class STMethodContext;
 
 @interface STBlockContext:STExecutionContext
 {
-    STBytecodeInterpreter *interpreter; 
     STMethodContext       *homeContext; /* owner of this block context */
 
     NSUInteger             initialIP;
 }
-- initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-  initialIP:(NSUInteger)pointer
+- initWithInitialIP:(NSUInteger)pointer
   stackSize:(NSUInteger)size;
 - (void)setHomeContext:(STMethodContext *)context;
 - (NSUInteger)initialIP;

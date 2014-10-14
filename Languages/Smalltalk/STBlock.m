@@ -154,9 +154,8 @@ Class STBlockContextClass = nil;
         if (!cachedContext)
         {
             cachedContext = [[STBlockContextClass alloc] 
-                                    initWithInterpreter:interpreter
-                                              initialIP:initialIP
-                                              stackSize:stackSize];
+                                    initWithInitialIP:initialIP
+                                            stackSize:stackSize];
         }
 
         /* Avoid allocation */
@@ -167,9 +166,8 @@ Class STBlockContextClass = nil;
     else
     {
         /* Create new context */
-        context = [[STBlockContextClass alloc] initWithInterpreter:interpreter
-                                                         initialIP:initialIP
-                                                         stackSize:stackSize];
+        context = [[STBlockContextClass alloc] initWithInitialIP:initialIP
+                                                       stackSize:stackSize];
 
         AUTORELEASE(context);
     }

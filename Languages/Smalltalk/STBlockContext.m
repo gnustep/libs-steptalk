@@ -35,23 +35,16 @@
 #import <Foundation/NSString.h>
 
 @implementation STBlockContext
-- initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-  initialIP:(NSUInteger)pointer
+- initWithInitialIP:(NSUInteger)pointer
   stackSize:(NSUInteger)size
 {
     if ((self = [super initWithStackSize:size]) != nil)
     {
-        interpreter = RETAIN(anInterpreter);
         initialIP = pointer;
 
         instructionPointer = initialIP;
     }
     return self; 
-}
-- (void)dealloc
-{
-    RELEASE(interpreter);
-    [super dealloc];
 }
 
 - (BOOL)isBlockContext

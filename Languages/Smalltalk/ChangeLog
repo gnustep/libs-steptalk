@@ -1,5 +1,13 @@
 2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STBlockContext.h (STExecutionContext, -initWithInitialIP:stackSize:):
+    * STBlockContext.m (-initWithInitialIP:stackSize:):
+    * STBlock.m (-valueWithArguments:):
+    Remove unused interpreter attribute and corresponding argument from
+    STBlockContext and its initializer.
+
+2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STMethodContext.h (+methodContextWithMethod:, initWithMethod:):
     * STMethodContext.m (+methodContextWithMethod:, initWithMethod:):
     * STBytecodeInterpreter.m (-interpretMethod:forReceiver:arguments:):
