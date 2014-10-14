@@ -24,7 +24,6 @@
 #import "STExecutionContext.h"
 
 @class STCompiledMethod;
-@class STEnvironment;
 @class NSMutableArray;
 
 @interface STMethodContext:STExecutionContext
@@ -34,11 +33,9 @@
     id                receiver;
 }
 
-+ methodContextWithMethod:(STCompiledMethod *)newMethod 
-              environment:(STEnvironment *)env;
++ methodContextWithMethod:(STCompiledMethod *)newMethod;
 
-- initWithMethod:(STCompiledMethod *)newMethod
-     environment:(STEnvironment *)env;
+- initWithMethod:(STCompiledMethod *)newMethod;
 
 - (STCompiledMethod*)method;
 

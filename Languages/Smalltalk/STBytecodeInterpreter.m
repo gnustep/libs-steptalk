@@ -141,8 +141,7 @@ static Class NSInvocation_class = nil;
                            [method selector]];
     }
 
-    newContext = [[STMethodContext alloc] initWithMethod:method
-                                             environment:environment];
+    newContext = [[STMethodContext alloc] initWithMethod:method];
 
     [newContext setArgumentsFromArray:args];
     [newContext setReceiver:anObject];

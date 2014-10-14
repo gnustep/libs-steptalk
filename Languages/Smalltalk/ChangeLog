@@ -1,14 +1,21 @@
 2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-	* STSmalltalkScriptObject.m (-forwardInvocation:): Set the return
-	value of the invocation object also when the exit pseudo method of
-	the script object is called.
+    * STMethodContext.h (+methodContextWithMethod:, initWithMethod:):
+    * STMethodContext.m (+methodContextWithMethod:, initWithMethod:):
+    * STBytecodeInterpreter.m (-interpretMethod:forReceiver:arguments:):
+    Remove unused environment argument from STMethodContext initializer.
 
 2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-	* STBlock.m (-value:value:):
-	* STBlock.m (-value:value:value:):
-	Add missing nil terminator to argument list of arrayWithObjects.
+    * STSmalltalkScriptObject.m (-forwardInvocation:): Set the return
+    value of the invocation object also when the exit pseudo method of the
+    script object is called.
+
+2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBlock.m (-value:value:):
+    * STBlock.m (-value:value:value:):
+    Add missing nil terminator to argument list of arrayWithObjects.
 
 2014-09-09  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

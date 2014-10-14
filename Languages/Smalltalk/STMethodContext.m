@@ -28,28 +28,19 @@
 #import "STLiterals.h"
 #import "STStack.h"
 
-#import <StepTalk/STEnvironment.h>
 #import <StepTalk/STExterns.h>
-#import <StepTalk/STObjectReference.h>
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSException.h>
 
-@interface STMethodContext(STPrivateMethods)
-- (void)_resolveExternReferences:(NSArray *)array
-                     environment:(STEnvironment *)env;
-@end
-
 @implementation STMethodContext
-+ methodContextWithMethod:(STCompiledMethod *)newMethod 
-              environment:(STEnvironment *)env
++ methodContextWithMethod:(STCompiledMethod *)newMethod
 {
-    return AUTORELEASE([[self alloc] initWithMethod:newMethod environment:env]);
+    return AUTORELEASE([[self alloc] initWithMethod:newMethod]);
 }
 
-- initWithMethod:(STCompiledMethod *)newMethod 
-     environment:(STEnvironment *)env
+- initWithMethod:(STCompiledMethod *)newMethod
 {
     if ((self = [super initWithStackSize:[newMethod stackSize]]) != nil)
     {
