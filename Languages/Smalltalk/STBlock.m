@@ -90,12 +90,12 @@ Class STBlockContextClass = nil;
 
 - value:arg1 value:arg2
 {
-    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2]];
+    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2,nil]];
 }
 
 - value:arg1 value:arg2 value:arg3
 {
-    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2,arg3]];
+    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2,arg3,nil]];
 }
 
 - valueWith:arg

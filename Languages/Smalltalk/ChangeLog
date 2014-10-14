@@ -1,3 +1,9 @@
+2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* STBlock.m (value:value:):
+	* STBlock.m (value:value:value:):
+	Add missing nil terminator to argument list of arrayWithObjects.
+
 2014-09-09  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STCompiler.m (setReceiverVariables:):
