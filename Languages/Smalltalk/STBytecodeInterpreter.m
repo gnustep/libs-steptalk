@@ -97,9 +97,10 @@ static Class NSInvocation_class = nil;
         environment = RETAIN(env);
     return self;
 }
-- (void)delloc
+- (void)dealloc
 {
     RELEASE(environment);
+    RELEASE(activeContext);
     [super dealloc];
 }
 - (void)setEnvironment:(STEnvironment *)env
@@ -161,11 +162,13 @@ static Class NSInvocation_class = nil;
 	    }
 	    else
 	    {
+                RELEASE(newContext);
 		[localException raise];
 	    }
 	}
 	else
 	{
+            RELEASE(newContext);
 	    [localException raise];
 	}
     NS_ENDHANDLER

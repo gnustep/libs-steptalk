@@ -48,6 +48,8 @@
 
 - (void)dealloc
 {
+    RELEASE(superclass);
+    RELEASE(superclassName);
     RELEASE(selectorCache);
     [super dealloc];
 }   

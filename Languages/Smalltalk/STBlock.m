@@ -64,6 +64,7 @@ Class STBlockContextClass = nil;
 {
     RELEASE(homeContext);
     RELEASE(interpreter);
+    RELEASE(cachedContext);
     [super dealloc];
 }
 - (NSUInteger)argumentCount

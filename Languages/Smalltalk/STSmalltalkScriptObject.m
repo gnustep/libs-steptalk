@@ -196,11 +196,18 @@
     // NSDebugLLog(@"STSending",
     //            @">> forwarding to self ...");
 
-    retval = [interpreter interpretMethod:method 
-                              forReceiver:self
-                                arguments:args];
-    RELEASE(args);
-    
+    NS_DURING
+        retval = [interpreter interpretMethod:method 
+                                  forReceiver:self
+                                    arguments:args];
+        RELEASE(args);
+    NS_HANDLER
+        RETAIN(localException);
+        RELEASE(args);
+        [pool release];
+        [AUTORELEASE(localException) raise];
+    NS_ENDHANDLER
+
     // NSDebugLLog(@"STSending",
     //            @"<< returned from forwarding");
 

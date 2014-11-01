@@ -46,6 +46,11 @@
     }
     return self; 
 }
+- (void)dealloc
+{
+    RELEASE(homeContext);
+    [super dealloc];
+}
 
 - (BOOL)isBlockContext
 {

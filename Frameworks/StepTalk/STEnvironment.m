@@ -116,7 +116,6 @@ STEnvironment *sharedEnvironment = nil;
         infoCache = [[NSMutableDictionary alloc] init];
 
         description = RETAIN(aDescription);
-        RETAIN(description);
         classes = [description classes];
 
         /* Load modules */
@@ -244,7 +243,7 @@ STEnvironment *sharedEnvironment = nil;
    ----------------------------------------------------------------------- */
 
 /**
-    Return object with name <var>objName</var>. If object is not found int the
+    Return object with name <var>objName</var>. If object is not found in the
     object dictionary, then object finders are used to try to find the object.
     If object is found by an object finder, then it is put into the object
     dicitonary. If there is no object with given name, <var>nil</var> is 

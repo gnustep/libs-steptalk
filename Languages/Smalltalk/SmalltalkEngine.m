@@ -78,14 +78,10 @@
     STCompiledScript      *compiledScript;
     id                     retval = nil;
 
-    compiler = [[STCompiler alloc] init];
-
-    [compiler setEnvironment:context];
+    compiler = [STCompiler compilerWithEnvironment:context];
 
     compiledScript = [compiler compileString:script];
     retval = [compiledScript executeInEnvironment:context];
-
-    AUTORELEASE(compiler);
 
     return retval;
 }

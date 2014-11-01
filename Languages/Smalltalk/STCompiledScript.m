@@ -101,46 +101,56 @@ static SEL finalizeSelector;
 
     methodCount = [methodDictionary count];
     
-    if(methodCount == 0)
+    if (methodCount == 0)
     {
         NSLog(@"Empty script executed");
     }
-    else if(methodCount == 1)
+    else if (methodCount == 1)
     {
         NSString *selName = [[methodDictionary allKeys] objectAtIndex:0];
         SEL       sel = STSelectorFromString(selName);
 
         NSDebugLog(@"Executing single-method script. (%@)", selName);
 
-        retval = [object performSelector:sel];
+        NS_DURING
+            retval = [object performSelector:sel];
+        NS_HANDLER
+            RELEASE(object);
+            [localException raise];
+        NS_ENDHANDLER
     }
-    else if(![object respondsToSelector:mainSelector])
+    else if (![object respondsToSelector:mainSelector])
     {
         NSLog(@"No 'main' method found");
     }
     else
     {
 
-        if( [object respondsToSelector:initializeSelector] )
-        {
-            NSDebugLog(@"Sending 'startUp' to script object");
-            [object performSelector:initializeSelector];
-        }
+        NS_DURING
+            if ([object respondsToSelector:initializeSelector])
+            {
+                NSDebugLog(@"Sending 'startUp' to script object");
+                [object performSelector:initializeSelector];
+            }
 
-        if( [object respondsToSelector:mainSelector] )
-        {
-            retval = [object performSelector:mainSelector];
-        }
-        else
-        {
-            NSLog(@"No 'main' found in script");
-        }
+            if ([object respondsToSelector:mainSelector])
+            {
+                retval = [object performSelector:mainSelector];
+            }
+            else
+            {
+                NSLog(@"No 'main' found in script");
+            }
 
-        if( [object respondsToSelector:finalizeSelector] )
-        {
-            NSDebugLog(@"Sending 'shutDown' to script object");
-            [object performSelector:finalizeSelector];
-        }
+            if ([object respondsToSelector:finalizeSelector])
+            {
+                NSDebugLog(@"Sending 'shutDown' to script object");
+                [object performSelector:finalizeSelector];
+            }
+        NS_HANDLER
+            RELEASE(object);
+            [localException raise];
+        NS_ENDHANDLER
     }
     
     RELEASE(object);

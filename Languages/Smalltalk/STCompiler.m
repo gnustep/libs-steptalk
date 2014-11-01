@@ -150,6 +150,7 @@ extern int STCparse(void *context);
 }
 - (void)dealloc
 {
+    RELEASE(environment);
     RELEASE(receiverVars);
     RELEASE(namedReferences);
     [super dealloc];
@@ -264,6 +265,7 @@ extern int STCparse(void *context);
 
     if(!environment)
     {
+        [pool release];
         [NSException  raise:STCompilerGenericException
                      format:@"Compilation environment is not initialized"];
         return nil;
@@ -286,24 +288,29 @@ extern int STCparse(void *context);
         {
             NSString *tokenString;
             NSInteger line;
-            
-            tokenString = [reader tokenString];
+
+            tokenString = RETAIN([reader tokenString]);
             line = [reader currentLine];
-            
+
             RELEASE(reader);
             reader = nil;
+
+            RETAIN(localException);
+            [pool release];
 
             [NSException  raise:STCompilerSyntaxException
                          format:exceptionFmt,
                                 (long)line,
-                                tokenString,
-                                [localException reason]];
+                                AUTORELEASE(tokenString),
+                                [AUTORELEASE(localException) reason]];
                          
         }
         RELEASE(reader);
         reader = nil;
 
-        [localException raise];
+        RETAIN(localException);
+        [pool release];
+        [AUTORELEASE(localException) raise];
     }
     NS_ENDHANDLER
 

@@ -1,3 +1,10 @@
+2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STClassInfo.m (-dealloc): Release superclass
+	and superclassName attributes.
+	* Frameworks/StepTalk/STEnvironment.m (-initWithDescription:):
+	Remove duplicated RETAIN statement.
+
 2013-05-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/NSInvocation+additions.m

@@ -1,3 +1,22 @@
+2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBlock.m (-dealloc): Release cachedContext attribute.
+    * STBlockContext.m (-dealloc): Restore method to release homeContext
+    attribute.
+    * STBytecodeInterpreter.m (-dealloc): Fix typo in method name and
+    release activeContext attribute.
+    * STBytecodeInterpreter.m (-interpretMethod:forReceiver:arguments:):
+    Release newContext also when an exception is raised while interpreting
+    the method.
+    * STCompiledScript.m (-executeInEnvironment:): Release script object
+    also when an exception is raised while interpreting the script.
+    * STCompiler.m (-dealloc): Release environment attribute.
+    * STCompiler.m (-compileString:): Release local auto release pool also
+    when an exception is raised during compilation.
+    * STSmalltalkScriptObject.m (-forwardInvocation:): Release local
+    autorelease pool and args array also when an exception is raised while
+    interpreting the method.
+
 2014-10-14  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlockContext.h (STExecutionContext, -initWithInitialIP:stackSize:):
