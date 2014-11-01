@@ -186,13 +186,25 @@ Class STBlockContextClass = nil;
     parentContext = [interpreter context];
 
     [interpreter setContext:context];
-    retval = [interpreter interpret];
+    NS_DURING
+        retval = [interpreter interpret];
+    NS_HANDLER
+        if (context == cachedContext)
+            usingCachedContext = NO;
+        [localException raise];
+    NS_ENDHANDLER
     [interpreter setContext:parentContext];
 
     /* Release cached context */
-    if(usingCachedContext)
+    if (context == cachedContext)
     {
-        usingCachedContext = NO;
+        if (usingCachedContext)
+            usingCachedContext = NO;
+        else
+            [NSException raise:STInternalInconsistencyException
+                        format:@"%@: using cached context %@",
+                               @" but usingCachedContext is not set",
+                               self, cachedContext];
     }
 
     return retval;

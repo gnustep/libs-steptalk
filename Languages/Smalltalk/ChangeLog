@@ -1,5 +1,21 @@
 2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STBlock.m (-valueWithArguments:): Fix bug where the cached context
+    of a block could be reused prematurely.
+    Note: This could happen only when a block is called recursively and
+    entered more than once in an inner invocation, as, e.g., in the
+    following code to compute the Fibonacci numbers:
+      fib := [:n |
+        (n <= 1)
+          ifTrue: [1]
+          ifFalse: [(fib value: (n - 1)) + (fib value: (n - 2))]].
+      fib value: 3.
+    Note that the code still does not produce the correct result because
+    blocks are not (yet) reentrant in the interpreter, but at least the
+    interpreter does not crash anymore.
+
+2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
     * STBlock.m (-dealloc): Release cachedContext attribute.
     * STBlockContext.m (-dealloc): Restore method to release homeContext
     attribute.
