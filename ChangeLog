@@ -1,5 +1,12 @@
 2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/NSObject+additions.h (-notEqual:, -notSame:):
+	* Frameworks/StepTalk/NSObject+additions.m (-notEqual:, -notSame:):
+	Add method implementations for the symbolic selectors ~= and ~~,
+	which are defined in the SymbolicSelectors.stenv environment.
+
+2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STClassInfo.m (-dealloc): Release superclass
 	and superclassName attributes.
 	* Frameworks/StepTalk/STEnvironment.m (-initWithDescription:):

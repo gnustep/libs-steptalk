@@ -26,6 +26,8 @@
 
 @interface NSObject (STAdditions)
 - (BOOL)isSame:(id)anObject;
+- (BOOL)notEqual:(id)anObject;
+- (BOOL)notSame:(id)anObject;
 - (BOOL)isNil;
 - (BOOL)notNil;
 - (id)yourself;

@@ -15,6 +15,14 @@
 {
     return self == anObject;
 }
+- (BOOL)notEqual:(id)anObject
+{
+    return ![self isEqual:anObject];
+}
+- (BOOL)notSame:(id)anObject
+{
+    return ![self isSame:anObject];
+}
 - (BOOL)isNil
 {
     return NO;
