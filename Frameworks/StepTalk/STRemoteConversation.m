@@ -79,7 +79,6 @@
     [connection invalidate];
     RELEASE(connection);
     connection = nil;
-    return;
 }
 
 - (void)dealloc
@@ -134,7 +133,9 @@
         NSLog(@"Closing conversation (%@) with %@", self, environmentName);
     }
 
+    RELEASE(proxy);
     proxy = nil;
+    RELEASE(environmentProcess);
     environmentProcess = nil;
     RELEASE(connection);
     connection = nil;

@@ -1,3 +1,9 @@
+2014-11-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STRemoteConversation.m (connectionDidDie:):
+	Fix leak of the proxy and environmentProcess attributes when a
+	connection died.
+
 2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/NSObject+additions.h (-notEqual:, -notSame:):
