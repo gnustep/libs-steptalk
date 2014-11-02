@@ -6,6 +6,7 @@
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSConnection.h>
 #import <Foundation/NSDistantObject.h>
+#import <Foundation/NSPortNameServer.h>
 
 #import "STEnvironment.h"
 
@@ -34,23 +35,29 @@
 - (void)open
 {
     NSString *envProcName;
-    
-    if(connection)
+    NSPortNameServer *nameServer;
+
+    if (connection)
     {
         [NSException raise:@"STConversationException"
                      format:@"Unable to open conversation: already opened."];
         return;
     }
-        
-    envProcName = [NSString stringWithFormat:@"STEnvironment:%@", 
+
+    envProcName = [NSString stringWithFormat:@"STEnvironment:%@",
                                                 environmentName];
 
-    connection = [NSConnection connectionWithRegisteredName:envProcName 
-                                                       host:hostName];
+    if ([hostName length] > 0)
+        nameServer = [NSSocketPortNameServer sharedInstance];
+    else
+        nameServer = [NSPortNameServer systemDefaultPortNameServer];
+    connection = [NSConnection connectionWithRegisteredName:envProcName
+                                                       host:hostName
+                                            usingNameServer:nameServer];
 
     RETAIN(connection);
 
-    if(!connection)
+    if (!connection)
     {
         [NSException raise:@"STConversationException"
                      format:@"Connection failed for environment '%@'",
@@ -61,11 +68,11 @@
     environmentProcess = RETAIN([connection rootProxy]);
     proxy = RETAIN([environmentProcess createConversation]);
     [proxy setProtocolForProxy:@protocol(STConversation)];
-    
+
     [[NSNotificationCenter defaultCenter]
                  addObserver: self
                     selector: @selector(connectionDidDie:)
-                        name: NSConnectionDidDieNotification 
+                        name: NSConnectionDidDieNotification
                       object: connection];
 }
 - (void)close

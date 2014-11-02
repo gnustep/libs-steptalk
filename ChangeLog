@@ -1,6 +1,11 @@
 2014-11-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-	* Frameworks/StepTalk/STRemoteConversation.m (connectionDidDie:):
+	* Frameworks/StepTalk/STRemoteConversation.m (-open): Force use of
+	a socket port name server to look up servers on other hosts.
+
+2014-11-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STRemoteConversation.m (-connectionDidDie:):
 	Fix leak of the proxy and environmentProcess attributes when a
 	connection died.
 
