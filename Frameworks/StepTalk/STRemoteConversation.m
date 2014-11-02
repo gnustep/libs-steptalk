@@ -25,6 +25,7 @@
             return nil;
         }
 
+        languageName = RETAIN(langName);
         environmentName = RETAIN(envName);
         hostName = RETAIN(host);
 
@@ -68,6 +69,10 @@
     environmentProcess = RETAIN([connection rootProxy]);
     proxy = RETAIN([environmentProcess createConversation]);
     [proxy setProtocolForProxy:@protocol(STConversation)];
+    if (languageName && ![languageName isEqual:@""])
+    {
+        [proxy setLanguage: languageName];
+    }
 
     [[NSNotificationCenter defaultCenter]
                  addObserver: self
@@ -101,13 +106,14 @@
 
 - (void)setLanguage:(NSString *)newLanguage
 {
+    ASSIGN(languageName, newLanguage);
     [proxy setLanguage:newLanguage];
 }
 
 /** Return name of the language used in the receiver conversation */
 - (NSString *)language
 {
-    return [proxy language];
+    return proxy != nil ? [proxy language] : languageName;
 }
 - (STEnvironment *)environment
 {

@@ -1,5 +1,12 @@
 2014-11-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STRemoteConversation.m
+	(-initWithEnvironmentName:host:language:, -open,
+	-setLanguage:, -language): Correctly initialize the scripting
+	language used in a remote conversation.
+
+2014-11-02  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 	* Frameworks/StepTalk/STRemoteConversation.m (-open): Force use of
 	a socket port name server to look up servers on other hosts.
 
