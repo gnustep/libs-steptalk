@@ -38,7 +38,7 @@
 #import <Foundation/NSValue.h>
 #import <GNUstepBase/GSObjCRuntime.h>
 
-#define SELECTOR_TYPES_COUNT 10
+#define SELECTOR_TYPES_COUNT (sizeof(selector_types)/sizeof(selector_types[0]))
 
 /* Predefined default selector types up to 10 arguments for fast creation.
    It should be faster than manually constructing the string. */
@@ -49,11 +49,11 @@ static const char *selector_types[] =
                             "@16@0:4@8@12",
                             "@20@0:4@8@12@16",
                             "@24@0:4@8@12@16@20",
-                            "@28@0:4@8@12@16@20@24" 
-                            "@32@0:4@8@12@16@20@24@28" 
-                            "@36@0:4@8@12@16@20@24@28@32" 
-                            "@40@0:4@8@12@16@20@24@28@32@36" 
-                            "@44@0:4@8@12@16@20@24@28@32@36@40" 
+                            "@28@0:4@8@12@16@20@24",
+                            "@32@0:4@8@12@16@20@24@28",
+                            "@36@0:4@8@12@16@20@24@28@32",
+                            "@40@0:4@8@12@16@20@24@28@32@36",
+                            "@44@0:4@8@12@16@20@24@28@32@36@40"
                         };
 
 NSMutableDictionary *STAllObjectiveCClasses(void)
