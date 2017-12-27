@@ -67,7 +67,7 @@
 /** Returns all languages that are known in the receiver. Should be used by
     remote calls instead of NSLanguage query which gives local list of
     languages. */
-- (NSArray *)knownLanguages
+- (bycopy NSArray *)knownLanguages
 {
     return [[STLanguageManager defaultManager] availableLanguages];
 }
@@ -159,7 +159,7 @@
     return context;
 }
 
-- (void)interpretScript:(NSString *)aString
+- (void)interpretScript:(bycopy NSString *)aString
 {
     if(!engine)
     {

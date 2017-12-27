@@ -91,7 +91,7 @@ STUndefinedObject *STNil = nil;
     return ( (self == anObject) || (anObject == nil) );
 }
 
-- (void) release
+- (oneway void) release
 {
     /* do nothing */
 }

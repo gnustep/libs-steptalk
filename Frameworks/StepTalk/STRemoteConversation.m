@@ -120,7 +120,7 @@
     /* FIXME: return local description */
     return nil;
 }
-- (void)interpretScript:(NSString *)aString
+- (void)interpretScript:(bycopy NSString *)aString
 {
     [proxy interpretScript:aString];
 }
