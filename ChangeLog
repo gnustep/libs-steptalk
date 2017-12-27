@@ -1,5 +1,10 @@
 2017-12-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STBundleInfo.m (allFrameworkNames,
+	pathForFrameworkWithName:):
+	* Tools/STExecutor.m (executeScript:withArguments:): Use NULL
+	instead of NO where a pointer argument is expected.
+
 	* Frameworks/StepTalk/STConversation.m (knownLanguages,
 	interpretScript:):
 	* Frameworks/StepTalk/STRemoteConversation.m (interpretScript:):

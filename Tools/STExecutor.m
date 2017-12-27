@@ -174,7 +174,7 @@ const char *STExecutorCommonOptions =
     NSString      *source;
     
     /* Get proper language name */
-    if( [manager fileExistsAtPath:file isDirectory:NO] )
+    if( [manager fileExistsAtPath:file isDirectory:NULL] )
     {
         source = [NSString stringWithContentsOfFile:file];
 

@@ -142,7 +142,7 @@ static NSMutableDictionary *bundleInfoDict;
 
         fenum = [[manager directoryContentsAtPath:path] objectEnumerator];
 
-        if( ![manager fileExistsAtPath:path isDirectory:NO] )
+        if( ![manager fileExistsAtPath:path isDirectory:NULL] )
         {
             continue;
         }
@@ -182,7 +182,7 @@ static NSMutableDictionary *bundleInfoDict;
 
         fenum = [[manager directoryContentsAtPath:path] objectEnumerator];
 
-        if( ![manager fileExistsAtPath:path isDirectory:NO] )
+        if( ![manager fileExistsAtPath:path isDirectory:NULL] )
         {
             continue;
         }
