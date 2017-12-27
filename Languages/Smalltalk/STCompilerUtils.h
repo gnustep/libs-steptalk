@@ -38,7 +38,7 @@ enum{
 };
 
 @interface STCompiler(Utils_private)
-- (STCompiledMethod *)compileMethod:(STCMethod *)method;
+- (void)compileMethod:(STCMethod *)method;
 - (id)createIntNumberLiteralFrom:(NSString *)aString;
 - (id)createRealNumberLiteralFrom:(NSString *)aString;
 - (id)createSymbolLiteralFrom:(NSString *)aString;

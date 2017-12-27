@@ -1,3 +1,8 @@
+2017-12-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompilerUtils.h: Fix wrong return type in method declaration
+    flagged up by the GNUstep runtime.
+
 2014-11-01  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlock.m (-valueWithArguments:): Fix bug where the cached context
