@@ -1,5 +1,8 @@
 2017-12-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STBlock.m (valueWithArguments:): Remove comma that unintentionally
+    breaks an exception format string
+
     * STCompilerUtils.h: Fix wrong return type in method declaration
     flagged up by the GNUstep runtime.
 

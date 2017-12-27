@@ -202,7 +202,7 @@ Class STBlockContextClass = nil;
             usingCachedContext = NO;
         else
             [NSException raise:STInternalInconsistencyException
-                        format:@"%@: using cached context %@",
+                        format:@"%@: using cached context %@"
                                @" but usingCachedContext is not set",
                                self, cachedContext];
     }
