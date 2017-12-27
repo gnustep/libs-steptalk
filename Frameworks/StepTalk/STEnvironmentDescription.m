@@ -110,7 +110,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     
     if(!name || [name isEqualToString:@""])
     {
-        name = [NSString stringWithString:@"Standard"];
+        name = @"Standard";
     }
     
     return name;

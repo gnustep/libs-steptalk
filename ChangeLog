@@ -1,5 +1,8 @@
 2017-12-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+	* Frameworks/StepTalk/STEnvironmentDescription.m
+	(defaultDescriptionName): Remove redundant method call.
+
 	* Frameworks/StepTalk/STBundleInfo.m (allFrameworkNames,
 	pathForFrameworkWithName:):
 	* Tools/STExecutor.m (executeScript:withArguments:): Use NULL
