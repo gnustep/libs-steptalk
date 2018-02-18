@@ -44,6 +44,7 @@
    It should be faster than manually constructing the string. */
 static const char *selector_types[] = 
                         {
+#if GS_SIZEOF_VOIDP == 4
                             "@8@0:4",
                             "@12@0:4@8",
                             "@16@0:4@8@12",
@@ -54,6 +55,22 @@ static const char *selector_types[] =
                             "@36@0:4@8@12@16@20@24@28@32",
                             "@40@0:4@8@12@16@20@24@28@32@36",
                             "@44@0:4@8@12@16@20@24@28@32@36@40"
+#endif
+#if GS_SIZEOF_VOIDP == 8
+                            "@16@0:8",
+                            "@24@0:8@16",
+                            "@32@0:8@16@24",
+                            "@40@0:8@16@24@32",
+                            "@48@0:8@16@24@32@40",
+                            "@56@0:8@16@24@32@40@48",
+                            "@64@0:8@16@24@32@40@48@56",
+                            "@72@0:8@16@24@32@40@48@56@64",
+                            "@80@0:8@16@24@32@40@48@56@64@72",
+                            "@88@0:8@16@24@32@40@48@56@64@72@80"
+#endif
+#if GS_SIZEOF_VOIDP != 4 && GS_SIZEOF_VOIDP != 8
+#error Unsupported architecture: sizeof(void *) is neither 4 nor 8
+#endif
                         };
 
 NSMutableDictionary *STAllObjectiveCClasses(void)
