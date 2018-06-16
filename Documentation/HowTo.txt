@@ -11,9 +11,11 @@ How to create scripting environment?
 
     STEnvironment *env;
     
-    env = [STEnvironment defaultScriptingEnvironment];
+    env = [STEnvironment sharedEnvironment];
 or
-    env = [STEnvironment environmentWithDescriptionName:envName];
+    env = [STEnvironment environmentWithDefaultDescription];
+or
+    env = [STEnvironment environmentWithDescription:description];
 
 
 How to register named objects in the scripting environment?
@@ -25,16 +27,16 @@ like in:
 
     [env setObject:transcript forName:@"Transcript"];
 
-See: STEnvironment
+See: STEnvironment, STContext
 
 How to create a scripting engine?
 ---------------------------------
 
     STEngine *engine;
 
-    engine = [STEngine engineForLanguageWithName:langName];
+    engine = [STEngine engineForLanguage:langName];
 
-See: STLanguage, STEngine
+See: STLanguageManager, STEngine
 
 How to execute a code?
 --------------------
@@ -43,7 +45,7 @@ How to execute a code?
     id        result;
 
     NS_DURING
-        result = [engine executeCode:string inEnvironment:env];
+        result = [engine interpretScript:string inContext:env];
     NS_HANDLER
         /* handle the exception */        
     NS_ENDHANDLER

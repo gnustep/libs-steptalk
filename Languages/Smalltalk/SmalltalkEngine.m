@@ -66,7 +66,7 @@
 - (id) executeCode:(NSString *)sourceCode 
        inEnvironment:(STEnvironment *)env
 {
-    NSLog(@"%@ is depreciated, use interpretScript:inContext: instead",
+    NSLog(@"%@ is deprecated, use interpretScript:inContext: instead",
                 NSStringFromSelector(_cmd));
     return [self interpretScript:sourceCode inContext:env];
 }
@@ -90,7 +90,7 @@
                       forReceiver:(id)receiver
                     inEnvironment:(STEnvironment *)env
 {
-    NSLog(@"%@ is depreciated, use methodFromSource:forReceiver:inContext: instead",
+    NSLog(@"%@ is deprecated, use methodFromSource:forReceiver:inContext: instead",
                 NSStringFromSelector(_cmd));
     return [self methodFromSource:sourceString
                         forReceiver:receiver
@@ -116,7 +116,7 @@
         withArguments:(NSArray *)args
         inEnvironment:(STEnvironment *)env
 {
-    NSLog(@"%@ is depreciated, use ...inContext: instead",
+    NSLog(@"%@ is deprecated, use ...inContext: instead",
                 NSStringFromSelector(_cmd));
     return [self executeMethod:aMethod
                     forReceiver:anObject

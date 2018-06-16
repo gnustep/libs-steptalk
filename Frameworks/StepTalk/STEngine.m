@@ -82,7 +82,7 @@ void _STInitMallocZone(void)
 
 + (STEngine *) engineForLanguageWithName:(NSString *)name
 {
-    NSLog(@"%@ %@ is depreciated, use %@ instead",
+    NSLog(@"%@ %@ is deprecated, use %@ instead",
             [self className], NSStringFromSelector(_cmd), @"engineForLanguage:");
 
     return [self engineForLanguage:name];
