@@ -1,3 +1,10 @@
+2019-02-22  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* GNUmakefile:
+	* NSDictionary+additions.h:
+	* NSDictionary+additions.m:
+	Implement Smalltalk collection protocol methods for NSDictionary.
+
 2017-12-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlock.m (valueWithArguments:): Remove comma that unintentionally

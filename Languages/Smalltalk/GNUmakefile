@@ -29,6 +29,7 @@ BUNDLE_INSTALL_DIR:=$(GNUSTEP_LIBRARY)/StepTalk/Languages
 Smalltalk_OBJC_FILES = \
         SmalltalkEngine.m \
         NSArray+additions.m \
+        NSDictionary+additions.m \
         NSNumber+additions.m \
         NSObject+additions.m \
         NSString+additions.m \
