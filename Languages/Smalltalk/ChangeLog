@@ -1,9 +1,15 @@
+2019-03-25  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STSmalltalkScriptObject.m (forwardInvocation:):
+    Call super class implementation for unimplemented methods so that they
+    get reported as unimplemented rather than silently returning nil.
+
 2019-02-22  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
-	* GNUmakefile:
-	* NSDictionary+additions.h:
-	* NSDictionary+additions.m:
-	Implement Smalltalk collection protocol methods for NSDictionary.
+    * GNUmakefile:
+    * NSDictionary+additions.h:
+    * NSDictionary+additions.m:
+    Implement Smalltalk collection protocol methods for NSDictionary.
 
 2017-12-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

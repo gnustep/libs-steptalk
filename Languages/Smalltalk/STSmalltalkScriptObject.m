@@ -170,7 +170,13 @@
     }
 
     method = [script methodWithName:methodName];
-    
+    if (method == nil)
+    {
+        [pool release];
+        [super forwardInvocation:invocation];
+        return;
+    }
+
     count = [[invocation methodSignature] numberOfArguments];
 
     NSDebugLLog(@"STSending",
