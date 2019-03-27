@@ -1,3 +1,8 @@
+2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBytecodeInterpreter.m (dispatchBytecode:):
+    Use numberWithBool: when pushing true and false values onto the stack.
+
 2019-03-25  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STSmalltalkScriptObject.m (forwardInvocation:):

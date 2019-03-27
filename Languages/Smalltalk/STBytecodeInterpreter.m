@@ -511,12 +511,12 @@ static Class NSInvocation_class = nil;
 
     case STPushTrueBytecode:
                 STDebugBytecodeWith(bytecode,receiver);
-                STPush(stack,[NSNumber numberWithInt:YES]);
+                STPush(stack,[NSNumber numberWithBool:YES]);
                 break;
 
     case STPushFalseBytecode:
                 STDebugBytecodeWith(bytecode,receiver);
-                STPush(stack,[NSNumber numberWithInt:NO]);
+                STPush(stack,[NSNumber numberWithBool:NO]);
                 break;
 
     case STPushRecVarBytecode:
