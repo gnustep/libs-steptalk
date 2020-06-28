@@ -104,9 +104,7 @@ StepTalk_AGSDOC_FLAGS = \
         -Declared StepTalk \
         -DocumentationDirectory ../../Documentation/Reference
 
-ifeq ($(GNUSTEP_TARGET_OS),mingw32)
-    StepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
-endif
+StepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
 
 ifeq ($(check),yes)
     ADDITIONAL_OBJCFLAGS += -Werror

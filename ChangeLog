@@ -1,3 +1,8 @@
+2020-06-29  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/GNUmakefile: Specify dependent libraries
+	while linking regardless of the target OS.
+
 2018-03-20  Graham Lee  <graham@iamleeg.com>
 
 	* Documentation/HowTo.txt: Document methods that still exist.
