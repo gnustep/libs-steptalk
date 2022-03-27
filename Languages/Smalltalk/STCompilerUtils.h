@@ -64,6 +64,22 @@ enum{
 @end
 
 /*
+ * STCBlock
+ * ---------------------------------------------------------------------------
+ */
+
+@interface STCBlock:NSObject
+{
+    NSArray *blockArguments;
+    STCStatements *statements;
+}
++ blockWithArguments:(NSArray *)args statements:(STCStatements *)stats;
+- initWithArguments:(NSArray *)args statements:(STCStatements *)stats;
+- (STCStatements *)statements;
+- (NSArray *)blockArguments;
+@end
+
+/*
  * STCStatements
  * ---------------------------------------------------------------------------
  */

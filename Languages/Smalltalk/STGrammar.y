@@ -63,6 +63,18 @@
 %token TK_IDENTIFIER TK_BINARY_SELECTOR TK_KEYWORD
 %token TK_INTNUMBER TK_REALNUMBER TK_SYMBOL TK_STRING TK_CHARACTER
 
+/* The following declarations are needed to resolve the shift-reduce
+ * conflict for prefix TK_BLOCK_OPEN TK_BAR with an identifier as, lookahead
+ * token. This could mark either the start of a script source or the start of
+ * a parameterless block with one or more temporaries. The default resolution
+ * is to shift the identifier and thus commit to the parameterless block parse,
+ * while our intention is to reduce the prefix via the script_open rule.
+ *
+ * FIXME Chose a different prefix to mark the beginning of a script source.
+ */
+%precedence TK_IDENTIFIER
+%precedence "script_open"
+
 /* Grammar */
 
 %%
@@ -81,13 +93,15 @@ source: /* empty string */  {
                                 [COMPILER compileMethod:$3];
                             }
                             
-    | 
-        TK_BLOCK_OPEN TK_BAR
+    |   script_open
+            methods 
+        TK_BLOCK_CLOSE      
+;
+
+script_open: TK_BLOCK_OPEN TK_BAR %prec "script_open"
                             {
                                 [COMPILER beginScript];
                             }
-            methods 
-        TK_BLOCK_CLOSE      
 ;
 
 plain_code: statements
@@ -188,14 +202,15 @@ block: TK_BLOCK_OPEN TK_BLOCK_CLOSE
                             {
                                 $$ = [STCStatements statements];
                             }
-    | TK_BLOCK_OPEN statements TK_BLOCK_CLOSE
+    | TK_BLOCK_OPEN block_code TK_BLOCK_CLOSE
                             {
-                                $$ = $2;
+                                $$ = [STCBlock blockWithArguments:nil
+                                /**/                   statements:$2];
                             }
-    | TK_BLOCK_OPEN block_var_list TK_BAR statements TK_BLOCK_CLOSE
+    | TK_BLOCK_OPEN block_var_list TK_BAR block_code TK_BLOCK_CLOSE
                             {
-                                $$ = $4;
-                                [$$ setTemporaries:$2];
+                                $$ = [STCBlock blockWithArguments:$2
+                                /**/                   statements:$4];
                             }
 ;
 block_var_list: TK_COLON variable_name
@@ -209,6 +224,15 @@ block_var_list: TK_COLON variable_name
                                 [$$ addObject:$3]; 
                             }
 ;
+block_code: statements
+                            {
+                                $$ = $1;
+                            }
+    | temporaries statements
+                            {
+                                [$2 setTemporaries:$1];
+                                $$ = $2;
+                            }
 statements: 
     TK_RETURN expression
                             { 

@@ -88,7 +88,9 @@ extern int STCparse(void *context);
 
 - (void)compileMethod:(STCMethod *)method;
 - (STCompiledCode *) compileStatements:(STCStatements *)statements;
-- (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag;
+- (void)compileStatements:(STCStatements *)statements
+                blockFlag:(BOOL)blockFlag
+           blockArguments:(NSArray *)blockArguments;
 - (void)compilePrimary:(STCPrimary *)primary;
 - (void)compileExpression:(STCExpression *)expr;
 
@@ -411,7 +413,7 @@ extern int STCparse(void *context);
 
     tempsSize = tempsCount = [tempVars count];
 
-    [self compileStatements:statements blockFlag:NO];
+    [self compileStatements:statements blockFlag:NO blockArguments:nil];
 
     NSDebugLLog(@"STCompiler", @"  temporaries %lu stack %lu",
                  (unsigned long)tempsSize,(unsigned long)stackSize);
@@ -574,7 +576,9 @@ extern int STCparse(void *context);
     bcpos = 0;
 }
 
-- (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag
+- (void)compileStatements:(STCStatements *)statements
+                blockFlag:(BOOL)blockFlag
+           blockArguments:(NSArray *)blockArguments
 {
     BOOL            first;
     NSEnumerator   *enumerator;
@@ -594,6 +598,20 @@ extern int STCparse(void *context);
 
     tempsSave = tempsCount; /* store value, so we can cleanup array later */
     
+    if (blockFlag && blockArguments)
+    {
+        NSDebugLLog(@"STCompiler-misc",@"  block arguments %@", blockArguments);
+
+        argCount = [blockArguments count];
+        for (index=0; index<argCount; index++)
+        {
+            [self addTempVariable:[blockArguments objectAtIndex:index]];
+        }
+
+        tempsCount += argCount;
+        tempsSize = MAX(tempsSize,tempsCount);
+    }
+
     array = [statements temporaries];
 
     NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
@@ -612,7 +630,7 @@ extern int STCparse(void *context);
 
     if (blockFlag)
     {
-        
+        argCount = [blockArguments count];
         blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
 
         index = [self addLiteral:blockInfo];
@@ -790,7 +808,9 @@ extern int STCparse(void *context);
 
     case STCBlockPrimaryType:
 
-            [self compileStatements:object blockFlag:YES];
+            [self compileStatements:[object statements]
+                          blockFlag:YES
+                     blockArguments:[object blockArguments]];
             break;
 
     case STCExpressionPrimaryType:

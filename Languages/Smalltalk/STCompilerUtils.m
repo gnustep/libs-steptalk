@@ -67,6 +67,46 @@
 @end
 
 /*
+ * STCBlock
+ * ---------------------------------------------------------------------------
+ */
+
+
+
+@implementation STCBlock
++ blockWithArguments:(NSArray *)args statements:(STCStatements *)stats
+{
+    STCBlock *block;
+    block = [[STCBlock alloc] initWithArguments:args statements:stats];
+    return AUTORELEASE(block);
+}
+- initWithArguments:(NSArray *)args statements:(STCStatements *)stats
+{
+    if ((self = [super init]) != nil)
+    {
+        blockArguments = RETAIN(args);
+        statements = RETAIN(stats);
+    }
+    return self;
+}
+- (void)dealloc
+{
+    RELEASE(blockArguments);
+    RELEASE(statements);
+    [super dealloc];
+}
+- (STCStatements *)statements
+{
+    return statements;
+}
+
+- (NSArray *)blockArguments
+{
+    return blockArguments;
+}
+@end
+
+/*
  * STCStatements
  * ---------------------------------------------------------------------------
  */
