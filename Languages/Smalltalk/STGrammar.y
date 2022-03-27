@@ -401,12 +401,12 @@ literal:
                         { $$ = [COMPILER createArrayLiteralFrom:$2]; }
 ;
 array: /* nothing */    { $$ = [NSMutableArray array]; }
-    | literal                   { $$ = [NSMutableArray array]; 
-                                   [$$ addObject:$1]; }
-    | symbol                     { $$ = [NSMutableArray array];
-                                   [$$ addObject:$1]; }
-    | array literal              { $$ = $1; [$$ addObject:$2]; }
-    | array symbol               { $$ = $1; [$$ addObject:$2]; }
+    | array_elements
+;
+array_elements: literal          { $$ = [NSMutableArray arrayWithObject:$1]; }
+    | symbol                     { $$ = [NSMutableArray arrayWithObject:$1]; }
+    | array_elements literal     { $$ = $1; [$$ addObject:$2]; }
+    | array_elements symbol      { $$ = $1; [$$ addObject:$2]; }
 ;
 symbol: TK_IDENTIFIER                        
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
