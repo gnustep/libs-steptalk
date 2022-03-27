@@ -1,5 +1,8 @@
 2022-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STCompiler.m (compileExpression:):
+    Use a more stack friendly translation of cascades.
+
     * STBytecodes.h:
     * STBytecodes.m (initNamesArray, STDissasembleBytecode):
     * STBytecodeInterpreter.m (dispatchBytecode:):
