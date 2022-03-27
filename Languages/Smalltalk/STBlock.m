@@ -86,17 +86,17 @@ Class STBlockContextClass = nil;
 
 - value:arg
 {
-    return [self valueWithArguments:[NSArray arrayWithObject:arg]];
+    return [self valueWith:arg];
 }
 
 - value:arg1 value:arg2
 {
-    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2,nil]];
+    return [self valueWith:arg1 with:arg2];
 }
 
 - value:arg1 value:arg2 value:arg3
 {
-    return [self valueWithArguments:[NSArray arrayWithObjects:arg1,arg2,arg3,nil]];
+    return [self valueWith:arg1 with:arg2 with:arg3];
 }
 
 - valueWith:arg
@@ -125,7 +125,15 @@ Class STBlockContextClass = nil;
 
 - valueWithArgs:(id *)args count:(NSUInteger)count
 {
-    NSArray *arguments = [NSArray arrayWithObjects:args count:count];
+    NSUInteger i;
+    NSArray *arguments;
+
+    for (i = 0; i<count; i++)
+    {
+	if (args[i] == nil)
+	    args[i] = STNil;
+    }
+    arguments = [NSArray arrayWithObjects:args count:count];
     return [self valueWithArguments:arguments];
 }
 

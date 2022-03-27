@@ -1,3 +1,8 @@
+2022-03-28  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBlock.m (withWithArgs:): Prevent exception when one of the
+    arguments of the value methods is nil.
+
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodeInterpreter.m (dispatchBytecode:):
