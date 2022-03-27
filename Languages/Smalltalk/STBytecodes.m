@@ -88,6 +88,12 @@ static void initNamesArray(void)
                      withObject:@"breakpoint"];
     [array replaceObjectAtIndex:STLongJumpBytecode 
                      withObject:@"long jump"];
+    [array replaceObjectAtIndex:STStoreRecVarBytecode
+                     withObject:@"store ivar"];
+    [array replaceObjectAtIndex:STStoreExternBytecode
+                     withObject:@"store extern"];
+    [array replaceObjectAtIndex:STStoreTempBytecode
+                     withObject:@"store temp"];
 
     STBytecodeNames = [[NSArray alloc] initWithArray:array];
 }
@@ -141,6 +147,9 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
     case STPopAndStoreRecVarBytecode:
     case STPopAndStoreExternBytecode:
     case STPopAndStoreTempBytecode:
+    case STStoreRecVarBytecode:
+    case STStoreExternBytecode:
+    case STStoreTempBytecode:
                 return [NSString  stringWithFormat:@"%@ %i",
                                   str, bytecode.arg1];
     case STPushReceiverBytecode:
@@ -253,6 +262,9 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
         case STPopAndStoreRecVarBytecode:
         case STPopAndStoreExternBytecode:
         case STPopAndStoreTempBytecode:
+        case STStoreRecVarBytecode:
+        case STStoreExternBytecode:
+        case STStoreTempBytecode:
                     if(*pointer + 1 >= length)
                     {
                         break;

@@ -53,7 +53,10 @@
 #define STPopStackBytecode             0x15
 #define STReturnBytecode               0x16
 #define STReturnBlockBytecode          0x17
-/*                                     0x18-0x27 reserved single bytecodes */
+#define STStoreRecVarBytecode          0x18 /* recvar index */
+#define STStoreExternBytecode          0x19 /* extern index */
+#define STStoreTempBytecode            0x1a /* temp index */
+/*                                     0x1b-0x27 reserved single bytecodes */
 /*                                     0x27-0xfe reserved */
 #define STBreakpointBytecode           0xff
 
