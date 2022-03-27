@@ -1143,7 +1143,6 @@ extern int STCparse(void *context);
                 
     EMIT_DOUBLE(STPushLiteralBytecode,index);
     STACK_PUSH;
-    stackSize++;
 }
 - (void)emitPushVariable:(NSUInteger)index
 {
@@ -1194,7 +1193,6 @@ extern int STCparse(void *context);
                 [literals objectAtIndex:index],(unsigned long)argCount);
             
     EMIT_TRIPPLE(STSendSelectorBytecode,index,argCount);
-    STACK_PUSH_COUNT(argCount);
     STACK_POP_COUNT(argCount);
 }
 - (void)emitDuplicateStackTop

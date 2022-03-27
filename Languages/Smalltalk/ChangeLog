@@ -1,3 +1,8 @@
+2022-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompiler.m (emitPushLiteral, emitSendSelector:argCount:):
+    Remove code that incorrectly was requesting extra stack space.
+
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodeInterpreter.m (dispatchBytecode:):
