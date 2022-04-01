@@ -16,6 +16,7 @@
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSException.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSString.h>
 
@@ -93,9 +94,23 @@ static NSUInteger nextId = 1;
     [self subclassResponsibility:_cmd];
     return nil;
 }
-- (void)setOuterContext:(STExecutionContext *)newContext
+- (STExecutionContext *)outerContext:(NSUInteger)num
 {
-    [self subclassResponsibility:_cmd];
+    NSUInteger i;
+    STExecutionContext *context;
+
+    context = self;
+    for (i=0; i<num; i++)
+    {
+        context = [context outerContext];
+        if (!context)
+        {
+            [NSException raise:STInternalInconsistencyException
+                        format:@"Outer context %lu (of %lu) has no outer context",
+                               (unsigned long)i,(unsigned long)num];
+        }
+    }
+    return context;
 }
 
 - (STStack *)stack

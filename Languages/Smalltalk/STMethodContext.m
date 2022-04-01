@@ -32,7 +32,6 @@
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
-#import <Foundation/NSException.h>
 
 @implementation STMethodContext
 + methodContextWithMethod:(STCompiledMethod *)newMethod
@@ -68,11 +67,6 @@
 - (STExecutionContext *)outerContext
 {
     return nil;
-}
-- (void)setOuterContext:(STExecutionContext *)context
-{
-    [NSException raise:STInternalInconsistencyException
-                format:@"Should not set outer context of method context"];
 }
 
 - (STCompiledMethod*)method

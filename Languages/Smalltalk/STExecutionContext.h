@@ -44,7 +44,7 @@
 
 - (STMethodContext *)homeContext;
 - (STExecutionContext *)outerContext;
-- (void)setOuterContext:(STExecutionContext *)context;
+- (STExecutionContext *)outerContext:(NSUInteger)num;
 
 - (BOOL)isBlockContext;
 
