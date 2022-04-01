@@ -74,10 +74,14 @@
 {
     return self;
 }
-- (void)setHomeContext:(STMethodContext *)context
+- (STExecutionContext *)outerContext
+{
+    return nil;
+}
+- (void)setOuterContext:(STExecutionContext *)context
 {
     [NSException raise:STInternalInconsistencyException
-                format:@"Should not set home context of method context"];
+                format:@"Should not set outer context of method context"];
 }
 
 - (STCompiledMethod*)method

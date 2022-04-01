@@ -44,14 +44,14 @@ Class STBlockContextClass = nil;
     STBlockContextClass = [STBlockContext class];
 }
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-          homeContext:(STMethodContext *)context
+         outerContext:(STExecutionContext *)context
             initialIP:(NSUInteger)ptr
         argumentCount:(NSUInteger)count
             stackSize:(NSUInteger)size
 {
     if ((self = [super init]) != nil)
     {
-	homeContext = RETAIN(context);
+	outerContext = RETAIN(context);
 	argCount  = count; 
 	stackSize = size;
 	initialIP = ptr;
@@ -62,7 +62,7 @@ Class STBlockContextClass = nil;
 
 - (void)dealloc
 {
-    RELEASE(homeContext);
+    RELEASE(outerContext);
     RELEASE(interpreter);
     RELEASE(cachedContext);
     [super dealloc];
@@ -181,7 +181,7 @@ Class STBlockContextClass = nil;
         [stack push:[arguments objectAtIndex:i]];
     }
 
-    [context setHomeContext:homeContext];
+    [context setOuterContext:outerContext];
 
     parentContext = [interpreter context];
 

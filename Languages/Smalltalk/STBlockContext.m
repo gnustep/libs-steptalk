@@ -48,7 +48,7 @@
 }
 - (void)dealloc
 {
-    RELEASE(homeContext);
+    RELEASE(outerContext);
     [super dealloc];
 }
 
@@ -56,13 +56,17 @@
 {
     return YES;
 }
-- (void)setHomeContext:(STMethodContext *)context
+- (void)setOuterContext:(STExecutionContext *)context
 {
-    ASSIGN(homeContext,context);
+    ASSIGN(outerContext,context);
 }
 - (STMethodContext *)homeContext
 {
-    return homeContext;
+    return [outerContext homeContext];
+}
+- (STExecutionContext *)outerContext
+{
+    return outerContext;
 }
 
 - (NSUInteger)initialIP
@@ -72,28 +76,28 @@
 
 - temporaryAtIndex:(NSUInteger)index;
 {
-    return [homeContext temporaryAtIndex:index];
+    return [[self homeContext] temporaryAtIndex:index];
 }
 - (void)setTemporary:anObject atIndex:(NSUInteger)index;
 {
-    [homeContext setTemporary:anObject atIndex:index];
+    [[self homeContext] setTemporary:anObject atIndex:index];
 }
 
 - (NSString *)referenceNameAtIndex:(NSUInteger)index
 {
-    return [homeContext referenceNameAtIndex:index];
+    return [[self homeContext] referenceNameAtIndex:index];
 }
 - (STBytecodes *)bytecodes
 {
-    return [homeContext bytecodes];
+    return [[self homeContext] bytecodes];
 }
 - (id)literalObjectAtIndex:(NSUInteger)index
 {
-    return [homeContext literalObjectAtIndex:index];
+    return [[self homeContext] literalObjectAtIndex:index];
 }
 - (id)receiver
 {
-    return [homeContext receiver];
+    return [[self homeContext] receiver];
 }
 
 - (void)resetInstructionPointer

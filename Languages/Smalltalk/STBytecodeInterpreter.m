@@ -360,7 +360,7 @@ static Class NSInvocation_class = nil;
 
     block =
         [[STBlock alloc] initWithInterpreter:self
-                                 homeContext:[activeContext homeContext]
+                                outerContext:activeContext
                                    initialIP:ptr
                                argumentCount:argCount
                                    stackSize:stackSize];

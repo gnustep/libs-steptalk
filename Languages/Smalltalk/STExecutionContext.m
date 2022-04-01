@@ -72,7 +72,12 @@ static NSUInteger nextId = 1;
     [self subclassResponsibility:_cmd];
     return nil;
 }
-- (void)setHomeContext:(STMethodContext *)newContext
+- (STExecutionContext *)outerContext
+{
+    [self subclassResponsibility:_cmd];
+    return nil;
+}
+- (void)setOuterContext:(STExecutionContext *)newContext
 {
     [self subclassResponsibility:_cmd];
 }

@@ -41,7 +41,8 @@
 - (BOOL)isValid;
 
 - (STMethodContext *)homeContext;
-- (void)setHomeContext:(STMethodContext *)context;
+- (STExecutionContext *)outerContext;
+- (void)setOuterContext:(STExecutionContext *)context;
 
 - (BOOL)isBlockContext;
 
