@@ -26,16 +26,18 @@
 @class STStack;
 @class STBytecodes;
 @class STMethodContext;
+@class NSMutableArray;
 
 @interface STExecutionContext:NSObject
 {
     NSUInteger          contextId;       /* for debugging */
     
     STStack            *stack;
+    NSMutableArray     *temporaries;
     
     NSUInteger          instructionPointer;
 }
-- initWithStackSize:(NSUInteger)stackSize;
+- initWithStackSize:(NSUInteger)stackSize tempCount:(NSUInteger)tempCount;
 
 - (void)invalidate;
 - (BOOL)isValid;
@@ -50,4 +52,7 @@
 - (void)setInstructionPointer:(NSUInteger)value;
 
 - (STStack *)stack;
+
+- (id)temporaryAtIndex:(NSUInteger)index;
+- (void)setTemporary:anObject atIndex:(NSUInteger)index;
 @end

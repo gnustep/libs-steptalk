@@ -12,6 +12,9 @@
 #import "STMethodContext.h"
 #import "STStack.h"
 
+#import <StepTalk/STExterns.h>
+
+#import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSString.h>
@@ -23,11 +26,20 @@ static NSUInteger nextId = 1;
 @end
 
 @implementation STExecutionContext
-- initWithStackSize:(NSUInteger)stackSize
+- initWithStackSize:(NSUInteger)stackSize tempCount:(NSUInteger)tempCount
 {
     if ((self = [super init]) != nil)
     {
+        NSUInteger i;
+
         stack = [[STStack alloc] initWithSize:stackSize];
+        temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
+
+        for (i=0; i<tempCount; i++)
+        {
+            [temporaries insertObject:STNil atIndex:i];
+        }
+
         contextId = nextId ++;
     }
     return self;
@@ -35,6 +47,7 @@ static NSUInteger nextId = 1;
 - (void)dealloc
 {
     RELEASE(stack);
+    RELEASE(temporaries);
     [super dealloc];
 }
 - (NSUInteger)contextId
@@ -91,4 +104,19 @@ static NSUInteger nextId = 1;
     [self subclassResponsibility:_cmd];
     return NO;
 }
+
+- (id)temporaryAtIndex:(NSUInteger)index
+{
+    return [temporaries objectAtIndex:index];
+}
+
+- (void)setTemporary:anObject atIndex:(NSUInteger)index
+{
+    if(!anObject)
+    {
+        anObject = STNil;
+    }
+    [temporaries replaceObjectAtIndex:index withObject:anObject];
+}
+
 @end

@@ -38,7 +38,7 @@
 - initWithInitialIP:(NSUInteger)pointer
   stackSize:(NSUInteger)size
 {
-    if ((self = [super initWithStackSize:size]) != nil)
+    if ((self = [super initWithStackSize:size tempCount:0]) != nil)
     {
         initialIP = pointer;
 

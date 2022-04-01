@@ -42,27 +42,18 @@
 
 - initWithMethod:(STCompiledMethod *)newMethod
 {
-    if ((self = [super initWithStackSize:[newMethod stackSize]]) != nil)
+    NSUInteger stackSize = [newMethod stackSize];
+    NSUInteger tempCount = [newMethod temporariesCount];
+
+    if ((self = [super initWithStackSize:stackSize tempCount:tempCount]) != nil)
     {
-        NSUInteger tempCount;
-        NSUInteger i;
-
         method = RETAIN(newMethod);
-
-        tempCount = [method temporariesCount];
-        temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
-
-        for (i=0; i<tempCount; i++)
-        {
-            [temporaries insertObject:STNil atIndex:i];
-        }
     }
     return self;
 }
 
 - (void)dealloc
 {
-    RELEASE(temporaries);
     RELEASE(method);
     [super dealloc];
 }
@@ -95,20 +86,6 @@
 - (id)receiver
 {
     return receiver;
-}
-
-- (id)temporaryAtIndex:(NSUInteger)index
-{
-    return [temporaries objectAtIndex:index];
-}
-
-- (void)setTemporary:anObject atIndex:(NSUInteger)index
-{
-    if(!anObject)
-    {
-        anObject = STNil;
-    }
-    [temporaries replaceObjectAtIndex:index withObject:anObject];
 }
 
 - (NSString *)referenceNameAtIndex:(NSUInteger)index
