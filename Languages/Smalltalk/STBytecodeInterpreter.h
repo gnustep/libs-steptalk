@@ -27,6 +27,7 @@
 @class STCompiledCode;
 @class STBytecodes;
 @class STExecutionContext;
+@class STMethodContext;
 @class STStack;
 @class STEnvironment;
 
@@ -39,6 +40,7 @@
     STEnvironment      *environment;    /* scripting environment */
 
     STExecutionContext *activeContext;       /* current execution context */
+    STMethodContext    *homeContext;         /* from context */
     STStack            *stack;               /* from context */
     STBytecodes        *bytecodes;           /* from context */
     NSUInteger          instructionPointer;  /* IP  */

@@ -74,32 +74,6 @@
     return initialIP;
 }
 
-- temporaryAtIndex:(NSUInteger)index;
-{
-    return [[self homeContext] temporaryAtIndex:index];
-}
-- (void)setTemporary:anObject atIndex:(NSUInteger)index;
-{
-    [[self homeContext] setTemporary:anObject atIndex:index];
-}
-
-- (NSString *)referenceNameAtIndex:(NSUInteger)index
-{
-    return [[self homeContext] referenceNameAtIndex:index];
-}
-- (STBytecodes *)bytecodes
-{
-    return [[self homeContext] bytecodes];
-}
-- (id)literalObjectAtIndex:(NSUInteger)index
-{
-    return [[self homeContext] literalObjectAtIndex:index];
-}
-- (id)receiver
-{
-    return [[self homeContext] receiver];
-}
-
 - (void)resetInstructionPointer
 {
     instructionPointer = initialIP;

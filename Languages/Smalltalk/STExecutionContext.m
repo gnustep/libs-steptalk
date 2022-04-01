@@ -91,33 +91,4 @@ static NSUInteger nextId = 1;
     [self subclassResponsibility:_cmd];
     return NO;
 }
-- (id)temporaryAtIndex:(NSUInteger)index
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (void)setTemporary:anObject atIndex:(NSUInteger)index
-{
-    [self subclassResponsibility:_cmd];
-}
-- (NSString *)referenceNameAtIndex:(NSUInteger)index
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (STBytecodes *)bytecodes
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (id)literalObjectAtIndex:(NSUInteger)index
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (id)receiver
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
 @end

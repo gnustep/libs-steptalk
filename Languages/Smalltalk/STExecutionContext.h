@@ -49,14 +49,5 @@
 - (NSUInteger)instructionPointer;
 - (void)setInstructionPointer:(NSUInteger)value;
 
-- (STBytecodes *)bytecodes;
-
 - (STStack *)stack;
-
-- (id)temporaryAtIndex:(NSUInteger)index;
-- (void)setTemporary:anObject atIndex:(NSUInteger)index;
-- (NSString *)referenceNameAtIndex:(NSUInteger)index;
-- (id)literalObjectAtIndex:(NSUInteger)index;
-
-- (id)receiver;
 @end

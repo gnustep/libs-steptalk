@@ -46,6 +46,8 @@
 
 - (id)temporaryAtIndex:(NSUInteger)index;
 - (void)setTemporary:anObject atIndex:(NSUInteger)index;
+- (NSString *)referenceNameAtIndex:(NSUInteger)index;
+- (id)literalObjectAtIndex:(NSUInteger)index;
 
 - (STBytecodes *)bytecodes;
 @end
