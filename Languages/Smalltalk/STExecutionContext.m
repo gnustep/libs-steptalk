@@ -30,14 +30,17 @@ static NSUInteger nextId = 1;
 {
     if ((self = [super init]) != nil)
     {
-        NSUInteger i;
-
         stack = [[STStack alloc] initWithSize:stackSize];
-        temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
-
-        for (i=0; i<tempCount; i++)
+        if (tempCount > 0)
         {
-            [temporaries insertObject:STNil atIndex:i];
+            NSUInteger i;
+
+            temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
+
+            for (i=0; i<tempCount; i++)
+            {
+                [temporaries insertObject:STNil atIndex:i];
+            }
         }
 
         contextId = nextId ++;
