@@ -133,8 +133,7 @@ Class STBlockContextClass = nil;
 {
     STExecutionContext *parentContext;
     STBlockContext     *context;
-    STStack            *stack;
-    NSUInteger          i, count;
+    NSUInteger          count;
     id                  retval;
 
     count = [arguments count];
@@ -156,6 +155,7 @@ Class STBlockContextClass = nil;
         {
             cachedContext = [[STBlockContextClass alloc] 
                                     initWithInitialIP:initialIP
+                                        argumentCount:argCount
                                             stackSize:stackSize];
         }
 
@@ -168,19 +168,13 @@ Class STBlockContextClass = nil;
     {
         /* Create new context */
         context = [[STBlockContextClass alloc] initWithInitialIP:initialIP
+                                                   argumentCount:argCount
                                                        stackSize:stackSize];
 
         AUTORELEASE(context);
     }
-
-    /* push block arguments to the stack */
     
-    stack = [context stack];
-    for (i = 0; i<count; i++)
-    {
-        [stack push:[arguments objectAtIndex:i]];
-    }
-
+    [context setArgumentsFromArray:arguments];
     [context setOuterContext:outerContext];
 
     parentContext = [interpreter context];

@@ -36,9 +36,10 @@
 
 @implementation STBlockContext
 - initWithInitialIP:(NSUInteger)pointer
-  stackSize:(NSUInteger)size
+      argumentCount:(NSUInteger)count
+          stackSize:(NSUInteger)size
 {
-    if ((self = [super initWithStackSize:size tempCount:0]) != nil)
+    if ((self = [super initWithStackSize:size tempCount:count]) != nil)
     {
         initialIP = pointer;
 

@@ -40,8 +40,6 @@
 - (void)setReceiver:anObject;
 - (id)receiver;
 
-- (void)setArgumentsFromArray:(NSArray *)args;
-
 - (NSString *)referenceNameAtIndex:(NSUInteger)index;
 - (id)literalObjectAtIndex:(NSUInteger)index;
 

@@ -485,6 +485,8 @@ static Class NSInvocation_class = nil;
 {
     NSString *refName;
     id        object;
+    STExecutionContext *context;
+    
     
     switch(bytecode.code)
     {
@@ -537,7 +539,7 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushTemporaryBytecode:
-                object = [homeContext temporaryAtIndex:bytecode.arg1];
+                object = [activeContext temporaryAtIndex:bytecode.arg1];
                 STPush(stack,object);
                 STDebugBytecodeWith(bytecode,object);
                 break;
@@ -566,7 +568,7 @@ static Class NSInvocation_class = nil;
 
     case STPopAndStoreTempBytecode:
                 STDebugBytecode(bytecode);
-                [homeContext setTemporary:STPop(stack) atIndex:bytecode.arg1];
+                [activeContext setTemporary:STPop(stack) atIndex:bytecode.arg1];
                 break;
 
     case STSendSelectorBytecode:
@@ -612,6 +614,19 @@ static Class NSInvocation_class = nil;
                     [self createBlockWithArgumentCount:[info argumentCount]
                                              stackSize:[info stackSize]];
                 }
+                break;
+
+    case STPushOuterTemporaryBytecode:
+                context = [activeContext outerContext:bytecode.arg2];
+                object = [context temporaryAtIndex:bytecode.arg1];
+                STPush(stack,object);
+                STDebugBytecodeWith(bytecode,object);
+                break;
+
+    case STPopAndStoreOuterTempBytecode:
+                STDebugBytecode(bytecode);
+                context = [activeContext outerContext:bytecode.arg2];  
+                [context setTemporary:STPop(stack) atIndex:bytecode.arg1];
                 break;
 
     default:

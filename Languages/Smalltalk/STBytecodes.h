@@ -54,7 +54,9 @@
 #define STReturnBytecode               0x16
 #define STReturnBlockBytecode          0x17
 /*                                     0x18-0x27 reserved single bytecodes */
-/*                                     0x27-0xfe reserved */
+#define STPushOuterTemporaryBytecode   0x28 /* temp index, deoth */
+#define STPopAndStoreOuterTempBytecode 0x29 /* temp index, depth */
+/*                                     0x2a-0xfe reserved */
 #define STBreakpointBytecode           0xff
 
 /*

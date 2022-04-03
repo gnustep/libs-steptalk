@@ -32,7 +32,8 @@
     NSUInteger             initialIP;
 }
 - initWithInitialIP:(NSUInteger)pointer
-  stackSize:(NSUInteger)size;
+      argumentCount:(NSUInteger)count
+          stackSize:(NSUInteger)size;
 - (void)setOuterContext:(STExecutionContext *)context;
 - (NSUInteger)initialIP;
 - (void)resetInstructionPointer;

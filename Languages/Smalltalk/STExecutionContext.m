@@ -137,4 +137,16 @@ static NSUInteger nextId = 1;
     [temporaries replaceObjectAtIndex:index withObject:anObject];
 }
 
+- (void)setArgumentsFromArray:(NSArray *)args
+{
+    NSUInteger i;
+    NSUInteger count;
+    
+    count = [args count];
+
+    for(i=0;i<count;i++)
+    {
+        [self setTemporary:[args objectAtIndex:i] atIndex:i];
+    }
+}
 @end

@@ -77,7 +77,9 @@ extern int STCparse(void *context);
 - (void)compile;
 - (void)initializeContext;
 - (void)destroyCompilationContext;
-- (NSUInteger)indexOfTemporaryVariable:(NSString *)varName;
+- (NSArray *)tempVarsOfOuterContext:(NSUInteger)num;
+- (NSUInteger)indexOfTemporaryVariable:(NSString *)varName
+                          outerContext:(NSUInteger *)num;
 
 - (void) initializeCompilationContext;
 
@@ -98,9 +100,11 @@ extern int STCparse(void *context);
 - (void)emitReturn;
 - (void)emitReturnFromBlock;
 - (void)emitPushTemporary:(NSUInteger)index;
+- (void)emitPushTemporary:(NSUInteger)index outerContext:(NSUInteger)num;
 - (void)emitPushLiteral:(NSUInteger)index;
 - (void)emitPushVariable:(NSUInteger)index;
 - (void)emitPopAndStoreTemporary:(NSUInteger)index;
+- (void)emitPopAndStoreTemporary:(NSUInteger)index outerContext:(NSUInteger)num;
 - (void)emitPopAndStoreVariable:(NSUInteger)index ;
 - (void)emitPopStack;
 - (void)emitSendSelector:(NSUInteger)index argCount:(NSUInteger)argCount;
@@ -352,6 +356,7 @@ extern int STCparse(void *context);
     NSDebugLLog(@"STCompiler", @"Compile method %@", [messagePattern selector]);
 
     tempVars = [NSMutableArray arrayWithArray:[messagePattern arguments]];
+    outerTempVars = [NSMutableArray array];
 
     code = [self compileStatements:[method statements]];
    
@@ -460,9 +465,39 @@ extern int STCparse(void *context);
  * ---------------------------------------------------------------------------
  */
 
-- (NSUInteger)indexOfTemporaryVariable:(NSString *)varName
+- (NSArray *)tempVarsOfOuterContext:(NSUInteger)num
 {
-    return [tempVars indexOfObject:varName];
+    if (num > 0)
+    {
+        return [outerTempVars objectAtIndex:[outerTempVars count] - num];
+    }
+    else
+    {
+        return tempVars;
+    }
+}
+
+- (NSUInteger)indexOfTemporaryVariable:(NSString *)varName
+                          outerContext:(NSUInteger *)num
+{
+    NSUInteger index;
+    NSArray *temps;
+    NSEnumerator *e;
+
+    *num = 0;
+    index = [tempVars indexOfObject:varName];
+    if (index == NSNotFound)
+    {
+	e = [outerTempVars reverseObjectEnumerator];
+	while ((temps = [e nextObject]))
+	{
+	    (*num)++;
+	    index = [temps indexOfObject:varName];
+	    if (index != NSNotFound)
+		break;
+	}
+    }
+    return index;
 }
 
 - (void)setReceiverVariables:(NSArray *)array
@@ -584,15 +619,25 @@ extern int STCparse(void *context);
     NSUInteger      tempsSave;           /* stored count of temporaries */
     NSUInteger      stackPosSave  = 0;   /* stored previous stack value */  
     NSUInteger      stackSizeSave = 0;
+    NSUInteger      tempsSizeSave = 0;
     NSUInteger      jumpIP = 0; /* location of jump bytecode for later fixup */
     NSUInteger      index;
     NSUInteger      argCount=0;  /* argument count for block context */
         
     NSDebugLLog(@"STCompiler-misc",
-                @"  compile statements; blockFlag=%i; tempCount=%lu",
-                 blockFlag,(unsigned long)tempsCount);
+                @"  compile statements; blockFlag=%i",
+                 blockFlag);
 
     tempsSave = tempsCount; /* store value, so we can cleanup array later */
+    if (blockFlag)
+    {
+        /* block has its own temporaries */
+        [outerTempVars addObject:tempVars];
+        tempVars = [NSMutableArray array];
+
+        tempsSizeSave = tempsSize;
+        tempsSize = tempsCount = 0;
+    }
     
     array = [statements temporaries];
 
@@ -624,15 +669,10 @@ extern int STCparse(void *context);
         /* block has its own stack */
         stackPosSave = stackPos;
         stackSizeSave = stackSize;
-        stackSize = argCount;
-        stackPos = argCount;
+        stackSize = 0;
+        stackPos = 0;
 
         [self emitLongJump:0];
-        
-        for (index = argCount; index > 0; index--)
-        {
-            [self emitPopAndStoreTemporary:tempsSave + index - 1];
-        }
     }
     
     array = [statements expressions];
@@ -713,12 +753,10 @@ extern int STCparse(void *context);
 
     if (blockFlag)
     {
-        NSUInteger i;      
-        /* Need to keep the block parameters allocated until we exit
-           the method context, but we also need to harvest the names*/
-        for (i = tempsSave; i < tempsCount; ++i)
-            [tempVars  replaceObjectAtIndex: i withObject:@""];
-     
+        tempVars = [outerTempVars lastObject];
+        [outerTempVars removeLastObject];
+        tempsCount = tempsSave;
+        tempsSize = tempsSizeSave;
     }
     else
     {
@@ -733,6 +771,7 @@ extern int STCparse(void *context);
 {
     id object = [primary object];
     NSUInteger index;
+    NSUInteger outerContext;
 
     NSDebugLLog(@"STCompiler-misc",@"  compile primary");
 
@@ -755,10 +794,18 @@ extern int STCparse(void *context);
             }
             else
             {
-                index = [self indexOfTemporaryVariable:object];
+                index = [self indexOfTemporaryVariable:object
+                                          outerContext:&outerContext];
                 if(index != NSNotFound)
                 {
-                    [self emitPushTemporary:index];
+                    if (outerContext == 0)
+                    {
+                        [self emitPushTemporary:index];
+                    }
+                    else
+                    {
+                        [self emitPushTemporary:index outerContext:outerContext];
+                    }
                     break;
                 }
                 else if( [object isEqual:@"self"] )
@@ -839,6 +886,7 @@ extern int STCparse(void *context);
     NSArray       *array;
     NSUInteger     count;
     NSUInteger     index,i;
+    NSUInteger     outerContext; 
     id             obj;
     
     NSDebugLLog(@"STCompiler-misc",@"  compile expression");
@@ -893,10 +941,19 @@ extern int STCparse(void *context);
         {
             varName = [array objectAtIndex:i];
 
-            index = [self indexOfTemporaryVariable:varName];
+            index = [self indexOfTemporaryVariable:varName
+                                      outerContext:&outerContext];
             if(index != NSNotFound)
             {
-                [self emitPopAndStoreTemporary:index];
+                if (outerContext == 0)
+                {
+                    [self emitPopAndStoreTemporary:index];
+                }
+                else
+                {
+                    [self emitPopAndStoreTemporary:index
+                                      outerContext:outerContext];
+                }
                 continue;
             }
             if( [varName isEqual:@"self"] )
@@ -1047,6 +1104,15 @@ extern int STCparse(void *context);
                 [byteCodes appendBytes:bc length:3];\
                 bcpos+=3;\
             } while(0)
+#define EMIT_TRIPLE(bc1,bc2,bc3) \
+            do { \
+                unsigned char bc[4] = {bc1,0,0,0}; \
+		bc[1] = (unsigned char)((((unsigned short)bc2)>>8)&0xff);\
+		bc[2] = (unsigned char)(bc2&0xff); \
+		bc[3] = (unsigned char)(bc3&0xff);\
+                [byteCodes appendBytes:bc length:4];\
+                bcpos+=4;\
+            } while(0)
 #define EMIT_TRIPPLE(bc1,bc2,bc3) \
             do { \
                 unsigned char bc[5] = {bc1,0,0,0,0}; \
@@ -1134,6 +1200,19 @@ extern int STCparse(void *context);
     
 }
 
+- (void)emitPushTemporary:(NSUInteger)index outerContext:(NSUInteger)num
+{
+    NSDebugLLog(@"STCompiler-emit",
+                @"#%04lx push temporary %lu (%@) in outer context %lu",
+                (unsigned long)bcpos,(unsigned long)index,
+                [[self tempVarsOfOuterContext:num] objectAtIndex:index],
+                (unsigned long)num);
+                
+    EMIT_TRIPLE(STPushOuterTemporaryBytecode,index,num);
+    STACK_PUSH;
+    
+}
+
 - (void)emitPushLiteral:(NSUInteger)index
 {
     NSDebugLLog(@"STCompiler-emit",
@@ -1163,6 +1242,17 @@ extern int STCparse(void *context);
                 [tempVars objectAtIndex:index]);
                 
     EMIT_DOUBLE(STPopAndStoreTempBytecode,index);
+    STACK_POP;
+}
+- (void)emitPopAndStoreTemporary:(NSUInteger)index outerContext:(NSUInteger)num
+{
+    NSDebugLLog(@"STCompiler-emit",
+                @"#%04lx pop and store temp %lu (%@) in outer context %lu",
+                (unsigned long)bcpos,(unsigned long)index,
+                [[self tempVarsOfOuterContext:num] objectAtIndex:index],
+                (unsigned long)num);
+                
+    EMIT_TRIPLE(STPopAndStoreOuterTempBytecode,index,num);
     STACK_POP;
 }
 - (void)emitPopAndStoreVariable:(NSUInteger)index

@@ -78,6 +78,7 @@ typedef struct _STParserContext
     
     NSMutableData    *byteCodes;
     NSMutableArray   *tempVars;
+    NSMutableArray   *outerTempVars;
     NSMutableArray   *externVars;
     NSMutableArray   *receiverVars;
     NSMutableArray   *namedReferences;
