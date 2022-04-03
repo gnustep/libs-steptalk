@@ -116,6 +116,7 @@ extern int STCparse(void *context);
 - (void)emitStoreVariable:(NSUInteger)index;
 
 - (void)fixupLongJumpAt:(NSUInteger)index with:(short)offset;
+- (BOOL)transformStoreIntoPopAndStore;
 - (NSUInteger)currentBytecode;
 @end
 
@@ -1202,6 +1203,9 @@ extern int STCparse(void *context);
 }
 - (void)emitPopStack
 {
+    if ([self transformStoreIntoPopAndStore])
+	return;
+
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04lx pop stack",(unsigned long)bcpos);
                 
@@ -1278,6 +1282,42 @@ extern int STCparse(void *context);
                 [namedReferences objectAtIndex:index]);
 
     EMIT_DOUBLE(STStoreRecVarBytecode,index);
+}
+- (BOOL)transformStoreIntoPopAndStore
+{
+    char bc;
+    NSUInteger bcstart;
+
+    if (bcpos < 3)
+	return NO;
+    bcstart = bcpos - 3;
+    [byteCodes getBytes:&bc range:NSMakeRange(bcstart, 1)];
+
+    switch (bc)
+    {
+    case STStoreRecVarBytecode:
+        NSDebugLLog(@"STCompiler-emit",
+                    @"# fixup store rec variable into pop and store rec variable");
+        bc = STPopAndStoreRecVarBytecode;
+        break;
+    case STStoreExternBytecode:
+        NSDebugLLog(@"STCompiler-emit",
+                    @"# fixup store ext variable into pop and store ext variable");
+        bc = STPopAndStoreExternBytecode;
+        break;
+    case STStoreTempBytecode:
+        NSDebugLLog(@"STCompiler-emit",
+                    @"# fixup store temp into pop and store temp");
+        bc = STPopAndStoreTempBytecode;
+        break;
+    default:
+        return NO;
+    }
+
+    [byteCodes replaceBytesInRange:NSMakeRange(bcstart, 1)
+			 withBytes:&bc
+			    length:1];
+    return YES;
 }
 - (NSUInteger)currentBytecode
 {

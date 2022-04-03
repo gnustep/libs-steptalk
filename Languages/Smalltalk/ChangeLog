@@ -1,3 +1,9 @@
+2022-04-03  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompiler.m(emitPopStack, transformStoreIntoPopAndStore):
+    Implement peephole optimization to combine a store instruction
+    followed by a pop instruction into a pop and store instruction.
+
 2022-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodes.h:
