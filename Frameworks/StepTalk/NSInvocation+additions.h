@@ -37,5 +37,6 @@ id   STObjectFromValueOfType(void *value, const char *type);
 - (void)setArgumentAsObject:(id)anObject atIndex:(NSInteger)anIndex;
 - (id)getArgumentAsObjectAtIndex:(NSInteger)anIndex;
 - (id)returnValueAsObject;
+- (void)setReturnValueAsObject:(id)anObject;
 @end
 

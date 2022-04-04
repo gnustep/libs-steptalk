@@ -99,9 +99,23 @@ enum{
 + message;
 - (void) addKeyword:(NSString *)keyword object:object;
 - (NSString *)selector;
+- (NSString *)objCTypes;
 - (NSArray*)arguments;
 @end
 
+@interface STCTypedMessage:STCMessage
+{
+    NSMutableString  *objcTypes;
+}
+- (void) setReturnType:(NSString *)retType;
+- (void) addKeyword:(NSString *)keyword type:(NSString *)type object:object;
+- (NSString *)objCTypes;
+@end
+
+@interface STCTypedMessage(Parsing)
++ (NSString *)objCType:(NSString *)str, ...;
++ (NSString *)objCType:(NSString *)type withPointer:(NSString *)str;
+@end
 
 /*
  * STCExpression

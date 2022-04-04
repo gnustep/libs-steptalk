@@ -39,5 +39,6 @@
 - initWithSelector:(NSString *)aString
          arguments:(NSArray *)anArray;
 - (NSString *)selector;
+- (NSString *)objCTypes;
 - (NSArray*)arguments;
 @end

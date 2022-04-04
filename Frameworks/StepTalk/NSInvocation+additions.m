@@ -364,5 +364,24 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 
     return returnObject;
 }
+
+- (void)setReturnValueAsObject:(id)anObject
+{
+    const char *type;
+    NSUInteger size;
+    void *value;
+
+    type = [[self methodSignature] methodReturnType];
+    if (*type != _C_VOID)
+    {
+        NSGetSizeAndAlignment(type, &size, NULL);
+        value = NSZoneMalloc(STMallocZone, size);
+
+        STGetValueOfTypeFromObject(value, type, anObject);
+
+        [self setReturnValue:(void *)value];
+        NSZoneFree(STMallocZone, value);
+    }
+}
 @end
 

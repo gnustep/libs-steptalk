@@ -128,13 +128,22 @@
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
 {
+    NSString          *methodName;
     NSMethodSignature *signature = nil;
     
     signature = [super methodSignatureForSelector:sel];
 
     if(!signature)
     {
-        signature = STConstructMethodSignatureForSelector(sel);
+        methodName = NSStringFromSelector(sel);
+        if (![methodName isEqualToString:@"exit"])
+        {
+            signature = [[script methodWithName:methodName] methodSignature];
+        }
+        if (!signature)
+        {
+            signature = STConstructMethodSignatureForSelector(sel);
+        }
     }
 
     return signature;
@@ -165,7 +174,7 @@
     {
         [interpreter halt];
         [pool release];
-        [invocation setReturnValue:&retval];
+        [invocation setReturnValueAsObject:retval];
         return;
     }
 
@@ -217,7 +226,7 @@
     // NSDebugLLog(@"STSending",
     //            @"<< returned from forwarding");
 
-    [invocation setReturnValue:&retval];
+    [invocation setReturnValueAsObject:retval];
     [pool release];
 }
 @end

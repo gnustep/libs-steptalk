@@ -28,6 +28,8 @@
 @interface STCompiledMethod:STCompiledCode<STMethod>
 {
     NSString *selector;
+    NSString *objCTypes;
+    NSMethodSignature *methodSignature;
     short     argCount;
 
 //  NSUInteger primitive; 
@@ -35,6 +37,7 @@
 + methodWithCode:(STCompiledCode *)code messagePattern:(STMessage *)pattern;
 
 -   initWithSelector:(NSString *)sel
+           objCTypes:(NSString *)types
        argumentCount:(NSUInteger)aCount
        bytecodesData:(NSData *)data
             literals:(NSArray *)anArray
@@ -43,5 +46,7 @@
      namedReferences:(NSArray *)refs;
 
 - (NSString *)selector;
+- (NSString *)objCTypes;
+- (NSMethodSignature *)methodSignature;
 - (NSUInteger)argumentCount;
 @end
