@@ -91,6 +91,8 @@ extern int STCparse(void *context);
 - (void)compileStatements:(STCStatements *)statements
                 blockFlag:(BOOL)blockFlag
            blockArguments:(NSArray *)blockArguments;
+- (void)compileBlock:(STCStatements *)statements
+      blockArguments:(NSArray *)blockArguments;
 - (void)compilePrimary:(STCPrimary *)primary;
 - (void)compileExpression:(STCExpression *)expr;
 
@@ -582,13 +584,9 @@ extern int STCparse(void *context);
 {
     BOOL            first;
     NSEnumerator   *enumerator;
-    STBlockLiteral *blockInfo = nil;
     STCExpression  *expr;
     NSArray        *array;
     NSUInteger      tempsSave;           /* stored count of temporaries */
-    NSUInteger      stackPosSave  = 0;   /* stored previous stack value */  
-    NSUInteger      stackSizeSave = 0;
-    NSUInteger      jumpIP = 0; /* location of jump bytecode for later fixup */
     NSUInteger      index;
     NSUInteger      argCount=0;  /* argument count for block context */
         
@@ -631,22 +629,6 @@ extern int STCparse(void *context);
     if (blockFlag)
     {
         argCount = [blockArguments count];
-        blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
-
-        index = [self addLiteral:blockInfo];
-        [self emitPushLiteral:index];
-        [self emitBlockCopy];
-
-        jumpIP = [self currentBytecode];
-
-        /* block has its own stack */
-        stackPosSave = stackPos;
-        stackSizeSave = stackSize;
-        stackSize = argCount;
-        stackPos = argCount;
-
-        [self emitLongJump:0];
-        
         for (index = argCount; index > 0; index--)
         {
             [self emitPopAndStoreTemporary:tempsSave + index - 1];
@@ -681,45 +663,23 @@ extern int STCparse(void *context);
             [self emitPopStack];
         }
         [self compileExpression:expr];
+        [self emitReturn];
     }
-    else if (first)
+    else if (blockFlag)
     {
-	if (blockFlag)
+	if (first)
 	{
 	    [self emitPushNil];
 	}
-	else
-	{
-	    [self emitPushSelf];
-	}
-    }
-
-    if (blockFlag)
-    {
-        [blockInfo setStackSize:stackSize];
-        AUTORELEASE(blockInfo);
-
-        stackSize = stackSizeSave;
-        stackPos = stackPosSave;
-
-        if (expr)
-        {
-            [self emitReturn];
-        }
-        else
-        {
-            [self emitReturnFromBlock];
-        }
+        [self emitReturnFromBlock];
     }
     else
     {
+	if (first)
+	{
+	    [self emitPushSelf];
+	}
         [self emitReturn];
-    }
-
-    /* fixup jump (if block) */
-    if (blockFlag)
-    {
-        [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
     }
 
     /* cleanup unneeded temp variables */
@@ -745,6 +705,48 @@ extern int STCparse(void *context);
                                                    tempsCount-tempsSave)];
         tempsCount = tempsSave;
     }
+}
+
+- (void)compileBlock:(STCStatements *)statements
+      blockArguments:(NSArray *)blockArguments
+{
+    STBlockLiteral *blockInfo;
+    NSUInteger      stackPosSave;        /* stored previous stack value */  
+    NSUInteger      stackSizeSave;
+    NSUInteger      jumpIP;     /* location of jump bytecode for later fixup */
+    NSUInteger      index;
+    NSUInteger      argCount;
+
+    argCount = [blockArguments count];
+
+    NSDebugLLog(@"STCompiler-misc", @"  compile block; argCount=%lu",
+                 (unsigned long)argCount);
+
+    blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
+
+    index = [self addLiteral:blockInfo];
+    [self emitPushLiteral:index];
+    [self emitBlockCopy];
+
+    jumpIP = [self currentBytecode];
+    [self emitLongJump:0];
+
+    /* block has its own stack */
+    stackPosSave = stackPos;
+    stackSizeSave = stackSize;
+    stackSize = argCount;
+    stackPos = argCount;
+
+    [self compileStatements:statements
+                  blockFlag:YES
+             blockArguments:blockArguments];
+    [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
+
+    [blockInfo setStackSize:stackSize];
+    RELEASE(blockInfo);
+
+    stackSize = stackSizeSave;
+    stackPos = stackPosSave;
 }
 
 - (void)compilePrimary:(STCPrimary *)primary
@@ -808,9 +810,8 @@ extern int STCparse(void *context);
 
     case STCBlockPrimaryType:
 
-            [self compileStatements:[object statements]
-                          blockFlag:YES
-                     blockArguments:[object blockArguments]];
+            [self compileBlock:[object statements]
+		blockArguments:[object blockArguments]];
             break;
 
     case STCExpressionPrimaryType:
