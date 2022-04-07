@@ -3,7 +3,23 @@
     * STCompiler.m (compileStatements:blockFlag:, compileBlock:):
     Refactor compilation of statements from blocks and methods.
 
+2022-04-03  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompiler.m(emitPopStack, transformStoreIntoPopAndStore):
+    Implement peephole optimization to combine a store instruction
+    followed by a pop instruction into a pop and store instruction.
+
 2022-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBytecodes.h:
+    * STBytecodes.m (initNamesArray, STDissasembleBytecode):
+    * STBytecodeInterpreter.m (dispatchBytecode:):
+    * STCompiler.m (compileExpression:, emitStoreTemporary: emitStoreVariable:,
+        -emitStoreReceiverVariable:):
+    Add bytecodes that save the top of the stack without popping. These
+    are used for a better translation of assignments.
+
+    * STCompiler.m (emitPushLiteral, emitSendSelector:argCount:):
 
     * STGrammar.y:
     * STCompilerUtils.h:
@@ -11,6 +27,7 @@
     * STCompiler.m (compileStatements:, compilePrimary:,
         compileStatements:blockFlag:blockVariables:):
     Allow for temporaries in blocks.
+    Remove code that incorrectly was requesting extra stack space.
 
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

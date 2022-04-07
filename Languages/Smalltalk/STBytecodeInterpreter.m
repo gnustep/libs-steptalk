@@ -612,6 +612,26 @@ static Class NSInvocation_class = nil;
                 }
                 break;
 
+    case STStoreRecVarBytecode:
+                STDebugBytecode(bytecode);
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                [receiver setValue:[stack valueAtTop] forKey:refName];
+
+                break;
+
+    case STStoreExternBytecode:
+                STDebugBytecode(bytecode);
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                [environment setObject:[stack valueAtTop] forName:refName];
+                break;
+
+    case STStoreTempBytecode:
+                STDebugBytecode(bytecode);
+		object = [stack valueAtTop];
+                [activeContext setTemporary:object atIndex:bytecode.arg1];
+                break;
+
+
     default:
                 [self invalidBytecode:bytecode];
                 break;
