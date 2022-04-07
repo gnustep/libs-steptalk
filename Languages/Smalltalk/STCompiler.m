@@ -860,6 +860,7 @@ extern int STCparse(void *context);
 {
     NSEnumerator  *enumerator;
     NSArray       *cascade;
+    STCMessage    *message;
     NSString      *varName;
     NSArray       *array;
     NSUInteger     count;
@@ -882,27 +883,22 @@ extern int STCparse(void *context);
         else
             [self compileExpression:obj];
         
+        message = [expr message];
         cascade = [expr cascade];
-        if(cascade)
-        {
-            count = [cascade count];
-            for(i=0;i<count;i++)
-                [self emitDuplicateStackTop];
-        }
-        
-        [self compileMessage:[expr message]];
 
-        /* cascade expression */
         if(cascade)
         {
             enumerator = [cascade objectEnumerator];
             while( (obj = [enumerator nextObject]) )
             {
-                /* ignore previous return value */
+                [self emitDuplicateStackTop];
+                [self compileMessage:message];
                 [self emitPopStack];
-                [self compileMessage:obj];
+                message = obj;
             }
         }        
+
+        [self compileMessage:message];
     }
 
     array = [expr assignments];
