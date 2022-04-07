@@ -9,6 +9,11 @@
     Implement peephole optimization to combine a store instruction
     followed by a pop instruction into a pop and store instruction.
 
+2022-03-28  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STBlock.m (withWithArgs:): Prevent exception when one of the
+    arguments of the value methods is nil.
+
 2022-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STCompiler.m (compileExpression:):
