@@ -36,9 +36,10 @@
 
 @implementation STBlockContext
 - initWithInitialIP:(NSUInteger)pointer
-  stackSize:(NSUInteger)size
+         tempsCount:(NSUInteger)count
+          stackSize:(NSUInteger)size
 {
-    if ((self = [super initWithStackSize:size]) != nil)
+    if ((self = [super initWithStackSize:size tempCount:count]) != nil)
     {
         initialIP = pointer;
 
@@ -48,7 +49,7 @@
 }
 - (void)dealloc
 {
-    RELEASE(homeContext);
+    RELEASE(outerContext);
     [super dealloc];
 }
 
@@ -56,44 +57,22 @@
 {
     return YES;
 }
-- (void)setHomeContext:(STMethodContext *)context
+- (void)setOuterContext:(STExecutionContext *)context
 {
-    ASSIGN(homeContext,context);
+    ASSIGN(outerContext,context);
 }
 - (STMethodContext *)homeContext
 {
-    return homeContext;
+    return [outerContext homeContext];
+}
+- (STExecutionContext *)outerContext
+{
+    return outerContext;
 }
 
 - (NSUInteger)initialIP
 {
     return initialIP;
-}
-
-- temporaryAtIndex:(NSUInteger)index;
-{
-    return [homeContext temporaryAtIndex:index];
-}
-- (void)setTemporary:anObject atIndex:(NSUInteger)index;
-{
-    [homeContext setTemporary:anObject atIndex:index];
-}
-
-- (NSString *)referenceNameAtIndex:(NSUInteger)index
-{
-    return [homeContext referenceNameAtIndex:index];
-}
-- (STBytecodes *)bytecodes
-{
-    return [homeContext bytecodes];
-}
-- (id)literalObjectAtIndex:(NSUInteger)index
-{
-    return [homeContext literalObjectAtIndex:index];
-}
-- (id)receiver
-{
-    return [homeContext receiver];
 }
 
 - (void)resetInstructionPointer

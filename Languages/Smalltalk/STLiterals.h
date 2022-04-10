@@ -40,10 +40,13 @@
 @interface STBlockLiteral:STLiteral
 {
     NSUInteger  argCount;
+    NSUInteger  tempsCount;
     NSUInteger  stackSize;
 }
 - initWithArgumentCount:(NSUInteger)count;
+- (void)setTempsCount:(NSUInteger)count;
 - (void)setStackSize:(NSUInteger)size;
 - (NSUInteger)argumentCount;
+- (NSUInteger)tempsCount;
 - (NSUInteger)stackSize;
 @end

@@ -26,16 +26,17 @@
 
 @class STBlockLiteral;
 @class STBytecodeInterpreter;
-@class STMethodContext;
+@class STExecutionContext;
 @class STBlockContext;
 
 @interface STBlock:NSObject
 {
     STBytecodeInterpreter *interpreter;
-    STMethodContext       *homeContext;
+    STExecutionContext    *outerContext;
     
     NSUInteger             initialIP;
     NSUInteger             argCount;
+    NSUInteger             tempsCount;
     NSUInteger             stackSize;
 
     STBlockContext        *cachedContext;
@@ -43,9 +44,10 @@
 }
 
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-          homeContext:(STMethodContext *)context
+         outerContext:(STExecutionContext *)context
             initialIP:(NSUInteger)ptr
-        argumentCount:(NSUInteger)count
+        argumentCount:(NSUInteger)count1
+           tempsCount:(NSUInteger)count2
             stackSize:(NSUInteger)size;
                  
 - (NSUInteger)argumentCount;

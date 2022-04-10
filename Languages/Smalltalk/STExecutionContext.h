@@ -26,36 +26,35 @@
 @class STStack;
 @class STBytecodes;
 @class STMethodContext;
+@class NSMutableArray;
 
 @interface STExecutionContext:NSObject
 {
     NSUInteger          contextId;       /* for debugging */
     
     STStack            *stack;
+    NSMutableArray     *temporaries;
     
     NSUInteger          instructionPointer;
 }
-- initWithStackSize:(NSUInteger)stackSize;
+- initWithStackSize:(NSUInteger)stackSize tempCount:(NSUInteger)tempCount;
 
 - (void)invalidate;
 - (BOOL)isValid;
 
 - (STMethodContext *)homeContext;
-- (void)setHomeContext:(STMethodContext *)context;
+- (STExecutionContext *)outerContext;
+- (STExecutionContext *)outerContext:(NSUInteger)num;
 
 - (BOOL)isBlockContext;
 
 - (NSUInteger)instructionPointer;
 - (void)setInstructionPointer:(NSUInteger)value;
 
-- (STBytecodes *)bytecodes;
-
 - (STStack *)stack;
+
+- (void)setArgumentsFromArray:(NSArray *)args;
 
 - (id)temporaryAtIndex:(NSUInteger)index;
 - (void)setTemporary:anObject atIndex:(NSUInteger)index;
-- (NSString *)referenceNameAtIndex:(NSUInteger)index;
-- (id)literalObjectAtIndex:(NSUInteger)index;
-
-- (id)receiver;
 @end

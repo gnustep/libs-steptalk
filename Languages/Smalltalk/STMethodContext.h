@@ -24,12 +24,10 @@
 #import "STExecutionContext.h"
 
 @class STCompiledMethod;
-@class NSMutableArray;
 
 @interface STMethodContext:STExecutionContext
 {
     STCompiledMethod *method;
-    NSMutableArray   *temporaries;
     id                receiver;
 }
 
@@ -42,10 +40,8 @@
 - (void)setReceiver:anObject;
 - (id)receiver;
 
-- (void)setArgumentsFromArray:(NSArray *)args;
-
-- (id)temporaryAtIndex:(NSUInteger)index;
-- (void)setTemporary:anObject atIndex:(NSUInteger)index;
+- (NSString *)referenceNameAtIndex:(NSUInteger)index;
+- (id)literalObjectAtIndex:(NSUInteger)index;
 
 - (STBytecodes *)bytecodes;
 @end

@@ -32,7 +32,6 @@
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
-#import <Foundation/NSException.h>
 
 @implementation STMethodContext
 + methodContextWithMethod:(STCompiledMethod *)newMethod
@@ -42,27 +41,18 @@
 
 - initWithMethod:(STCompiledMethod *)newMethod
 {
-    if ((self = [super initWithStackSize:[newMethod stackSize]]) != nil)
+    NSUInteger stackSize = [newMethod stackSize];
+    NSUInteger tempCount = [newMethod temporariesCount];
+
+    if ((self = [super initWithStackSize:stackSize tempCount:tempCount]) != nil)
     {
-        NSUInteger tempCount;
-        NSUInteger i;
-
         method = RETAIN(newMethod);
-
-        tempCount = [method temporariesCount];
-        temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
-
-        for (i=0; i<tempCount; i++)
-        {
-            [temporaries insertObject:STNil atIndex:i];
-        }
     }
     return self;
 }
 
 - (void)dealloc
 {
-    RELEASE(temporaries);
     RELEASE(method);
     [super dealloc];
 }
@@ -74,10 +64,9 @@
 {
     return self;
 }
-- (void)setHomeContext:(STMethodContext *)context
+- (STExecutionContext *)outerContext
 {
-    [NSException raise:STInternalInconsistencyException
-                format:@"Should not set home context of method context"];
+    return nil;
 }
 
 - (STCompiledMethod*)method
@@ -93,20 +82,6 @@
     return receiver;
 }
 
-- (id)temporaryAtIndex:(NSUInteger)index
-{
-    return [temporaries objectAtIndex:index];
-}
-
-- (void)setTemporary:anObject atIndex:(NSUInteger)index
-{
-    if(!anObject)
-    {
-        anObject = STNil;
-    }
-    [temporaries replaceObjectAtIndex:index withObject:anObject];
-}
-
 - (NSString *)referenceNameAtIndex:(NSUInteger)index
 {
     return [[method namedReferences] objectAtIndex:index];
@@ -119,18 +94,5 @@
 - (id)literalObjectAtIndex:(NSUInteger)index
 {
     return [method literalObjectAtIndex:index];
-}
-
-- (void)setArgumentsFromArray:(NSArray *)args
-{
-    NSUInteger i;
-    NSUInteger count;
-    
-    count = [args count];
-
-    for(i=0;i<count;i++)
-    {
-        [self setTemporary:[args objectAtIndex:i] atIndex:i];
-    }
 }
 @end

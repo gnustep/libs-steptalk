@@ -198,6 +198,7 @@ static Class NSInvocation_class = nil;
     {
         RELEASE(activeContext);
         activeContext = nil;
+        homeContext = nil;
         stack = nil;
         bytecodes = nil;
         instructionPointer = 0;
@@ -216,8 +217,9 @@ static Class NSInvocation_class = nil;
 
     ASSIGN(activeContext,newContext);
 
+    homeContext = [activeContext homeContext];
     stack = [activeContext stack];
-    receiver = [activeContext receiver];
+    receiver = [homeContext receiver];
 
     if(!stack)
     {
@@ -226,7 +228,7 @@ static Class NSInvocation_class = nil;
     }
 
     instructionPointer = [activeContext instructionPointer];
-    bytecodes = [activeContext bytecodes];
+    bytecodes = [homeContext bytecodes];
 }
 
 - (STExecutionContext *)context
@@ -303,7 +305,7 @@ static Class NSInvocation_class = nil;
                 activeContext,value);
 
     [activeContext invalidate];
-    if (activeContext != [activeContext homeContext])
+    if (activeContext != homeContext)
     {
 	NSDictionary *userInfo;
 
@@ -314,7 +316,7 @@ static Class NSInvocation_class = nil;
             [NSDictionary dictionaryWithObjectsAndKeys:
                 /* Attention: Order is important here. The returned value
                    may be nil, so the context value must come first. */
-                [activeContext homeContext], @"Context", value, @"Value", nil];
+                homeContext, @"Context", value, @"Value", nil];
         [[NSException exceptionWithName:STInterpreterReturnException
                                  reason:@"Block cannot return"
                                userInfo:userInfo] raise];
@@ -344,6 +346,7 @@ static Class NSInvocation_class = nil;
  * ---------------------------------------------------------------------------
  */
 - (void)createBlockWithArgumentCount:(NSUInteger)argCount
+                          tempsCount:(NSUInteger)tempsCount
 			   stackSize:(NSUInteger)stackSize
 {
     NSUInteger ptr;
@@ -352,17 +355,19 @@ static Class NSInvocation_class = nil;
     ptr = instructionPointer + STLongJumpBytecodeSize;
 
     NSDebugLLog(@"STExecutionContext",
-                @"%@ Create block: argc:%lu stack:%lu ip:0x%04lx",
+                @"%@ Create block: argc:%lu temps:%lu stack:%lu ip:0x%04lx",
                  activeContext, 
                  (unsigned long)argCount,
+                 (unsigned long)tempsCount,
                  (unsigned long)stackSize,
                  (unsigned long)ptr);
 
     block =
         [[STBlock alloc] initWithInterpreter:self
-                                 homeContext:[activeContext homeContext]
+                                outerContext:activeContext
                                    initialIP:ptr
                                argumentCount:argCount
+                                  tempsCount:tempsCount
                                    stackSize:stackSize];
   
     [stack push:AUTORELEASE(block)];
@@ -384,7 +389,7 @@ static Class NSInvocation_class = nil;
 
     NSDebugLLog(@"STSending",
                 @"send selector '%@' with %lu args'",
-                [activeContext literalObjectAtIndex:selIndex],
+                [homeContext literalObjectAtIndex:selIndex],
                 (unsigned long)argCount);
                 
     target = [stack valueFromTop:argCount];
@@ -395,7 +400,7 @@ static Class NSInvocation_class = nil;
         target = STNil;
     }
     
-    selector = [activeContext literalObjectAtIndex:selIndex];
+    selector = [homeContext literalObjectAtIndex:selIndex];
 
     NSDebugLLog(@"STSending",
                @"  %s receiver:%@ (%@) selector:%@",
@@ -483,6 +488,8 @@ static Class NSInvocation_class = nil;
 {
     NSString *refName;
     id        object;
+    STExecutionContext *context;
+    
     
     switch(bytecode.code)
     {
@@ -520,15 +527,15 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushRecVarBytecode:
-                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                refName = [homeContext referenceNameAtIndex:bytecode.arg1];
                 object = [receiver valueForKey:refName];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
 
     case STPushExternBytecode:
-//                NSLog(@"PUSH EXTERN ctx(%@): %@ %@", [activeContext className], [[activeContext method] selector], [[activeContext method] namedReferences]);
-                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+//                NSLog(@"PUSH EXTERN ctx(%@): %@ %@", [homeContext className], [[homeContext method] selector], [[homeContext method] namedReferences]);
+                refName = [homeContext referenceNameAtIndex:bytecode.arg1];
                 object = [environment objectWithName:refName];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
@@ -541,7 +548,7 @@ static Class NSInvocation_class = nil;
                 break;
 
     case STPushLiteralBytecode:
-                object = [activeContext literalObjectAtIndex:bytecode.arg1];
+                object = [homeContext literalObjectAtIndex:bytecode.arg1];
                 STDebugBytecodeWith(bytecode,object);
                 STPush(stack,object);
                 break;
@@ -549,7 +556,7 @@ static Class NSInvocation_class = nil;
     case STPopAndStoreRecVarBytecode:
                 STDebugBytecode(bytecode);
 
-                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                refName = [homeContext referenceNameAtIndex:bytecode.arg1];
                 object = STPop(stack);
                 [receiver setValue:object forKey:refName];
 
@@ -557,7 +564,7 @@ static Class NSInvocation_class = nil;
 
     case STPopAndStoreExternBytecode: 
                 STDebugBytecode(bytecode);
-                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                refName = [homeContext referenceNameAtIndex:bytecode.arg1];
                 object = STPop(stack);
                 [environment setObject:object forName:refName];
                 break;
@@ -569,7 +576,7 @@ static Class NSInvocation_class = nil;
 
     case STSendSelectorBytecode:
                 STDebugBytecodeWith(bytecode,
-                                    [activeContext literalObjectAtIndex:bytecode.arg1]);
+                                    [homeContext literalObjectAtIndex:bytecode.arg1]);
 
                 (*sendSelectorAtIndexImp)(self, sendSelectorAtIndexSel,
                                           bytecode.arg1,bytecode.arg2);
@@ -608,20 +615,21 @@ static Class NSInvocation_class = nil;
                 {
                     STBlockLiteral *info = [stack pop];
                     [self createBlockWithArgumentCount:[info argumentCount]
+                                            tempsCount:[info tempsCount]
                                              stackSize:[info stackSize]];
                 }
                 break;
 
     case STStoreRecVarBytecode:
                 STDebugBytecode(bytecode);
-                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                refName = [homeContext referenceNameAtIndex:bytecode.arg1];
                 [receiver setValue:[stack valueAtTop] forKey:refName];
 
                 break;
 
     case STStoreExternBytecode:
                 STDebugBytecode(bytecode);
-                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                refName = [homeContext referenceNameAtIndex:bytecode.arg1];
                 [environment setObject:[stack valueAtTop] forName:refName];
                 break;
 
@@ -631,6 +639,24 @@ static Class NSInvocation_class = nil;
                 [activeContext setTemporary:object atIndex:bytecode.arg1];
                 break;
 
+    case STPushOuterTemporaryBytecode:
+                context = [activeContext outerContext:bytecode.arg2];
+                object = [context temporaryAtIndex:bytecode.arg1];
+                STPush(stack,object);
+                STDebugBytecodeWith(bytecode,object);
+                break;
+
+    case STPopAndStoreOuterTempBytecode:
+                STDebugBytecode(bytecode);
+                context = [activeContext outerContext:bytecode.arg2];  
+                [context setTemporary:STPop(stack) atIndex:bytecode.arg1];
+                break;
+
+    case STStoreOuterTempBytecode:
+                STDebugBytecode(bytecode);
+                context = [activeContext outerContext:bytecode.arg2];  
+                [context setTemporary:[stack valueAtTop] atIndex:bytecode.arg1];
+                break;
 
     default:
                 [self invalidBytecode:bytecode];

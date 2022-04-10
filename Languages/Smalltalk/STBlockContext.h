@@ -27,13 +27,14 @@
 
 @interface STBlockContext:STExecutionContext
 {
-    STMethodContext       *homeContext; /* owner of this block context */
+    STExecutionContext    *outerContext;  /* owner of this block context */
 
     NSUInteger             initialIP;
 }
 - initWithInitialIP:(NSUInteger)pointer
-  stackSize:(NSUInteger)size;
-- (void)setHomeContext:(STMethodContext *)context;
+         tempsCount:(NSUInteger)count
+          stackSize:(NSUInteger)size;
+- (void)setOuterContext:(STExecutionContext *)context;
 - (NSUInteger)initialIP;
 - (void)resetInstructionPointer;
 @end

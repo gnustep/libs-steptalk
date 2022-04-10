@@ -12,7 +12,11 @@
 #import "STMethodContext.h"
 #import "STStack.h"
 
+#import <StepTalk/STExterns.h>
+
+#import <Foundation/NSArray.h>
 #import <Foundation/NSDebug.h>
+#import <Foundation/NSException.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSString.h>
 
@@ -23,11 +27,23 @@ static NSUInteger nextId = 1;
 @end
 
 @implementation STExecutionContext
-- initWithStackSize:(NSUInteger)stackSize
+- initWithStackSize:(NSUInteger)stackSize tempCount:(NSUInteger)tempCount
 {
     if ((self = [super init]) != nil)
     {
         stack = [[STStack alloc] initWithSize:stackSize];
+        if (tempCount > 0)
+        {
+            NSUInteger i;
+
+            temporaries = [[NSMutableArray alloc] initWithCapacity:tempCount];
+
+            for (i=0; i<tempCount; i++)
+            {
+                [temporaries insertObject:STNil atIndex:i];
+            }
+        }
+
         contextId = nextId ++;
     }
     return self;
@@ -35,6 +51,7 @@ static NSUInteger nextId = 1;
 - (void)dealloc
 {
     RELEASE(stack);
+    RELEASE(temporaries);
     [super dealloc];
 }
 - (NSUInteger)contextId
@@ -72,9 +89,28 @@ static NSUInteger nextId = 1;
     [self subclassResponsibility:_cmd];
     return nil;
 }
-- (void)setHomeContext:(STMethodContext *)newContext
+- (STExecutionContext *)outerContext
 {
     [self subclassResponsibility:_cmd];
+    return nil;
+}
+- (STExecutionContext *)outerContext:(NSUInteger)num
+{
+    NSUInteger i;
+    STExecutionContext *context;
+
+    context = self;
+    for (i=0; i<num; i++)
+    {
+        context = [context outerContext];
+        if (!context)
+        {
+            [NSException raise:STInternalInconsistencyException
+                        format:@"Outer context %lu (of %lu) has no outer context",
+                               (unsigned long)i,(unsigned long)num];
+        }
+    }
+    return context;
 }
 
 - (STStack *)stack
@@ -86,33 +122,31 @@ static NSUInteger nextId = 1;
     [self subclassResponsibility:_cmd];
     return NO;
 }
+
 - (id)temporaryAtIndex:(NSUInteger)index
 {
-    [self subclassResponsibility:_cmd];
-    return nil;
+    return [temporaries objectAtIndex:index];
 }
+
 - (void)setTemporary:anObject atIndex:(NSUInteger)index
 {
-    [self subclassResponsibility:_cmd];
+    if(!anObject)
+    {
+        anObject = STNil;
+    }
+    [temporaries replaceObjectAtIndex:index withObject:anObject];
 }
-- (NSString *)referenceNameAtIndex:(NSUInteger)index
+
+- (void)setArgumentsFromArray:(NSArray *)args
 {
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (STBytecodes *)bytecodes
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (id)literalObjectAtIndex:(NSUInteger)index
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
-}
-- (id)receiver
-{
-    [self subclassResponsibility:_cmd];
-    return nil;
+    NSUInteger i;
+    NSUInteger count;
+    
+    count = [args count];
+
+    for(i=0;i<count;i++)
+    {
+        [self setTemporary:[args objectAtIndex:i] atIndex:i];
+    }
 }
 @end

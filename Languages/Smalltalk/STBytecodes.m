@@ -94,6 +94,12 @@ static void initNamesArray(void)
                      withObject:@"store extern"];
     [array replaceObjectAtIndex:STStoreTempBytecode
                      withObject:@"store temp"];
+    [array replaceObjectAtIndex:STPushOuterTemporaryBytecode 
+                     withObject:@"push temporary"];
+    [array replaceObjectAtIndex:STPopAndStoreOuterTempBytecode
+                     withObject:@"pop and store temp"];
+    [array replaceObjectAtIndex:STStoreOuterTempBytecode
+                     withObject:@"store temp"];
 
     STBytecodeNames = [[NSArray alloc] initWithArray:array];
 }
@@ -163,6 +169,11 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
     case STReturnBlockBytecode:
     case STBreakpointBytecode:
                 return str;
+    case STPushOuterTemporaryBytecode:
+    case STPopAndStoreOuterTempBytecode:
+    case STStoreOuterTempBytecode:
+                return [NSString  stringWithFormat:@"%@ %i from outer context %i",
+                                  str, bytecode.arg1, bytecode.arg2];
     default:
                 return [NSString stringWithFormat:@"invalid (0x%02x)",
                                                   bytecode.code];
@@ -288,6 +299,20 @@ NSString *STDissasembleBytecode(STBytecode bytecode)
         case STBreakpointBytecode:
                     bytecode.arg1 = 0;
                     bytecode.arg2 = 0;
+                    return bytecode;
+        case STPushOuterTemporaryBytecode:
+        case STPopAndStoreOuterTempBytecode:
+        case STStoreOuterTempBytecode:
+                    if(*pointer + 1 >= length)
+                    {
+                        break;
+                    }
+/*
+                    bytecode.arg1 = bytesPtr[(*pointer)++];
+*/
+                    bytecode.arg1 = (bytesPtr[(*pointer)++])<<8;
+                    bytecode.arg1 |= bytesPtr[(*pointer)++];
+                    bytecode.arg2 = bytesPtr[(*pointer)++];
                     return bytecode;
         default:
                     [NSException raise:STInternalInconsistencyException

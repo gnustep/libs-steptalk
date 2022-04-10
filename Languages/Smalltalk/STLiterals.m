@@ -75,6 +75,10 @@
 	argCount = count;
     return self;
 }
+- (void)setTempsCount:(NSUInteger)count
+{
+    tempsCount = count;
+}
 - (void)setStackSize:(NSUInteger)size
 {
     stackSize = size;
@@ -82,6 +86,10 @@
 - (NSUInteger)argumentCount
 {
     return argCount;
+}
+- (NSUInteger)tempsCount
+{
+    return tempsCount;
 }
 - (NSUInteger)stackSize
 {

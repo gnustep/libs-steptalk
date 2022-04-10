@@ -44,15 +44,17 @@ Class STBlockContextClass = nil;
     STBlockContextClass = [STBlockContext class];
 }
 - initWithInterpreter:(STBytecodeInterpreter *)anInterpreter
-          homeContext:(STMethodContext *)context
+         outerContext:(STExecutionContext *)context
             initialIP:(NSUInteger)ptr
-        argumentCount:(NSUInteger)count
+        argumentCount:(NSUInteger)count1
+           tempsCount:(NSUInteger)count2
             stackSize:(NSUInteger)size
 {
     if ((self = [super init]) != nil)
     {
-	homeContext = RETAIN(context);
-	argCount  = count; 
+	outerContext = RETAIN(context);
+	argCount  = count1; 
+        tempsCount = count2;
 	stackSize = size;
 	initialIP = ptr;
 	interpreter = RETAIN(anInterpreter);
@@ -62,7 +64,7 @@ Class STBlockContextClass = nil;
 
 - (void)dealloc
 {
-    RELEASE(homeContext);
+    RELEASE(outerContext);
     RELEASE(interpreter);
     RELEASE(cachedContext);
     [super dealloc];
@@ -141,8 +143,7 @@ Class STBlockContextClass = nil;
 {
     STExecutionContext *parentContext;
     STBlockContext     *context;
-    STStack            *stack;
-    NSUInteger          i, count;
+    NSUInteger          count;
     id                  retval;
 
     count = [arguments count];
@@ -155,7 +156,7 @@ Class STBlockContextClass = nil;
         return nil;
     }
 
-    if (!usingCachedContext)
+    if (!usingCachedContext && [cachedContext retainCount] < 2)
     {
         /* In case of recursive block nesting */
         usingCachedContext = YES;
@@ -164,6 +165,7 @@ Class STBlockContextClass = nil;
         {
             cachedContext = [[STBlockContextClass alloc] 
                                     initWithInitialIP:initialIP
+                                           tempsCount:tempsCount
                                             stackSize:stackSize];
         }
 
@@ -176,20 +178,14 @@ Class STBlockContextClass = nil;
     {
         /* Create new context */
         context = [[STBlockContextClass alloc] initWithInitialIP:initialIP
+                                                      tempsCount:tempsCount
                                                        stackSize:stackSize];
 
         AUTORELEASE(context);
     }
-
-    /* push block arguments to the stack */
     
-    stack = [context stack];
-    for (i = 0; i<count; i++)
-    {
-        [stack push:[arguments objectAtIndex:i]];
-    }
-
-    [context setHomeContext:homeContext];
+    [context setArgumentsFromArray:arguments];
+    [context setOuterContext:outerContext];
 
     parentContext = [interpreter context];
 

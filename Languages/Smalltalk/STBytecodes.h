@@ -57,7 +57,10 @@
 #define STStoreExternBytecode          0x19 /* extern index */
 #define STStoreTempBytecode            0x1a /* temp index */
 /*                                     0x1b-0x27 reserved single bytecodes */
-/*                                     0x27-0xfe reserved */
+#define STPushOuterTemporaryBytecode   0x28 /* temp index, deoth */
+#define STPopAndStoreOuterTempBytecode 0x29 /* temp index, depth */
+#define STStoreOuterTempBytecode       0x2a /* temp index, depth */
+/*                                     0x2b-0xfe reserved */
 #define STBreakpointBytecode           0xff
 
 /*
