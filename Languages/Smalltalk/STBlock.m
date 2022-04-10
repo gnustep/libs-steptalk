@@ -146,7 +146,7 @@ Class STBlockContextClass = nil;
         return nil;
     }
 
-    if (!usingCachedContext)
+    if (!usingCachedContext && [cachedContext retainCount] < 2)
     {
         /* In case of recursive block nesting */
         usingCachedContext = YES;
