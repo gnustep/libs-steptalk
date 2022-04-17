@@ -29,5 +29,6 @@
 @protocol STMethod
 - (NSString *)source;
 - (NSString *)methodName;
+- (NSMethodSignature *)methodSignature;
 - (NSString *)languageName;
 @end
