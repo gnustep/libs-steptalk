@@ -1,3 +1,11 @@
+2022-04-19  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+	* Frameworks/StepTalk/STPointer.h:
+	* Frameworks/StepTalk/STPointer.m:
+	* Frameworks/StepTalk/GNUmakefile:
+	Add new class and NSValue methods to read and update data
+	referenced through a non-object pointer.
+
 2020-06-29  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/GNUmakefile: Specify dependent libraries

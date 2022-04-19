@@ -49,6 +49,7 @@ StepTalk_OBJC_FILES = \
     STMethod.m \
     STScriptObject.m \
     STSelector.m \
+    STPointer.m \
     STStructure.m \
     STUndefinedObject.m  \
     NSNumber+additions.m \
