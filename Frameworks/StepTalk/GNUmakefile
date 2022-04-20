@@ -53,6 +53,7 @@ StepTalk_OBJC_FILES = \
     STUndefinedObject.m  \
     NSNumber+additions.m \
     NSObject+additions.m \
+    NSValue+additions.m \
     StepTalkScriptingInfo.m
 
 # FIXME: NOT FINISHED:
@@ -82,7 +83,8 @@ STEPTALK_HEADER_FILES = \
     STSelector.h \
     STUndefinedObject.h  \
     NSInvocation+additions.h \
-    NSObject+additions.h 
+    NSObject+additions.h \
+    NSValue+additions.h
 
 StepTalk_HEADER_FILES = $(STEPTALK_HEADER_FILES) \
                             StepTalk.h
