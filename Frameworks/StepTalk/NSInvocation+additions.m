@@ -41,12 +41,12 @@
 #import "STObjCRuntime.h"
 #import "STScripting.h"
 #import "STSelector.h"
+#import "STPointer.h"
 #import "STStructure.h"
 
 #if 0
 static Class NSNumber_class = nil;
 static Class NSString_class = nil;
-static Class NSValue_class = nil;
 #endif
 
 #define CASE_NUMBER_TYPE(otype,type,msgtype)\
@@ -87,7 +87,7 @@ id STObjectFromValueOfType(void *value, const char *type)
     CASE_NUMBER_TYPE(_C_FLT,float,Float);
     CASE_NUMBER_TYPE(_C_DBL,double,Double);
     case _C_PTR: 
-                object = [NSValue valueWithPointer:*((void **)value)];
+                object = [STPointer pointer:*((void **)value) withObjCType:type];
                 NSDebugLLog(@"STStructure",
                            @"    is pointer value %p", *((void **)value));
                 break;
@@ -204,7 +204,6 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
 {
     NSNumber_class = [NSNumber class];
     NSString_class = [NSString class];
-    NSValue_class = [NSValue class];
 }
 #endif
 
