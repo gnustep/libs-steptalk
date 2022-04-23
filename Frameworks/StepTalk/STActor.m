@@ -166,12 +166,23 @@ some other, more clever mechanism. */
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
 {
     NSMethodSignature *signature = nil;
+    NSString          *methodName;
+    id <STMethod>      method;
     
     signature = [super methodSignatureForSelector:sel];
 
     if (!signature)
     {
-        signature = STConstructMethodSignatureForSelector(sel);
+        methodName = NSStringFromSelector(sel);
+        method = [methodDictionary objectForKey:methodName];
+        if (method)
+        {
+            signature = [method methodSignature];
+        }
+        if (!signature)
+        {
+            signature = STConstructMethodSignatureForSelector(sel);
+        }
     }
 
     return signature;
@@ -223,7 +234,7 @@ some other, more clever mechanism. */
                      withArguments:args
                          inContext:environment];
 
-    [invocation setReturnValue:&retval];
+    [invocation setReturnValueAsObject:retval];
 }
 - (void)encodeWithCoder:(NSCoder *)coder
 {

@@ -65,6 +65,11 @@
     return selector;
 }
 
+- (NSString *)objCTypes
+{
+    return nil;
+}
+
 - (NSArray *)arguments
 {
     return args;

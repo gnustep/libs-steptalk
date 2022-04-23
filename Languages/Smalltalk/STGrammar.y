@@ -151,28 +151,63 @@ method: message_pattern statements
 ;
 
 message_pattern:
-    unary_selector
+    type unary_selector
                             {
-                                $$ = [STCMessage message];
-                                [$$ addKeyword:$1 object:nil];
+                                $$ = [STCTypedMessage message];
+                                [$$ setReturnType:$1];
+                                [$$ addKeyword:$2 type:nil object:nil];
                             }
-    | binary_selector variable_name
+    | type binary_selector type variable_name
                             {
-                                $$ = [STCMessage message];
-                                [$$ addKeyword:$1 object:$2];
+                                $$ = [STCTypedMessage message];
+                                [$$ setReturnType:$1];
+                                [$$ addKeyword:$2 type:$3 object:$4];
                             }
-    | keyword_list
+    | type keyword_list
+                            {
+                                $$ = $2;
+                                [$$ setReturnType:$1];
+                            }
 ;
 
-keyword_list: keyword variable_name
+keyword_list: keyword type variable_name
                             {
-                                $$ = [STCMessage message];
-                                [$$ addKeyword:$1 object:$2];
+                                $$ = [STCTypedMessage message];
+                                [$$ addKeyword:$1 type:$2 object:$3];
                             }
-    | keyword_list keyword variable_name
+    | keyword_list keyword type variable_name
                             {
-                                [$1 addKeyword:$2 object:$3];
+                                [$1 addKeyword:$2 type:$3 object:$4];
                                 $$ = $1;
+                            }
+;
+
+type: /* empty */ { $$ = nil; }
+
+    | TK_LPAREN pointer_type TK_RPAREN
+                            {
+                                $$ = $2;
+                            }
+;
+pointer_type: base_type
+
+    | pointer_type TK_BINARY_SELECTOR
+                            {
+                                $$ = [STCTypedMessage objCType:$1 withPointer:$2];
+                            }
+;
+base_type:
+    | TK_IDENTIFIER
+                            {
+                                $$ = [STCTypedMessage objCType:$1, nil];
+                            }
+    | TK_IDENTIFIER TK_IDENTIFIER
+                            {
+                                $$ = [STCTypedMessage objCType:$1, $2, nil];
+                            }
+    | TK_IDENTIFIER TK_IDENTIFIER TK_IDENTIFIER
+                            {
+                                $$ = [STCTypedMessage objCType:$1, $2, $3, nil];
                             }
 ;
 
