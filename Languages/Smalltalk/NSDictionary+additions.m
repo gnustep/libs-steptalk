@@ -121,7 +121,7 @@
 {
     NSEnumerator *enumerator;
     id            object;
-    id            retval = nil;
+    id            retval;
 
     enumerator = [self objectEnumerator];
     while( (object = [enumerator nextObject]) )
@@ -132,6 +132,6 @@
             return object;
         }
     }
-    return retval;
+    return nil;
 }
 @end

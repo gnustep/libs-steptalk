@@ -7,6 +7,10 @@
     * STBlock.m (whileTrue, whileFalse):
     Add methods.
 
+    * NSArray+additions.m (detect:):
+    * NSDictionary+additions.m (detect:):
+    Return nil if no match was found.
+
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodeInterpreter.m (dispatchBytecode:):
