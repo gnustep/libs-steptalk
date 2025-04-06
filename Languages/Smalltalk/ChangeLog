@@ -15,6 +15,11 @@
     * NSDictionary+additions.m (keysDo:):
     Add one more collection protocol method for NSDictionary.
 
+    * GNUmakefile:
+    * NSSet+additions.h:
+    * NSSet+additions.m (do:, select:, reject:, collect:, detect:):
+    Implement Smalltalk collection protocol methods for NSSet.
+
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodeInterpreter.m (dispatchBytecode:):

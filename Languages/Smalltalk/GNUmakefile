@@ -32,6 +32,7 @@ Smalltalk_OBJC_FILES = \
         NSDictionary+additions.m \
         NSNumber+additions.m \
         NSObject+additions.m \
+        NSSet+additions.m \
         NSString+additions.m \
         STBlock.m \
         STBlockContext.m \
