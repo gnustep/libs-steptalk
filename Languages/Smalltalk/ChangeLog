@@ -4,6 +4,9 @@
     valueWithArgs:): Prevent exception when one of the arguments of the
     value methods is nil.
 
+    * STBlock.m (whileTrue, whileFalse):
+    Add methods.
+
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodeInterpreter.m (dispatchBytecode:):

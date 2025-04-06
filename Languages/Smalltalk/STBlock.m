@@ -243,6 +243,13 @@ Class STBlockContextClass = nil;
     return retval;
 }
 
+- whileTrue
+{
+    while ([[self value] boolValue]);
+
+    return nil;
+}
+
 - whileTrue:(STBlock *)doBlock
 {
     id retval = nil;
@@ -252,6 +259,13 @@ Class STBlockContextClass = nil;
         retval = [doBlock value];
     }
     return retval;
+}
+
+- whileFalse
+{
+    while (![[self value] boolValue]);
+
+    return nil;
 }
 
 - whileFalse:(STBlock *)doBlock

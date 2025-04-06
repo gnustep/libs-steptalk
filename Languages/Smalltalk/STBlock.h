@@ -62,7 +62,9 @@
 - valueWith:arg1 with:arg2 with:arg3;
 - valueWithArgs:(id *)args count:(NSUInteger)count;
 
+- whileTrue;
 - whileTrue:(STBlock *)doBlock;
+- whileFalse;
 - whileFalse:(STBlock *)doBlock;
 
 - handler:(STBlock *)handlerBlock;
