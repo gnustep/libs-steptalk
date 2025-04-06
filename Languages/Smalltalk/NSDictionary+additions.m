@@ -48,6 +48,20 @@
 
     return retval;
 }
+- keysDo:(STBlock *)block
+{
+    NSEnumerator *enumerator;
+    id            key;
+    id            retval = nil;
+
+    enumerator = [self keyEnumerator];
+    while ((key = [enumerator nextObject]))
+    {
+        retval = [block value:key];
+    }
+
+    return retval;
+}
 - select:(STBlock *)block
 {
     NSMutableDictionary *dictionary;

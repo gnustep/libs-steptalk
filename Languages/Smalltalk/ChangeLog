@@ -11,6 +11,10 @@
     * NSDictionary+additions.m (detect:):
     Return nil if no match was found.
 
+    * NSDictionary+additions.h:
+    * NSDictionary+additions.m (keysDo:):
+    Add one more collection protocol method for NSDictionary.
+
 2019-03-27  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBytecodeInterpreter.m (dispatchBytecode:):

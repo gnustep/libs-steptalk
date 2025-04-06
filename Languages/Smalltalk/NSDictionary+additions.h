@@ -30,6 +30,7 @@
 
 @interface NSDictionary (STCollecting)
 - do:(STBlock *)block;
+- keysDo:(STBlock *)block;
 - select:(STBlock *)block;
 - reject:(STBlock *)block;
 - collect:(STBlock *)block;
