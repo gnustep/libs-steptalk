@@ -10,8 +10,13 @@
     * STCompilerUtils.m: (STCBlock):
     * STGrammar.y:
     * STGrammar.m:
-    * STCompiler.m (compileBlock:, compileStatements:blockFlag:):
+    * STCompiler.m (addTempVariables:, compileBlock:,
+    compileStatements:blockFlag:):
     Refactor to prepare for blocks with temporaries.
+
+    * STCompiler.m (compileMethod:):
+    Fix bug where duplicate argument names were not detected in a method
+    definition.
 
 2025-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

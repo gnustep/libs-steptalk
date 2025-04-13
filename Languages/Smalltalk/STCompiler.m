@@ -87,6 +87,7 @@ extern int STCparse(void *context);
 - (NSUInteger)addLiteral:literal;
 
 - (void)compileMethod:(STCMethod *)method;
+- (NSUInteger)addTempVariables:(NSArray *)temps;
 - (STCompiledCode *) compileStatements:(STCStatements *)statements;
 - (void)compileBlock:(STCBlock *)block;
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag;
@@ -331,6 +332,7 @@ extern int STCparse(void *context);
     STCompiledMethod *compiledMethod;
     STCompiledCode   *code;
     STMessage        *messagePattern;
+    NSArray          *array;
     
     /* FIXME: unite STCMessage and STMessage */
     messagePattern = (STMessage *)[method messagePattern];
@@ -352,10 +354,20 @@ extern int STCparse(void *context);
     
     NSDebugLLog(@"STCompiler", @"Compile method %@", [messagePattern selector]);
 
-    tempVars = [NSMutableArray arrayWithArray:[messagePattern arguments]];
+    array = [messagePattern arguments];
+
+    NSDebugLLog(@"STCompiler-misc",@"  arguments %@", array);
+
+    /* FIXME: create another class */
+    [self initializeCompilationContext];
+
+    tempVars = [NSMutableArray array];
+    [self addTempVariables:array];
 
     code = [self compileStatements:[method statements]];
    
+    [self destroyCompilationContext];
+
     compiledMethod = [STCompiledMethod methodWithCode:code
                                        messagePattern:messagePattern];
                                        
@@ -397,6 +409,25 @@ extern int STCparse(void *context);
     }
 }
 
+- (NSUInteger)addTempVariables:(NSArray *)temps;
+{
+    NSUInteger  index;
+    NSUInteger  count=0;
+
+    if (temps)
+    {
+	count = [temps count];
+	for (index=0; index<count; index++)
+	{
+	    [self addTempVariable:[temps objectAtIndex:index]];
+	}
+
+	tempsSize += count;
+    }
+
+    return count;
+}
+
 - (STCompiledCode *)compileStatements:(STCStatements *)statements
 {
     STCompiledCode    *compiledCode;
@@ -405,12 +436,7 @@ extern int STCparse(void *context);
     NSUInteger         i;
 #endif
     
-    /* FIXME: create another class */
-    [self initializeCompilationContext];
-    
     NSDebugLLog(@"STCompiler", @"compiling statements");
-
-    tempsSize = [tempVars count];
 
     [self compileStatements:statements blockFlag:NO];
 
@@ -446,8 +472,6 @@ extern int STCparse(void *context);
                                             stackSize:stackSize
                                       namedReferences:namedReferences];
 
-    [self destroyCompilationContext];
-    
     return AUTORELEASE(compiledCode);
 }
 
@@ -594,16 +618,7 @@ extern int STCparse(void *context);
 
     NSDebugLLog(@"STCompiler-misc",@"  arguments %@", array);
 
-    if (array)
-    {
-        argCount = [array count];
-        for (index=0; index<argCount; index++)
-        {
-            [self addTempVariable:[array objectAtIndex:index]];
-        }
-
-        tempsSize += argCount;
-    }
+    argCount = [self addTempVariables:array];
 
     blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
 
@@ -649,8 +664,6 @@ extern int STCparse(void *context);
     NSEnumerator   *enumerator;
     STCExpression  *expr;
     NSArray        *array;
-    NSUInteger      index;
-    NSUInteger      count;
         
     NSDebugLLog(@"STCompiler-misc",
                 @"  compile statements; blockFlag=%i; tempCount=%lu",
@@ -660,16 +673,7 @@ extern int STCparse(void *context);
 
     NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
 
-    if (array)
-    {
-	count = [array count];
-	for (index=0; index<count; index++)
-	{
-	    [self addTempVariable:[array objectAtIndex:index]];
-	}
-
-	tempsSize += count;
-    }
+    [self addTempVariables:array];
     
     array = [statements expressions];
     
