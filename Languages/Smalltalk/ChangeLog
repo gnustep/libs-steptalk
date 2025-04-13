@@ -18,6 +18,11 @@
     Fix bug where duplicate argument names were not detected in a method
     definition.
 
+    * STGrammar.y:
+    Update grammar file to support modern Bison.
+    * STGrammar.m:
+    Rebuilt by bison.
+
 2025-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlock.m (value:, value:value:, value:value:value:value:,

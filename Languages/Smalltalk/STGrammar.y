@@ -22,6 +22,8 @@
   
  */
 
+%lex-param {void *context}
+%parse-param {void *context}
 %{
 
     #define YYSTYPE id
@@ -40,8 +42,6 @@
 /* extern int STCerror(const char *str);
    extern int STClex (YYSTYPE *lvalp, void *context);
 */
-    #define YYPARSE_PARAM    context
-    #define YYLEX_PARAM      context
     #define YYERROR_VERBOSE
 
     #define CONTEXT ((STParserContext *)context)
@@ -50,10 +50,10 @@
     #define RESULT   (CONTEXT->result)
 
     int STClex (YYSTYPE *lvalp, void *context);
-    int STCerror(const char *str);
+    int STCerror(void *context, const char *str);
 %}
 
-%pure_parser
+%define api.pure true
 
 /* BISON declarations */
 
@@ -420,7 +420,7 @@ symbol: TK_IDENTIFIER
 ;
 %%
 
-int STCerror(const char *str)
+int STCerror(void *context, const char *str)
 {
     [NSException raise:STCompilerSyntaxException
                  format:@"Unknown parse error (%s)", str];
