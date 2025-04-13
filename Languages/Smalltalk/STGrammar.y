@@ -400,11 +400,13 @@ literal:
                         { $$ = [COMPILER createStringLiteralFrom:$1]; }
     | TK_CHARACTER
                         { $$ = [COMPILER createCharacterLiteralFrom:$1]; }
+    | TK_ARRAY_OPEN TK_RPAREN
+                        { $$ = [NSMutableArray array];
+                          $$ = [COMPILER createArrayLiteralFrom:$$]; }
     | TK_ARRAY_OPEN array TK_RPAREN
                         { $$ = [COMPILER createArrayLiteralFrom:$2]; }
 ;
-array: /* nothing */    { $$ = [NSMutableArray array]; }
-    | literal                   { $$ = [NSMutableArray array]; 
+array: literal                   { $$ = [NSMutableArray array];
                                    [$$ addObject:$1]; }
     | symbol                     { $$ = [NSMutableArray array];
                                    [$$ addObject:$1]; }
