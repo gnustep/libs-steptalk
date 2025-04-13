@@ -88,6 +88,7 @@ extern int STCparse(void *context);
 
 - (void)compileMethod:(STCMethod *)method;
 - (STCompiledCode *) compileStatements:(STCStatements *)statements;
+- (void)compileBlock:(STCStatements *)statements;
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag;
 - (void)compilePrimary:(STCPrimary *)primary;
 - (void)compileExpression:(STCExpression *)expr;
@@ -574,29 +575,24 @@ extern int STCparse(void *context);
     bcpos = 0;
 }
 
-- (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag
+- (void)compileBlock:(STCStatements *)statements
 {
-    BOOL            first;
-    NSEnumerator   *enumerator;
-    STBlockLiteral *blockInfo = nil;
-    STCExpression  *expr;
+    STBlockLiteral *blockInfo;
     NSArray        *array;
     NSUInteger      tempsSave;           /* stored count of temporaries */
-    NSUInteger      stackPosSave  = 0;   /* stored previous stack value */  
-    NSUInteger      stackSizeSave = 0;
-    NSUInteger      jumpIP = 0; /* location of jump bytecode for later fixup */
+    NSUInteger      stackPosSave;        /* stored previous stack value */  
+    NSUInteger      stackSizeSave;
+    NSUInteger      jumpIP;     /* location of jump bytecode for later fixup */
     NSUInteger      index;
     NSUInteger      argCount=0;  /* argument count for block context */
-        
-    NSDebugLLog(@"STCompiler-misc",
-                @"  compile statements; blockFlag=%i; tempCount=%lu",
-                 blockFlag,(unsigned long)tempsSize);
+
+    NSDebugLLog(@"STCompiler-misc", @"  compile block");
 
     tempsSave = tempsSize;  /* store value, so we can cleanup array later */
     
     array = [statements temporaries];
 
-    NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
+    NSDebugLLog(@"STCompiler-misc",@"  arguments %@", array);
 
     if (array)
     {
@@ -609,29 +605,73 @@ extern int STCparse(void *context);
         tempsSize += argCount;
     }
 
-    if (blockFlag)
+    blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
+
+    index = [self addLiteral:blockInfo];
+    [self emitPushLiteral:index];
+    [self emitBlockCopy];
+
+    jumpIP = [self currentBytecode];
+    [self emitLongJump:0];
+
+    /* block has its own stack */
+    stackPosSave = stackPos;
+    stackSizeSave = stackSize;
+    stackSize = argCount;
+    stackPos = argCount;
+
+    for (index = argCount; index > 0; index--)
     {
+	[self emitPopAndStoreTemporary:tempsSave + index - 1];
+    }
+
+    [self compileStatements:statements blockFlag:YES];
+
+    NSDebugLLog(@"STCompiler-misc",@"  stack %lu",
+                 (unsigned long)stackSize);
+    [blockInfo setStackSize:stackSize];
+    RELEASE(blockInfo);
+
+    stackSize = stackSizeSave;
+    stackPos = stackPosSave;
+
+    /* fixup jump (if block) */
+    [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
+
+    /* hide the arguments of the block as they go out of scope */
+    for (index = tempsSave; index < tempsSave+argCount; ++index)
+	[tempVars replaceObjectAtIndex:index withObject:@""];
+}
+
+- (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag
+{
+    BOOL            first;
+    NSEnumerator   *enumerator;
+    STCExpression  *expr;
+    NSArray        *array;
+    NSUInteger      index;
+    NSUInteger      count;
         
-        blockInfo = [[STBlockLiteral alloc] initWithArgumentCount:argCount];
+    NSDebugLLog(@"STCompiler-misc",
+                @"  compile statements; blockFlag=%i; tempCount=%lu",
+                 blockFlag,(unsigned long)tempsSize);
 
-        index = [self addLiteral:blockInfo];
-        [self emitPushLiteral:index];
-        [self emitBlockCopy];
+    if (!blockFlag)
+    {
+	array = [statements temporaries];
 
-        jumpIP = [self currentBytecode];
+	NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
 
-        /* block has its own stack */
-        stackPosSave = stackPos;
-        stackSizeSave = stackSize;
-        stackSize = argCount;
-        stackPos = argCount;
+	if (array)
+	{
+	    count = [array count];
+	    for (index=0; index<count; index++)
+	    {
+		[self addTempVariable:[array objectAtIndex:index]];
+	    }
 
-        [self emitLongJump:0];
-        
-        for (index = argCount; index > 0; index--)
-        {
-            [self emitPopAndStoreTemporary:tempsSave + index - 1];
-        }
+	    tempsSize += count;
+	}
     }
     
     array = [statements expressions];
@@ -675,43 +715,13 @@ extern int STCparse(void *context);
 	}
     }
 
-    if (blockFlag)
+    if (blockFlag && !expr)
     {
-        [blockInfo setStackSize:stackSize];
-        AUTORELEASE(blockInfo);
-
-        stackSize = stackSizeSave;
-        stackPos = stackPosSave;
-
-        if (expr)
-        {
-            [self emitReturn];
-        }
-        else
-        {
-            [self emitReturnFromBlock];
-        }
+        [self emitReturnFromBlock];
     }
     else
     {
         [self emitReturn];
-    }
-
-    /* fixup jump (if block) */
-    if (blockFlag)
-    {
-        [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
-    }
-
-    /* cleanup unneeded temp variables */
-    if (blockFlag)
-    {
-        NSUInteger i;      
-        /* Need to keep the block parameters allocated until we exit
-           the method context, but we also need to harvest the names*/
-        for (i = tempsSave; i < tempsSize; ++i)
-            [tempVars  replaceObjectAtIndex: i withObject:@""];
-     
     }
 }
 
@@ -776,7 +786,7 @@ extern int STCparse(void *context);
 
     case STCBlockPrimaryType:
 
-            [self compileStatements:object blockFlag:YES];
+            [self compileBlock:object];
             break;
 
     case STCExpressionPrimaryType:

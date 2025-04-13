@@ -6,6 +6,9 @@
     Remove redundant code to discard the temporary variables after the
     compiling the statements of a method.
 
+    * STCompiler.m (compileBlock:, compileStatements:blockFlag:):
+    Factor out code for the compilation of blocks.
+
 2025-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlock.m (value:, value:value:, value:value:value:value:,
