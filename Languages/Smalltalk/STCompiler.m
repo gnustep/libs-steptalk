@@ -409,7 +409,7 @@ extern int STCparse(void *context);
     
     NSDebugLLog(@"STCompiler", @"compiling statements");
 
-    tempsSize = tempsCount = [tempVars count];
+    tempsSize = [tempVars count];
 
     [self compileStatements:statements blockFlag:NO];
 
@@ -558,7 +558,7 @@ extern int STCparse(void *context);
     [namedReferences removeAllObjects];
     
     stackSize = stackPos = 0;
-    tempsSize = tempsCount = 0;
+    tempsSize = 0;
     bcpos = 0;
 }
 
@@ -570,7 +570,7 @@ extern int STCparse(void *context);
     literals   = nil;
     
     stackSize = stackPos = 0;
-    tempsSize = tempsCount = 0;
+    tempsSize = 0;
     bcpos = 0;
 }
 
@@ -590,9 +590,9 @@ extern int STCparse(void *context);
         
     NSDebugLLog(@"STCompiler-misc",
                 @"  compile statements; blockFlag=%i; tempCount=%lu",
-                 blockFlag,(unsigned long)tempsCount);
+                 blockFlag,(unsigned long)tempsSize);
 
-    tempsSave = tempsCount; /* store value, so we can cleanup array later */
+    tempsSave = tempsSize;  /* store value, so we can cleanup array later */
     
     array = [statements temporaries];
 
@@ -606,8 +606,7 @@ extern int STCparse(void *context);
             [self addTempVariable:[array objectAtIndex:index]];
         }
 
-        tempsCount += argCount;
-        tempsSize = MAX(tempsSize,tempsCount);
+        tempsSize += argCount;
     }
 
     if (blockFlag)
@@ -705,27 +704,14 @@ extern int STCparse(void *context);
     }
 
     /* cleanup unneeded temp variables */
-//
-//    [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
-//                                               [tempVars count]-tempsSave)];
-//    tempsCount = tempsSave;
-    tempsCount = [tempVars count];
-
     if (blockFlag)
     {
         NSUInteger i;      
         /* Need to keep the block parameters allocated until we exit
            the method context, but we also need to harvest the names*/
-        for (i = tempsSave; i < tempsCount; ++i)
+        for (i = tempsSave; i < tempsSize; ++i)
             [tempVars  replaceObjectAtIndex: i withObject:@""];
      
-    }
-    else
-    {
-        /* cleanup unneeded temp variables */
-        [tempVars removeObjectsInRange:NSMakeRange(tempsSave,
-                                                   tempsCount-tempsSave)];
-        tempsCount = tempsSave;
     }
 }
 

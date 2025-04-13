@@ -1,3 +1,11 @@
+2025-04-13  Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+    * STCompiler.h:
+    * STCompiler.m (compileStatements:, initializeCompilationContext,
+    destroyCompilationContext, compileStatements:blockFlag:):
+    Remove redundant code to discard the temporary variables after the
+    compiling the statements of a method.
+
 2025-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STBlock.m (value:, value:value:, value:value:value:value:,
