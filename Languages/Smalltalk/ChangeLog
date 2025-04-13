@@ -20,6 +20,11 @@
 
     * STGrammar.y:
     Update grammar file to support modern Bison.
+
+    * STGrammar.y:
+    * STCompiler.m (compileBlock:):
+    Allow for temporaries in blocks.
+
     * STGrammar.m:
     Rebuilt by bison.
 

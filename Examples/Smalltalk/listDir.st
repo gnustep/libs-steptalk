@@ -1,7 +1,7 @@
 " List contents of current directory "
 
 " Script variables "
-| fileManager path files dict |
+| fileManager path files |
 
 " Get default file manager "
 fileManager := NSFileManager defaultManager.
@@ -18,7 +18,7 @@ files := fileManager directoryContentsAtPath:path.
 
 " For each file from files do the following ..."
 files do:
-    [ :file |
+    [ :file | | dict |
 
         dict := fileManager fileAttributesAtPath: (path / file)
                             traverseLink:NO.

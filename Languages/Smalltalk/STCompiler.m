@@ -653,8 +653,9 @@ extern int STCparse(void *context);
     /* fixup jump (if block) */
     [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
 
-    /* hide the arguments of the block as they go out of scope */
-    for (index = tempsSave; index < tempsSave+argCount; ++index)
+    /* hide the arguments and temporaries of the block as they go out of scope */
+    index = tempsSave + argCount + [[[block statements] temporaries] count];
+    while (index-- > tempsSave)
 	[tempVars replaceObjectAtIndex:index withObject:@""];
 }
 
