@@ -6,8 +6,12 @@
     Remove redundant code to discard the temporary variables after the
     compiling the statements of a method.
 
+    * STCompilerUtils.h:
+    * STCompilerUtils.m: (STCBlock):
+    * STGrammar.y:
+    * STGrammar.m:
     * STCompiler.m (compileBlock:, compileStatements:blockFlag:):
-    Factor out code for the compilation of blocks.
+    Refactor to prepare for blocks with temporaries.
 
 2025-04-06  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

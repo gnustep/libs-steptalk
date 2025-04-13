@@ -67,6 +67,40 @@
 @end
 
 /*
+ * STCBlocks
+ * ---------------------------------------------------------------------------
+ */
+@implementation STCBlock
++ block
+{
+    STCBlock *block = [[STCBlock alloc] init];
+    return AUTORELEASE(block);
+}
+- (void)setArguments:(NSArray *)args
+{
+    ASSIGN(arguments,args);
+}
+- (void)setStatements:(NSArray *)stats
+{
+    ASSIGN(statements,stats);
+}
+- (void)dealloc
+{
+    RELEASE(arguments);
+    RELEASE(statements);
+    [super dealloc];
+}
+- (NSArray *)arguments
+{
+    return arguments;
+}
+- (STCStatements *)statements
+{
+    return statements;
+}
+@end
+
+/*
  * STCStatements
  * ---------------------------------------------------------------------------
  */

@@ -186,16 +186,19 @@ variable_list: variable_name
 
 block: TK_BLOCK_OPEN TK_BLOCK_CLOSE
                             {
-                                $$ = [STCStatements statements];
+                                $$ = [STCBlock block];
+                                [$$ setStatements:[STCStatements statements]];
                             }
     | TK_BLOCK_OPEN statements TK_BLOCK_CLOSE
                             {
-                                $$ = $2;
+                                $$ = [STCBlock block];
+                                [$$ setStatements:$2];
                             }
     | TK_BLOCK_OPEN block_var_list TK_BAR statements TK_BLOCK_CLOSE
                             {
-                                $$ = $4;
-                                [$$ setTemporaries:$2];
+                                $$ = [STCBlock block];
+                                [$$ setArguments:$2];
+                                [$$ setStatements:$4];
                             }
 ;
 block_var_list: TK_COLON variable_name

@@ -88,7 +88,7 @@ extern int STCparse(void *context);
 
 - (void)compileMethod:(STCMethod *)method;
 - (STCompiledCode *) compileStatements:(STCStatements *)statements;
-- (void)compileBlock:(STCStatements *)statements;
+- (void)compileBlock:(STCBlock *)block;
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag;
 - (void)compilePrimary:(STCPrimary *)primary;
 - (void)compileExpression:(STCExpression *)expr;
@@ -575,7 +575,7 @@ extern int STCparse(void *context);
     bcpos = 0;
 }
 
-- (void)compileBlock:(STCStatements *)statements
+- (void)compileBlock:(STCBlock *)block
 {
     STBlockLiteral *blockInfo;
     NSArray        *array;
@@ -590,7 +590,7 @@ extern int STCparse(void *context);
 
     tempsSave = tempsSize;  /* store value, so we can cleanup array later */
     
-    array = [statements temporaries];
+    array = [block arguments];
 
     NSDebugLLog(@"STCompiler-misc",@"  arguments %@", array);
 
@@ -625,7 +625,7 @@ extern int STCparse(void *context);
 	[self emitPopAndStoreTemporary:tempsSave + index - 1];
     }
 
-    [self compileStatements:statements blockFlag:YES];
+    [self compileStatements:[block statements] blockFlag:YES];
 
     NSDebugLLog(@"STCompiler-misc",@"  stack %lu",
                  (unsigned long)stackSize);
@@ -656,22 +656,19 @@ extern int STCparse(void *context);
                 @"  compile statements; blockFlag=%i; tempCount=%lu",
                  blockFlag,(unsigned long)tempsSize);
 
-    if (!blockFlag)
+    array = [statements temporaries];
+
+    NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
+
+    if (array)
     {
-	array = [statements temporaries];
-
-	NSDebugLLog(@"STCompiler-misc",@"  temporaries %@", array);
-
-	if (array)
+	count = [array count];
+	for (index=0; index<count; index++)
 	{
-	    count = [array count];
-	    for (index=0; index<count; index++)
-	    {
-		[self addTempVariable:[array objectAtIndex:index]];
-	    }
-
-	    tempsSize += count;
+	    [self addTempVariable:[array objectAtIndex:index]];
 	}
+
+	tempsSize += count;
     }
     
     array = [statements expressions];
