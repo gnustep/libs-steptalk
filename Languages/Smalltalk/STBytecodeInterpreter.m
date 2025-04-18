@@ -70,6 +70,8 @@ static  SEL pushSel;
 static  IMP pushImp;
 static  SEL popSel;
 static  IMP popImp;
+static  SEL valueAtTopSel;
+static  IMP valueAtTopImp;
 
 static Class NSInvocation_class = nil;
 
@@ -79,10 +81,12 @@ static Class NSInvocation_class = nil;
     sendSelectorAtIndexSel = @selector(sendSelectorAtIndex:withArgCount:);
     pushSel = @selector(push:);
     popSel = @selector(pop);
+    valueAtTopSel = @selector(valueAtTop);
     
     sendSelectorAtIndexImp = [STBytecodeInterpreter instanceMethodForSelector:sendSelectorAtIndexSel];
     pushImp = [STStack instanceMethodForSelector:pushSel];
     popImp = [STStack instanceMethodForSelector:popSel];
+    valueAtTopImp = [STStack instanceMethodForSelector:valueAtTopSel];
 
     NSInvocation_class = [NSInvocation class];
 }
@@ -479,6 +483,9 @@ static Class NSInvocation_class = nil;
 #define STPop(s) (*popImp)(s, popSel)
 // #define STPop(s) [s pop]           
 
+#define STValueAtTop(s) (*valueAtTopImp)(s, valueAtTopSel)
+// #define STValueAtTop(s) [s valueAtTop]
+
 - (BOOL)dispatchBytecode:(STBytecode)bytecode
 {
     NSString *refName;
@@ -611,6 +618,26 @@ static Class NSInvocation_class = nil;
                                              stackSize:[info stackSize]];
                 }
                 break;
+
+    case STStoreRecVarBytecode:
+                STDebugBytecode(bytecode);
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                [receiver setValue:STValueAtTop(stack) forKey:refName];
+
+                break;
+
+    case STStoreExternBytecode:
+                STDebugBytecode(bytecode);
+                refName = [activeContext referenceNameAtIndex:bytecode.arg1];
+                [environment setObject:STValueAtTop(stack) forName:refName];
+                break;
+
+    case STStoreTempBytecode:
+                STDebugBytecode(bytecode);
+		object = STValueAtTop(stack);
+                [activeContext setTemporary:object atIndex:bytecode.arg1];
+                break;
+
 
     default:
                 [self invalidBytecode:bytecode];

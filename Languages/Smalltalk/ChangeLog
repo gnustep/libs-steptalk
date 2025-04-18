@@ -1,5 +1,14 @@
 2025-04-18  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STBytecodes.h:
+    * STBytecodes.m (initNamesArray, STDissasembleBytecode):
+    * STBytecodeInterpreter.m (STValueAtTop, dispatchBytecode:):
+    * STCompiler.m (compileExpression:, emitStoreTemporary: emitStoreVariable:,
+        -emitStoreReceiverVariable:):
+    Add bytecode instructions to save the value at the top of the stack
+    without popping it from the stack and use these instructions for a
+    more efficient translation of assignments.
+
     * STCompiler.m (emitPushLiteral, emitSendSelector:argCount:):
     Remove erroneous code that was increasing the required stack size.
 
