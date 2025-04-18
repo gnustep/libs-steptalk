@@ -9,6 +9,9 @@
     without popping it from the stack and use these instructions for a
     more efficient translation of assignments.
 
+    * STCompiler.m (emitPop, updateWithPopStack):
+    Optimization to merge pop after store into a single bytecode.
+
     * STCompiler.m (emitPushLiteral, emitSendSelector:argCount:):
     Remove erroneous code that was increasing the required stack size.
 

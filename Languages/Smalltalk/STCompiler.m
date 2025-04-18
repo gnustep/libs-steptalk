@@ -117,6 +117,7 @@ extern int STCparse(void *context);
 - (void)emitStoreTemporary:(NSUInteger)index;
 - (void)emitStoreVariable:(NSUInteger)index;
 
+- (BOOL)updateWithPopStack;
 - (void)fixupLongJumpAt:(NSUInteger)index with:(short)offset;
 - (NSUInteger)currentBytecode;
 @end
@@ -587,7 +588,7 @@ extern int STCparse(void *context);
     
     stackSize = stackPos = 0;
     tempsSize = 0;
-    bcpos = 0;
+    bcpos = prevbcpos = 0;
 }
 
 - (void) destroyCompilationContext
@@ -599,7 +600,7 @@ extern int STCparse(void *context);
     
     stackSize = stackPos = 0;
     tempsSize = 0;
-    bcpos = 0;
+    bcpos = prevbcpos = 0;
 }
 
 - (void)compileBlock:(STCBlock *)block
@@ -1031,7 +1032,7 @@ extern int STCparse(void *context);
             do { \
                 char bc = bytecode; \
                 [byteCodes appendBytes:&bc length:1];\
-                bcpos++;\
+                prevbcpos=bcpos; bcpos++;\
             } while(0)
 
 #define EMIT_DOUBLE(bc1,bc2) \
@@ -1040,7 +1041,7 @@ extern int STCparse(void *context);
 		bc[1] = (unsigned char)((((unsigned short)bc2)>>8)&0xff);\
 		bc[2] = (unsigned char)(bc2&0xff); \
                 [byteCodes appendBytes:bc length:3];\
-                bcpos+=3;\
+                prevbcpos=bcpos; bcpos+=3;\
             } while(0)
 #define EMIT_TRIPPLE(bc1,bc2,bc3) \
             do { \
@@ -1050,7 +1051,7 @@ extern int STCparse(void *context);
 		bc[3] = (unsigned char)((((unsigned short)bc3)>>8)&0xff);\
 		bc[4] = (unsigned char)(bc3&0xff); \
                 [byteCodes appendBytes:bc length:5];\
-                bcpos+=5;\
+                prevbcpos=bcpos; bcpos+=5;\
             } while(0)
 
 #define STACK_PUSH \
@@ -1203,6 +1204,8 @@ extern int STCparse(void *context);
     NSDebugLLog(@"STCompiler-emit",
                 @"#%04lx pop stack",(unsigned long)bcpos);
                 
+    if ([self updateWithPopStack])
+        return;
     EMIT_SINGLE(STPopStackBytecode);
     STACK_POP;
 }
@@ -1276,6 +1279,37 @@ extern int STCparse(void *context);
                 [namedReferences objectAtIndex:index]);
 
     EMIT_DOUBLE(STStoreRecVarBytecode,index);
+}
+- (BOOL)updateWithPopStack
+{
+    unsigned char   bc[3];
+    NSUInteger      index;
+
+    if (bcpos == prevbcpos + 3)
+    {
+        [byteCodes getBytes:bc range:NSMakeRange(prevbcpos,3)];
+        index = bc[1] << 8 | bc[2];
+
+        switch (bc[0])
+        {
+        case STStoreTempBytecode:
+            NSDebugLLog(@"STCompiler-emit", @"optimization: merge");
+            [byteCodes setLength:(bcpos = prevbcpos)];
+            [self emitPopAndStoreTemporary:index];
+            return YES;
+        case STStoreExternBytecode:
+            NSDebugLLog(@"STCompiler-emit", @"optimization: merge");
+            [byteCodes setLength:(bcpos = prevbcpos)];
+            [self emitPopAndStoreVariable:index];
+            return YES;
+        case STStoreRecVarBytecode:
+            NSDebugLLog(@"STCompiler-emit", @"optimization: merge");
+            [byteCodes setLength:(bcpos = prevbcpos)];
+            [self emitPopAndStoreReceiverVariable:index];
+            return YES;
+        }
+    }
+    return NO;
 }
 - (NSUInteger)currentBytecode
 {

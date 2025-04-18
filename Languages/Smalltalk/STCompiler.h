@@ -91,6 +91,7 @@ typedef struct _STParserContext
     NSUInteger        stackPos;     /* Current stack pointer */
     NSUInteger        tempsSize;    /* Required temp space */
     NSUInteger        bcpos;        /* Bytecode position */
+    NSUInteger        prevbcpos;   /* Position of previous bytecode */
 
     Class           stringLiteralClass; /* default: NSMutableString */
     Class           arrayLiteralClass;  /* default: NSMutableArray */
