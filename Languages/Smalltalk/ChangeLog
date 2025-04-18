@@ -15,6 +15,9 @@
     * STCompiler.m (emitPushLiteral, emitSendSelector:argCount:):
     Remove erroneous code that was increasing the required stack size.
 
+    * STCompiler.m (compileExpression:): Fix translation of cascades to
+    avoid linear growth of the stack size.
+
 2025-04-13  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
     * STCompiler.h:

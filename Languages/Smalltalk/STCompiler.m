@@ -862,8 +862,7 @@ extern int STCparse(void *context);
         cascade = [expr cascade];
         if(cascade)
         {
-            count = [cascade count];
-            for(i=0;i<count;i++)
+            if ([cascade count])
                 [self emitDuplicateStackTop];
         }
         
@@ -872,11 +871,14 @@ extern int STCparse(void *context);
         /* cascade expression */
         if(cascade)
         {
+            count = [cascade count];
             enumerator = [cascade objectEnumerator];
             while( (obj = [enumerator nextObject]) )
             {
                 /* ignore previous return value */
                 [self emitPopStack];
+                if (--count)
+                    [self emitDuplicateStackTop];
                 [self compileMessage:obj];
             }
         }        
