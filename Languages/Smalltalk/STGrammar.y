@@ -427,18 +427,17 @@ literal:
                         { $$ = [COMPILER createStringLiteralFrom:$1]; }
     | TK_CHARACTER
                         { $$ = [COMPILER createCharacterLiteralFrom:$1]; }
-    | TK_ARRAY_OPEN TK_RPAREN
-                        { $$ = [NSMutableArray array];
-                          $$ = [COMPILER createArrayLiteralFrom:$$]; }
     | TK_ARRAY_OPEN array TK_RPAREN
                         { $$ = [COMPILER createArrayLiteralFrom:$2]; }
 ;
-array: literal                   { $$ = [NSMutableArray array];
-                                   [$$ addObject:$1]; }
-    | symbol                     { $$ = [NSMutableArray array];
-                                   [$$ addObject:$1]; }
+array: /* nothing */    { $$ = [NSMutableArray array]; }
     | array literal              { $$ = $1; [$$ addObject:$2]; }
     | array symbol               { $$ = $1; [$$ addObject:$2]; }
+    | array TK_LPAREN array TK_RPAREN
+                                 {
+                                   $$ = $1;
+                                   [$$ addObject:[COMPILER createArrayLiteralFrom:$3]];
+                                 }
 ;
 symbol: TK_IDENTIFIER                        
                         { $$ = [COMPILER createSymbolLiteralFrom:$1]; }
