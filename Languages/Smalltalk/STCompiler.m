@@ -413,20 +413,20 @@ extern int STCparse(void *context);
     }
 }
 
-- (NSUInteger)addTempVariables:(NSArray *)temps;
+- (NSUInteger)addTempVariables:(NSArray *)temps
 {
     NSUInteger  index;
     NSUInteger  count=0;
 
     if (temps)
     {
-	count = [temps count];
-	for (index=0; index<count; index++)
-	{
-	    [self addTempVariable:[temps objectAtIndex:index]];
-	}
+        count = [temps count];
+        for (index=0; index<count; index++)
+        {
+            [self addTempVariable:[temps objectAtIndex:index]];
+        }
 
-	tempsSize += count;
+        tempsSize += count;
     }
 
     return count;
@@ -641,7 +641,7 @@ extern int STCparse(void *context);
 
     for (index = argCount; index > 0; index--)
     {
-	[self emitPopAndStoreTemporary:tempsSave + index - 1];
+        [self emitPopAndStoreTemporary:tempsSave + index - 1];
     }
 
     [self compileStatements:[block statements] blockFlag:YES];
@@ -654,13 +654,13 @@ extern int STCparse(void *context);
     stackSize = stackSizeSave;
     stackPos = stackPosSave;
 
-    /* fixup jump (if block) */
+    /* fixup jump */
     [self fixupLongJumpAt:jumpIP with:[self currentBytecode] - jumpIP];
 
     /* hide the arguments and temporaries of the block as they go out of scope */
     index = tempsSave + argCount + [[[block statements] temporaries] count];
     while (index-- > tempsSave)
-	[tempVars replaceObjectAtIndex:index withObject:@""];
+        [tempVars replaceObjectAtIndex:index withObject:@""];
 }
 
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag
