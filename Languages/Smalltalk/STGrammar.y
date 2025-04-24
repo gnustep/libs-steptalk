@@ -316,71 +316,71 @@ assignments: assignment
 assignment: variable_name TK_ASSIGNMENT
                             { $$ = $1;}
 ;
-cascade: message_expression cascade_list
+cascade: message_expression messages
                             { 
-                                /* FIXME: check if this is this OK */
+                                $$ = $1;
                                 [$$ setCascade:$2]; 
                             }
 ;
-cascade_list: TK_SEMICOLON cascade_item
+messages: TK_SEMICOLON message
                             {
                                 $$ = [NSMutableArray array];
                                 [$$ addObject:$2]; 
                             }
-    | cascade_list TK_SEMICOLON cascade_item
+    | messages TK_SEMICOLON message
                             { 
                                 $$ = $1; 
                                 [$$ addObject:$3];
                             }
 ;
-cascade_item: unary_selector
-                            { 
-                                $$ = [STCMessage message];
-                                [$$ addKeyword:$1 object:nil];
-                            }
-    | binary_selector unary_object
-                            { 
-                                $$ = [STCMessage message];
-                                [$$ addKeyword:$1 object:$2];
-                            }
-    | keyword_expr_list
+message: unary_message
+    | binary_message
+    | keyword_message
 ;
 
 message_expression: unary_expression
     | binary_expression
     | keyword_expression
 ;
-unary_expression: unary_object unary_selector
+unary_expression: unary_object unary_message
                             { 
-                                STCMessage *message = [STCMessage message];
-                                [message addKeyword:$2 object:nil];
                                 $$ = [STCExpression 
                                 /**/        messageExpressionWithTarget:$1
-                                /**/        message:message];
+                                /**/        message:$2];
                             }
 ;
-binary_expression: binary_object binary_selector unary_object
+unary_message: unary_selector
                             { 
-                                STCMessage *message = [STCMessage message];
-                                [message addKeyword:$2 object:$3];
+                                $$ = [STCMessage message];
+                                [$$ addKeyword:$1 object:nil];
+                            }
+;
+binary_expression: binary_object binary_message
+                            { 
                                 $$ = [STCExpression 
                                 /**/        messageExpressionWithTarget:$1
-                                /**/        message:message];
+                                /**/        message:$2];
                             }
 ;
-keyword_expression: binary_object keyword_expr_list
+binary_message: binary_selector unary_object
+                            { 
+                                $$ = [STCMessage message];
+                                [$$ addKeyword:$1 object:$2];
+                            }
+;
+keyword_expression: binary_object keyword_message
                             {
                                 $$ = [STCExpression 
                                 /**/        messageExpressionWithTarget:$1
                                 /**/        message:$2];
                             }
 ;
-keyword_expr_list: keyword binary_object 
+keyword_message: keyword binary_object 
                             { 
                                 $$ = [STCMessage message];
                                 [$$ addKeyword:$1 object:$2];
                             }
-    | keyword_expr_list keyword binary_object 
+    | keyword_message keyword binary_object 
                             { 
                                 $$ = $1;
                                 [$$ addKeyword:$2 object:$3];

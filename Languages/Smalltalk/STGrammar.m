@@ -232,23 +232,25 @@ enum yysymbol_kind_t
   YYSYMBOL_assignments = 43,               /* assignments  */
   YYSYMBOL_assignment = 44,                /* assignment  */
   YYSYMBOL_cascade = 45,                   /* cascade  */
-  YYSYMBOL_cascade_list = 46,              /* cascade_list  */
-  YYSYMBOL_cascade_item = 47,              /* cascade_item  */
+  YYSYMBOL_messages = 46,                  /* messages  */
+  YYSYMBOL_message = 47,                   /* message  */
   YYSYMBOL_message_expression = 48,        /* message_expression  */
   YYSYMBOL_unary_expression = 49,          /* unary_expression  */
-  YYSYMBOL_binary_expression = 50,         /* binary_expression  */
-  YYSYMBOL_keyword_expression = 51,        /* keyword_expression  */
-  YYSYMBOL_keyword_expr_list = 52,         /* keyword_expr_list  */
-  YYSYMBOL_unary_object = 53,              /* unary_object  */
-  YYSYMBOL_binary_object = 54,             /* binary_object  */
-  YYSYMBOL_primary = 55,                   /* primary  */
-  YYSYMBOL_variable_name = 56,             /* variable_name  */
-  YYSYMBOL_unary_selector = 57,            /* unary_selector  */
-  YYSYMBOL_binary_selector = 58,           /* binary_selector  */
-  YYSYMBOL_keyword = 59,                   /* keyword  */
-  YYSYMBOL_literal = 60,                   /* literal  */
-  YYSYMBOL_array = 61,                     /* array  */
-  YYSYMBOL_symbol = 62                     /* symbol  */
+  YYSYMBOL_unary_message = 50,             /* unary_message  */
+  YYSYMBOL_binary_expression = 51,         /* binary_expression  */
+  YYSYMBOL_binary_message = 52,            /* binary_message  */
+  YYSYMBOL_keyword_expression = 53,        /* keyword_expression  */
+  YYSYMBOL_keyword_message = 54,           /* keyword_message  */
+  YYSYMBOL_unary_object = 55,              /* unary_object  */
+  YYSYMBOL_binary_object = 56,             /* binary_object  */
+  YYSYMBOL_primary = 57,                   /* primary  */
+  YYSYMBOL_variable_name = 58,             /* variable_name  */
+  YYSYMBOL_unary_selector = 59,            /* unary_selector  */
+  YYSYMBOL_binary_selector = 60,           /* binary_selector  */
+  YYSYMBOL_keyword = 61,                   /* keyword  */
+  YYSYMBOL_literal = 62,                   /* literal  */
+  YYSYMBOL_array = 63,                     /* array  */
+  YYSYMBOL_symbol = 64                     /* symbol  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -576,16 +578,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  50
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   305
+#define YYLAST   309
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  26
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  37
+#define YYNNTS  39
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  87
+#define YYNRULES  89
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  133
+#define YYNSTATES  134
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   280
@@ -642,10 +644,10 @@ static const yytype_int16 yyrline[] =
      173,   180,   184,   190,   195,   202,   207,   212,   218,   224,
      232,   237,   244,   249,   255,   260,   269,   274,   280,   285,
      291,   292,   297,   298,   304,   309,   316,   319,   325,   330,
-     336,   341,   346,   349,   350,   351,   353,   362,   371,   378,
-     383,   389,   390,   392,   393,   395,   399,   403,   407,   411,
-     415,   420,   422,   424,   426,   429,   431,   433,   435,   437,
-     439,   442,   443,   444,   445,   451,   453,   455
+     336,   337,   338,   341,   342,   343,   345,   352,   358,   365,
+     371,   378,   383,   389,   390,   392,   393,   395,   399,   403,
+     407,   411,   415,   420,   422,   424,   426,   429,   431,   433,
+     435,   437,   439,   442,   443,   444,   445,   451,   453,   455
 };
 #endif
 
@@ -670,12 +672,12 @@ static const char *const yytname[] =
   "source", "script_open", "plain_code", "methods", "$@1", "method_list",
   "method", "message_pattern", "keyword_list", "temporaries",
   "variable_list", "block", "block_var_list", "statements", "expressions",
-  "expression", "assignments", "assignment", "cascade", "cascade_list",
-  "cascade_item", "message_expression", "unary_expression",
-  "binary_expression", "keyword_expression", "keyword_expr_list",
-  "unary_object", "binary_object", "primary", "variable_name",
-  "unary_selector", "binary_selector", "keyword", "literal", "array",
-  "symbol", YY_NULLPTR
+  "expression", "assignments", "assignment", "cascade", "messages",
+  "message", "message_expression", "unary_expression", "unary_message",
+  "binary_expression", "binary_message", "keyword_expression",
+  "keyword_message", "unary_object", "binary_object", "primary",
+  "variable_name", "unary_selector", "binary_selector", "keyword",
+  "literal", "array", "symbol", YY_NULLPTR
 };
 
 static const char *
@@ -685,12 +687,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-67)
+#define YYPACT_NINF (-64)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-65)
+#define YYTABLE_NINF (-67)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -699,20 +701,20 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     104,    21,     5,   281,   125,   186,   -67,   281,   -67,   -67,
-     -67,   -67,   -67,   -67,    27,    12,   -67,   205,   -67,   -67,
-      26,   -67,   281,   -67,   -67,    31,    15,    34,   -67,    39,
-      42,    18,    60,   -67,    53,   -67,     8,   -67,   146,    51,
-      62,   -67,    56,   205,    14,    68,   -67,    10,   224,   -67,
-     -67,   -67,   -67,   -67,    69,    77,   -67,   167,    64,    67,
-     -67,    56,    56,   -67,   243,   -67,   -67,    31,    18,    53,
-      79,   -67,    64,   281,   281,   -67,   -67,   -67,   -67,   -67,
-     -67,    83,   167,    56,   -67,   -67,   281,   -67,   -67,   -67,
-     -67,   -67,   -67,   -67,   -67,    53,   205,   -67,    56,    53,
-     -67,   -67,   281,   -67,   -67,    64,   -67,   281,    53,   281,
-     -67,    39,   -67,   -67,   -67,    85,   -67,   205,    88,   -67,
-     262,   -67,   -67,   -67,    77,   -67,    39,   -67,    85,    92,
-     -67,   -67,   -67
+     108,    16,    10,   285,   129,   190,   -64,   285,   -64,   -64,
+     -64,   -64,   -64,   -64,    18,    15,   -64,   209,   -64,   -64,
+      32,   -64,   285,   -64,   -64,    35,    42,     6,   -64,    14,
+      21,    54,    47,   -64,    57,   -64,    11,   -64,   150,    40,
+      58,   -64,    48,   209,    12,    59,   -64,    24,   228,   -64,
+     -64,   -64,   -64,   -64,    60,    77,   -64,   171,    64,    72,
+     -64,    48,    48,   -64,   247,   -64,   -64,    35,    54,    57,
+      73,   -64,   -64,   -64,    64,   285,   285,   -64,   -64,   -64,
+     -64,   -64,   -64,    85,   171,    48,   -64,   -64,   285,   -64,
+     -64,   -64,   -64,   -64,   -64,   -64,   -64,    57,   209,   -64,
+      48,    57,   -64,   -64,   285,   -64,   -64,   -64,   -64,    64,
+      57,   285,   -64,    14,   -64,   -64,   -64,    78,   -64,   209,
+      88,   -64,   266,   -64,   -64,   -64,    77,   -64,   -64,    78,
+      90,   -64,   -64,   -64
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -720,38 +722,38 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     0,     0,     0,     0,     0,    81,     0,    71,    75,
-      76,    77,    78,    79,     0,     0,     3,     0,    67,     7,
-      33,    36,     0,    44,    42,    40,    53,    54,    55,    63,
-       0,    38,    65,    66,     0,    21,     0,    23,     0,     0,
-       6,    25,     0,     0,     0,     0,    68,     0,     0,    32,
-       1,    72,    73,    74,     0,    11,    12,     0,    18,     9,
+       2,     0,     0,     0,     0,     0,    83,     0,    73,    77,
+      78,    79,    80,    81,     0,     0,     3,     0,    69,     7,
+      33,    36,     0,    44,    42,    40,    53,    54,    55,    65,
+       0,    38,    67,    68,     0,    21,     0,    23,     0,     0,
+       6,    25,     0,     0,     0,     0,    70,     0,     0,    32,
+       1,    74,    75,    76,     0,    11,    12,     0,    18,     9,
       16,     0,     0,     8,    34,    45,    43,    41,    39,     0,
-      47,    56,    58,     0,     0,    46,     4,    22,    24,    70,
-      30,     0,     0,     0,    26,    69,     0,    81,    80,    85,
-      87,    86,    82,    83,     5,     0,     0,    14,     0,     0,
-      17,    19,     0,    37,    48,    52,    50,     0,     0,     0,
-      62,    57,    61,    65,    64,    59,    27,     0,     0,    31,
-       0,    13,    15,    20,    10,    35,    51,    49,    60,     0,
-      28,    84,    29
+      47,    56,    57,    58,    60,     0,     0,    46,     4,    22,
+      24,    72,    30,     0,     0,     0,    26,    71,     0,    83,
+      82,    87,    89,    88,    84,    85,     5,     0,     0,    14,
+       0,     0,    17,    19,     0,    37,    48,    50,    51,    52,
+       0,     0,    64,    59,    63,    67,    66,    61,    27,     0,
+       0,    31,     0,    13,    15,    20,    10,    35,    49,    62,
+       0,    28,    86,    29
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -67,   -67,   -67,   -67,   -67,   -67,     7,   -26,   -67,   -67,
-      11,   -67,   -67,    89,     0,   108,     3,   -67,    93,    96,
-     -67,    22,    97,   -60,   -59,   -67,   102,   -66,   -58,   -19,
-       2,   -24,   -29,   -10,   -46,    35,   -67
+     -64,   -64,   -64,   -64,   -64,   -64,    -1,   -27,   -64,   -64,
+       9,   -64,   -64,    86,     0,    98,     3,   -64,    82,    83,
+     -64,    -4,    87,   -55,   -61,   -63,   -57,   -64,    91,    33,
+     -53,   -21,     2,   -18,   -12,   -28,   -43,    26,   -64
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,    14,    15,    16,    54,    99,    55,    56,    57,    58,
+       0,    14,    15,    16,    54,   101,    55,    56,    57,    58,
       43,    36,    18,    44,    45,    20,    21,    22,    23,    24,
-      70,   104,    25,    26,    27,    28,   105,    29,    30,    31,
-      32,    60,    61,    62,    33,    48,    93
+      70,   106,    25,    26,    71,    27,    73,    28,   109,    29,
+      30,    31,    32,    60,    75,    62,    33,    48,    95
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -759,72 +761,72 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
-      19,    73,    92,    68,    37,    71,    39,   111,    76,    35,
-      49,    17,    77,   110,   110,   114,   115,    63,    82,    91,
-      74,    85,     8,    86,    34,     8,    42,    50,    83,    51,
-      52,    53,   -62,   -62,   -62,   -61,   -61,   -61,    78,    64,
-     107,   126,    37,    81,    80,   106,    69,   110,    98,   110,
-     114,   128,   -64,   -64,   112,   112,    51,    97,    79,    74,
-      52,    53,   109,   100,   101,    75,    35,   103,    96,   121,
-      51,    52,    53,     8,    92,   113,   113,    84,    94,   107,
-      95,    83,   118,    53,   106,   119,    73,    71,   112,   103,
-     112,    91,   116,   117,   108,   109,   122,   130,    74,    73,
-     123,   132,    71,    52,    59,   125,   124,     1,     2,   113,
-       3,   113,     4,    47,     5,    65,     6,   129,    66,    67,
-       7,     8,   120,     0,     9,    10,    11,    12,    13,    40,
-     127,     3,    72,    38,    41,     5,     0,     6,     0,    42,
-       0,     7,     8,     0,     0,     9,    10,    11,    12,    13,
-       2,     0,     3,     0,    38,    41,     5,     0,     6,     0,
-      42,     0,     7,     8,     0,     0,     9,    10,    11,    12,
-      13,     2,     0,     3,     0,    38,     0,     5,     0,     6,
-       0,     0,     0,     7,     8,     0,     0,     9,    10,    11,
-      12,    13,     3,     0,    38,     0,     5,    46,     6,     0,
-       0,     0,     0,     8,     0,     0,     9,    10,    11,    12,
+      19,    68,    76,    61,    37,    94,    39,    78,   107,    17,
+      49,    72,   108,   116,    35,    79,    84,    63,    50,    34,
+     112,   112,    61,   117,   -66,   -66,    85,     8,     8,    42,
+     100,    51,    51,    52,    53,    87,    93,    88,    80,    52,
+      53,    76,    37,    83,    82,    64,   111,    81,   116,   107,
+      69,    72,    77,   108,   114,   114,   112,    99,   129,   -64,
+     -64,   -64,    35,   102,   103,     8,    98,   105,    86,    96,
+     123,   -63,   -63,   -63,    51,    52,    53,   115,   115,    94,
+      97,   111,    76,    53,   120,    61,    85,   121,   110,    61,
+     114,   105,    72,   119,   118,    72,    52,   131,   124,   133,
+     126,    59,   125,    47,    65,    66,   128,   127,   113,    67,
+      93,     1,     2,   115,     3,   122,     4,     0,     5,   130,
+       6,    74,     0,     0,     7,     8,     0,     0,     9,    10,
+      11,    12,    13,    40,     0,     3,     0,    38,    41,     5,
+       0,     6,     0,    42,     0,     7,     8,     0,     0,     9,
+      10,    11,    12,    13,     2,     0,     3,     0,    38,    41,
+       5,     0,     6,     0,    42,     0,     7,     8,     0,     0,
+       9,    10,    11,    12,    13,     2,     0,     3,     0,    38,
+       0,     5,     0,     6,     0,     0,     0,     7,     8,     0,
+       0,     9,    10,    11,    12,    13,     3,     0,    38,     0,
+       5,    46,     6,     0,     0,     0,     0,     8,     0,     0,
+       9,    10,    11,    12,    13,     3,     0,    38,     0,     5,
+       0,     6,     0,     0,     0,     7,     8,     0,     0,     9,
+      10,    11,    12,    13,    89,    90,     0,     0,     0,     0,
+       6,     0,     0,     0,     0,    91,    52,    92,     9,    10,
+      11,    12,    13,     3,     0,    38,     0,     5,     0,     6,
+       0,     0,     0,   104,     8,     0,     0,     9,    10,    11,
+      12,    13,    89,   132,     0,     0,     0,     0,     6,     0,
+       0,     0,     0,    91,    52,    92,     9,    10,    11,    12,
       13,     3,     0,    38,     0,     5,     0,     6,     0,     0,
-       0,     7,     8,     0,     0,     9,    10,    11,    12,    13,
-      87,    88,     0,     0,     0,     0,     6,     0,     0,     0,
-       0,    89,    52,    90,     9,    10,    11,    12,    13,     3,
-       0,    38,     0,     5,     0,     6,     0,     0,     0,   102,
-       8,     0,     0,     9,    10,    11,    12,    13,    87,   131,
-       0,     0,     0,     0,     6,     0,     0,     0,     0,    89,
-      52,    90,     9,    10,    11,    12,    13,     3,     0,    38,
-       0,     5,     0,     6,     0,     0,     0,     0,     8,     0,
-       0,     9,    10,    11,    12,    13
+       0,     0,     8,     0,     0,     9,    10,    11,    12,    13
 };
 
-static const yytype_int16 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       0,    30,    48,    22,     2,    29,     3,    73,    34,     4,
-       7,     0,     4,    73,    74,    74,    74,    17,     4,    48,
-      30,    11,    17,    13,     3,    17,    14,     0,    14,    17,
-      18,    19,    17,    18,    19,    17,    18,    19,    36,    13,
-      69,   107,    40,    43,    42,    69,    15,   107,    58,   109,
-     109,   109,    18,    19,    73,    74,    17,    57,     7,    69,
-      18,    19,    72,    61,    62,     5,     4,    64,    57,    95,
-      17,    18,    19,    17,   120,    73,    74,     9,     9,   108,
-       3,    14,    82,    19,   108,    83,   115,   111,   107,    86,
-     109,   120,     9,    82,    15,   105,    96,     9,   108,   128,
-      98,     9,   126,    18,    15,   102,    99,     3,     4,   107,
-       6,   109,     8,     5,    10,    22,    12,   117,    22,    22,
-      16,    17,    87,    -1,    20,    21,    22,    23,    24,     4,
-     108,     6,    30,     8,     9,    10,    -1,    12,    -1,    14,
-      -1,    16,    17,    -1,    -1,    20,    21,    22,    23,    24,
-       4,    -1,     6,    -1,     8,     9,    10,    -1,    12,    -1,
-      14,    -1,    16,    17,    -1,    -1,    20,    21,    22,    23,
-      24,     4,    -1,     6,    -1,     8,    -1,    10,    -1,    12,
+       0,    22,    30,    15,     2,    48,     3,    34,    69,     0,
+       7,    29,    69,    76,     4,     4,     4,    17,     0,     3,
+      75,    76,    34,    76,    18,    19,    14,    17,    17,    14,
+      58,    17,    17,    18,    19,    11,    48,    13,    36,    18,
+      19,    69,    40,    43,    42,    13,    74,     7,   111,   110,
+      15,    69,     5,   110,    75,    76,   111,    57,   111,    17,
+      18,    19,     4,    61,    62,    17,    57,    64,     9,     9,
+      97,    17,    18,    19,    17,    18,    19,    75,    76,   122,
+       3,   109,   110,    19,    84,    97,    14,    85,    15,   101,
+     111,    88,   110,    84,     9,   113,    18,     9,    98,     9,
+     101,    15,   100,     5,    22,    22,   110,   104,    75,    22,
+     122,     3,     4,   111,     6,    89,     8,    -1,    10,   119,
+      12,    30,    -1,    -1,    16,    17,    -1,    -1,    20,    21,
+      22,    23,    24,     4,    -1,     6,    -1,     8,     9,    10,
+      -1,    12,    -1,    14,    -1,    16,    17,    -1,    -1,    20,
+      21,    22,    23,    24,     4,    -1,     6,    -1,     8,     9,
+      10,    -1,    12,    -1,    14,    -1,    16,    17,    -1,    -1,
+      20,    21,    22,    23,    24,     4,    -1,     6,    -1,     8,
+      -1,    10,    -1,    12,    -1,    -1,    -1,    16,    17,    -1,
+      -1,    20,    21,    22,    23,    24,     6,    -1,     8,    -1,
+      10,    11,    12,    -1,    -1,    -1,    -1,    17,    -1,    -1,
+      20,    21,    22,    23,    24,     6,    -1,     8,    -1,    10,
+      -1,    12,    -1,    -1,    -1,    16,    17,    -1,    -1,    20,
+      21,    22,    23,    24,     6,     7,    -1,    -1,    -1,    -1,
+      12,    -1,    -1,    -1,    -1,    17,    18,    19,    20,    21,
+      22,    23,    24,     6,    -1,     8,    -1,    10,    -1,    12,
       -1,    -1,    -1,    16,    17,    -1,    -1,    20,    21,    22,
-      23,    24,     6,    -1,     8,    -1,    10,    11,    12,    -1,
-      -1,    -1,    -1,    17,    -1,    -1,    20,    21,    22,    23,
+      23,    24,     6,     7,    -1,    -1,    -1,    -1,    12,    -1,
+      -1,    -1,    -1,    17,    18,    19,    20,    21,    22,    23,
       24,     6,    -1,     8,    -1,    10,    -1,    12,    -1,    -1,
-      -1,    16,    17,    -1,    -1,    20,    21,    22,    23,    24,
-       6,     7,    -1,    -1,    -1,    -1,    12,    -1,    -1,    -1,
-      -1,    17,    18,    19,    20,    21,    22,    23,    24,     6,
-      -1,     8,    -1,    10,    -1,    12,    -1,    -1,    -1,    16,
-      17,    -1,    -1,    20,    21,    22,    23,    24,     6,     7,
-      -1,    -1,    -1,    -1,    12,    -1,    -1,    -1,    -1,    17,
-      18,    19,    20,    21,    22,    23,    24,     6,    -1,     8,
-      -1,    10,    -1,    12,    -1,    -1,    -1,    -1,    17,    -1,
-      -1,    20,    21,    22,    23,    24
+      -1,    -1,    17,    -1,    -1,    20,    21,    22,    23,    24
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -833,18 +835,18 @@ static const yytype_int8 yystos[] =
 {
        0,     3,     4,     6,     8,    10,    12,    16,    17,    20,
       21,    22,    23,    24,    27,    28,    29,    36,    38,    40,
-      41,    42,    43,    44,    45,    48,    49,    50,    51,    53,
-      54,    55,    56,    60,     3,     4,    37,    56,     8,    42,
-       4,     9,    14,    36,    39,    40,    11,    41,    61,    42,
+      41,    42,    43,    44,    45,    48,    49,    51,    53,    55,
+      56,    57,    58,    62,     3,     4,    37,    58,     8,    42,
+       4,     9,    14,    36,    39,    40,    11,    41,    63,    42,
        0,    17,    18,    19,    30,    32,    33,    34,    35,    39,
-      57,    58,    59,    40,    13,    44,    45,    48,    55,    15,
-      46,    57,    52,    58,    59,     5,    33,     4,    56,     7,
-      56,    40,     4,    14,     9,    11,    13,     6,     7,    17,
-      19,    58,    60,    62,     9,     3,    36,    40,    59,    31,
-      56,    56,    16,    42,    47,    52,    57,    58,    15,    59,
-      49,    53,    55,    56,    50,    54,     9,    36,    40,    56,
-      61,    33,    40,    56,    32,    42,    53,    47,    54,    40,
-       9,     7,     9
+      59,    60,    61,    40,    13,    44,    45,    48,    57,    15,
+      46,    50,    59,    52,    54,    60,    61,     5,    33,     4,
+      58,     7,    58,    40,     4,    14,     9,    11,    13,     6,
+       7,    17,    19,    60,    62,    64,     9,     3,    36,    40,
+      61,    31,    58,    58,    16,    42,    47,    50,    52,    54,
+      15,    61,    49,    55,    57,    58,    51,    56,     9,    36,
+      40,    58,    63,    33,    40,    58,    32,    42,    47,    56,
+      40,     9,     7,     9
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -856,9 +858,9 @@ static const yytype_int8 yyr1[] =
       39,    39,    40,    40,    40,    40,    41,    41,    42,    42,
       42,    42,    42,    42,    43,    43,    44,    45,    46,    46,
       47,    47,    47,    48,    48,    48,    49,    50,    51,    52,
-      52,    53,    53,    54,    54,    55,    55,    55,    55,    55,
-      55,    56,    57,    58,    59,    60,    60,    60,    60,    60,
-      60,    61,    61,    61,    61,    62,    62,    62
+      53,    54,    54,    55,    55,    56,    56,    57,    57,    57,
+      57,    57,    57,    58,    59,    60,    61,    62,    62,    62,
+      62,    62,    62,    63,    63,    63,    63,    64,    64,    64
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -869,10 +871,10 @@ static const yytype_int8 yyr2[] =
        3,     2,     3,     1,     2,     2,     3,     4,     5,     6,
        2,     3,     2,     1,     2,     4,     1,     3,     1,     2,
        1,     2,     1,     2,     1,     2,     2,     2,     2,     3,
-       1,     2,     1,     1,     1,     1,     2,     3,     2,     2,
-       3,     1,     1,     1,     1,     1,     1,     1,     2,     3,
-       3,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       3,     0,     2,     2,     4,     1,     1,     1
+       1,     1,     1,     1,     1,     1,     2,     1,     2,     2,
+       2,     2,     3,     1,     1,     1,     1,     1,     1,     1,
+       2,     3,     3,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     3,     0,     2,     2,     4,     1,     1,     1
 };
 
 
@@ -1348,7 +1350,7 @@ yyreduce:
                             { 
                                 [COMPILER compileMethod:nil]; 
                             }
-#line 1352 "STGrammar.m"
+#line 1354 "STGrammar.m"
     break;
 
   case 3: /* source: plain_code  */
@@ -1356,7 +1358,7 @@ yyreduce:
                          {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1360 "STGrammar.m"
+#line 1362 "STGrammar.m"
     break;
 
   case 4: /* source: TK_SEPARATOR TK_SEPARATOR method  */
@@ -1364,7 +1366,7 @@ yyreduce:
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1368 "STGrammar.m"
+#line 1370 "STGrammar.m"
     break;
 
   case 6: /* script_open: TK_BLOCK_OPEN TK_BAR  */
@@ -1372,7 +1374,7 @@ yyreduce:
                             {
                                 [COMPILER beginScript];
                             }
-#line 1376 "STGrammar.m"
+#line 1378 "STGrammar.m"
     break;
 
   case 7: /* plain_code: statements  */
@@ -1381,7 +1383,7 @@ yyreduce:
                                 yyval =  [STCMethod methodWithPattern:nil
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1385 "STGrammar.m"
+#line 1387 "STGrammar.m"
     break;
 
   case 8: /* plain_code: temporaries statements  */
@@ -1391,7 +1393,7 @@ yyreduce:
                                 yyval =  [STCMethod methodWithPattern:nil
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1395 "STGrammar.m"
+#line 1397 "STGrammar.m"
     break;
 
   case 9: /* $@1: %empty  */
@@ -1399,7 +1401,7 @@ yyreduce:
                             {
                                 [COMPILER setReceiverVariables:yyvsp[0]];
                             }
-#line 1403 "STGrammar.m"
+#line 1405 "STGrammar.m"
     break;
 
   case 12: /* method_list: method  */
@@ -1407,7 +1409,7 @@ yyreduce:
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1411 "STGrammar.m"
+#line 1413 "STGrammar.m"
     break;
 
   case 13: /* method_list: method_list TK_SEPARATOR method  */
@@ -1415,7 +1417,7 @@ yyreduce:
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1419 "STGrammar.m"
+#line 1421 "STGrammar.m"
     break;
 
   case 14: /* method: message_pattern statements  */
@@ -1424,7 +1426,7 @@ yyreduce:
                                 yyval =  [STCMethod methodWithPattern:yyvsp[-1]
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1428 "STGrammar.m"
+#line 1430 "STGrammar.m"
     break;
 
   case 15: /* method: message_pattern temporaries statements  */
@@ -1434,7 +1436,7 @@ yyreduce:
                                 yyval =  [STCMethod methodWithPattern:yyvsp[-2]
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1438 "STGrammar.m"
+#line 1440 "STGrammar.m"
     break;
 
   case 16: /* message_pattern: unary_selector  */
@@ -1443,7 +1445,7 @@ yyreduce:
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[0] object:nil];
                             }
-#line 1447 "STGrammar.m"
+#line 1449 "STGrammar.m"
     break;
 
   case 17: /* message_pattern: binary_selector variable_name  */
@@ -1452,7 +1454,7 @@ yyreduce:
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1456 "STGrammar.m"
+#line 1458 "STGrammar.m"
     break;
 
   case 19: /* keyword_list: keyword variable_name  */
@@ -1461,7 +1463,7 @@ yyreduce:
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1465 "STGrammar.m"
+#line 1467 "STGrammar.m"
     break;
 
   case 20: /* keyword_list: keyword_list keyword variable_name  */
@@ -1470,7 +1472,7 @@ yyreduce:
                                 [yyvsp[-2] addKeyword:yyvsp[-1] object:yyvsp[0]];
                                 yyval = yyvsp[-2];
                             }
-#line 1474 "STGrammar.m"
+#line 1476 "STGrammar.m"
     break;
 
   case 21: /* temporaries: TK_BAR TK_BAR  */
@@ -1478,7 +1480,7 @@ yyreduce:
                             {
                                 yyval = [NSMutableArray array];
                             }
-#line 1482 "STGrammar.m"
+#line 1484 "STGrammar.m"
     break;
 
   case 22: /* temporaries: TK_BAR variable_list TK_BAR  */
@@ -1486,7 +1488,7 @@ yyreduce:
                             {
                                 yyval = yyvsp[-1];
                             }
-#line 1490 "STGrammar.m"
+#line 1492 "STGrammar.m"
     break;
 
   case 23: /* variable_list: variable_name  */
@@ -1495,7 +1497,7 @@ yyreduce:
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1499 "STGrammar.m"
+#line 1501 "STGrammar.m"
     break;
 
   case 24: /* variable_list: variable_list variable_name  */
@@ -1504,7 +1506,7 @@ yyreduce:
                                 yyval = yyvsp[-1]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1508 "STGrammar.m"
+#line 1510 "STGrammar.m"
     break;
 
   case 25: /* block: TK_BLOCK_OPEN TK_BLOCK_CLOSE  */
@@ -1513,7 +1515,7 @@ yyreduce:
                                 yyval = [STCBlock block];
                                 [yyval setStatements:[STCStatements statements]];
                             }
-#line 1517 "STGrammar.m"
+#line 1519 "STGrammar.m"
     break;
 
   case 26: /* block: TK_BLOCK_OPEN statements TK_BLOCK_CLOSE  */
@@ -1522,7 +1524,7 @@ yyreduce:
                                 yyval = [STCBlock block];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1526 "STGrammar.m"
+#line 1528 "STGrammar.m"
     break;
 
   case 27: /* block: TK_BLOCK_OPEN temporaries statements TK_BLOCK_CLOSE  */
@@ -1532,7 +1534,7 @@ yyreduce:
                                 yyval = [STCBlock block];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1536 "STGrammar.m"
+#line 1538 "STGrammar.m"
     break;
 
   case 28: /* block: TK_BLOCK_OPEN block_var_list TK_BAR statements TK_BLOCK_CLOSE  */
@@ -1542,7 +1544,7 @@ yyreduce:
                                 [yyval setArguments:yyvsp[-3]];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1546 "STGrammar.m"
+#line 1548 "STGrammar.m"
     break;
 
   case 29: /* block: TK_BLOCK_OPEN block_var_list TK_BAR temporaries statements TK_BLOCK_CLOSE  */
@@ -1553,7 +1555,7 @@ yyreduce:
                                 [yyval setArguments:yyvsp[-4]];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1557 "STGrammar.m"
+#line 1559 "STGrammar.m"
     break;
 
   case 30: /* block_var_list: TK_COLON variable_name  */
@@ -1562,7 +1564,7 @@ yyreduce:
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1566 "STGrammar.m"
+#line 1568 "STGrammar.m"
     break;
 
   case 31: /* block_var_list: block_var_list TK_COLON variable_name  */
@@ -1571,7 +1573,7 @@ yyreduce:
                                 yyval = yyvsp[-2]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1575 "STGrammar.m"
+#line 1577 "STGrammar.m"
     break;
 
   case 32: /* statements: TK_RETURN expression  */
@@ -1580,7 +1582,7 @@ yyreduce:
                                 yyval = [STCStatements statements];
                                 [yyval setReturnExpression:yyvsp[0]];
                             }
-#line 1584 "STGrammar.m"
+#line 1586 "STGrammar.m"
     break;
 
   case 33: /* statements: expressions  */
@@ -1589,7 +1591,7 @@ yyreduce:
                                 yyval = [STCStatements statements];
                                 [yyval setExpressions:yyvsp[0]];
                             }
-#line 1593 "STGrammar.m"
+#line 1595 "STGrammar.m"
     break;
 
   case 34: /* statements: expressions TK_DOT  */
@@ -1598,7 +1600,7 @@ yyreduce:
                                 yyval = [STCStatements statements];
                                 [yyval setExpressions:yyvsp[-1]];
                             }
-#line 1602 "STGrammar.m"
+#line 1604 "STGrammar.m"
     break;
 
   case 35: /* statements: expressions TK_DOT TK_RETURN expression  */
@@ -1608,7 +1610,7 @@ yyreduce:
                                 [yyval setReturnExpression:yyvsp[0]];
                                 [yyval setExpressions:yyvsp[-3]];
                             }
-#line 1612 "STGrammar.m"
+#line 1614 "STGrammar.m"
     break;
 
   case 36: /* expressions: expression  */
@@ -1617,7 +1619,7 @@ yyreduce:
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]];
                             }
-#line 1621 "STGrammar.m"
+#line 1623 "STGrammar.m"
     break;
 
   case 37: /* expressions: expressions TK_DOT expression  */
@@ -1626,7 +1628,7 @@ yyreduce:
                                 yyval = yyvsp[-2]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1630 "STGrammar.m"
+#line 1632 "STGrammar.m"
     break;
 
   case 38: /* expression: primary  */
@@ -1635,7 +1637,7 @@ yyreduce:
                                 yyval = [STCExpression 
                                 /**/          primaryExpressionWithObject:yyvsp[0]];
                             }
-#line 1639 "STGrammar.m"
+#line 1641 "STGrammar.m"
     break;
 
   case 39: /* expression: assignments primary  */
@@ -1645,7 +1647,7 @@ yyreduce:
                                 /**/          primaryExpressionWithObject:yyvsp[0]];
                                 [yyval setAssignments:yyvsp[-1]];
                             }
-#line 1649 "STGrammar.m"
+#line 1651 "STGrammar.m"
     break;
 
   case 41: /* expression: assignments message_expression  */
@@ -1654,7 +1656,7 @@ yyreduce:
                                 yyval = yyvsp[0];
                                 [yyval setAssignments:yyvsp[-1]];
                             }
-#line 1658 "STGrammar.m"
+#line 1660 "STGrammar.m"
     break;
 
   case 43: /* expression: assignments cascade  */
@@ -1663,7 +1665,7 @@ yyreduce:
                                 yyval = yyvsp[0];
                                 [yyval setAssignments:yyvsp[-1]];
                             }
-#line 1667 "STGrammar.m"
+#line 1669 "STGrammar.m"
     break;
 
   case 44: /* assignments: assignment  */
@@ -1672,7 +1674,7 @@ yyreduce:
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]];
                             }
-#line 1676 "STGrammar.m"
+#line 1678 "STGrammar.m"
     break;
 
   case 45: /* assignments: assignments assignment  */
@@ -1681,243 +1683,239 @@ yyreduce:
                                 yyval = yyvsp[-1]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1685 "STGrammar.m"
+#line 1687 "STGrammar.m"
     break;
 
   case 46: /* assignment: variable_name TK_ASSIGNMENT  */
 #line 317 "STGrammar.y"
                             { yyval = yyvsp[-1];}
-#line 1691 "STGrammar.m"
+#line 1693 "STGrammar.m"
     break;
 
-  case 47: /* cascade: message_expression cascade_list  */
+  case 47: /* cascade: message_expression messages  */
 #line 320 "STGrammar.y"
                             { 
-                                /* FIXME: check if this is this OK */
+                                yyval = yyvsp[-1];
                                 [yyval setCascade:yyvsp[0]]; 
                             }
-#line 1700 "STGrammar.m"
+#line 1702 "STGrammar.m"
     break;
 
-  case 48: /* cascade_list: TK_SEMICOLON cascade_item  */
+  case 48: /* messages: TK_SEMICOLON message  */
 #line 326 "STGrammar.y"
                             {
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1709 "STGrammar.m"
+#line 1711 "STGrammar.m"
     break;
 
-  case 49: /* cascade_list: cascade_list TK_SEMICOLON cascade_item  */
+  case 49: /* messages: messages TK_SEMICOLON message  */
 #line 331 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-2]; 
                                 [yyval addObject:yyvsp[0]];
                             }
-#line 1718 "STGrammar.m"
+#line 1720 "STGrammar.m"
     break;
 
-  case 50: /* cascade_item: unary_selector  */
-#line 337 "STGrammar.y"
+  case 56: /* unary_expression: unary_object unary_message  */
+#line 346 "STGrammar.y"
+                            { 
+                                yyval = [STCExpression 
+                                /**/        messageExpressionWithTarget:yyvsp[-1]
+                                /**/        message:yyvsp[0]];
+                            }
+#line 1730 "STGrammar.m"
+    break;
+
+  case 57: /* unary_message: unary_selector  */
+#line 353 "STGrammar.y"
                             { 
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[0] object:nil];
                             }
-#line 1727 "STGrammar.m"
+#line 1739 "STGrammar.m"
     break;
 
-  case 51: /* cascade_item: binary_selector unary_object  */
-#line 342 "STGrammar.y"
+  case 58: /* binary_expression: binary_object binary_message  */
+#line 359 "STGrammar.y"
+                            { 
+                                yyval = [STCExpression 
+                                /**/        messageExpressionWithTarget:yyvsp[-1]
+                                /**/        message:yyvsp[0]];
+                            }
+#line 1749 "STGrammar.m"
+    break;
+
+  case 59: /* binary_message: binary_selector unary_object  */
+#line 366 "STGrammar.y"
                             { 
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1736 "STGrammar.m"
+#line 1758 "STGrammar.m"
     break;
 
-  case 56: /* unary_expression: unary_object unary_selector  */
-#line 354 "STGrammar.y"
-                            { 
-                                STCMessage *message = [STCMessage message];
-                                [message addKeyword:yyvsp[0] object:nil];
-                                yyval = [STCExpression 
-                                /**/        messageExpressionWithTarget:yyvsp[-1]
-                                /**/        message:message];
-                            }
-#line 1748 "STGrammar.m"
-    break;
-
-  case 57: /* binary_expression: binary_object binary_selector unary_object  */
-#line 363 "STGrammar.y"
-                            { 
-                                STCMessage *message = [STCMessage message];
-                                [message addKeyword:yyvsp[-1] object:yyvsp[0]];
-                                yyval = [STCExpression 
-                                /**/        messageExpressionWithTarget:yyvsp[-2]
-                                /**/        message:message];
-                            }
-#line 1760 "STGrammar.m"
-    break;
-
-  case 58: /* keyword_expression: binary_object keyword_expr_list  */
+  case 60: /* keyword_expression: binary_object keyword_message  */
 #line 372 "STGrammar.y"
                             {
                                 yyval = [STCExpression 
                                 /**/        messageExpressionWithTarget:yyvsp[-1]
                                 /**/        message:yyvsp[0]];
                             }
-#line 1770 "STGrammar.m"
+#line 1768 "STGrammar.m"
     break;
 
-  case 59: /* keyword_expr_list: keyword binary_object  */
+  case 61: /* keyword_message: keyword binary_object  */
 #line 379 "STGrammar.y"
                             { 
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1779 "STGrammar.m"
+#line 1777 "STGrammar.m"
     break;
 
-  case 60: /* keyword_expr_list: keyword_expr_list keyword binary_object  */
+  case 62: /* keyword_message: keyword_message keyword binary_object  */
 #line 384 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-2];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1788 "STGrammar.m"
+#line 1786 "STGrammar.m"
     break;
 
-  case 65: /* primary: variable_name  */
+  case 67: /* primary: variable_name  */
 #line 396 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithVariable:yyvsp[0]];
                             }
-#line 1796 "STGrammar.m"
+#line 1794 "STGrammar.m"
     break;
 
-  case 66: /* primary: literal  */
+  case 68: /* primary: literal  */
 #line 400 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithLiteral:yyvsp[0]];
                             }
-#line 1804 "STGrammar.m"
+#line 1802 "STGrammar.m"
     break;
 
-  case 67: /* primary: block  */
+  case 69: /* primary: block  */
 #line 404 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithBlock:yyvsp[0]];
                             }
-#line 1812 "STGrammar.m"
+#line 1810 "STGrammar.m"
     break;
 
-  case 68: /* primary: TK_LCURLY TK_RCURLY  */
+  case 70: /* primary: TK_LCURLY TK_RCURLY  */
 #line 408 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithArray:[NSArray array]];
                             }
-#line 1820 "STGrammar.m"
+#line 1818 "STGrammar.m"
     break;
 
-  case 69: /* primary: TK_LCURLY expressions TK_RCURLY  */
+  case 71: /* primary: TK_LCURLY expressions TK_RCURLY  */
 #line 412 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithArray:yyvsp[-1]];
                             }
-#line 1828 "STGrammar.m"
+#line 1826 "STGrammar.m"
     break;
 
-  case 70: /* primary: TK_LPAREN expression TK_RPAREN  */
+  case 72: /* primary: TK_LPAREN expression TK_RPAREN  */
 #line 416 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithExpression:yyvsp[-1]];
                             }
-#line 1836 "STGrammar.m"
+#line 1834 "STGrammar.m"
     break;
 
-  case 75: /* literal: TK_INTNUMBER  */
+  case 77: /* literal: TK_INTNUMBER  */
 #line 430 "STGrammar.y"
                         { yyval = [COMPILER createIntNumberLiteralFrom:yyvsp[0]]; }
-#line 1842 "STGrammar.m"
+#line 1840 "STGrammar.m"
     break;
 
-  case 76: /* literal: TK_REALNUMBER  */
+  case 78: /* literal: TK_REALNUMBER  */
 #line 432 "STGrammar.y"
                         { yyval = [COMPILER createRealNumberLiteralFrom:yyvsp[0]]; }
-#line 1848 "STGrammar.m"
+#line 1846 "STGrammar.m"
     break;
 
-  case 77: /* literal: TK_SYMBOL  */
+  case 79: /* literal: TK_SYMBOL  */
 #line 434 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1854 "STGrammar.m"
+#line 1852 "STGrammar.m"
     break;
 
-  case 78: /* literal: TK_STRING  */
+  case 80: /* literal: TK_STRING  */
 #line 436 "STGrammar.y"
                         { yyval = [COMPILER createStringLiteralFrom:yyvsp[0]]; }
-#line 1860 "STGrammar.m"
+#line 1858 "STGrammar.m"
     break;
 
-  case 79: /* literal: TK_CHARACTER  */
+  case 81: /* literal: TK_CHARACTER  */
 #line 438 "STGrammar.y"
                         { yyval = [COMPILER createCharacterLiteralFrom:yyvsp[0]]; }
-#line 1866 "STGrammar.m"
+#line 1864 "STGrammar.m"
     break;
 
-  case 80: /* literal: TK_ARRAY_OPEN array TK_RPAREN  */
+  case 82: /* literal: TK_ARRAY_OPEN array TK_RPAREN  */
 #line 440 "STGrammar.y"
                         { yyval = [COMPILER createArrayLiteralFrom:yyvsp[-1]]; }
-#line 1872 "STGrammar.m"
+#line 1870 "STGrammar.m"
     break;
 
-  case 81: /* array: %empty  */
+  case 83: /* array: %empty  */
 #line 442 "STGrammar.y"
                         { yyval = [NSMutableArray array]; }
-#line 1878 "STGrammar.m"
+#line 1876 "STGrammar.m"
     break;
 
-  case 82: /* array: array literal  */
+  case 84: /* array: array literal  */
 #line 443 "STGrammar.y"
                                  { yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; }
-#line 1884 "STGrammar.m"
+#line 1882 "STGrammar.m"
     break;
 
-  case 83: /* array: array symbol  */
+  case 85: /* array: array symbol  */
 #line 444 "STGrammar.y"
                                  { yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; }
-#line 1890 "STGrammar.m"
+#line 1888 "STGrammar.m"
     break;
 
-  case 84: /* array: array TK_LPAREN array TK_RPAREN  */
+  case 86: /* array: array TK_LPAREN array TK_RPAREN  */
 #line 446 "STGrammar.y"
                                  {
                                    yyval = yyvsp[-3];
                                    [yyval addObject:[COMPILER createArrayLiteralFrom:yyvsp[-1]]];
                                  }
-#line 1899 "STGrammar.m"
+#line 1897 "STGrammar.m"
     break;
 
-  case 85: /* symbol: TK_IDENTIFIER  */
+  case 87: /* symbol: TK_IDENTIFIER  */
 #line 452 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1905 "STGrammar.m"
+#line 1903 "STGrammar.m"
     break;
 
-  case 86: /* symbol: binary_selector  */
+  case 88: /* symbol: binary_selector  */
 #line 454 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1911 "STGrammar.m"
+#line 1909 "STGrammar.m"
     break;
 
-  case 87: /* symbol: TK_KEYWORD  */
+  case 89: /* symbol: TK_KEYWORD  */
 #line 456 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1917 "STGrammar.m"
+#line 1915 "STGrammar.m"
     break;
 
 
-#line 1921 "STGrammar.m"
+#line 1919 "STGrammar.m"
 
       default: break;
     }

@@ -11,6 +11,8 @@
     * STGrammar.y: Fix parser to accept regular parentheses around nested
     arrays in array literals like any other Smalltalk implementation.
 
+    * STGrammar.y: Tidy grammar. Avoid code duplication for messages.
+
     * STGrammar.m:
     Rebuilt by bison.
 
