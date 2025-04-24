@@ -34,6 +34,8 @@ typedef enum
     STRParenTokenType,              //  )
     STBlockOpenTokenType,           //  [
     STBlockCloseTokenType,          //  ]
+    STLCurlyTokenType,              //  {
+    STRCurlyTokenType,              //  }
     STArrayOpenTokenType,           //  #(
     STSharpTokenType,               //  #
     STAssignTokenType,              //  :=

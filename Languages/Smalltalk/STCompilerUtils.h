@@ -34,6 +34,7 @@ enum{
     STCVariablePrimaryType,
     STCLiteralPrimaryType,
     STCBlockPrimaryType,
+    STCArrayPrimaryType,
     STCExpressionPrimaryType
 };
 
@@ -174,6 +175,7 @@ enum{
 + primaryWithVariable:(id)anObject;
 + primaryWithLiteral:(id)anObject;
 + primaryWithBlock:(id)anObject;
++ primaryWithArray:(id)anObject;
 + primaryWithExpression:(id)anObject;
 - initWithType:(int)newType object:(id)obj;
 - (int)type;

@@ -330,6 +330,13 @@
                                         object:anObject];
     return AUTORELEASE(primary);
 }
++ primaryWithArray:(id) anObject
+{
+    STCPrimary *primary;
+    primary = [[STCPrimary alloc] initWithType:STCArrayPrimaryType
+                                        object:anObject];
+    return AUTORELEASE(primary);
+}
 + primaryWithExpression:(id) anObject
 {
     STCPrimary *primary;

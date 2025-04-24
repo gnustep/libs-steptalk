@@ -585,6 +585,8 @@ static NSString *_STNormalizeStringToken(NSString *token)
         case ';': SIMPLE_TOKEN_RETURN(STSemicolonTokenType);
         case '[': SIMPLE_TOKEN_RETURN(STBlockOpenTokenType);
         case ']': SIMPLE_TOKEN_RETURN(STBlockCloseTokenType);
+        case '{': SIMPLE_TOKEN_RETURN(STLCurlyTokenType);
+        case '}': SIMPLE_TOKEN_RETURN(STRCurlyTokenType);
         case '^': SIMPLE_TOKEN_RETURN(STReturnTokenType);
         case '!': SIMPLE_TOKEN_RETURN(STSeparatorTokenType);
         case '.': SIMPLE_TOKEN_RETURN(STDotTokenType);

@@ -1,7 +1,18 @@
 2025-04-24  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
+    * STTokenTypes.h:
+    * STSourceReader.m (readNextToken):
+    * STCompilerUtils.h:
+    * STCompilerUtils.m (primaryWithArray:):
+    * STCompiler.m (compileArray:, compilePrimary:):
+    * STGrammar.y:
+    Add computed arrays.
+
     * STGrammar.y: Fix parser to accept regular parentheses around nested
     arrays in array literals like any other Smalltalk implementation.
+
+    * STGrammar.m:
+    Rebuilt by bison.
 
 2025-04-18  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

@@ -91,6 +91,7 @@ extern int STCparse(void *context);
 - (STCompiledCode *) compileStatements:(STCStatements *)statements;
 - (void)compileBlock:(STCBlock *)block;
 - (void)compileStatements:(STCStatements *)statements blockFlag:(BOOL)blockFlag;
+- (void)compileArray:(NSArray *)exprs;
 - (void)compilePrimary:(STCPrimary *)primary;
 - (void)compileExpression:(STCExpression *)expr;
 
@@ -731,6 +732,38 @@ extern int STCparse(void *context);
     }
 }
 
+- (void)compileArray:(NSArray *)exprs
+{
+    NSUInteger      index,i;
+    NSUInteger      count;
+
+    index = [self indexOfNamedReference:@"NSMutableArray"];
+    [self emitPushVariable:index];
+
+    if ((count = [exprs count]) > 0)
+    {
+        index = [self addLiteral:[NSNumber numberWithInteger:count]];
+        [self emitPushLiteral:index];
+
+        index = [self addSelectorLiteral:@"arrayWithCapacity:"];
+        [self emitSendSelector:index argCount:1];
+
+        index = [self addSelectorLiteral:@"addObject:"];
+        for (i = 0; i < count; i++)
+        {
+            [self emitDuplicateStackTop];
+            [self compileExpression:[exprs objectAtIndex:i]];
+            [self emitSendSelector:index argCount:1];
+            [self emitPopStack];
+        }
+    }
+    else
+    {
+        index = [self addSelectorLiteral:@"array"];
+        [self emitSendSelector:index argCount:0];
+    }
+}
+
 - (void)compilePrimary:(STCPrimary *)primary
 {
     id object = [primary object];
@@ -793,6 +826,11 @@ extern int STCparse(void *context);
     case STCBlockPrimaryType:
 
             [self compileBlock:object];
+            break;
+
+    case STCArrayPrimaryType:
+
+            [self compileArray:object];
             break;
 
     case STCExpressionPrimaryType:

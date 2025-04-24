@@ -58,7 +58,8 @@
 /* BISON declarations */
 
 %token TK_SEPARATOR TK_BAR TK_ASSIGNMENT
-%token TK_LPAREN TK_RPAREN TK_BLOCK_OPEN TK_BLOCK_CLOSE TK_ARRAY_OPEN
+%token TK_LPAREN TK_RPAREN TK_BLOCK_OPEN TK_BLOCK_CLOSE
+%token TK_LCURLY TK_RCURLY TK_ARRAY_OPEN
 %token TK_DOT TK_COLON TK_SEMICOLON TK_RETURN
 %token TK_IDENTIFIER TK_BINARY_SELECTOR TK_KEYWORD
 %token TK_INTNUMBER TK_REALNUMBER TK_SYMBOL TK_STRING TK_CHARACTER
@@ -403,6 +404,14 @@ primary: variable_name
                             {
                                 $$ = [STCPrimary primaryWithBlock:$1];
                             }
+    | TK_LCURLY TK_RCURLY
+                            {
+                                $$ = [STCPrimary primaryWithArray:[NSArray array]];
+                            }
+    | TK_LCURLY expressions TK_RCURLY
+                            {
+                                $$ = [STCPrimary primaryWithArray:$2];
+                            }
     | TK_LPAREN expression TK_RPAREN 
                             {
                                 $$ = [STCPrimary primaryWithExpression:$2];
@@ -484,6 +493,8 @@ int STClex (YYSTYPE *lvalp, void *context)
     case STRParenTokenType:         return TK_RPAREN;
     case STBlockOpenTokenType:      return TK_BLOCK_OPEN;
     case STBlockCloseTokenType:     return TK_BLOCK_CLOSE;
+    case STLCurlyTokenType:         return TK_LCURLY;
+    case STRCurlyTokenType:         return TK_RCURLY;
     case STArrayOpenTokenType:      return TK_ARRAY_OPEN;
     case STAssignTokenType:         return TK_ASSIGNMENT;
     case STIdentifierTokenType:     return TK_IDENTIFIER;

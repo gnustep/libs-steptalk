@@ -6,6 +6,8 @@ Contents:
     2. Symbolic Selectors
     3. Iterators and cycles
     4. Exception handling
+    5. Temporaries in blocks
+    6. Array expressions
 
 1. Source
 ---------
@@ -175,7 +177,7 @@ If exception occures in guarded block, then handler block is evaluated.
 
 
 5. Temporaries in blocks
-------------------------------
+------------------------
 
 Like other modern Smalltalk implementations, StepTalk supports
 temporaries in blocks. These block temporaries are declared after the
@@ -190,6 +192,20 @@ Exmaple with some arguments:
 Note that the syntax of a block with temporaries and no arguments
 begins with the same prefix as a script source (due to an unfortunate
 choice in the past). This means you cannot start a simple script,
-i.e., a list of smalltalk statements, with such a block. The simple
+i.e., a list of Smalltalk statements, with such a block. The simple
 workaround is to either enclose the block in parentheses or precede
 the statement with an empty list of temporaries (two vertical bars).
+
+6. Array expressions
+--------------------
+
+Also like in other modern Smalltalk implementations, curly braces can
+be used in StepTalk to construct arrays at a runtime. The expressions
+between the curly braces are evaluated from left to right and their
+results are used to initialize a new mutable array. For instance, the
+expression
+
+  { 1. 'Message' length. NSSet setWithObject: 'A member' }
+
+creates a new (mutable) array with elements 1, 7, and a new set with a
+single member.
