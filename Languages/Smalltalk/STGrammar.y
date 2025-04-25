@@ -79,12 +79,7 @@
 /* Grammar */
 
 %%
-source: /* empty string */  { 
-                                [COMPILER compileMethod:nil]; 
-                            }
-
-
-    |   plain_code       {
+source:  plain_code         {
                                 [COMPILER compileMethod:$1];
                             }
         
@@ -199,12 +194,7 @@ variable_list: variable_name
                             }
 ;
 
-block: TK_BLOCK_OPEN TK_BLOCK_CLOSE
-                            {
-                                $$ = [STCBlock block];
-                                [$$ setStatements:[STCStatements statements]];
-                            }
-    | TK_BLOCK_OPEN statements TK_BLOCK_CLOSE
+block: TK_BLOCK_OPEN statements TK_BLOCK_CLOSE
                             {
                                 $$ = [STCBlock block];
                                 [$$ setStatements:$2];
@@ -240,8 +230,8 @@ block_var_list: TK_COLON variable_name
                                 [$$ addObject:$3]; 
                             }
 ;
-statements: 
-    TK_RETURN expression
+statements: /* nothing */   { $$ = [STCStatements statements]; }
+    | TK_RETURN expression
                             { 
                                 $$ = [STCStatements statements];
                                 [$$ setReturnExpression:$2];
