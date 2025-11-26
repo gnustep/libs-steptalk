@@ -1,6 +1,6 @@
 " listFonts.st
 
-    Example that will create a 'rtf file containing smaples of all available 
+    Example that will create an 'rtfd file containing smaples of all available 
     fonts.
 
 "
@@ -13,12 +13,15 @@ main
 
     Environment loadModule:'AppKit'.
 
-    text := NSTextView alloc initWithFrame:NSNullRect.
+    frame := STStructure structureWithX: 0 y: 0 width: 1000 height: 100.
+    Transcript showLine: frame.
+    text := NSTextView alloc initWithFrame: frame.
     text setRichText:YES.
+    text setString: ' '.
 
     fontManager := NSFontManager sharedFontManager.
 
-    (fontManager availableFontFamilies) 
+    (fontManager availableFonts) 
     do: [ :font |
         self addFontSample:font
     ].
@@ -39,14 +42,10 @@ addFontSample:fontName
     
     (font isNil) ifFalse:
     [
-    attr setObject:font
-    
-             forKey:NSFontAttributeName.
-
+    attr setObject:font forKey:NSFontAttributeName.
     text setTypingAttributes:attr.
     text insertText:(fontName,'\n').
     ].
     ^self
-
 
 ]

@@ -19,4 +19,4 @@ text insertText:'This is Times\n'.
 text setTypingAttributes:hattr.
 text insertText:'This is Helvetica\n'.
 
-text writeRTFDToFile:'Test.rtf' atomically:YES.
+text writeRTFDToFile:'Test.rtfd' atomically:YES.

@@ -12,6 +12,7 @@
         STScriptObject,
         STConversation,
         STRemoteConversation,
+	STStructure,
         STContext
     );
 }

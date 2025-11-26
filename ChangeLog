@@ -1,5 +1,8 @@
 2025-11-26  Richard Frith-M<acdonald  <rfm@gnu.org>
 
+	* Examples/AppKit/listFonts.st:
+	* Examples/AppKit/text.st:
+	Fixup examples to list fonts and to write to rtfd correctly.
 	* Examples/Shell/stshell_tool.m:
 	* Frameworks/StepTalk/STConversation.m:
 	* Frameworks/StepTalk/STEnvironmentDescription.m:
@@ -18,6 +21,11 @@
 	memory leaks
 	* Modules/Foundation/ScriptingInfo.plist:
 	Remove bad class (old one which should not have been public)
+	* Frameworks/StepTalk/STStructure.h:
+	* Frameworks/StepTalk/STStructure.m:
+	* Frameworks/StepTalk/ScriptingInfo.plist:
+	Make STStructure available for building structs from literal float
+	values and passing them to methods.
 
 2020-06-29  Wolfgang Lux  <wolfgang.lux@gmail.com>
 

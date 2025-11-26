@@ -78,6 +78,15 @@
     return AUTORELEASE(str);
 }
 
++ structureWithX: (float)x y:(float)y width:(float)w height:(float)h
+{
+    NSRect rect;
+    STStructure *str;
+    rect = NSMakeRect(x, y, w, h);
+    str = [[self alloc] initWithValue:&rect type:@encode(NSRect)];
+    return AUTORELEASE(str);
+}
+
 - initWithValue:(void *)value type:(const char*)type
 {
     const char *nameBeg, *nextType;
@@ -125,6 +134,11 @@
     RELEASE(structType);
     RELEASE(name);
     [super dealloc];
+}
+
+- (NSString*) description
+{
+  return [NSString stringWithFormat: @"%@ %@", name, fields];
 }
 
 - (void)getValue:(void *)value
@@ -336,6 +350,15 @@
 
 /* NSRect */
 
+- (id) rectWith: (STStructure*)other
+{
+  NSRect	r;
+
+  r.origin = [self pointValue];
+  r.size = [other sizeValue];
+  return [[self class] structureWithRect: r];
+}
+
 - (id)origin
 {
     NSLog(@"Origin %@", [fields objectAtIndex:0]);
@@ -348,4 +371,8 @@
     return [fields objectAtIndex:1] ;
 }
 
+- (float) floatValue
+{
+  return 0.0;
+}
 @end
