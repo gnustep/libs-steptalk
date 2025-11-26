@@ -103,7 +103,7 @@ int complete_handler(int count, int key)
 
 - (void)updateCompletionList
 {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSMutableArray *array = [NSMutableArray array];
     RELEASE(completionList);
     
     [array addObjectsFromArray:STAllObjectiveCSelectors()];
@@ -209,14 +209,14 @@ int complete_handler(int count, int key)
 - (NSString *)readLine
 {
     char       *str;
-    NSString   *actualPrompt = prompt;
+    const char	*actualPrompt = [prompt cString];
     NSString   *line = @"";
     BOOL        done = NO;
     int         len;
     
     while(!done)
     {
-        str = readline([actualPrompt cString]);
+        str = readline(actualPrompt);
         done = YES;
 
         if(!str)
@@ -231,12 +231,13 @@ int complete_handler(int count, int key)
         
         if(str[len-1] == '\\')
         {
-            actualPrompt = @"... ? ";
+            actualPrompt = "... ? ";
             str[strlen(str) - 1] = '\0';
             done = NO;
         }
          
         line = [line stringByAppendingString:[NSString stringWithCString:str]];
+	free(str);
     }
 
     add_history([line cString]);

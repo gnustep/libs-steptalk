@@ -156,9 +156,17 @@ extern int STCparse(void *context);
 }
 - (void)dealloc
 {
-    RELEASE(environment);
-    RELEASE(receiverVars);
-    RELEASE(namedReferences);
+    DESTROY(byteCodes);
+    DESTROY(environment);
+    DESTROY(externVars);
+    DESTROY(literals);
+    DESTROY(namedReferences);
+    DESTROY(reader);
+    DESTROY(receiver);
+    DESTROY(receiverVars);
+    DESTROY(resultMethod);
+    DESTROY(resultScript);
+    DESTROY(tempVars);
     [super dealloc];
 }
 
