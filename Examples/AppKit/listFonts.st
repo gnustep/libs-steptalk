@@ -23,7 +23,7 @@ main
         self addFontSample:font
     ].
 
-    text writeRTFDToFile:'Fonts.rtf' atomically:YES.
+    text writeRTFDToFile:'Fonts.rtfd' atomically:YES.
 
     ^nil
 !    
