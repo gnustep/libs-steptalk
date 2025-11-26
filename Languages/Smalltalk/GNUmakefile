@@ -53,7 +53,7 @@ Smalltalk_OBJC_FILES = \
         STUndefinedObject+additions.m \
         STSelector+additions.m \
         STSourceReader.m \
-        Externs.m
+
         
 Smalltalk_PRINCIPAL_CLASS = SmalltalkEngine
         

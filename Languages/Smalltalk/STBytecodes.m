@@ -25,7 +25,6 @@
 
 #import <StepTalk/STExterns.h>
 
-#import "Externs.h"
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSCoder.h>

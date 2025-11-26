@@ -46,7 +46,6 @@
     NSString       *hostName;
     NSString       *typeName;
     NSString       *languageName;
-    
 }
 - (int)parseArguments;
 - (NSString *)nextArgument;
@@ -56,6 +55,18 @@
 @end
 
 @implementation STShellTool
+
+- (void) dealloc
+{
+  DESTROY(conversation);
+  DESTROY(arguments);
+  DESTROY(environmentName);
+  DESTROY(hostName);
+  DESTROY(typeName);
+  DESTROY(languageName);
+  DEALLOC
+}
+
 - (int)parseArguments
 {
     NSString *arg;
@@ -158,6 +169,7 @@
     STEnvironmentDescription *desc;
     STEnvironment            *environment;
     
+    NSAssert(nil == conversation, NSInternalInconsistencyException);
     if(environmentName)
     {
         /* user wants to connect to a distant environment */
@@ -184,7 +196,10 @@
             environment = [STEnvironment environmentWithDescription:desc];
         }
 
-        /* Register basic objects: Environment, Transcript */
+        /* Register basic objects: Environment, Transcript
+         * NB. the environment is in a retain loop and must be
+         * explicitly removed.
+         */
 
         [environment setObject:environment forName:@"Environment"];
         [environment loadModule:@"SimpleTranscript"];

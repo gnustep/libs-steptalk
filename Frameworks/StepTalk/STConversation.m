@@ -121,6 +121,9 @@
 {
     NSDebugLLog(@"STConversation",@"Deallocating conversation %@", self);
     RELEASE(languageName);
+    /* Explicitly break retain loops.
+     */
+    [[context objectDictionary] removeAllObjects];
     RELEASE(context);
     RELEASE(engine);
     RELEASE(returnValue);

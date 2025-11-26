@@ -1,3 +1,24 @@
+2025-11-26  Richard Frith-M<acdonald  <rfm@gnu.org>
+
+	* Examples/Shell/stshell_tool.m:
+	* Frameworks/StepTalk/STConversation.m:
+	* Frameworks/StepTalk/STEnvironmentDescription.m:
+	* Frameworks/StepTalk/STExterns.h:
+	* Frameworks/StepTalk/STExterns.m:
+	* Languages/Smalltalk/Externs.m:
+	* Languages/Smalltalk/Externs.h:
+	* Languages/Smalltalk/GNUmakefile:
+	* Languages/Smalltalk/STBlock.m:
+	* Languages/Smalltalk/STBytecodeInterpreter.m:
+	* Languages/Smalltalk/STBytecodes.m:
+	* Languages/Smalltalk/STCompiler.m:
+	* Languages/Smalltalk/STGrammar.m:
+	* Languages/Smalltalk/STSourceReader.m:
+	Remove duplicate global symbols reported by ASAN and fix some
+	memory leaks
+	* Modules/Foundation/ScriptingInfo.plist:
+	Remove bad class (old one which should not have been public)
+
 2020-06-29  Wolfgang Lux  <wolfgang.lux@gmail.com>
 
 	* Frameworks/StepTalk/GNUmakefile: Specify dependent libraries

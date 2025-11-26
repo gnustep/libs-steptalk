@@ -15,8 +15,6 @@
 
 #import <StepTalk/STExterns.h>
 
-#import "Externs.h"
-
 static NSCharacterSet *identStartCharacterSet;
 static NSCharacterSet *identCharacterSet;
 static NSCharacterSet *wsCharacterSet;

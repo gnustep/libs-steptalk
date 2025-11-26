@@ -132,6 +132,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     RELEASE(aliases);
     RELEASE(modules);
     RELEASE(finders);
+    RELEASE(frameworks);
     
     [super dealloc];
 }

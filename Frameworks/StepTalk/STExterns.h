@@ -31,26 +31,34 @@ extern STUndefinedObject *STNil;
 
 /* exceptions */
 
-extern NSString *STGenericException;               /* can be ignored */
+extern NSString *STCompilerGenericException;
+extern NSString *STCompilerInconsistencyException;
+extern NSString *STCompilerSyntaxException;
+extern NSString *STGenericException;
+extern NSString *STInternalInconsistencyException;
+extern NSString *STInterpreterGenericException;
+extern NSString *STInterpreterInconsistencyException;
+extern NSString *STInterpreterReturnException;
 extern NSString *STInvalidArgumentException;
-extern NSString *STInternalInconsistencyException; /* not recoverable */
+extern NSString *STInvalidBytecodeException;
+extern NSString *STRangeException;
 extern NSString *STScriptingException;
 
+
+extern NSString *STLanguageBundlesDirectory;
+extern NSString *STLanguageBundleExtension;
+extern NSString *STLanguagesConfigFile;
+
 extern NSString *STLibraryDirectory;
-
-extern NSString *STScriptExtension;
-extern NSString *STScriptsDirectory;
-
-extern NSString *STScriptingEnvironmentsDirectory;
-extern NSString *STScriptingEnvironmentExtension;
 
 extern NSString *STModulesDirectory;
 extern NSString *STModuleExtension;
 
-extern NSString *STLanguageBundlesDirectory;
-extern NSString *STLanguageBundleExtension;
+extern NSString *STScriptingEnvironmentsDirectory;
+extern NSString *STScriptingEnvironmentExtension;
 
-extern NSString *STLanguagesConfigFile;
+extern NSString *STScriptsDirectory;
+extern NSString *STScriptExtension;
 
 /* malloc zone */
 extern NSZone   *STMallocZone;

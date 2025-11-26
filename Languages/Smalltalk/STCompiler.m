@@ -31,7 +31,6 @@
 #import "STCompiledMethod.h"
 #import "STCompilerUtils.h"
 #import "STSourceReader.h"
-#import "Externs.h"
 
 #import <StepTalk/STExterns.h>
 #import <StepTalk/STScriptObject.h>

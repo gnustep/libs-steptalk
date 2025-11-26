@@ -23,7 +23,6 @@
  */
 
 
-#import "Externs.h"
 #import "STBlock.h"
 #import "STLiterals.h"
 #import "STBlockContext.h"

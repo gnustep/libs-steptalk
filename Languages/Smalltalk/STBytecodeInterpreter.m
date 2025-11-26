@@ -23,7 +23,6 @@
 
 #import "STBytecodeInterpreter.h"
 
-#import "Externs.h"
 #import "STBlock.h"
 #import "STBlockContext.h"
 #import "STBytecodes.h"

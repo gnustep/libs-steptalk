@@ -25,23 +25,24 @@
  */
 #import <Foundation/NSString.h>
 
+NSString *STCompilerGenericException = @"STCompilerGenericException";
+NSString *STCompilerInconsistencyException = @"STCompilerInconsistencyException";
+NSString *STCompilerSyntaxException = @"STCompilerSyntaxException";
 NSString *STGenericException = @"STGenericException";
-NSString *STInvalidArgumentException = @"STInvalidArgumentException";
 NSString *STInternalInconsistencyException = @"STInternalInconsistencyException";
+NSString *STInterpreterGenericException = @"STInterpreterGenericException";
+NSString *STInterpreterInconsistencyException = @"STInterpreterInconsistencyException";
+NSString *STInterpreterReturnException = @"STInterpreterReturnException";
+NSString *STInvalidArgumentException = @"STInvalidArgumentException";
+NSString *STInvalidBytecodeException = @"STInterpreterInvalidBytecodeException";
 NSString *STRangeException = @"STRangeException";
 NSString *STScriptingException = @"STScriptingException";
 
-NSString *STCompilerSyntaxException = @"STCompilerSyntaxException";
-NSString *STCompilerGenericException = @"STCompilerGenericException";
-NSString *STCompilerInconsistencyException = @"STCompilerInconsistencyException";
-
-NSString *STInterpreterGenericException = @"STInterpreterGenericException";
-NSString *STInvalidBytecodeException = @"STInterpreterInvalidBytecodeException";
-NSString *STInterpreterInconsistencyException = @"STInterpreterInconsistencyException";
-
+NSString *STLanguageBundlesDirectory = @"Languages";
+NSString *STLanguageBundleExtension = @"stlanguage";
+NSString *STLanguagesConfigFile = @"Languages.plist";
 
 NSString *STLibraryDirectory = @"StepTalk";
-NSString *STScriptsDirectory = @"Scripts";
 
 NSString *STModulesDirectory = @"Modules";
 NSString *STModuleExtension  = @"bundle";
@@ -49,7 +50,6 @@ NSString *STModuleExtension  = @"bundle";
 NSString *STScriptingEnvironmentsDirectory = @"Environments";
 NSString *STScriptingEnvironmentExtension  = @"stenv";
 
-NSString *STLanguageBundlesDirectory = @"Languages";
-NSString *STLanguageBundleExtension = @"stlanguage";
+NSString *STScriptsDirectory = @"Scripts";
+NSString *STScriptsExtension = @"st";
 
-NSString *STLanguagesConfigFile = @"Languages.plist";

@@ -47,7 +47,6 @@
         NSFileHandle,
         NSFileManager,
         NSFormatter,
-        NSGDate,
         NSHost,
         NSInvocation,
         NSKeyedArchiver,
