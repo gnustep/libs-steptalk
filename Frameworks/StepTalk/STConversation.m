@@ -124,6 +124,7 @@
     /* Explicitly break retain loops.
      */
     [[context objectDictionary] removeAllObjects];
+    [context setParentContext: nil];
     RELEASE(context);
     RELEASE(engine);
     RELEASE(returnValue);

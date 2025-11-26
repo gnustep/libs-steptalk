@@ -58,6 +58,7 @@
 {
     RELEASE(methodDictionary);
     RELEASE(ivars);
+    RELEASE(environment);
     [super dealloc];
 }
 

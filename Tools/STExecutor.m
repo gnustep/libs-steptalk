@@ -59,7 +59,9 @@ const char *STExecutorCommonOptions =
 
 - (void) dealloc
 {
-    RELEASE(conversation);
+    DESTROY(conversation);
+    DESTROY(langName);
+    DESTROY(arguments);
     [super dealloc];
 }
 
