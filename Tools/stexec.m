@@ -152,15 +152,18 @@
 "   Options:\n"
 "%s"
 "   -full               enable full scripting\n"
-"   -environment env    use scripting environment with name env\n"
-"   -host host          find environment on host\n"
+"   -environment env    use the scripting environment with name env\n"
+"   -host host          when used with the -environment option, find the\n"
+"                       environment on the specified host by connecting\n"
+"                       to the process on that host whose registered name\n"
+"                       is STEnvironment:env\n"
 "   -type desc          use environment description with name 'desc'\n"
 "\n"
 "Notes:\n"
-"- if -environment is used, then -type is ignored"
-"- if no script is specified, standard input is used without arguments\n"
-"- if script name is '-' then standard input is used and arguments are passed"
-" to the script\n",
+"- If -environment is used, then -type is ignored.\n"
+"- If no script is specified, standard input is used without arguments.\n"
+"- If script name is '-' then standard input is used and arguments are passed"
+" to the script.\n",
 STExecutorCommonOptions
     );
 }
