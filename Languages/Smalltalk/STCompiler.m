@@ -373,7 +373,7 @@ extern int STCparse(void *context);
     /* FIXME: create another class */
     [self initializeCompilationContext];
 
-    tempVars = [NSMutableArray array];
+    tempVars = [NSMutableArray new];
     [self addTempVariables:array];
 
     code = [self compileStatements:[method statements]];
