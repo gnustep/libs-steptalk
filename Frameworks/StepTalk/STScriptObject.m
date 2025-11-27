@@ -36,6 +36,7 @@
 - (void)dealloc
 {
     RELEASE(methodDictionary);
+    RELEASE(environment);
     RELEASE(ivars);
     [super dealloc];
 }

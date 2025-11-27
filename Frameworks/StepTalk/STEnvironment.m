@@ -73,7 +73,9 @@ STEnvironment *sharedEnvironment = nil;
 
 + (STEnvironment *)environmentWithDefaultDescription
 {
-    return AUTORELEASE([[self alloc] initWithDefaultDescription]);
+  STEnvironment	*e = [[self alloc] initWithDefaultDescription];
+
+  return AUTORELEASE(e);
 }
 
 /**
