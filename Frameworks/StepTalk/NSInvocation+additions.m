@@ -64,6 +64,13 @@ id STObjectFromValueOfType(void *value, const char *type)
     NSDebugLLog(@"STStructure",
                 @"object from value %p of of type '%c'", value, *type);
 
+  /* skip qualifiers const,in,inout,out,bycopy,byref,oneway
+   */
+  while (strchr("rnNoORV", *type) != 0)
+    {
+      type++;
+    }
+
     switch (*type)
     {
     case _C_ID:
@@ -137,6 +144,13 @@ void STGetValueOfTypeFromObject(void *value, const char *type, id anObject)
     NSDebugLLog(@"STStructure",
                 @"value at %p from object '%@' of type '%c'",
                 value, anObject, *type);
+
+  /* skip qualifiers const,in,inout,out,bycopy,byref,oneway
+   */
+  while (strchr("rnNoORV", *type) != 0)
+    {
+      type++;
+    }
 
     switch (*type)
     {

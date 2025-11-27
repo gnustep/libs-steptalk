@@ -1,3 +1,8 @@
+2025-11-27  Richard Frith-M<acdonald  <rfm@gnu.org>
+
+	* Frameworks/StepTalk/NSInvocation+additions.m:
+	Fix for handling methods with qualifiers -like oneway, in, out etc.
+
 2025-11-26  Richard Frith-M<acdonald  <rfm@gnu.org>
 
 	* Examples/AppKit/listFonts.st:
