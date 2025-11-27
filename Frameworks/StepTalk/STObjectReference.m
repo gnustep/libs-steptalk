@@ -35,7 +35,7 @@
 
 @implementation STObjectReference
 - initWithIdentifier:(NSString *)ident
-              target:(id)anObject;
+              target:(id)anObject
 {
     if ((self = [super init]) != nil)
     {

@@ -46,7 +46,7 @@
     }
     return self;
 }
-- initWithEnvironment:(STEnvironment *)env;
+- initWithEnvironment:(STEnvironment *)env
 {
     if ((self = [self init]) != nil)
     {

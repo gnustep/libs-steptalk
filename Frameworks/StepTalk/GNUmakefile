@@ -95,14 +95,15 @@ ADDITIONAL_OBJCFLAGS = -Wno-import -DSTEPTALK_VERSION=$(STEPTALK_VERSION)
 
 DOCUMENT_NAME = StepTalk
 
-StepTalk_DOC_INSTALL_DIR = Developer
+StepTalk_DOC_LOCAL_DIR = ../../Documentation/Reference
+StepTalk_DOC_INSTALL_BUNDLE = Reference
+StepTalk_DOC_INSTALL_DIR = Developer/StepTalk
 
 StepTalk_HEADER_FILES_DIR = $(HEADER_DIR)
 StepTalk_AGSDOC_FILES = StepTalk.gsdoc $(STEPTALK_HEADER_FILES)
 StepTalk_AGSDOC_FLAGS = \
         -Up StepTalk \
         -Declared StepTalk \
-        -DocumentationDirectory ../../Documentation/Reference
 
 StepTalk_LIBRARIES_DEPEND_UPON += -lgnustep-base -lobjc
 
@@ -115,7 +116,7 @@ endif
 
 include $(GNUSTEP_MAKEFILES)/framework.make
 
-ifeq ($(doc), yes)
+ifneq ($(doc), no)
     include $(GNUSTEP_MAKEFILES)/documentation.make
 endif
 

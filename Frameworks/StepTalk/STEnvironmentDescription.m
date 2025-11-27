@@ -137,7 +137,7 @@ static NSDictionary *dictForDescriptionWithName(NSString *defName)
     [super dealloc];
 }
 
-- initWithName:(NSString *)defName;
+- initWithName:(NSString *)defName
 {
     return [self initFromDictionary:dictForDescriptionWithName(defName)];
 }

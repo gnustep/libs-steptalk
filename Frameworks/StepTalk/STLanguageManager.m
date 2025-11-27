@@ -256,12 +256,16 @@ static STLanguageManager *defaultManager = nil;
 }
 
 /** Return an engine class for specified language. The class lookup is as follows:
-<ul>
-<li> internal class dictionary by language name
-<li> all loaded classes by class name in the language info dictionary
-<li> in the language bundle
-<li> in the language bundle as <i>language_nameEngine</i>
-</ul>
+<list>
+<item>internal class dictionary by language name
+</item>
+<item>all loaded classes by class name in the language info dictionary
+</item>
+<item>in the language bundle
+</item>
+<item>in the language bundle as <em>language_nameEngine</em>
+</item>
+</list>
 */
 - (Class)engineClassForLanguage:(NSString *)language
 {

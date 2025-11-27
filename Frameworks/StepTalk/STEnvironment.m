@@ -185,7 +185,7 @@ STEnvironment *sharedEnvironment = nil;
 
 /**
     Include scripting capabilities advertised by the framework with name 
-    <ivar>frameworkName</ivar>. If the framework is already loaded, nothing
+    frameworkName. If the framework is already loaded, nothing
     happens.
 */
 - (BOOL)includeFramework:(NSString *)frameworkName
@@ -204,7 +204,7 @@ STEnvironment *sharedEnvironment = nil;
 
 /**
     Include scripting capabilities advertised by the bundle 
-    <ivar>aBundle</ivar>. If the bundle is already loaded, nothing
+    aBundle. If the bundle is already loaded, nothing
     happens.
 */
 - (BOOL)includeBundle:(NSBundle *)aBundle
