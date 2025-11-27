@@ -4,7 +4,7 @@
 
 Environment loadModule:'AppKit'.
 
-printers := NSPrinter printerTypes.
+printers := NSPrinter printerNames.
 printers do: 
 [ :printer |
     Transcript showLine: printer.
