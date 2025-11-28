@@ -95,8 +95,8 @@ ADDITIONAL_OBJCFLAGS = -Wno-import -DSTEPTALK_VERSION=$(STEPTALK_VERSION)
 
 DOCUMENT_NAME = StepTalk
 
-StepTalk_DOC_LOCAL_DIR = ../../Documentation/Reference
-StepTalk_DOC_INSTALL_BUNDLE = Reference
+StepTalk_AGSDOC_LOCAL_DIR = ../../Documentation/Reference
+StepTalk_AGSDOC_INSTALL_BUNDLE = Reference
 StepTalk_DOC_INSTALL_DIR = Developer/StepTalk
 
 StepTalk_HEADER_FILES_DIR = $(HEADER_DIR)
