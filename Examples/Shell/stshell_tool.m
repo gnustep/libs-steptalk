@@ -169,7 +169,6 @@
     STEnvironmentDescription *desc;
     STEnvironment            *environment;
     
-    NSAssert(nil == conversation, NSInternalInconsistencyException);
     if(environmentName)
     {
         /* user wants to connect to a distant environment */
