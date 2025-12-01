@@ -100,7 +100,7 @@
     int STClex (YYSTYPE *lvalp, void *context);
     int STCerror(void *context, const char *str);
 
-#line 105 "STGrammar.m"
+#line 104 "STGrammar.m"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -638,15 +638,15 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    82,    82,    87,    92,    97,   103,   108,   118,   117,
-     123,   126,   130,   136,   141,   150,   155,   160,   163,   168,
-     175,   179,   185,   190,   197,   202,   208,   214,   222,   227,
-     233,   234,   239,   245,   250,   259,   264,   270,   275,   281,
-     282,   287,   288,   294,   299,   306,   309,   315,   320,   326,
-     327,   328,   331,   332,   333,   335,   342,   348,   355,   361,
-     368,   373,   379,   380,   382,   383,   385,   389,   393,   397,
-     401,   405,   410,   412,   414,   416,   419,   421,   423,   425,
-     427,   429,   432,   433,   434,   435,   441,   443,   445
+       0,    81,    81,    86,    91,    96,   102,   107,   117,   116,
+     122,   125,   129,   135,   140,   149,   154,   159,   162,   167,
+     174,   178,   184,   189,   196,   201,   207,   213,   221,   226,
+     232,   233,   238,   244,   249,   258,   263,   269,   274,   280,
+     281,   286,   287,   293,   298,   305,   308,   314,   319,   325,
+     326,   327,   330,   331,   332,   334,   341,   347,   354,   360,
+     367,   372,   378,   379,   381,   382,   384,   388,   392,   396,
+     400,   404,   409,   411,   413,   415,   418,   420,   422,   424,
+     426,   428,   431,   432,   433,   434,   440,   442,   444
 };
 #endif
 
@@ -1347,565 +1347,565 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* source: plain_code  */
-#line 82 "STGrammar.y"
+#line 81 "STGrammar.y"
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1356 "STGrammar.m"
+#line 1355 "STGrammar.m"
     break;
 
   case 3: /* source: TK_SEPARATOR TK_SEPARATOR method  */
-#line 88 "STGrammar.y"
+#line 87 "STGrammar.y"
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1364 "STGrammar.m"
+#line 1363 "STGrammar.m"
     break;
 
   case 5: /* script_open: TK_BLOCK_OPEN TK_BAR  */
-#line 98 "STGrammar.y"
+#line 97 "STGrammar.y"
                             {
                                 [COMPILER beginScript];
                             }
-#line 1372 "STGrammar.m"
+#line 1371 "STGrammar.m"
     break;
 
   case 6: /* plain_code: statements  */
-#line 104 "STGrammar.y"
+#line 103 "STGrammar.y"
                             {
                                 yyval =  [STCMethod methodWithPattern:nil
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1381 "STGrammar.m"
+#line 1380 "STGrammar.m"
     break;
 
   case 7: /* plain_code: temporaries statements  */
-#line 109 "STGrammar.y"
+#line 108 "STGrammar.y"
                             {
                                 [yyvsp[0] setTemporaries:yyvsp[-1]];
                                 yyval =  [STCMethod methodWithPattern:nil
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1391 "STGrammar.m"
+#line 1390 "STGrammar.m"
     break;
 
   case 8: /* $@1: %empty  */
-#line 118 "STGrammar.y"
+#line 117 "STGrammar.y"
                             {
                                 [COMPILER setReceiverVariables:yyvsp[0]];
                             }
-#line 1399 "STGrammar.m"
+#line 1398 "STGrammar.m"
     break;
 
   case 11: /* method_list: method  */
-#line 127 "STGrammar.y"
+#line 126 "STGrammar.y"
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1407 "STGrammar.m"
+#line 1406 "STGrammar.m"
     break;
 
   case 12: /* method_list: method_list TK_SEPARATOR method  */
-#line 131 "STGrammar.y"
+#line 130 "STGrammar.y"
                             {
                                 [COMPILER compileMethod:yyvsp[0]];
                             }
-#line 1415 "STGrammar.m"
+#line 1414 "STGrammar.m"
     break;
 
   case 13: /* method: message_pattern statements  */
-#line 137 "STGrammar.y"
+#line 136 "STGrammar.y"
                             {
                                 yyval =  [STCMethod methodWithPattern:yyvsp[-1]
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1424 "STGrammar.m"
+#line 1423 "STGrammar.m"
     break;
 
   case 14: /* method: message_pattern temporaries statements  */
-#line 142 "STGrammar.y"
+#line 141 "STGrammar.y"
                             {
                                 [yyvsp[0] setTemporaries:yyvsp[-1]];
                                 yyval =  [STCMethod methodWithPattern:yyvsp[-2]
                                 /**/                    statements:yyvsp[0]];
                             }
-#line 1434 "STGrammar.m"
+#line 1433 "STGrammar.m"
     break;
 
   case 15: /* message_pattern: unary_selector  */
-#line 151 "STGrammar.y"
+#line 150 "STGrammar.y"
                             {
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[0] object:nil];
                             }
-#line 1443 "STGrammar.m"
+#line 1442 "STGrammar.m"
     break;
 
   case 16: /* message_pattern: binary_selector variable_name  */
-#line 156 "STGrammar.y"
+#line 155 "STGrammar.y"
                             {
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1452 "STGrammar.m"
+#line 1451 "STGrammar.m"
     break;
 
   case 18: /* keyword_list: keyword variable_name  */
-#line 164 "STGrammar.y"
+#line 163 "STGrammar.y"
                             {
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1461 "STGrammar.m"
+#line 1460 "STGrammar.m"
     break;
 
   case 19: /* keyword_list: keyword_list keyword variable_name  */
-#line 169 "STGrammar.y"
+#line 168 "STGrammar.y"
                             {
                                 [yyvsp[-2] addKeyword:yyvsp[-1] object:yyvsp[0]];
                                 yyval = yyvsp[-2];
                             }
-#line 1470 "STGrammar.m"
+#line 1469 "STGrammar.m"
     break;
 
   case 20: /* temporaries: TK_BAR TK_BAR  */
-#line 176 "STGrammar.y"
+#line 175 "STGrammar.y"
                             {
                                 yyval = [NSMutableArray array];
                             }
-#line 1478 "STGrammar.m"
+#line 1477 "STGrammar.m"
     break;
 
   case 21: /* temporaries: TK_BAR variable_list TK_BAR  */
-#line 180 "STGrammar.y"
+#line 179 "STGrammar.y"
                             {
                                 yyval = yyvsp[-1];
                             }
-#line 1486 "STGrammar.m"
+#line 1485 "STGrammar.m"
     break;
 
   case 22: /* variable_list: variable_name  */
-#line 186 "STGrammar.y"
+#line 185 "STGrammar.y"
                             { 
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1495 "STGrammar.m"
+#line 1494 "STGrammar.m"
     break;
 
   case 23: /* variable_list: variable_list variable_name  */
-#line 191 "STGrammar.y"
+#line 190 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-1]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1504 "STGrammar.m"
+#line 1503 "STGrammar.m"
     break;
 
   case 24: /* block: TK_BLOCK_OPEN statements TK_BLOCK_CLOSE  */
-#line 198 "STGrammar.y"
+#line 197 "STGrammar.y"
                             {
                                 yyval = [STCBlock block];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1513 "STGrammar.m"
+#line 1512 "STGrammar.m"
     break;
 
   case 25: /* block: TK_BLOCK_OPEN temporaries statements TK_BLOCK_CLOSE  */
-#line 203 "STGrammar.y"
+#line 202 "STGrammar.y"
                             {
                                 [yyvsp[-1] setTemporaries:yyvsp[-2]];
                                 yyval = [STCBlock block];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1523 "STGrammar.m"
+#line 1522 "STGrammar.m"
     break;
 
   case 26: /* block: TK_BLOCK_OPEN block_var_list TK_BAR statements TK_BLOCK_CLOSE  */
-#line 209 "STGrammar.y"
+#line 208 "STGrammar.y"
                             {
                                 yyval = [STCBlock block];
                                 [yyval setArguments:yyvsp[-3]];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1533 "STGrammar.m"
+#line 1532 "STGrammar.m"
     break;
 
   case 27: /* block: TK_BLOCK_OPEN block_var_list TK_BAR temporaries statements TK_BLOCK_CLOSE  */
-#line 215 "STGrammar.y"
+#line 214 "STGrammar.y"
                             {
                                 [yyvsp[-1] setTemporaries:yyvsp[-2]];
                                 yyval = [STCBlock block];
                                 [yyval setArguments:yyvsp[-4]];
                                 [yyval setStatements:yyvsp[-1]];
                             }
-#line 1544 "STGrammar.m"
+#line 1543 "STGrammar.m"
     break;
 
   case 28: /* block_var_list: TK_COLON variable_name  */
-#line 223 "STGrammar.y"
+#line 222 "STGrammar.y"
                             { 
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1553 "STGrammar.m"
+#line 1552 "STGrammar.m"
     break;
 
   case 29: /* block_var_list: block_var_list TK_COLON variable_name  */
-#line 228 "STGrammar.y"
+#line 227 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-2]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1562 "STGrammar.m"
+#line 1561 "STGrammar.m"
     break;
 
   case 30: /* statements: %empty  */
-#line 233 "STGrammar.y"
+#line 232 "STGrammar.y"
                             { yyval = [STCStatements statements]; }
-#line 1568 "STGrammar.m"
+#line 1567 "STGrammar.m"
     break;
 
   case 31: /* statements: TK_RETURN expression  */
-#line 235 "STGrammar.y"
+#line 234 "STGrammar.y"
                             { 
                                 yyval = [STCStatements statements];
                                 [yyval setReturnExpression:yyvsp[0]];
                             }
-#line 1577 "STGrammar.m"
+#line 1576 "STGrammar.m"
     break;
 
   case 32: /* statements: expressions  */
-#line 240 "STGrammar.y"
+#line 239 "STGrammar.y"
                             { 
                                 yyval = [STCStatements statements];
                                 [yyval setExpressions:yyvsp[0]];
                             }
-#line 1586 "STGrammar.m"
+#line 1585 "STGrammar.m"
     break;
 
   case 33: /* statements: expressions TK_DOT  */
-#line 246 "STGrammar.y"
+#line 245 "STGrammar.y"
                             { 
                                 yyval = [STCStatements statements];
                                 [yyval setExpressions:yyvsp[-1]];
                             }
-#line 1595 "STGrammar.m"
+#line 1594 "STGrammar.m"
     break;
 
   case 34: /* statements: expressions TK_DOT TK_RETURN expression  */
-#line 251 "STGrammar.y"
+#line 250 "STGrammar.y"
                             { 
                                 yyval = [STCStatements statements];
                                 [yyval setReturnExpression:yyvsp[0]];
                                 [yyval setExpressions:yyvsp[-3]];
                             }
-#line 1605 "STGrammar.m"
+#line 1604 "STGrammar.m"
     break;
 
   case 35: /* expressions: expression  */
-#line 259 "STGrammar.y"
+#line 258 "STGrammar.y"
                             { 
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]];
                             }
-#line 1614 "STGrammar.m"
+#line 1613 "STGrammar.m"
     break;
 
   case 36: /* expressions: expressions TK_DOT expression  */
-#line 265 "STGrammar.y"
+#line 264 "STGrammar.y"
                             {   
                                 yyval = yyvsp[-2]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1623 "STGrammar.m"
+#line 1622 "STGrammar.m"
     break;
 
   case 37: /* expression: primary  */
-#line 271 "STGrammar.y"
+#line 270 "STGrammar.y"
                             { 
                                 yyval = [STCExpression 
                                 /**/          primaryExpressionWithObject:yyvsp[0]];
                             }
-#line 1632 "STGrammar.m"
+#line 1631 "STGrammar.m"
     break;
 
   case 38: /* expression: assignments primary  */
-#line 276 "STGrammar.y"
+#line 275 "STGrammar.y"
                             { 
                                 yyval = [STCExpression 
                                 /**/          primaryExpressionWithObject:yyvsp[0]];
                                 [yyval setAssignments:yyvsp[-1]];
                             }
-#line 1642 "STGrammar.m"
+#line 1641 "STGrammar.m"
     break;
 
   case 40: /* expression: assignments message_expression  */
-#line 283 "STGrammar.y"
+#line 282 "STGrammar.y"
                             { 
                                 yyval = yyvsp[0];
                                 [yyval setAssignments:yyvsp[-1]];
                             }
-#line 1651 "STGrammar.m"
+#line 1650 "STGrammar.m"
     break;
 
   case 42: /* expression: assignments cascade  */
-#line 289 "STGrammar.y"
+#line 288 "STGrammar.y"
                             { 
                                 yyval = yyvsp[0];
                                 [yyval setAssignments:yyvsp[-1]];
                             }
-#line 1660 "STGrammar.m"
+#line 1659 "STGrammar.m"
     break;
 
   case 43: /* assignments: assignment  */
-#line 295 "STGrammar.y"
+#line 294 "STGrammar.y"
                             { 
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]];
                             }
-#line 1669 "STGrammar.m"
+#line 1668 "STGrammar.m"
     break;
 
   case 44: /* assignments: assignments assignment  */
-#line 300 "STGrammar.y"
+#line 299 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-1]; 
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1678 "STGrammar.m"
+#line 1677 "STGrammar.m"
     break;
 
   case 45: /* assignment: variable_name TK_ASSIGNMENT  */
-#line 307 "STGrammar.y"
+#line 306 "STGrammar.y"
                             { yyval = yyvsp[-1];}
-#line 1684 "STGrammar.m"
+#line 1683 "STGrammar.m"
     break;
 
   case 46: /* cascade: message_expression messages  */
-#line 310 "STGrammar.y"
+#line 309 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-1];
                                 [yyval setCascade:yyvsp[0]]; 
                             }
-#line 1693 "STGrammar.m"
+#line 1692 "STGrammar.m"
     break;
 
   case 47: /* messages: TK_SEMICOLON message  */
-#line 316 "STGrammar.y"
+#line 315 "STGrammar.y"
                             {
                                 yyval = [NSMutableArray array];
                                 [yyval addObject:yyvsp[0]]; 
                             }
-#line 1702 "STGrammar.m"
+#line 1701 "STGrammar.m"
     break;
 
   case 48: /* messages: messages TK_SEMICOLON message  */
-#line 321 "STGrammar.y"
+#line 320 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-2]; 
                                 [yyval addObject:yyvsp[0]];
                             }
-#line 1711 "STGrammar.m"
+#line 1710 "STGrammar.m"
     break;
 
   case 55: /* unary_expression: unary_object unary_message  */
-#line 336 "STGrammar.y"
+#line 335 "STGrammar.y"
                             { 
                                 yyval = [STCExpression 
                                 /**/        messageExpressionWithTarget:yyvsp[-1]
                                 /**/        message:yyvsp[0]];
                             }
-#line 1721 "STGrammar.m"
+#line 1720 "STGrammar.m"
     break;
 
   case 56: /* unary_message: unary_selector  */
-#line 343 "STGrammar.y"
+#line 342 "STGrammar.y"
                             { 
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[0] object:nil];
                             }
-#line 1730 "STGrammar.m"
+#line 1729 "STGrammar.m"
     break;
 
   case 57: /* binary_expression: binary_object binary_message  */
-#line 349 "STGrammar.y"
+#line 348 "STGrammar.y"
                             { 
                                 yyval = [STCExpression 
                                 /**/        messageExpressionWithTarget:yyvsp[-1]
                                 /**/        message:yyvsp[0]];
                             }
-#line 1740 "STGrammar.m"
+#line 1739 "STGrammar.m"
     break;
 
   case 58: /* binary_message: binary_selector unary_object  */
-#line 356 "STGrammar.y"
+#line 355 "STGrammar.y"
                             { 
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1749 "STGrammar.m"
+#line 1748 "STGrammar.m"
     break;
 
   case 59: /* keyword_expression: binary_object keyword_message  */
-#line 362 "STGrammar.y"
+#line 361 "STGrammar.y"
                             {
                                 yyval = [STCExpression 
                                 /**/        messageExpressionWithTarget:yyvsp[-1]
                                 /**/        message:yyvsp[0]];
                             }
-#line 1759 "STGrammar.m"
+#line 1758 "STGrammar.m"
     break;
 
   case 60: /* keyword_message: keyword binary_object  */
-#line 369 "STGrammar.y"
+#line 368 "STGrammar.y"
                             { 
                                 yyval = [STCMessage message];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1768 "STGrammar.m"
+#line 1767 "STGrammar.m"
     break;
 
   case 61: /* keyword_message: keyword_message keyword binary_object  */
-#line 374 "STGrammar.y"
+#line 373 "STGrammar.y"
                             { 
                                 yyval = yyvsp[-2];
                                 [yyval addKeyword:yyvsp[-1] object:yyvsp[0]];
                             }
-#line 1777 "STGrammar.m"
+#line 1776 "STGrammar.m"
     break;
 
   case 66: /* primary: variable_name  */
-#line 386 "STGrammar.y"
+#line 385 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithVariable:yyvsp[0]];
                             }
-#line 1785 "STGrammar.m"
+#line 1784 "STGrammar.m"
     break;
 
   case 67: /* primary: literal  */
-#line 390 "STGrammar.y"
+#line 389 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithLiteral:yyvsp[0]];
                             }
-#line 1793 "STGrammar.m"
+#line 1792 "STGrammar.m"
     break;
 
   case 68: /* primary: block  */
-#line 394 "STGrammar.y"
+#line 393 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithBlock:yyvsp[0]];
                             }
-#line 1801 "STGrammar.m"
+#line 1800 "STGrammar.m"
     break;
 
   case 69: /* primary: TK_LCURLY TK_RCURLY  */
-#line 398 "STGrammar.y"
+#line 397 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithArray:[NSArray array]];
                             }
-#line 1809 "STGrammar.m"
+#line 1808 "STGrammar.m"
     break;
 
   case 70: /* primary: TK_LCURLY expressions TK_RCURLY  */
-#line 402 "STGrammar.y"
+#line 401 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithArray:yyvsp[-1]];
                             }
-#line 1817 "STGrammar.m"
+#line 1816 "STGrammar.m"
     break;
 
   case 71: /* primary: TK_LPAREN expression TK_RPAREN  */
-#line 406 "STGrammar.y"
+#line 405 "STGrammar.y"
                             {
                                 yyval = [STCPrimary primaryWithExpression:yyvsp[-1]];
                             }
-#line 1825 "STGrammar.m"
+#line 1824 "STGrammar.m"
     break;
 
   case 76: /* literal: TK_INTNUMBER  */
-#line 420 "STGrammar.y"
+#line 419 "STGrammar.y"
                         { yyval = [COMPILER createIntNumberLiteralFrom:yyvsp[0]]; }
-#line 1831 "STGrammar.m"
+#line 1830 "STGrammar.m"
     break;
 
   case 77: /* literal: TK_REALNUMBER  */
-#line 422 "STGrammar.y"
+#line 421 "STGrammar.y"
                         { yyval = [COMPILER createRealNumberLiteralFrom:yyvsp[0]]; }
-#line 1837 "STGrammar.m"
+#line 1836 "STGrammar.m"
     break;
 
   case 78: /* literal: TK_SYMBOL  */
-#line 424 "STGrammar.y"
+#line 423 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1843 "STGrammar.m"
+#line 1842 "STGrammar.m"
     break;
 
   case 79: /* literal: TK_STRING  */
-#line 426 "STGrammar.y"
+#line 425 "STGrammar.y"
                         { yyval = [COMPILER createStringLiteralFrom:yyvsp[0]]; }
-#line 1849 "STGrammar.m"
+#line 1848 "STGrammar.m"
     break;
 
   case 80: /* literal: TK_CHARACTER  */
-#line 428 "STGrammar.y"
+#line 427 "STGrammar.y"
                         { yyval = [COMPILER createCharacterLiteralFrom:yyvsp[0]]; }
-#line 1855 "STGrammar.m"
+#line 1854 "STGrammar.m"
     break;
 
   case 81: /* literal: TK_ARRAY_OPEN array TK_RPAREN  */
-#line 430 "STGrammar.y"
+#line 429 "STGrammar.y"
                         { yyval = [COMPILER createArrayLiteralFrom:yyvsp[-1]]; }
-#line 1861 "STGrammar.m"
+#line 1860 "STGrammar.m"
     break;
 
   case 82: /* array: %empty  */
-#line 432 "STGrammar.y"
+#line 431 "STGrammar.y"
                         { yyval = [NSMutableArray array]; }
-#line 1867 "STGrammar.m"
+#line 1866 "STGrammar.m"
     break;
 
   case 83: /* array: array literal  */
-#line 433 "STGrammar.y"
+#line 432 "STGrammar.y"
                                  { yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; }
-#line 1873 "STGrammar.m"
+#line 1872 "STGrammar.m"
     break;
 
   case 84: /* array: array symbol  */
-#line 434 "STGrammar.y"
+#line 433 "STGrammar.y"
                                  { yyval = yyvsp[-1]; [yyval addObject:yyvsp[0]]; }
-#line 1879 "STGrammar.m"
+#line 1878 "STGrammar.m"
     break;
 
   case 85: /* array: array TK_LPAREN array TK_RPAREN  */
-#line 436 "STGrammar.y"
+#line 435 "STGrammar.y"
                                  {
                                    yyval = yyvsp[-3];
                                    [yyval addObject:[COMPILER createArrayLiteralFrom:yyvsp[-1]]];
                                  }
-#line 1888 "STGrammar.m"
+#line 1887 "STGrammar.m"
     break;
 
   case 86: /* symbol: TK_IDENTIFIER  */
-#line 442 "STGrammar.y"
+#line 441 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1894 "STGrammar.m"
+#line 1893 "STGrammar.m"
     break;
 
   case 87: /* symbol: binary_selector  */
-#line 444 "STGrammar.y"
+#line 443 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1900 "STGrammar.m"
+#line 1899 "STGrammar.m"
     break;
 
   case 88: /* symbol: TK_KEYWORD  */
-#line 446 "STGrammar.y"
+#line 445 "STGrammar.y"
                         { yyval = [COMPILER createSymbolLiteralFrom:yyvsp[0]]; }
-#line 1906 "STGrammar.m"
+#line 1905 "STGrammar.m"
     break;
 
 
-#line 1910 "STGrammar.m"
+#line 1909 "STGrammar.m"
 
       default: break;
     }
@@ -2098,7 +2098,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 448 "STGrammar.y"
+#line 447 "STGrammar.y"
 
 
 int STCerror(void *context, const char *str)
