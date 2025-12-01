@@ -13,7 +13,9 @@ main
 
     Environment loadModule:'AppKit'.
 
-    frame := STStructure structureWithX: 0 y: 0 width: 1000 height: 100.
+    point := 0 pointWith: 0.
+    size := 1000 sizeWith: 100.
+    frame := point rectWith: size.
     Transcript showLine: frame.
     text := NSTextView alloc initWithFrame: frame.
     text setRichText:YES.

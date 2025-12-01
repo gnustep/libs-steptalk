@@ -45,7 +45,6 @@
 + structureWithPoint:(NSPoint)point;
 + structureWithRect:(NSRect)rect;
 + structureWithSize:(NSSize)size;
-+ structureWithX: (float)x y:(float)y width:(float)w height:(float)h;
 
 
 - initWithValue:(void *)value type:(const char*)type;

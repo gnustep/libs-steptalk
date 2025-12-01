@@ -78,15 +78,6 @@
     return AUTORELEASE(str);
 }
 
-+ structureWithX: (float)x y:(float)y width:(float)w height:(float)h
-{
-    NSRect rect;
-    STStructure *str;
-    rect = NSMakeRect(x, y, w, h);
-    str = [[self alloc] initWithValue:&rect type:@encode(NSRect)];
-    return AUTORELEASE(str);
-}
-
 - initWithValue:(void *)value type:(const char*)type
 {
     const char *nameBeg, *nextType;
@@ -371,8 +362,4 @@
     return [fields objectAtIndex:1] ;
 }
 
-- (float) floatValue
-{
-  return 0.0;
-}
 @end
