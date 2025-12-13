@@ -1,0 +1,8 @@
+*.bundle
+obj
+derived_src
+*.bundle
+*.framework
+Languages/Smalltalk/Smalltalk.stlanguage
+*.stlanguage
+*.rtf

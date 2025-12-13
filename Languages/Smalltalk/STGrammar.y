@@ -40,6 +40,7 @@
 /* extern int STCerror(const char *str);
    extern int STClex (YYSTYPE *lvalp, void *context);
 */
+    /* Support both old and new Bison versions */
     #define YYPARSE_PARAM    context
     #define YYLEX_PARAM      context
     #define YYERROR_VERBOSE
@@ -50,10 +51,14 @@
     #define RESULT   (CONTEXT->result)
 
     int STClex (YYSTYPE *lvalp, void *context);
-    int STCerror(const char *str);
+    /* Declare with context param - modern Bison will use it, old Bison ignores it */
+    void yyerror(void *context, const char *str);
 %}
 
-%pure_parser
+%pure-parser
+/* New Bison syntax - will be ignored by old Bison */
+%parse-param {void *context}
+%lex-param {void *context}
 
 /* BISON declarations */
 
@@ -417,11 +422,13 @@ symbol: TK_IDENTIFIER
 ;
 %%
 
-int STCerror(const char *str)
+/* Error handler compatible with both old and new Bison */
+/* Note: yyerror is #defined as STCerror in generated code */
+void yyerror(void *context, const char *str)
 {
+    (void)context; /* Unused parameter */
     [NSException raise:STCompilerSyntaxException
                  format:@"Unknown parse error (%s)", str];
-    return 0;
 }
 
 

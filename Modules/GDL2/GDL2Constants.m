@@ -29,16 +29,16 @@ NSDictionary *STGetGDL2Constants(void)
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     Class numberClass = [NSNumber class];
-    IMP numberWithInt;
+    IMP numberWithInteger;
     IMP numberWithFloat;
     IMP setObject_forKey;
 
-    SEL numberWithInt_sel = @selector(numberWithInt:);
+    SEL numberWithInteger_sel = @selector(numberWithInteger:);
     SEL numberWithFloat_sel = @selector(numberWithFloat:);
     SEL setObject_forKey_sel = @selector(setObject:forKey:);
 
-    numberWithInt = [numberClass methodForSelector:numberWithInt_sel];
-    numberWithFloat = [numberClass methodForSelector:numberWithFloat_sel];
+    numberWithInteger = [NSNumber methodForSelector:numberWithInteger_sel];
+    numberWithFloat = [NSNumber methodForSelector:numberWithFloat_sel];
     setObject_forKey = [dict methodForSelector:setObject_forKey_sel];
 
 #define ADD_id_OBJECT(obj, name) \
@@ -46,12 +46,12 @@ NSDictionary *STGetGDL2Constants(void)
 
 #define ADD_int_OBJECT(obj, name) \
             setObject_forKey(dict, setObject_forKey_sel, \
-                            numberWithInt(numberClass, numberWithInt_sel, obj), \
+                            numberWithInteger(numberClass, numberWithInteger_sel, obj), \
                             name)
 
 #define ADD_float_OBJECT(obj, name) \
             setObject_forKey(dict, setObject_forKey_sel, \
-                            numberWithFloat(numberClass, numberWithInt_sel, obj), \
+                            numberWithFloat(numberClass, numberWithFloat_sel, obj), \
                             name)
 
 #define ADD_NSPoint_OBJECT(obj, name) \
