@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
-<gsdoc base="STObjCRuntime" up="StepTalk">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.4//EN" "http://www.gnustep.org/gsdoc-1_0_4.dtd">
+<gsdoc base="STObjCRuntime" stylesheeturl="default-styles.css" up="StepTalk">
   <head>
     <title>STObjCRuntime documentation</title>
     <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
     </author>
+    <date>Generated at 2025-12-13</date>
     <copy>2002 Free Software Foundation</copy>
   </head>
   <body>

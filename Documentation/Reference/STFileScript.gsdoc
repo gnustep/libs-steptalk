@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
-<gsdoc base="STFileScript" up="StepTalk">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.4//EN" "http://www.gnustep.org/gsdoc-1_0_4.dtd">
+<gsdoc base="STFileScript" stylesheeturl="default-styles.css" up="StepTalk">
   <head>
     <title>STFileScript class documentation</title>
     <author name="Stefan Urbanek">
@@ -8,6 +8,7 @@
         stefanurbanek@yahoo.fr
       </email>
     </author>
+    <date>Generated at 2025-12-13</date>
     <copy>2002 Stefan Urbanek</copy>
   </head>
   <body>

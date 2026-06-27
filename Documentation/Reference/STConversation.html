@@ -1,221 +1,401 @@
-<html>
-
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
     <title>STConversation class documentation</title>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<link rel="stylesheet" type="text/css" href="default-styles.css" media="screen" title="Normal" />
   </head>
   <body>
-    <font face="serif">
-    <a href="StepTalk.html">Up</a>
-    <br />
-    <h1><a name="title$STConversation">STConversation class documentation</a></h1>
-    <h3>Authors</h3>
-    <dl>
-      <dt>Stefan Urbanek</dt>
-      <dd>
-      </dd>
-    </dl>
-    <p><b>Copyright:</b> (C) 2002 Free Software Foundation</p>
+    <div class="content-bar">
+      <div class="content-bar-top">
+        <div class="content-bar-top-body">
+          <div class="content-bar-top-body-title">StepTalk</div><br />
+          <a href="#nav-bar-classes">Classes</a><br />
+          <a href="#nav-bar-protocols">Protocols</a><br />
+          <a href="#nav-bar-functions">Functions</a><br />
+          <a href="#nav-bar-variables">Variables</a><br />
+        </div>
+      </div>
+      <div class="content-bar-bottom">
+        <div class="content-bar-bottom-body">
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-classes">Classes</a></h3>
+          <p class="project_class_index">
+                        
+            <a rel="gsdoc" href="STActor.html#class$STActor">STActor</a><br />
+            <a rel="gsdoc" href="STBundleInfo.html#class$STBundleInfo">STBundleInfo</a><br />
+            <a rel="gsdoc" href="STContext.html#class$STContext">STContext</a><br />
+            <a rel="gsdoc" href="STConversation.html#class$STConversation">STConversation</a><br />
+            <a rel="gsdoc" href="STEngine.html#class$STEngine">STEngine</a><br />
+            <a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a><br />
+            <a rel="gsdoc" href="STEnvironmentDescription.html#class$STEnvironmentDescription">STEnvironmentDescription</a><br />
+            <a rel="gsdoc" href="STFileScript.html#class$STFileScript">STFileScript</a><br />
+            <a rel="gsdoc" href="STLanguageManager.html#class$STLanguageManager">STLanguageManager</a><br />
+            <a rel="gsdoc" href="STObjectReference.html#class$STObjectReference">STObjectReference</a><br />
+            <a rel="gsdoc" href="STRemoteConversation.html#class$STRemoteConversation">STRemoteConversation</a><br />
+            <a rel="gsdoc" href="STScript.html#class$STScript">STScript</a><br />
+            <a rel="gsdoc" href="STScriptObject.html#class$STScriptObject">STScriptObject</a><br />
+            <a rel="gsdoc" href="STScriptsManager.html#class$STScriptsManager">STScriptsManager</a><br />
+            <a rel="gsdoc" href="STSelector.html#class$STSelector">STSelector</a><br />
+            <a rel="gsdoc" href="STUndefinedObject.html#class$STUndefinedObject">STUndefinedObject</a><br />
 
-        <div>
-      <hr width="50%" align="left" />
-      <h3>Contents -</h3>
-      <ol>
-        <li>
-          <a href="#001000000000">Software documentation for the STConversation class</a>
-        </li>
-        <li>
-          <a href="#002000000000">Software documentation for the STConversation protocol</a>
-        </li>
-      </ol>
-      <hr width="50%" align="left" />
+          </p>
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-protocols">Protocols</a></h3>
+          <p class="project_protocol_index">
+                        
+            <a rel="gsdoc" href="STConversation.html#protocol$(STConversation)">&lt;STConversation&gt;</a><br />
+            <a rel="gsdoc" href="STRemoteConversation.html#protocol$(STEnvironmentProcess)">&lt;STEnvironmentProcess&gt;</a><br />
+            <a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">&lt;STMethod&gt;</a><br />
+            <a rel="gsdoc" href="STScriptObject.html#protocol$(STScriptObject)">&lt;STScriptObject&gt;</a><br />
+            <a rel="gsdoc" href="STScripting.html#protocol$(STScripting)">&lt;STScripting&gt;</a><br />
+
+          </p>
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-functions">Functions</a></h3>
+          <p class="project_function_index">
+                        
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STAllObjectiveCClasses">STAllObjectiveCClasses</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STAllObjectiveCSelectors">STAllObjectiveCSelectors</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STClassDictionaryWithNames">STClassDictionaryWithNames</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STConstructMethodSignatureForSelector">STConstructMethodSignatureForSelector</a><br />
+            <a rel="gsdoc" href="STFunctions.html#function$STFindAllResources">STFindAllResources</a><br />
+            <a rel="gsdoc" href="STFunctions.html#function$STFindResource">STFindResource</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STGetFoundationConstants">STGetFoundationConstants</a><br />
+            <a rel="gsdoc" href="NSInvocation+additions.html#function$STGetValueOfTypeFromObject">STGetValueOfTypeFromObject</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STMethodSignatureForSelector">STMethodSignatureForSelector</a><br />
+            <a rel="gsdoc" href="NSInvocation+additions.html#function$STObjectFromValueOfType">STObjectFromValueOfType</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STSelectorFromString">STSelectorFromString</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STSelectorFromValue">STSelectorFromValue</a><br />
+            <a rel="gsdoc" href="STFunctions.html#function$STUserConfigPath">STUserConfigPath</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STValueFromSelector">STValueFromSelector</a><br />
+
+          </p>
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-variables">Variables</a></h3>
+          <p class="project_variable_index">
+                        
+            <a rel="gsdoc" href="STExterns.html#variable$STCompilerGenericException">STCompilerGenericException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STCompilerInconsistencyException">STCompilerInconsistencyException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STCompilerSyntaxException">STCompilerSyntaxException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STGenericException">STGenericException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInternalInconsistencyException">STInternalInconsistencyException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInterpreterGenericException">STInterpreterGenericException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInterpreterInconsistencyException">STInterpreterInconsistencyException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInterpreterReturnException">STInterpreterReturnException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInvalidArgumentException">STInvalidArgumentException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInvalidBytecodeException">STInvalidBytecodeException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLanguageBundleExtension">STLanguageBundleExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLanguageBundlesDirectory">STLanguageBundlesDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLanguagesConfigFile">STLanguagesConfigFile</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLibraryDirectory">STLibraryDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STMallocZone">STMallocZone</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STModuleExtension">STModuleExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STModulesDirectory">STModulesDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STNil">STNil</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STRangeException">STRangeException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptExtension">STScriptExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptingEnvironmentExtension">STScriptingEnvironmentExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptingEnvironmentsDirectory">STScriptingEnvironmentsDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptingException">STScriptingException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptsDirectory">STScriptsDirectory</a><br />
+
+          </p>
+        </div>
+      </div>
     </div>
+    <div class="content-pane">
+      <div class="content-pane-body">
+        <a href="StepTalk.html">Up</a>
+        <br />
+        <h1><a name="title$STConversation">STConversation class documentation</a></h1>
+        <h3>Authors</h3>
+        <dl>
+          <dt>Stefan Urbanek (<a href="mailto:urbanek@host.sk"><code>urbanek@host.sk</code></a>)</dt>
+          <dd>
+          </dd>
+          <dt>Stefan Urbanek</dt>
+          <dd>
+          </dd>
+        </dl>
+        <p><b>Date:</b> Generated at 2025-12-13</p>
+        <p><b>Copyright:</b> (C) 2002 Free Software Foundation</p>
 
-          <h1><a name="001000000000">
+            <div>
+          <hr class="section-separator">
+          <h3>Contents -</h3>
+          <ol>
+            <li>
+              <a href="#001000000000">Software documentation for the STConversation class</a>
+            </li>
+            <li>
+              <a href="#002000000000">Software documentation for the STConversation protocol</a>
+            </li>
+          </ol>
+          <hr class="section-separator">
+        </div>
+
+              <h1><a name="001000000000">
         Software documentation for the STConversation class
       </a></h1>
-    <h2><a name="class$STConversation">STConversation</a> : NSObject</h2>
-    <blockquote>
-      <dl>
-        <dt><b>Declared in:</b></dt>
-        <dd>StepTalk/STConversation.h</dd>
-      </dl>
-    </blockquote>
-    <blockquote>
-      <dl>
-        <dt><b>Conforms to:</b></dt>
-        <dd><a rel="gsdoc" href="#protocol$(STConversation)">STConversation</a></dd>
-      </dl>
-    </blockquote>
-    <p>
-      
+        <h2 class="class"><a name="class$STConversation">STConversation</a> : NSObject</h2>
+<svg width="460pt" height="122pt"
+ viewBox="0.00 0.00 459.58 122.46" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 118.46)">
+<title>class_STConversation</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-118.46 455.58,-118.46 455.58,4 -4,4"/>
+<!-- NSObject -->
+<g id="node1" class="node figure_super">
+<title>NSObject</title>
+<polygon fill="lightgrey" stroke="black" points="118,-111.23 0,-111.23 0,-75.23 118,-75.23 118,-111.23"/>
+<text text-anchor="middle" x="59" y="-87.03" font-family="Times,serif" font-size="24.00">NSObject</text>
+</g>
+<!-- STConversation -->
+<g id="node2" class="node figure_class">
+<title>STConversation</title>
+<polygon fill="lightgrey" stroke="black" points="272.5,-36 79.5,-36 79.5,0 272.5,0 272.5,-36"/>
+<text text-anchor="middle" x="176" y="-11.8" font-family="Times,serif" font-size="24.00">STConversation</text>
+</g>
+<!-- NSObject&#45;&gt;STConversation -->
+<g id="edge1" class="edge">
+<title>NSObject&#45;&gt;STConversation</title>
+<path fill="none" stroke="black" d="M86.43,-75.06C102.42,-65.05 122.77,-52.31 140.03,-41.51"/>
+<polygon fill="black" stroke="black" points="142.12,-44.33 148.74,-36.06 138.41,-38.4 142.12,-44.33"/>
+</g>
+<!-- p_STConversation -->
+<g id="node3" class="node figure_protocol">
+<title>p_STConversation</title>
+<g id="a_node3"><a xlink:href="#protocol$(STConversation)" xlink:title="STConversation">
+<polygon fill="lightgrey" stroke="black" points="451.67,-93.23 372.83,-114.69 215.17,-114.69 136.33,-93.23 215.17,-71.77 372.83,-71.77 451.67,-93.23"/>
+<text text-anchor="middle" x="294" y="-87.03" font-family="Times,serif" font-size="24.00">STConversation</text>
+</a>
+</g>
+</g>
+<!-- p_STConversation&#45;&gt;STConversation -->
+<g id="edge2" class="edge">
+<title>p_STConversation&#45;&gt;STConversation</title>
+<path fill="none" stroke="black" d="M261.13,-71.83C245.97,-62.42 227.92,-51.22 212.35,-41.56"/>
+<polygon fill="black" stroke="black" points="213.85,-38.37 203.51,-36.07 210.16,-44.32 213.85,-38.37"/>
+</g>
+</g>
+</svg>
+        <blockquote class="declared">
+          <dl>
+            <dt><b>Declared in:</b></dt>
+            <dd>StepTalk/STConversation.h</dd>
+          </dl>
+        </blockquote>
+        <blockquote>
+          <dl>
+            <dt><b>Conforms to:</b></dt>
+            <dd><a rel="gsdoc" href="#protocol$(STConversation)">STConversation</a></dd>
+          </dl>
+        </blockquote>
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="50%" align="left" />
-    <a href="#_STConversation_ivars">Instance Variables</a>
-    <br/><br/>
-    <b>Method summary</b>
-    <ul>
-      <li><a rel="gsdoc" href="STConversation.html#method$STConversation-context">-context</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$STConversation-initWithContext:language:">-initWithContext:language:</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$STConversation-language">-language</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$STConversation-runScriptFromString:">-runScriptFromString:</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$STConversation-setLanguage:">-setLanguage:</a></li>
-    </ul>
-    <hr width="50%" align="left" />
-    <h3><a name="method$STConversation-context">context&nbsp;</a></h3>
-    - (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*) <b>context</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="section-separator">
+        <a href="#_STConversation_ivars">STConversation declares 4 Instance Variables</a>
+        <br /><br />
+        <p class="global_method_index">
+          <h3 class="index-section-header">Method summary</h3>
+          <ul>
+            <li><a rel="gsdoc" href="STConversation.html#method$STConversation+conversationWithContext$language$">+conversationWithContext:language:</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$STConversation-context">-context</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$STConversation-initWithContext$language$">-initWithContext:language:</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$STConversation-language">-language</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$STConversation-runScriptFromString$">-runScriptFromString:</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$STConversation-setLanguage$">-setLanguage:</a></li>
+          </ul>
+        </p>
+        <hr class="section-separator">
+<div class="method">
+        <h3><a name="method$STConversation+conversationWithContext$language$">conversationWithContext:&nbsp;language:&nbsp;</a></h3>
+        + (id) <b>conversationWithContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)aContext<b> language:</b> (NSString*)aLanguage;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STConversation-initWithContext:language:">initWithContext:&nbsp;language:&nbsp;</a></h3>
-    - (id) <b>initWithContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)aContext<b> language:</b> (NSString*)aLanguage;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$STConversation-context">context&nbsp;</a></h3>
+        - (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*) <b>context</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STConversation-language">language&nbsp;</a></h3>
-    - (NSString*) <b>language</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$STConversation-initWithContext$language$">initWithContext:&nbsp;language:&nbsp;</a></h3>
+        - (id) <b>initWithContext:</b> (<a rel="gsdoc" href="STContext.html#class$STContext">STContext</a>*)aContext<b> language:</b> (NSString*)aLanguage;<br />
+        <div class="desc">
+          
+            <em>Description forthcoming.</em>
+          
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$STConversation-language">language&nbsp;</a></h3>
+        - (NSString*) <b>language</b>;<br />
+        <div class="desc">
+          
             Return name of the language used in the receiver
             conversation
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STConversation-runScriptFromString:">runScriptFromString:&nbsp;</a></h3>
-    - (id) <b>runScriptFromString:</b> (NSString*)aString;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$STConversation-runScriptFromString$">runScriptFromString:&nbsp;</a></h3>
+        - (id) <b>runScriptFromString:</b> (NSString*)aString;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$STConversation-setLanguage:">setLanguage:&nbsp;</a></h3>
-    - (void) <b>setLanguage:</b> (NSString*)newLanguage;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$STConversation-setLanguage$">setLanguage:&nbsp;</a></h3>
+        - (void) <b>setLanguage:</b> (NSString*)newLanguage;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-<a name="_STConversation_ivars"/>    <br/><hr width="50%" align="left" />
-    <h2>Instance Variables for STConversation Class</h2>
-    <h3><a name="ivariable$STConversation*context">context</a></h3>
-    @protected STContext* <b>context</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+        <br /><hr class="section-separator">
+        <h2>Instance Variables for STConversation Class</h2>
+        <h3><a name="ivariable$STConversation*context">context</a></h3>
+        @protected STContext* <b>context</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="ivariable$STConversation*engine">engine</a></h3>
-    @protected STEngine* <b>engine</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator"/>
+        <h3><a name="ivariable$STConversation*engine">engine</a></h3>
+        @protected STEngine* <b>engine</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="ivariable$STConversation*languageName">languageName</a></h3>
-    @protected NSString* <b>languageName</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator"/>
+        <h3><a name="ivariable$STConversation*languageName">languageName</a></h3>
+        @protected NSString* <b>languageName</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="ivariable$STConversation*returnValue">returnValue</a></h3>
-    @protected id <b>returnValue</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator"/>
+        <h3><a name="ivariable$STConversation*returnValue">returnValue</a></h3>
+        @protected id <b>returnValue</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <br/><hr width="50%" align="left" /><br/>
-
-          <h1><a name="002000000000">
+        </div>
+        <hr class="method-separator"/>
+        <br /><hr class="section-separator"><br />
+<a name="_STConversation_ivars"/>
+              <h1><a name="002000000000">
         Software documentation for the STConversation protocol
       </a></h1>
-    <h2><a name="protocol$(STConversation)">STConversation</a></h2>
-    <blockquote>
-      <dl>
-        <dt><b>Declared in:</b></dt>
-        <dd>StepTalk/STConversation.h</dd>
-      </dl>
-    </blockquote>
-    <p>
-      
+        <h2><a name="protocol$(STConversation)">STConversation</a></h2>
+        <blockquote class="declared">
+          <dl>
+            <dt><b>Declared in:</b></dt>
+            <dd>StepTalk/STConversation.h</dd>
+          </dl>
+        </blockquote>
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <b>Method summary</b>
-    <ul>
-      <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-interpretScript:">-interpretScript:</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-knownLanguages">-knownLanguages</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-language">-language</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-result">-result</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-resultByCopy">-resultByCopy</a></li>
-      <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-setLanguage:">-setLanguage:</a></li>
-    </ul>
-    <hr width="50%" align="left" />
-    <h3><a name="method$(STConversation)-interpretScript:">interpretScript:&nbsp;</a></h3>
-    - (void) <b>interpretScript:</b> (bycopy NSString*)aString;<br />
-    <p>
-      
+        </div>
+        <p class="global_method_index">
+          <h3 class="index-section-header">Method summary</h3>
+          <ul>
+            <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-interpretScript$">-interpretScript:</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-knownLanguages">-knownLanguages</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-language">-language</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-result">-result</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-resultByCopy">-resultByCopy</a></li>
+            <li><a rel="gsdoc" href="STConversation.html#method$(STConversation)-setLanguage$">-setLanguage:</a></li>
+          </ul>
+        </p>
+        <hr class="section-separator">
+<div class="method">
+        <h3><a name="method$(STConversation)-interpretScript$">interpretScript:&nbsp;</a></h3>
+        - (void) <b>interpretScript:</b> (bycopy NSString*)aString;<br />
+        <div class="desc">
+          
             Interpret given string as a script in the
             receiver environment.
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$(STConversation)-knownLanguages">knownLanguages&nbsp;</a></h3>
-    - (bycopy NSArray*) <b>knownLanguages</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$(STConversation)-knownLanguages">knownLanguages&nbsp;</a></h3>
+        - (bycopy NSArray*) <b>knownLanguages</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$(STConversation)-language">language&nbsp;</a></h3>
-    - (NSString*) <b>language</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$(STConversation)-language">language&nbsp;</a></h3>
+        - (NSString*) <b>language</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$(STConversation)-result">result&nbsp;</a></h3>
-    - (id) <b>result</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$(STConversation)-result">result&nbsp;</a></h3>
+        - (id) <b>result</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$(STConversation)-resultByCopy">resultByCopy&nbsp;</a></h3>
-    - (bycopy id) <b>resultByCopy</b>;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$(STConversation)-resultByCopy">resultByCopy&nbsp;</a></h3>
+        - (bycopy id) <b>resultByCopy</b>;<br />
+        <div class="desc">
+          
             <em>Description forthcoming.</em>
           
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="method$(STConversation)-setLanguage:">setLanguage:&nbsp;</a></h3>
-    - (void) <b>setLanguage:</b> (NSString*)newLanguage;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+</div>
+<div class="method">
+        <h3><a name="method$(STConversation)-setLanguage$">setLanguage:&nbsp;</a></h3>
+        - (void) <b>setLanguage:</b> (NSString*)newLanguage;<br />
+        <div class="desc">
+          
             Set language for the receiver.
           
-    </p>
-    <hr width="25%" align="left" />
-    <br />
-    <a href="StepTalk.html">Up</a>
-    </font>
-</body>
+        </div>
+        <hr class="method-separator">
+</div>
+        <br />
+        <a href="StepTalk.html">Up</a>
+    </div>
+  </div>
+  </body>
 </html>

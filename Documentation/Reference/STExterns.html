@@ -1,157 +1,321 @@
-<html>
-
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
     <title>STExterns documentation</title>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<link rel="stylesheet" type="text/css" href="default-styles.css" media="screen" title="Normal" />
   </head>
   <body>
-    <font face="serif">
-    <a href="StepTalk.html">Up</a>
-    <br />
-    <h1><a name="title$STExterns">STExterns documentation</a></h1>
-    <h3>Authors</h3>
-    <dl>
-      <dt>Stefan Urbanek</dt>
-      <dd>
-      </dd>
-    </dl>
-    <p><b>Copyright:</b> (C) 2002 Free Software Foundation</p>
+    <div class="content-bar">
+      <div class="content-bar-top">
+        <div class="content-bar-top-body">
+          <div class="content-bar-top-body-title">StepTalk</div><br />
+          <a href="#nav-bar-classes">Classes</a><br />
+          <a href="#nav-bar-protocols">Protocols</a><br />
+          <a href="#nav-bar-functions">Functions</a><br />
+          <a href="#nav-bar-variables">Variables</a><br />
+        </div>
+      </div>
+      <div class="content-bar-bottom">
+        <div class="content-bar-bottom-body">
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-classes">Classes</a></h3>
+          <p class="project_class_index">
+                        
+            <a rel="gsdoc" href="STActor.html#class$STActor">STActor</a><br />
+            <a rel="gsdoc" href="STBundleInfo.html#class$STBundleInfo">STBundleInfo</a><br />
+            <a rel="gsdoc" href="STContext.html#class$STContext">STContext</a><br />
+            <a rel="gsdoc" href="STConversation.html#class$STConversation">STConversation</a><br />
+            <a rel="gsdoc" href="STEngine.html#class$STEngine">STEngine</a><br />
+            <a rel="gsdoc" href="STEnvironment.html#class$STEnvironment">STEnvironment</a><br />
+            <a rel="gsdoc" href="STEnvironmentDescription.html#class$STEnvironmentDescription">STEnvironmentDescription</a><br />
+            <a rel="gsdoc" href="STFileScript.html#class$STFileScript">STFileScript</a><br />
+            <a rel="gsdoc" href="STLanguageManager.html#class$STLanguageManager">STLanguageManager</a><br />
+            <a rel="gsdoc" href="STObjectReference.html#class$STObjectReference">STObjectReference</a><br />
+            <a rel="gsdoc" href="STRemoteConversation.html#class$STRemoteConversation">STRemoteConversation</a><br />
+            <a rel="gsdoc" href="STScript.html#class$STScript">STScript</a><br />
+            <a rel="gsdoc" href="STScriptObject.html#class$STScriptObject">STScriptObject</a><br />
+            <a rel="gsdoc" href="STScriptsManager.html#class$STScriptsManager">STScriptsManager</a><br />
+            <a rel="gsdoc" href="STSelector.html#class$STSelector">STSelector</a><br />
+            <a rel="gsdoc" href="STUndefinedObject.html#class$STUndefinedObject">STUndefinedObject</a><br />
 
-        <div>
+          </p>
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-protocols">Protocols</a></h3>
+          <p class="project_protocol_index">
+                        
+            <a rel="gsdoc" href="STConversation.html#protocol$(STConversation)">&lt;STConversation&gt;</a><br />
+            <a rel="gsdoc" href="STRemoteConversation.html#protocol$(STEnvironmentProcess)">&lt;STEnvironmentProcess&gt;</a><br />
+            <a rel="gsdoc" href="STMethod.html#protocol$(STMethod)">&lt;STMethod&gt;</a><br />
+            <a rel="gsdoc" href="STScriptObject.html#protocol$(STScriptObject)">&lt;STScriptObject&gt;</a><br />
+            <a rel="gsdoc" href="STScripting.html#protocol$(STScripting)">&lt;STScripting&gt;</a><br />
+
+          </p>
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-functions">Functions</a></h3>
+          <p class="project_function_index">
+                        
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STAllObjectiveCClasses">STAllObjectiveCClasses</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STAllObjectiveCSelectors">STAllObjectiveCSelectors</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STClassDictionaryWithNames">STClassDictionaryWithNames</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STConstructMethodSignatureForSelector">STConstructMethodSignatureForSelector</a><br />
+            <a rel="gsdoc" href="STFunctions.html#function$STFindAllResources">STFindAllResources</a><br />
+            <a rel="gsdoc" href="STFunctions.html#function$STFindResource">STFindResource</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STGetFoundationConstants">STGetFoundationConstants</a><br />
+            <a rel="gsdoc" href="NSInvocation+additions.html#function$STGetValueOfTypeFromObject">STGetValueOfTypeFromObject</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STMethodSignatureForSelector">STMethodSignatureForSelector</a><br />
+            <a rel="gsdoc" href="NSInvocation+additions.html#function$STObjectFromValueOfType">STObjectFromValueOfType</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STSelectorFromString">STSelectorFromString</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STSelectorFromValue">STSelectorFromValue</a><br />
+            <a rel="gsdoc" href="STFunctions.html#function$STUserConfigPath">STUserConfigPath</a><br />
+            <a rel="gsdoc" href="STObjCRuntime.html#function$STValueFromSelector">STValueFromSelector</a><br />
+
+          </p>
+          <h3 class="content-bar-index-section-header"><a name="nav-bar-variables">Variables</a></h3>
+          <p class="project_variable_index">
+                        
+            <a rel="gsdoc" href="STExterns.html#variable$STCompilerGenericException">STCompilerGenericException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STCompilerInconsistencyException">STCompilerInconsistencyException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STCompilerSyntaxException">STCompilerSyntaxException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STGenericException">STGenericException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInternalInconsistencyException">STInternalInconsistencyException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInterpreterGenericException">STInterpreterGenericException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInterpreterInconsistencyException">STInterpreterInconsistencyException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInterpreterReturnException">STInterpreterReturnException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInvalidArgumentException">STInvalidArgumentException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STInvalidBytecodeException">STInvalidBytecodeException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLanguageBundleExtension">STLanguageBundleExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLanguageBundlesDirectory">STLanguageBundlesDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLanguagesConfigFile">STLanguagesConfigFile</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STLibraryDirectory">STLibraryDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STMallocZone">STMallocZone</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STModuleExtension">STModuleExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STModulesDirectory">STModulesDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STNil">STNil</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STRangeException">STRangeException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptExtension">STScriptExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptingEnvironmentExtension">STScriptingEnvironmentExtension</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptingEnvironmentsDirectory">STScriptingEnvironmentsDirectory</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptingException">STScriptingException</a><br />
+            <a rel="gsdoc" href="STExterns.html#variable$STScriptsDirectory">STScriptsDirectory</a><br />
+
+          </p>
+        </div>
+      </div>
     </div>
+    <div class="content-pane">
+      <div class="content-pane-body">
+        <a href="StepTalk.html">Up</a>
+        <br />
+        <h1><a name="title$STExterns">STExterns documentation</a></h1>
+        <h3>Authors</h3>
+        <dl>
+          <dt>Stefan Urbanek (<a href="mailto:urbanek@host.sk"><code>urbanek@host.sk</code></a>)</dt>
+          <dd>
+          </dd>
+        </dl>
+        <p><b>Date:</b> Generated at 2025-12-13</p>
+        <p><b>Copyright:</b> (C) 2002 Free Software Foundation</p>
 
-          <h1><a name="001000000000">STExterns variables</a></h1>
-    <p>
-    </p>
-    <h3><a name="variable$STGenericException">STGenericException</a></h3>
-    NSString* STGenericException;<br />
-    <p>
-      
+            <div>
+        </div>
+
+              <h1><a name="001000000000">STExterns variables</a></h1>
+        <p>
+        </p>
+        <h3><a name="variable$STCompilerGenericException">STCompilerGenericException</a></h3>
+        NSString* STCompilerGenericException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STInternalInconsistencyException">STInternalInconsistencyException</a></h3>
-    NSString* STInternalInconsistencyException;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STCompilerInconsistencyException">STCompilerInconsistencyException</a></h3>
+        NSString* STCompilerInconsistencyException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STInvalidArgumentException">STInvalidArgumentException</a></h3>
-    NSString* STInvalidArgumentException;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STCompilerSyntaxException">STCompilerSyntaxException</a></h3>
+        NSString* STCompilerSyntaxException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STLanguageBundleExtension">STLanguageBundleExtension</a></h3>
-    NSString* STLanguageBundleExtension;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STGenericException">STGenericException</a></h3>
+        NSString* STGenericException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STLanguageBundlesDirectory">STLanguageBundlesDirectory</a></h3>
-    NSString* STLanguageBundlesDirectory;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STInternalInconsistencyException">STInternalInconsistencyException</a></h3>
+        NSString* STInternalInconsistencyException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STLanguagesConfigFile">STLanguagesConfigFile</a></h3>
-    NSString* STLanguagesConfigFile;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STInterpreterGenericException">STInterpreterGenericException</a></h3>
+        NSString* STInterpreterGenericException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STLibraryDirectory">STLibraryDirectory</a></h3>
-    NSString* STLibraryDirectory;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STInterpreterInconsistencyException">STInterpreterInconsistencyException</a></h3>
+        NSString* STInterpreterInconsistencyException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STMallocZone">STMallocZone</a></h3>
-    NSZone* STMallocZone;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STInterpreterReturnException">STInterpreterReturnException</a></h3>
+        NSString* STInterpreterReturnException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STModuleExtension">STModuleExtension</a></h3>
-    NSString* STModuleExtension;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STInvalidArgumentException">STInvalidArgumentException</a></h3>
+        NSString* STInvalidArgumentException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STModulesDirectory">STModulesDirectory</a></h3>
-    NSString* STModulesDirectory;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STInvalidBytecodeException">STInvalidBytecodeException</a></h3>
+        NSString* STInvalidBytecodeException;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STNil">STNil</a></h3>
-    <a rel="gsdoc" href="STUndefinedObject.html#class$STUndefinedObject">STUndefinedObject</a>* STNil;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STLanguageBundleExtension">STLanguageBundleExtension</a></h3>
+        NSString* STLanguageBundleExtension;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STScriptExtension">STScriptExtension</a></h3>
-    NSString* STScriptExtension;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STLanguageBundlesDirectory">STLanguageBundlesDirectory</a></h3>
+        NSString* STLanguageBundlesDirectory;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STScriptingEnvironmentExtension">STScriptingEnvironmentExtension</a></h3>
-    NSString* STScriptingEnvironmentExtension;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STLanguagesConfigFile">STLanguagesConfigFile</a></h3>
+        NSString* STLanguagesConfigFile;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STScriptingEnvironmentsDirectory">STScriptingEnvironmentsDirectory</a></h3>
-    NSString* STScriptingEnvironmentsDirectory;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STLibraryDirectory">STLibraryDirectory</a></h3>
+        NSString* STLibraryDirectory;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STScriptingException">STScriptingException</a></h3>
-    NSString* STScriptingException;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STMallocZone">STMallocZone</a></h3>
+        NSZone* STMallocZone;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <h3><a name="variable$STScriptsDirectory">STScriptsDirectory</a></h3>
-    NSString* STScriptsDirectory;<br />
-    <p>
-      
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STModuleExtension">STModuleExtension</a></h3>
+        NSString* STModuleExtension;<br />
+        <div class="desc">
+          
           <em>Description forthcoming.</em>
         
-    </p>
-    <hr width="25%" align="left" />
-    <br />
-    <a href="StepTalk.html">Up</a>
-    </font>
-</body>
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STModulesDirectory">STModulesDirectory</a></h3>
+        NSString* STModulesDirectory;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STNil">STNil</a></h3>
+        <a rel="gsdoc" href="STUndefinedObject.html#class$STUndefinedObject">STUndefinedObject</a>* STNil;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STRangeException">STRangeException</a></h3>
+        NSString* STRangeException;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STScriptExtension">STScriptExtension</a></h3>
+        NSString* STScriptExtension;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STScriptingEnvironmentExtension">STScriptingEnvironmentExtension</a></h3>
+        NSString* STScriptingEnvironmentExtension;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STScriptingEnvironmentsDirectory">STScriptingEnvironmentsDirectory</a></h3>
+        NSString* STScriptingEnvironmentsDirectory;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STScriptingException">STScriptingException</a></h3>
+        NSString* STScriptingException;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <h3><a name="variable$STScriptsDirectory">STScriptsDirectory</a></h3>
+        NSString* STScriptsDirectory;<br />
+        <div class="desc">
+          
+          <em>Description forthcoming.</em>
+        
+        </div>
+        <hr class="method-separator">
+        <br />
+        <a href="StepTalk.html">Up</a>
+    </div>
+  </div>
+  </body>
 </html>

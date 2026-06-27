@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
-<gsdoc base="NSInvocation+additions" up="StepTalk">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.4//EN" "http://www.gnustep.org/gsdoc-1_0_4.dtd">
+<gsdoc base="NSInvocation+additions" stylesheeturl="default-styles.css" up="StepTalk">
   <head>
     <title>NSInvocation class additions</title>
     <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
     </author>
+    <date>Generated at 2025-12-13</date>
     <copy>2002 Free Software Foundation</copy>
   </head>
   <body>
@@ -39,7 +43,7 @@
         </method>
         <method type="id">
           <sel>getArgumentAsObjectAtIndex:</sel>
-          <arg type="int">anIndex</arg>
+          <arg type="NSInteger">anIndex</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
@@ -54,7 +58,7 @@
           <sel>setArgumentAsObject:</sel>
           <arg type="id">anObject</arg>
           <sel>atIndex:</sel>
-          <arg type="int">anIndex</arg>
+          <arg type="NSInteger">anIndex</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>

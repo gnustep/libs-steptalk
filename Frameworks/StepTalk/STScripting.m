@@ -45,15 +45,6 @@
     return YES;
 }
 
-+ (NSString *)className
-{
-    return NSStringFromClass(self);
-}
-- (NSString *)className
-{
-    return [[self class] className];
-}
-
 /*Subclasses should override this method to force use of another class */
 - (Class) classForScripting
 {

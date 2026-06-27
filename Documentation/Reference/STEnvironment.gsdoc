@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
-<gsdoc base="STEnvironment" up="StepTalk">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.4//EN" "http://www.gnustep.org/gsdoc-1_0_4.dtd">
+<gsdoc base="STEnvironment" stylesheeturl="default-styles.css" up="StepTalk">
   <head>
     <title>STEnvironment class reference</title>
     <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
     </author>
+    <date>Generated at 2025-12-13</date>
     <copy>2002 Free Software Foundation</copy>
   </head>
   <body>
@@ -80,8 +84,8 @@
           <arg type="NSBundle*">aBundle</arg>
           <desc>
             Include scripting capabilities advertised by the
-            bundle <ivar><var>aBundle</var></ivar>. If the
-            bundle is already loaded, nothing happens.
+            bundle <var>aBundle</var>. If the bundle is already
+            loaded, nothing happens.
           </desc>
         </method>
         <method type="BOOL">
@@ -89,9 +93,8 @@
           <arg type="NSString*">frameworkName</arg>
           <desc>
             Include scripting capabilities advertised by the
-            framework with name
-            <ivar><var>frameworkName</var></ivar>. If the
-            framework is already loaded, nothing happens.
+            framework with name <var>frameworkName</var>. If
+            the framework is already loaded, nothing happens.
           </desc>
         </method>
         <method type="id" init="yes">

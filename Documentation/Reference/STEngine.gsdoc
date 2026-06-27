@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
-<gsdoc base="STEngine" up="StepTalk">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.4//EN" "http://www.gnustep.org/gsdoc-1_0_4.dtd">
+<gsdoc base="STEngine" stylesheeturl="default-styles.css" up="StepTalk">
   <head>
     <title>STEngine class documentation</title>
     <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
     </author>
+    <date>Generated at 2025-12-13</date>
     <copy>2002 Free Software Foundation</copy>
   </head>
   <body>
@@ -36,7 +40,7 @@
           <sel>withArguments:</sel>
           <arg type="NSArray*">args</arg>
           <sel>inContext:</sel>
-          <arg type="STContext*">env</arg>
+          <arg type="STContext*">context</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>
@@ -53,13 +57,13 @@
             writing a language engine.
           </desc>
         </method>
-        <method type="STMethod*">
+        <method type="id&lt;STMethod&gt;">
           <sel>methodFromSource:</sel>
           <arg type="NSString*">sourceString</arg>
           <sel>forReceiver:</sel>
           <arg type="id">receiver</arg>
           <sel>inContext:</sel>
-          <arg type="STContext*">env</arg>
+          <arg type="STContext*">context</arg>
           <desc>
             <em>Description forthcoming.</em>
           </desc>

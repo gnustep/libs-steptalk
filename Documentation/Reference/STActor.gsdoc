@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
-<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.2//EN" "http://www.gnustep.org/gsdoc-1_0_2.xml">
-<gsdoc base="STActor" up="StepTalk">
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.4//EN" "http://www.gnustep.org/gsdoc-1_0_4.dtd">
+<gsdoc base="STActor" stylesheeturl="default-styles.css" up="StepTalk">
   <head>
     <title>STActor class documentation</title>
     <author name="Stefan Urbanek">
+      <email address="urbanek@host.sk">
+        urbanek@host.sk
+      </email>
     </author>
+    <date>Generated at 2025-12-13</date>
     <copy>2002 Free Software Foundation</copy>
   </head>
   <body>
@@ -43,6 +47,13 @@
           </desc>
         </method>
         <method type="void">
+          <sel>addInstanceVariable:</sel>
+          <arg type="NSString*">aName</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="void">
           <sel>addMethod:</sel>
           <arg type="id&lt;STMethod&gt;">aMethod</arg>
           <desc>
@@ -62,6 +73,18 @@
             <em>Description forthcoming.</em>
           </desc>
         </method>
+        <method type="NSArray*">
+          <sel>instanceVariableNames</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="NSDictionary*">
+          <sel>instanceVariables</sel>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
         <method type="NSDictionary*">
           <sel>methodDictionary</sel>
           <desc>
@@ -76,6 +99,13 @@
         </method>
         <method type="id&lt;STMethod&gt;">
           <sel>methodWithName:</sel>
+          <arg type="NSString*">aName</arg>
+          <desc>
+            <em>Description forthcoming.</em>
+          </desc>
+        </method>
+        <method type="void">
+          <sel>removeInstanceVariable:</sel>
           <arg type="NSString*">aName</arg>
           <desc>
             <em>Description forthcoming.</em>
@@ -101,6 +131,13 @@
           <desc>
             Set object's environment. Note: This method should be
             replaced by some other, more clever mechanism.
+          </desc>
+        </method>
+        <method type="void">
+          <sel>setInstanceVariables:</sel>
+          <arg type="NSDictionary*">dictionary</arg>
+          <desc>
+            <em>Description forthcoming.</em>
           </desc>
         </method>
       </class>
